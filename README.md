@@ -15,6 +15,18 @@ Aplikasi web latihan SKD CPNS (TWK, TIU, TKP) yang meniru alur ujian CAT.
 
 Bank soal: 230 soal tulis tangan (TWK 101, TIU 78, TKP 51) + soal figural & deret otomatis.
 
+## Unduh APK (Android)
+
+APK dibangun otomatis oleh GitHub Actions setiap ada push (`.github/workflows/apk.yml`).
+
+1. Buka halaman **Releases** repo ini: https://github.com/serfusion/cpns/releases
+2. Pilih rilis terbaru *Latihan SKD APK*, unduh `latihan-skd.apk`.
+3. Di HP Android, buka file itu dan izinkan *Instal dari sumber tidak dikenal* bila diminta.
+
+Alternatif: tab **Actions** → *Build APK* → run terbaru → bagian *Artifacts* → `latihan-skd-apk`.
+
+Kode Android ada di folder `android/` (WebView sederhana yang memuat `dist/latihan-skd.html`, bisa dipakai offline).
+
 ## Menjalankan
 
 Buka `index.html` di browser, atau jalankan server lokal:
