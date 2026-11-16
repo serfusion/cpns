@@ -19,36 +19,36 @@ Daftar kerja dan status tiap checkpoint. Setiap butir yang dicentang sudah di-pu
   - [x] Peta materi (apa yang paling sering keluar) + sumber riset
   - [x] Pengaturan (ambang batas bisa diubah kalau aturan 2026 terbit)
 - [x] Uji alur di browser (klik salah → merah, benar → hijau, acak, timer, skor)
-- [ ] `scripts/validate.mjs` — cek struktur bank soal dan soal ganda
-- [ ] `scripts/build.mjs` — gabung jadi satu file HTML (bisa dibuka offline di HP)
-- [ ] README.md
+- [x] `scripts/validate.mjs` — cek struktur bank soal dan soal ganda
+- [x] `scripts/build.mjs` — gabung jadi satu file HTML (bisa dibuka offline di HP)
+- [x] README.md
 
-## 2. Bank soal (target ±300 soal tulis tangan + soal figural dan deret yang dibangkitkan otomatis)
+## 2. Bank soal (saat ini 230 soal tulis tangan; bisa terus ditambah + soal figural dan deret yang dibangkitkan otomatis)
 
 TWK — `data/twk.js`
 - [x] Nasionalisme (20 soal)
-- [ ] Integritas
-- [ ] Bela Negara
-- [ ] Pilar Negara
-- [ ] Bahasa Indonesia
+- [x] Integritas
+- [x] Bela Negara
+- [x] Pilar Negara
+- [x] Bahasa Indonesia
 
 TIU — `data/tiu.js`
-- [ ] Analogi
-- [ ] Silogisme
-- [ ] Analitis
-- [ ] Berhitung
-- [ ] Deret Angka (sebagian dibangkitkan otomatis)
-- [ ] Perbandingan Kuantitatif
-- [ ] Soal Cerita
+- [x] Analogi
+- [x] Silogisme
+- [x] Analitis
+- [x] Berhitung
+- [x] Deret Angka (sebagian dibangkitkan otomatis)
+- [x] Perbandingan Kuantitatif
+- [x] Soal Cerita
 - [x] Figural: analogi, ketidaksamaan, serial (dibangkitkan otomatis oleh `js/figural.js`)
 
 TKP — `data/tkp.js`
-- [ ] Pelayanan Publik
-- [ ] Jejaring Kerja
-- [ ] Sosial Budaya
-- [ ] Teknologi Informasi dan Komunikasi
-- [ ] Profesionalisme
-- [ ] Anti Radikalisme
+- [x] Pelayanan Publik
+- [x] Jejaring Kerja
+- [x] Sosial Budaya
+- [x] Teknologi Informasi dan Komunikasi
+- [x] Profesionalisme
+- [x] Anti Radikalisme
 
 ## 3. Catatan untuk melanjutkan
 

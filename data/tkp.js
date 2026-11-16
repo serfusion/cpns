@@ -163,4 +163,31 @@
       o: ["Tidak menyumbang, mengingatkan teman tentang risikonya, dan melaporkan ke pihak berwenang", "Tidak menyumbang dan mengingatkan teman", "Tidak menyumbang tanpa berkomentar", "Menyumbang sedikit agar tidak menyinggung teman", "Meneruskan tautan ke kenalan lain"],
       x: "Pendanaan terorisme merupakan tindak pidana; menolak, mengingatkan, dan melapor adalah sikap terbaik." }
   ]);
+
+  SKD.add("tkp", [
+    { m: "sos", h: 1, q: "Dalam rapat kantor, seorang rekan dari daerah lain berbicara dengan logat kental dan beberapa peserta menertawakannya. Yang Anda lakukan adalah ...",
+      o: ["Menghargai pendapatnya, menanggapi isi usulannya dengan serius, dan mengingatkan peserta agar saling menghormati", "Menanggapi isi usulannya dengan serius", "Diam dan menunggu rapat dilanjutkan", "Ikut tersenyum agar suasana cair", "Menyarankan rekan itu lebih banyak berlatih berbicara"],
+      x: "Menghargai perbedaan latar belakang berarti fokus pada gagasan dan mencegah sikap merendahkan." },
+    { m: "sos", q: "Anda bertugas di desa yang warganya terbiasa bermusyawarah lama sebelum menyetujui program pemerintah. Yang Anda lakukan adalah ...",
+      o: ["Mengikuti musyawarah dengan sabar, menjelaskan program dengan bahasa sederhana, dan menyerap masukan warga", "Mengikuti musyawarah sambil mendorong agar keputusan cepat diambil", "Meminta kepala desa saja yang menyampaikan program", "Menjalankan program tanpa menunggu persetujuan warga", "Menunda program karena warga sulit diajak cepat"],
+      x: "Bekerja efektif di masyarakat majemuk berarti menghormati kearifan lokal sambil tetap mencapai tujuan program." },
+    { m: "sos", h: 1, q: "Seorang pegawai baru penyandang disabilitas bergabung ke unit Anda dan rekan-rekan tampak canggung. Yang Anda lakukan adalah ...",
+      o: ["Menyambutnya, menanyakan dukungan yang ia butuhkan, dan mengajak rekan lain bekerja sama secara wajar", "Menyambutnya dan memperkenalkannya kepada rekan-rekan", "Membantunya hanya ketika ia meminta", "Membatasi tugasnya agar tidak memberatkan", "Membiarkan rekan-rekan menyesuaikan diri sendiri"],
+      x: "Inklusi berarti memberi kesempatan setara dan dukungan yang tepat, bukan membatasi." },
+    { m: "pro", h: 1, q: "Anda menemukan prosedur kerja yang berbelit dan sering dikeluhkan warga. Yang Anda lakukan adalah ...",
+      o: ["Menyusun usulan penyederhanaan prosedur disertai data keluhan dan menyampaikannya kepada atasan", "Menyampaikan keluhan warga kepada atasan secara lisan", "Menyederhanakan prosedur sendiri tanpa persetujuan", "Tetap menjalankan prosedur karena sudah aturan", "Menyarankan warga bersabar dengan prosedur yang ada"],
+      x: "Profesional berinisiatif memperbaiki proses melalui jalur resmi dengan dasar data." },
+    { m: "pro", q: "Pekerjaan Anda sudah selesai lebih cepat daripada tenggat. Yang Anda lakukan adalah ...",
+      o: ["Memeriksa ulang hasilnya, menyerahkannya, lalu menawarkan bantuan pada pekerjaan lain di unit", "Menyerahkan hasilnya lebih awal", "Menyimpan hasilnya dan menyerahkan tepat pada tenggat", "Menggunakan sisa waktu untuk urusan pribadi", "Menunggu tugas berikutnya dari atasan"],
+      x: "Profesionalisme ditunjukkan dengan menjaga mutu dan proaktif berkontribusi." },
+    { m: "pro", h: 1, q: "Atasan memberi instruksi yang menurut Anda bertentangan dengan peraturan. Yang Anda lakukan adalah ...",
+      o: ["Menyampaikan dengan sopan ketentuan yang berlaku kepada atasan dan mengusulkan cara lain yang sesuai aturan", "Meminta penjelasan atasan tentang dasar instruksi tersebut", "Menjalankan instruksi dengan meminta perintah tertulis", "Menjalankan instruksi karena atasan yang bertanggung jawab", "Mengabaikan instruksi tanpa memberi tahu atasan"],
+      x: "ASN melaksanakan perintah atasan sejauh tidak bertentangan dengan peraturan; bila bertentangan, disampaikan secara santun dengan solusi." },
+    { m: "tik", h: 1, q: "Instansi Anda menerapkan tanda tangan elektronik. Seorang rekan meminta Anda menandatangani dokumen memakai akunnya karena ia sedang cuti. Yang Anda lakukan adalah ...",
+      o: ["Menolak karena akun dan sertifikat elektronik bersifat pribadi, lalu menyarankan pelimpahan wewenang resmi", "Menolak dan menyarankan ia menandatangani setelah cuti", "Menanyakan kepada atasan apakah boleh", "Menandatangani karena dokumennya mendesak", "Meminta kata sandinya dan menandatangani untuknya"],
+      x: "Kredensial digital tidak boleh dipinjamkan; gunakan mekanisme pelimpahan resmi." },
+    { m: "jej", q: "Instansi mitra terlambat mengirim data yang Anda perlukan sehingga laporan Anda terancam molor. Yang Anda lakukan adalah ...",
+      o: ["Menghubungi penghubung di instansi mitra, menanyakan kendalanya, dan menyepakati waktu pengiriman sambil menyiapkan bagian laporan lain", "Mengirim surat pengingat resmi", "Melaporkan keterlambatan kepada atasan", "Menunggu data datang dengan sendirinya", "Mengisi data dengan perkiraan sendiri"],
+      x: "Menjaga hubungan kerja sambil aktif mencari solusi menjaga kerja sama tetap efektif." }
+  ]);
 })();
