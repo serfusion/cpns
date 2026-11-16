@@ -1,0 +1,48 @@
+name: Build APK
+
+on:
+  push:
+    branches: [main, claude/charming-gates-mu7s4i]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  apk:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Bangun HTML satu file
+        run: |
+          node scripts/validate.mjs
+          node scripts/build.mjs
+          mkdir -p android/app/src/main/assets
+          cp dist/latihan-skd.html android/app/src/main/assets/index.html
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+      - uses: android-actions/setup-android@v3
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: 8.7
+      - name: Bangun APK
+        run: gradle -p android assembleDebug
+      - name: Ganti nama APK
+        run: cp android/app/build/outputs/apk/debug/app-debug.apk latihan-skd.apk
+      - uses: actions/upload-artifact@v4
+        with:
+          name: latihan-skd-apk
+          path: latihan-skd.apk
+      - name: Terbitkan di halaman Releases
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: apk-${{ github.run_number }}
+          name: Latihan SKD APK ${{ github.run_number }}
+          target_commitish: ${{ github.sha }}
+          files: latihan-skd.apk
+          body: APK hasil build otomatis. Unduh latihan-skd.apk lalu pasang di HP Android (izinkan instal dari sumber tidak dikenal).
