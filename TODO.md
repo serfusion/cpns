@@ -8,17 +8,17 @@ Daftar kerja dan status tiap checkpoint. Setiap butir yang dicentang sudah di-pu
 - [x] Konfigurasi format ujian + peta materi hasil riset — `js/config.js`
 - [x] Gambar figural (SVG) + pembangkit soal figural — `js/figural.js`
 - [x] Mesin kuis: acak soal dan opsi, paket latihan/simulasi, penilaian, pembangkit deret angka — `js/engine.js`
-- [ ] Penyimpanan progres (per soal, riwayat simulasi, lanjutkan sesi) — `js/storage.js`
-- [ ] Tampilan — `index.html`, `css/style.css`, `js/app.js`
-  - [ ] Beranda
-  - [ ] Latihan per materi dengan koreksi langsung (salah = merah, benar = hijau, pembahasan)
-  - [ ] Simulasi CAT 110 soal / 100 menit (nomor soal, sisa waktu, Simpan dan Lanjutkan, Selesai Ujian)
-  - [ ] Hasil + ambang batas + pembahasan
-  - [ ] Ulangi soal yang salah
-  - [ ] Statistik dan riwayat
-  - [ ] Peta materi (apa yang paling sering keluar) + sumber riset
-  - [ ] Pengaturan (ambang batas bisa diubah kalau aturan 2026 terbit)
-- [ ] Uji alur di browser (klik salah → merah, benar → hijau, acak, timer, skor)
+- [x] Penyimpanan progres (per soal, riwayat simulasi, lanjutkan sesi) — `js/storage.js`
+- [x] Tampilan — `index.html`, `css/style.css`, `js/app.js`
+  - [x] Beranda
+  - [x] Latihan per materi dengan koreksi langsung (salah = merah, benar = hijau, pembahasan)
+  - [x] Simulasi CAT 110 soal / 100 menit (nomor soal, sisa waktu, Simpan dan Lanjutkan, Selesai Ujian)
+  - [x] Hasil + ambang batas + pembahasan
+  - [x] Ulangi soal yang salah
+  - [x] Statistik dan riwayat
+  - [x] Peta materi (apa yang paling sering keluar) + sumber riset
+  - [x] Pengaturan (ambang batas bisa diubah kalau aturan 2026 terbit)
+- [x] Uji alur di browser (klik salah → merah, benar → hijau, acak, timer, skor)
 - [ ] `scripts/validate.mjs` — cek struktur bank soal dan soal ganda
 - [ ] `scripts/build.mjs` — gabung jadi satu file HTML (bisa dibuka offline di HP)
 - [ ] README.md
@@ -26,7 +26,7 @@ Daftar kerja dan status tiap checkpoint. Setiap butir yang dicentang sudah di-pu
 ## 2. Bank soal (target ±300 soal tulis tangan + soal figural dan deret yang dibangkitkan otomatis)
 
 TWK — `data/twk.js`
-- [ ] Nasionalisme
+- [x] Nasionalisme (20 soal)
 - [ ] Integritas
 - [ ] Bela Negara
 - [ ] Pilar Negara
