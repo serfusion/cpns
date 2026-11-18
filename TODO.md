@@ -1,7 +1,7 @@
 # TODO — Latihan SKD CPNS
 
 Daftar kerja dan status tiap checkpoint. Setiap butir yang dicentang sudah di-push ke GitHub
-(branch `claude/charming-gates-mu7s4i`). Kalau sesi terputus, lanjutkan dari butir pertama yang belum dicentang.
+(branch `claude/charming-gates-mu7s4i`, lalu `claude/admiring-cerf-9bgc4h` untuk menu Formasi). Kalau sesi terputus, lanjutkan dari butir pertama yang belum dicentang.
 
 ## 1. Aplikasi
 
@@ -80,3 +80,14 @@ SKD.add("tkp", [
   yang paling sering dilaporkan peserta. Rinciannya ada di `js/config.js` (bagian `riset` dan `pola`).
 - Soal ditulis orisinal mengikuti kisi-kisi dan gaya soal e-book TWK milik pengguna
   (e-book itu bertanda "tidak untuk dijual ulang", jadi isinya tidak disalin ke repo).
+
+## 4. Strategi formasi (menu Formasi) — 18 November 2026
+
+- [x] Pindai status CPNS 2026 dan formasi CPNS 2024 yang menerima S-1 Ilmu Komunikasi — `data/formasi.js`
+- [x] Halaman Formasi: status, cek profil, peringkat target, peta jabatan, aturan memilih, kalkulator peluang, langkah, jalur lain — `js/formasi.js`
+- [ ] Begitu SSCASN menampilkan formasi 2026 (diperkirakan 20–23 Nov 2026): perbarui `status`, `jabatan.bukti`, dan `target` di `data/formasi.js` dengan formasi 2026 yang menerima S-1 Ilmu Komunikasi
+- [ ] Setelah KepmenPANRB ambang batas SKD 2026 terbit: perbarui ambang batas di `js/config.js`
+
+Catatan data: angka 2024 diambil dari lampiran pengumuman Kemendikbudristek, Kemensetneg/Setkab, Bawaslu, dan rekap hasil akhir BKN untuk Mahkamah Agung
+(lihat daftar `sumber` di `data/formasi.js`). Penilaian persaingan adalah analisis, bukan data resmi. Isian pengguna di halaman ini
+disimpan di localStorage dengan kunci `skd.formasi.v1` (tidak ikut sinkron).

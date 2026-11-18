@@ -409,3 +409,39 @@ table.data td .meter { width: 120px; }
 /* ---------- saat mengerjakan soal: bilah atas diringkas ---------- */
 body.in-quiz { --bar-h: 48px; }
 .in-quiz .nav, .in-quiz .foot { display: none; }
+
+/* ---------- formasi ---------- */
+[id^="fm-"] { scroll-margin-top: calc(var(--bar-h) + env(safe-area-inset-top, 0px) + 16px); }
+.input.wide { max-width: none; }
+select.input { padding-right: 28px; }
+.fm-fields { align-items: flex-end; gap: 14px; }
+.fm-fields .field { min-width: 0; }
+.fm-checks { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; max-width: 80ch; }
+.fm-checks li { display: flex; gap: 10px; align-items: flex-start; font-size: var(--fs-sm); }
+.fm-checks .tag { flex: none; min-width: 78px; justify-content: center; margin-top: 2px; }
+.fm-tiers { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; align-items: stretch; }
+.fm-tier { border-left-width: 4px; gap: 10px; }
+.fm-tier.ok { border-left-color: var(--ok); }
+.fm-tier.accent { border-left-color: var(--accent); }
+.fm-tier.warn { border-left-color: var(--warn); }
+.fm-tier.dim { opacity: 0.62; }
+.fm-tier .label { color: var(--muted); }
+.fm-rules li::marker { font-family: var(--font-display); font-weight: 800; color: var(--accent); }
+.fm-form { display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end; }
+.fm-form .grow { flex: 1 1 260px; }
+.fm-form .field:not(.grow) .input { width: 96px; }
+.note .plain-list { margin-top: 6px; }
+@media (max-width: 900px) {
+  .fm-tiers { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 560px) {
+  .fm-form .field:not(.grow) { flex: 1 1 30%; }
+  .fm-form .field:not(.grow) .input { width: 100%; max-width: none; }
+  .fm-form .btn { flex: 1 1 100%; }
+}
+.fm-cands { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.fm-cand { border: 1px solid var(--line); border-radius: var(--r-md); padding: 12px 14px; display: flex; gap: 12px; align-items: flex-start; }
+.fm-cand .rk { font-family: var(--font-display); font-weight: 800; color: var(--muted); min-width: 20px; font-variant-numeric: tabular-nums; padding-top: 1px; }
+.fm-cand .bd { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 4px; }
+.fm-cand .nm { font-weight: 700; min-width: 0; overflow-wrap: anywhere; }
+.fm-cand .mt { font-size: var(--fs-sm); color: var(--muted); font-variant-numeric: tabular-nums; }

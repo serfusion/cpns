@@ -12,6 +12,7 @@ Aplikasi web latihan SKD CPNS (TWK, TIU, TKP) yang meniru alur ujian CAT.
 - **Soal prioritas**: soal bertanda *Sering keluar* mengikuti pola yang paling banyak dilaporkan peserta SKD 2024.
 - **Soal figural dan deret angka tanpa batas**: dibangkitkan otomatis dari aturan, jadi jawabannya pasti benar dan selalu baru.
 - Statistik per materi, riwayat simulasi, peta materi + sumber riset, progres tersimpan dan sesi bisa dilanjutkan.
+- **Strategi formasi CPNS 2026** (menu *Formasi*): jabatan yang terbukti menerima S-1 Ilmu Komunikasi (dari formasi dan rekap hasil CPNS 2024), peringkat target, aturan memilih formasi, cek profil (IPK, akreditasi saat lulus, usia, filter jabatan yang banyak bicara di depan orang), kalkulator peluang (rasio pelamar per kursi dan posisi yang harus dicapai untuk ikut SKB), daftar langkah, dan jalur non-CPNS. Data ada di `data/formasi.js`.
 
 Bank soal: 230 soal tulis tangan (TWK 101, TIU 78, TKP 51) + soal figural & deret otomatis.
 

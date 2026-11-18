@@ -433,6 +433,9 @@
     return [hero, resumeCard(), reviewNote,
       h("section", { class: "stack" }, h("h2", null, "Pilih materi"), h("p", { class: "lede" }, "Klik satu materi untuk langsung berlatih 10 soal. Angka di kanan menunjukkan soal bank yang sudah Anda coba."),
         h("div", { class: "sec-grid" }, CFG.sections.map(function (s) { return sectionCard(s, ms); }))),
+      h("div", { class: "note info row between" },
+        h("div", null, h("b", null, "Strategi formasi CPNS 2026. "), "Jabatan yang menerima S-1 Ilmu Komunikasi, peta persaingan, dan kalkulator peluang."),
+        h("a", { class: "btn sm", href: "#formasi" }, "Lihat strategi")),
       h("p", { class: "note info" }, "Aturan ambang batas khusus CPNS 2026 belum terbit per " + CFG.riset.tanggal + ". Angka di atas mengikuti seleksi CPNS terakhir (KepmenPANRB 321/2024) dan bisa diubah di menu Pengaturan.")];
   }
 
@@ -707,8 +710,13 @@
     ];
   }
 
+  // ---------- formasi (isi ada di js/formasi.js) ----------
+  function viewFormasi() {
+    return SKD.formasiView({ h: h, toast: toast, rerender: function () { render(); }, history: function () { return S.history(); } });
+  }
+
   // ---------- router ----------
-  var VIEWS = { beranda: viewHome, latihan: viewPractice, simulasi: viewSim, ulang: viewReview, statistik: viewStats, peta: viewMap, atur: viewSettings, kerjakan: viewQuiz, hasil: viewResult };
+  var VIEWS = { beranda: viewHome, latihan: viewPractice, simulasi: viewSim, ulang: viewReview, statistik: viewStats, peta: viewMap, formasi: viewFormasi, atur: viewSettings, kerjakan: viewQuiz, hasil: viewResult };
   function go(route) {
     if (location.hash.slice(1) === route) onHash();
     else location.hash = route;
