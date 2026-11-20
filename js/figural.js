@@ -103,6 +103,22 @@
         }
         return out;
       }
+      case "j": {
+        var hR = f.rows.length, wR = 0, r, c;
+        for (r = 0; r < hR; r++) wR = Math.max(wR, f.rows[r].length);
+        var sz = Math.min(92 / wR, 92 / hR), ox = (100 - sz * wR) / 2, oy = (100 - sz * hR) / 2;
+        for (r = 0; r < hR; r++) {
+          for (c = 0; c < f.rows[r].length; c++) {
+            var ch = f.rows[r].charAt(c);
+            if (ch === ".") continue;
+            var x = n2(ox + c * sz), y = n2(oy + r * sz);
+            out += '<rect x="' + x + '" y="' + y + '" width="' + n2(sz) + '" height="' + n2(sz) + '" fill="none" stroke="currentColor" stroke-width="1.6"/>';
+            out += '<text x="' + n2(ox + (c + 0.5) * sz) + '" y="' + n2(oy + (r + 0.5) * sz + sz * 0.17) + '" font-size="' + n2(sz * 0.5) +
+              '" font-weight="700" text-anchor="middle" fill="currentColor" stroke="none" font-family="inherit">' + ch + "</text>";
+          }
+        }
+        return out;
+      }
       default:
         return '<text x="50" y="68" font-size="54" font-weight="700" text-anchor="middle" fill="currentColor" font-family="inherit">?</text>';
     }
@@ -117,6 +133,7 @@
       case "n": return "n" + f.n + f.sh + (f.fl ? 1 : 0);
       case "x": return "x" + f.o + f.i + (f.fo ? 1 : 0) + (f.fi ? 1 : 0);
       case "p": return "p" + f.sd + "|" + f.dt;
+      case "j": return "j" + f.rows.join("/");
       default: return "?";
     }
   }
@@ -127,6 +144,11 @@
       case "n": return f.n + " " + SHAPE_NAME[f.sh] + (f.fl ? " berisi" : " kosong");
       case "x": return SHAPE_NAME[f.o] + (f.fo ? " berisi" : " kosong") + " dengan " + SHAPE_NAME[f.i] + (f.fi ? " berisi" : " kosong") + " di dalamnya";
       case "p": return SIDES_NAME[f.sd] + " dengan " + f.dt + " titik";
+      case "j": return "jaring-jaring kubus. " + f.rows.map(function (row, r) {
+        var cells = [];
+        for (var c = 0; c < row.length; c++) if (row.charAt(c) !== ".") cells.push(row.charAt(c) + " di kolom " + (c + 1));
+        return "Baris " + (r + 1) + ": " + cells.join(", ");
+      }).join(". ");
       default: return "tanda tanya";
     }
   }
@@ -356,10 +378,96 @@
     return { layout: "beda", figs: [], text: "Manakah gambar yang tidak sekelompok dengan empat gambar lainnya?", opts: opts, expl: expl };
   }
 
+  // ---------- JARING-JARING KUBUS ----------
+  // 11 jaring-jaring kubus (hasil enumerasi semua heksomino, lihat scripts/validate.mjs). "#" = sisi.
+  var NETS = [["...#", "####", "...#"], ["..#.", "####", "...#"], [".#..", "####", "...#"], ["#...", "####", "...#"],
+    [".#..", "####", ".#.."], ["..#.", "####", ".#.."], [".#.", ".#.", "###", "..#"], ["###..", "..###"],
+    [".#..", "###.", "..##"], ["#...", "###.", "..##"], ["##..", ".##.", "..##"]];
+  // Menggelindingkan kubus di atas jaring: posisi bawah (D) menyentuh sel yang sedang ditempati.
+  var ROLL = {
+    E: function (o) { return { D: o.E, E: o.U, U: o.W, W: o.D, N: o.N, S: o.S }; },
+    W: function (o) { return { D: o.W, W: o.U, U: o.E, E: o.D, N: o.N, S: o.S }; },
+    N: function (o) { return { D: o.N, N: o.U, U: o.S, S: o.D, E: o.E, W: o.W }; },
+    S: function (o) { return { D: o.S, S: o.U, U: o.N, N: o.D, E: o.E, W: o.W }; }
+  };
+  var STEP = { N: [-1, 0], S: [1, 0], E: [0, 1], W: [0, -1] };
+  /** cells: [[baris, kolom], ...]. Hasil: nomor sisi fisik (0..5) untuk tiap sel; 0-1, 2-3, 4-5 saling berhadapan. */
+  function lipat(cells) {
+    var idx = {}, face = cells.map(function () { return null; }), stack = [[0, { D: 0, U: 1, N: 2, S: 3, E: 4, W: 5 }]];
+    cells.forEach(function (x, i) { idx[x[0] + "," + x[1]] = i; });
+    face[0] = 0;
+    while (stack.length) {
+      var top = stack.pop(), cell = cells[top[0]];
+      for (var d in STEP) {
+        var j = idx[(cell[0] + STEP[d][0]) + "," + (cell[1] + STEP[d][1])];
+        if (j === undefined || face[j] !== null) continue;
+        var o2 = ROLL[d](top[1]);
+        face[j] = o2.D;
+        stack.push([j, o2]);
+      }
+    }
+    return face;
+  }
+  function netCells(rows) {
+    var out = [];
+    rows.forEach(function (row, r) { for (var c = 0; c < row.length; c++) if (row.charAt(c) !== ".") out.push([r, c]); });
+    return out;
+  }
+  function putar(rows) { // 90 derajat searah jarum jam
+    var h = rows.length, w = rows[0].length, out = [];
+    for (var c = 0; c < w; c++) { var line = ""; for (var r = h - 1; r >= 0; r--) line += rows[r].charAt(c); out.push(line); }
+    return out;
+  }
+  function cermin(rows) { return rows.map(function (row) { return row.split("").reverse().join(""); }); }
+  function kubus(R) {
+    var rows = R.pick(NETS).slice(), i;
+    for (i = R.int(0, 3); i > 0; i--) rows = putar(rows);
+    if (R.int(0, 1)) rows = cermin(rows);
+    var cells = netCells(rows), face = lipat(cells), huruf = R.shuffle(["1", "2", "3", "4", "5", "6"]);
+    var label = cells.map(function (x, k) { return huruf[k]; });
+    rows = rows.map(function (row, r) {
+      return row.split("").map(function (ch, c) {
+        if (ch === ".") return ".";
+        for (var k = 0; k < cells.length; k++) if (cells[k][0] === r && cells[k][1] === c) return label[k];
+        return ".";
+      }).join("");
+    });
+    var lawan = function (k) { var f = face[k] ^ 1; return face.indexOf(f); };
+    var pasangan = [], dipakai = {};
+    for (i = 0; i < 6; i++) {
+      if (dipakai[i]) continue;
+      var j = lawan(i);
+      dipakai[i] = dipakai[j] = 1;
+      pasangan.push(label[i] + "–" + label[j]);
+    }
+    var net = { k: "j", rows: rows }, t = R.int(0, 5), opp = lawan(t), ragam = R.int(0, 3), text, opts;
+    var tetangga = label.filter(function (x, k) { return k !== t && k !== opp; });
+    if (ragam === 3) {
+      // Pasangan sisi yang berhadapan.
+      var salah = [];
+      for (i = 0; i < 6; i++) for (var j2 = i + 1; j2 < 6; j2++) if (lawan(i) !== j2) salah.push(label[i] + " dan " + label[j2]);
+      text = "Jika jaring-jaring berikut dirakit menjadi kubus, pasangan sisi yang saling berhadapan adalah ...";
+      opts = ["sisi " + label[t] + " dan " + label[opp]].concat(R.shuffle(salah).slice(0, 4).map(function (x) { return "sisi " + x; }));
+    } else {
+      text = [
+        "Jika jaring-jaring berikut dirakit menjadi kubus, sisi yang berhadapan dengan sisi " + label[t] + " adalah sisi ...",
+        "Jika jaring-jaring berikut dirakit menjadi kubus dan sisi " + label[t] + " menjadi alas, sisi yang menjadi tutup (atas) adalah sisi ...",
+        "Jika jaring-jaring berikut dirakit menjadi kubus, sisi yang tidak mungkin bersebelahan dengan sisi " + label[t] + " adalah sisi ..."
+      ][ragam];
+      opts = [label[opp]].concat(tetangga);
+    }
+    return {
+      layout: "jaring", figs: [net], text: text, opts: opts,
+      expl: "Bayangkan sisi-sisi dilipat ke atas. Dua sisi yang terpisah tepat satu sisi pada satu garis lurus akan saling berhadapan, dan sisi yang saling berhadapan tidak pernah bersebelahan. Pada jaring-jaring ini pasangan yang berhadapan adalah " +
+        pasangan.join(", ") + ". Jadi jawabannya " + (ragam === 3 ? opts[0] : "sisi " + opts[0]) + "."
+    };
+  }
+
   var GEN = {
     "fig-seri": [seriRot, seriRing, seriCount, seriPoly, matriks, matriks],
     "fig-ana": [anaGlyph, anaGlyph, anaNest, anaPoly],
-    "fig-beda": [bedaMirror, bedaRule, bedaRule]
+    "fig-beda": [bedaMirror, bedaRule, bedaRule],
+    "fig-kubus": [kubus]
   };
 
   SKD.fig = {
@@ -372,7 +480,7 @@
       for (var tries = 0; tries < 20; tries++) {
         var out = R.pick(list)(R), seen = {}, ok = out.opts.length === 5;
         for (var i = 0; ok && i < out.opts.length; i++) {
-          var s = sig(out.opts[i]);
+          var s = typeof out.opts[i] === "string" ? "t:" + out.opts[i] : sig(out.opts[i]);
           if (seen[s]) ok = false;
           seen[s] = 1;
         }
@@ -380,6 +488,9 @@
       }
       return bedaMirror(R);
     },
-    _gen: GEN
+    _gen: GEN,
+    _nets: NETS,
+    _lipat: lipat,
+    _netCells: netCells
   };
 })();

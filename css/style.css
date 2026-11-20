@@ -309,6 +309,7 @@ table.data td .meter { width: 120px; }
 .stem .sep { font-family: var(--font-display); font-weight: 800; font-size: var(--fs-xl); color: var(--muted); padding-inline: 2px; }
 .stem.matriks { display: grid; grid-template-columns: repeat(3, clamp(52px, 20vw, 86px)); gap: 6px; }
 .stem.matriks .fig { width: 100%; }
+.stem.jaring .fig { width: min(280px, 78vw); aspect-ratio: 1; }
 .opts.figs { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; max-width: 560px; }
 .opts.figs .opt { flex-direction: column; align-items: center; gap: 8px; padding: 8px; }
 .opts.figs .opt-t { padding: 0; width: 100%; }

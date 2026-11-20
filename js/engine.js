@@ -214,7 +214,11 @@
     var order = R.shuffle([0, 1, 2, 3, 4]), best = 0, g, opts;
     if (materi.indexOf("fig-") === 0) {
       g = SKD.fig.generate(materi, R);
-      opts = order.map(function (oi, i) { if (oi === 0) best = i; return { fig: g.opts[oi], pts: oi === 0 ? 5 : 0 }; });
+      opts = order.map(function (oi, i) {
+        if (oi === 0) best = i;
+        var o = g.opts[oi];
+        return typeof o === "string" ? { t: o, pts: oi === 0 ? 5 : 0 } : { fig: o, pts: oi === 0 ? 5 : 0 };
+      });
       return {
         id: null, gen: materi, sec: "tiu", m: materi, hot: true, text: g.text, passage: null, table: null,
         stem: g.figs.length ? { layout: g.layout, figs: g.figs } : null, opts: opts, best: best, expl: g.expl

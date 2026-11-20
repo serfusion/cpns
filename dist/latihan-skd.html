@@ -319,6 +319,7 @@ table.data td .meter { width: 120px; }
 .stem .sep { font-family: var(--font-display); font-weight: 800; font-size: var(--fs-xl); color: var(--muted); padding-inline: 2px; }
 .stem.matriks { display: grid; grid-template-columns: repeat(3, clamp(52px, 20vw, 86px)); gap: 6px; }
 .stem.matriks .fig { width: 100%; }
+.stem.jaring .fig { width: min(280px, 78vw); aspect-ratio: 1; }
 .opts.figs { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; max-width: 560px; }
 .opts.figs .opt { flex-direction: column; align-items: center; gap: 8px; padding: 8px; }
 .opts.figs .opt-t { padding: 0; width: 100%; }
@@ -509,7 +510,7 @@ select.input { padding-right: 28px; }
           "Sejarah pergerakan: Budi Utomo, Sumpah Pemuda, organisasi pergerakan, peristiwa sekitar proklamasi",
           "Identitas nasional dan integrasi nasional (faktor pendorong dan penghambat)",
           "Netralitas ASN dan peran ASN sebagai perekat bangsa"
-        ]
+        , "Organisasi pergerakan (Sarekat Dagang Islam, Taman Siswa, Kongres Perempuan) dan relevansinya kini"]
       },
       {
         id: "int", sec: "twk", name: "Integritas", quota: 6,
@@ -519,7 +520,7 @@ select.input { padding-right: 28px; }
           "Gratifikasi, suap, konflik kepentingan, LHKPN",
           "Kode etik dan disiplin ASN, netralitas dalam pemilu",
           "Trisula pemberantasan korupsi: penindakan, pencegahan, pendidikan"
-        ]
+        , "Nilai integritas pada tokoh dan peristiwa sejarah (Hoegeng, Hatta, Palagan Ambarawa)"]
       },
       {
         id: "bela", sec: "twk", name: "Bela Negara", quota: 6,
@@ -541,7 +542,7 @@ select.input { padding-right: 28px; }
           "Pasal UUD 1945 dan maknanya; Pembukaan (alinea dan pokok pikiran); amandemen",
           "Lembaga negara dan wewenangnya (MPR, DPR, DPD, Presiden, MA, MK, KY, BPK), pemilu, HAM",
           "NKRI, otonomi daerah, wawasan nusantara, Bhinneka Tunggal Ika"
-        ]
+        , "BPUPKI (ketua, sidang I dan II), Panitia Sembilan, hasil sidang PPKI 18 Agustus 1945", "Wewenang MPR, BPK, DPD, KY; pemberhentian Presiden (Pasal 7B)"]
       },
       {
         id: "bind", sec: "twk", name: "Bahasa Indonesia", quota: 5,
@@ -552,7 +553,7 @@ select.input { padding-right: 28px; }
           "Kalimat efektif, kata baku, ejaan (huruf kapital, kata depan, tanda baca)",
           "Majas, jenis paragraf, fakta dan opini",
           "Kedudukan dan fungsi bahasa Indonesia"
-        ]
+        , "Huruf miring dan tanda koma"]
       },
 
       {
@@ -563,12 +564,12 @@ select.input { padding-right: 28px; }
       {
         id: "sil", sec: "tiu", name: "Silogisme", group: "Verbal", quota: 4,
         def: "Menarik kesimpulan dari dua pernyataan yang diberikan.",
-        pola: ["Silogisme dua premis: semua, sebagian, tidak ada", "Modus ponens dan modus tollens (jika-maka)", "Memilih kesimpulan yang pasti benar, bukan yang mungkin benar"]
+        pola: ["Silogisme dua premis: semua, sebagian, tidak ada", "Modus ponens dan modus tollens (jika-maka)", "Memilih kesimpulan yang pasti benar, bukan yang mungkin benar", "Silogisme tiga premis: rantai semua–semua–sebagian dan rantai jika–maka"]
       },
       {
         id: "anl", sec: "tiu", name: "Analitis", group: "Verbal", quota: 4,
         def: "Menganalisis informasi yang diberikan dan menarik kesimpulan.",
-        pola: ["Urutan dan posisi duduk", "Penjadwalan dan pengelompokan bersyarat", "Menarik kesimpulan dari tabel"]
+        pola: ["Urutan dan posisi duduk", "Penjadwalan dan pengelompokan bersyarat", "Menarik kesimpulan dari tabel", "Susunan duduk melingkar dan antrean", "Analisis tabel: rasio, persentase kenaikan, pecahan"]
       },
       {
         id: "hit", sec: "tiu", name: "Berhitung", group: "Numerik", quota: 3,
@@ -601,7 +602,7 @@ select.input { padding-right: 28px; }
         pola: ["Rotasi dan pencerminan", "Perubahan arsiran", "Pertukaran bentuk luar dan dalam"]
       },
       {
-        id: "fig-beda", sec: "tiu", name: "Ketidaksamaan Gambar", group: "Figural", quota: 2, gen: 1,
+        id: "fig-beda", sec: "tiu", name: "Ketidaksamaan Gambar", group: "Figural", quota: 1, gen: 1,
         def: "Melihat perbedaan beberapa gambar.",
         pola: ["Satu gambar hasil cermin di antara gambar hasil putaran", "Aturan jumlah elemen yang dilanggar satu gambar"]
       },
@@ -609,6 +610,11 @@ select.input { padding-right: 28px; }
         id: "fig-seri", sec: "tiu", name: "Serial Gambar", group: "Figural", quota: 2, gen: 1,
         def: "Melihat pola hubungan dalam bentuk gambar.",
         pola: ["Rotasi bertahap", "Pergeseran posisi", "Penambahan elemen", "Pola 9 kotak (3×3)"]
+      },
+      {
+        id: "fig-kubus", sec: "tiu", name: "Jaring-jaring Kubus", group: "Figural", quota: 1, gen: 1,
+        def: "Membayangkan jaring-jaring yang dirakit menjadi kubus: sisi mana yang berhadapan dan mana yang bersebelahan.",
+        pola: ["Sisi yang berhadapan dengan sisi tertentu", "Sisi yang menjadi tutup bila sisi tertentu menjadi alas", "Pasangan sisi yang saling berhadapan"]
       },
 
       {
@@ -629,12 +635,12 @@ select.input { padding-right: 28px; }
       {
         id: "tik", sec: "tkp", name: "Teknologi Informasi dan Komunikasi", quota: 7,
         def: "Memanfaatkan teknologi informasi secara efektif untuk meningkatkan kinerja.",
-        pola: ["Aplikasi dan sistem baru di kantor", "Keamanan data dan kerahasiaan", "Hoaks dan media sosial", "Inovasi digital"]
+        pola: ["Aplikasi dan sistem baru di kantor", "Keamanan data dan kerahasiaan", "Hoaks dan media sosial", "Inovasi digital", "Kecerdasan artifisial generatif dan pelindungan data pribadi"]
       },
       {
         id: "pro", sec: "tkp", name: "Profesionalisme", quota: 8,
         def: "Melaksanakan tugas dan fungsi sesuai dengan tuntutan jabatan.",
-        pola: ["Prioritas dan tenggat", "Tanggung jawab atas kesalahan", "Menempatkan diri di antara tugas kantor dan urusan lain", "Belajar dan berinovasi"]
+        pola: ["Prioritas dan tenggat", "Tanggung jawab atas kesalahan", "Menempatkan diri di antara tugas kantor dan urusan lain", "Belajar dan berinovasi", "Kerahasiaan dan spionase, judi daring, perubahan penugasan mendadak"]
       },
       {
         id: "rad", sec: "tkp", name: "Anti Radikalisme", quota: 8,
@@ -643,26 +649,31 @@ select.input { padding-right: 28px; }
       }
     ],
     riset: {
-      tanggal: "16 November 2026",
+      tanggal: "20 November 2026",
       status: [
-        "Rekrutmen CPNS 2026 diumumkan pemerintah pada 6 November 2026; pembuatan akun SSCASN dibuka sejak 14 November 2026.",
-        "Rincian formasi dan jadwal direncanakan terbit sekitar 20–23 November 2026. Jadwal SKD belum diumumkan.",
-        "Keputusan Menteri PANRB tentang ambang batas SKD CPNS 2026 belum terbit. Acuan terakhir untuk CPNS adalah KepmenPANRB 321/2024: 110 soal, 100 menit, ambang batas TWK 65, TIU 80, TKP 166.",
-        "SKD sekolah kedinasan 2026 (KepmenPANRB 406/2026) memakai struktur yang sama dengan ambang batas TKP 156."
+        "Formasi dan jadwal pendaftaran CPNS 2026 belum terbit per 20 November 2026; BKN menargetkan pendaftaran pada pekan keempat November. Jadwal SKD belum diumumkan.",
+        "SKD sekolah kedinasan 2026 sudah berlangsung 22 September–7 Oktober 2026 dengan CAT BKN: 110 soal, 100 menit, ambang batas TWK 65, TIU 80, TKP 156 (KepmenPANRB 406/2026).",
+        "Ambang batas SKD CPNS 2026 belum ditetapkan. Acuan terakhir untuk CPNS adalah KepmenPANRB 321/2024: TWK 65, TIU 80, TKP 166.",
+        "Soal CAT BKN rahasia dan diacak per peserta. Tidak ada cara sah mendapatkan soal yang akan keluar; tawaran \"bocoran\" adalah penipuan dan dapat menggugurkan peserta."
       ],
+      rumus: "Prioritas pola = tercantum di kisi-kisi resmi × jumlah rangkuman laporan peserta yang menyebutnya (0–3). Soal bertanda Sering keluar mengikuti pola dengan dua laporan atau lebih.",
       temuan: [
-        "TWK dinilai paling sulit oleh peserta 2024: soal penalaran panjang, bukan hafalan. Paling banyak dilaporkan: penerapan nilai Pancasila, nasionalisme, amandemen UUD, peristiwa sekitar kemerdekaan, netralitas ASN, pemilu, integritas, HAM, wewenang MK dan KY.",
-        "TIU: silogisme dua premis, analogi tiga kata, analisis tabel, deret angka, perbandingan kuantitatif, soal cerita (perbandingan senilai, persentase untung, tambahan pekerja), akar pangkat sederhana, dan figural termasuk pola 9 kotak.",
-        "TKP: soal panjang dengan opsi pendek; tema teknologi, isu terkini, prioritas tugas, inovasi di kantor, kerahasiaan, dan isu SARA dalam pemilu."
+        "TWK, dilaporkan di 3 rangkuman peserta SKD CPNS 2024: penerapan sila (kasus diskriminasi, golput), nilai integritas termasuk tokoh BPUPKI dan peristiwa sejarah, BPUPKI/PPKI, lembaga negara (MA, MK, MPR, KY), gagasan utama paragraf. Di 2 rangkuman: penerapan pasal UUD, sejarah organisasi pergerakan, nasionalisme konten kreator, huruf miring.",
+        "TIU, di 3 rangkuman: silogisme (termasuk tiga premis), figural pola 9 kotak, analisis tabel. Di 2 rangkuman: deret angka, perbandingan senilai dan berbalik nilai, berhitung cepat, kecepatan, hubungan x dan y, jaring-jaring kubus, antrean dan susunan duduk.",
+        "TKP, di 3 rangkuman: prioritas antara kesibukan pribadi atau masyarakat dan tugas kantor. Di 2 rangkuman: sikap terhadap spionase dan penerapan BerAKHLAK. Di 1 rangkuman: perbedaan pilihan politik, konten kreator, pelatihan, perubahan penugasan, inovasi TIK.",
+        "SKD kedinasan 2026: peserta melaporkan TIU sebagai bagian paling menantang; belum ada rincian soal yang dapat diverifikasi."
       ],
       sumber: [
-        { t: "Status CPNS 2026 (Drillo, diperbarui 16 Nov 2026)", u: "https://www.drillo.id/blog/cpns-2026-dibuka-november" },
-        { t: "Materi dan ambang batas SKD 2026 (tes-cpns.com)", u: "https://tes-cpns.com/artikel/materi-skd-cpns-2026-lengkap-twk-tiu-dan-tkp" },
-        { t: "Kisi-kisi SKD CPNS 2024 dari KemenPANRB (Kompas TV)", u: "https://www.kompas.tv/ekonomi/537047/kisi-kisi-soal-twk-tiu-tkp-materi-skd-cpns-2024-resmi-dari-kemenpanrb-ini-link-pdf-nya" },
-        { t: "Rangkuman laporan peserta SKD 2024 (AyoJakarta)", u: "https://www.ayojakarta.com/news/0316335/rangkuman-penting-fr-skd-cpns-2024-insight-dari-field-report-3-hari-pertama-yang-wajib-kamu-baca" },
+        { t: "Rangkuman FR SKD CPNS 2024, 16–25 Okt (AyoJakarta)", u: "https://www.ayojakarta.com/news/7613818100/terbaru-dan-lengkap-rangkuman-fr-skd-cpns-2024-sejak-hari-pertama-hingga-kemarin-twk-tiu-tkp-pasti-keluar" },
+        { t: "Rangkuman FR SKD CPNS 2024, 28 Okt (AyoJakarta)", u: "https://www.ayojakarta.com/news/7613828932/lengkap-ini-rangkuman-fr-skd-cpns-2024-untuk-materi-twk-tiu-tkp-yang-dipastikan-keluar-saat-tes" },
+        { t: "Rekap FR SKD CPNS 2024, 24 Okt (AyoJakarta)", u: "https://www.ayojakarta.com/news/0315783/catat-rekap-fr-skd-cpns-2024-lengkap-untuk-soal-tiu-twk-dan-tkp" },
         { t: "Laporan peserta SKD 2024 (ASN Institute)", u: "https://www.asninstitute.id/field-report-cpns-2024/" },
-        { t: "Siaran pers BKN: 110 soal dalam 100 menit", u: "https://www.bkn.go.id/storage/2021/08/SIARAN-PERS-Peserta-Calon-PNS-2021-akan-Berkompetisi-dalam-100-Menit-untuk-Menjawab-110-Soal-SKD-dengan-CAT-BKN.pdf" },
-        { t: "SKD sekolah kedinasan 2026 (Bisnis.com)", u: "https://kabar24.bisnis.com/read/20260819/243/1997257/jadwal-lengkap-pendaftaran-cpns-2026-lewat-jalur-sekolah-kedinasan" }
+        { t: "FR SKD Sekolah Kedinasan 2026: TIU jadi tantangan", u: "https://www.bimbelptk.com/blog/fr-skd-sekolah-kedinasan-2026--tiu-jadi-tantangan--cek-persiapan-sebelum-ujian" },
+        { t: "Materi SKD Sekolah Kedinasan 2026 dan KepmenPANRB 406/2026", u: "https://www.bimbelptk.com/blog/resmi--bkn-ungkap-materi-skd-sekolah-kedinasan-2026--ini-rincian-twk--tiu--dan-tkp" },
+        { t: "Passing grade SKD Sekolah Kedinasan 2026 (Kompas)", u: "https://money.kompas.com/read/2026/09/24/095752726/passing-grade-skd-sekolah-kedinasan-2026-cek-nilai-minimal-twk-tiu-dan-tkp" },
+        { t: "Status CPNS 2026 (Drillo)", u: "https://www.drillo.id/blog/cpns-2026-dibuka-november" },
+        { t: "Kisi-kisi SKD CPNS 2024 dari KemenPANRB (Kompas TV)", u: "https://www.kompas.tv/ekonomi/537047/kisi-kisi-soal-twk-tiu-tkp-materi-skd-cpns-2024-resmi-dari-kemenpanrb-ini-link-pdf-nya" },
+        { t: "Siaran pers BKN: 110 soal dalam 100 menit", u: "https://www.bkn.go.id/storage/2021/08/SIARAN-PERS-Peserta-Calon-PNS-2021-akan-Berkompetisi-dalam-100-Menit-untuk-Menjawab-110-Soal-SKD-dengan-CAT-BKN.pdf" }
       ]
     }
   };
@@ -1290,6 +1301,144 @@ select.input { padding-right: 28px; }
         "Prof., Dr., Siti Aminah, S.H, M.H", "Prof. Dr. Siti Aminah, SH., MH."],
       x: "Gelar di belakang nama dipisahkan koma; setiap unsur singkatan gelar diakhiri titik; gelar di depan nama tidak dipisahkan koma." }
   ]);
+
+  // ===================== TAMBAHAN NOV 2026: pola yang dilaporkan peserta SKD 2024 =====================
+  // BPUPKI/PPKI, lembaga negara, penerapan pasal UUD, penerapan sila, integritas tokoh, sejarah organisasi,
+  // huruf miring, tanda koma, gagasan utama paragraf.
+  SKD.addPassages({
+    literasi: "Penipuan daring kini tidak hanya menyasar orang yang awam teknologi. Pelaku memanfaatkan pesan berantai, tautan palsu, hingga suara tiruan buatan kecerdasan artifisial untuk meyakinkan korbannya. Banyak korban justru orang yang terbiasa memakai gawai, tetapi lengah karena pesan tampak berasal dari kerabat atau instansi resmi.\n\nOleh karena itu, literasi digital tidak cukup diartikan sebagai kemampuan mengoperasikan aplikasi. Warga perlu terbiasa memeriksa sumber pesan, tidak membagikan kode rahasia, dan melapor ketika menemukan modus baru. Kebiasaan sederhana itu lebih ampuh melindungi masyarakat daripada sekadar mengikuti perkembangan aplikasi terbaru."
+  });
+  SKD.add("twk", [
+    { m: "pilar", h: 1, q: "Badan Penyelidik Usaha-usaha Persiapan Kemerdekaan Indonesia (BPUPKI) diketuai oleh ...",
+      o: ["dr. K.R.T. Radjiman Wedyodiningrat", "Ir. Soekarno", "Drs. Mohammad Hatta", "Mr. Achmad Soebardjo", "Prof. Dr. Soepomo"],
+      x: "BPUPKI diketuai dr. Radjiman Wedyodiningrat. Soekarno memimpin Panitia Sembilan dan menjadi ketua PPKI, dengan Hatta sebagai wakil ketua PPKI." },
+    { m: "pilar", h: 1, q: "Sidang kedua BPUPKI pada 10–17 Juli 1945 terutama membahas ...",
+      o: ["rancangan undang-undang dasar, termasuk bentuk dan wilayah negara",
+        "usulan rumusan dasar negara dari Muhammad Yamin, Soepomo, dan Soekarno",
+        "pengesahan UUD serta pemilihan Presiden dan Wakil Presiden",
+        "pembentukan Komite Nasional Indonesia Pusat dan Badan Keamanan Rakyat",
+        "penyusunan teks proklamasi kemerdekaan"],
+      x: "Sidang pertama (29 Mei–1 Juni 1945) membahas dasar negara. Sidang kedua membahas rancangan UUD, bentuk negara, dan wilayah. Pengesahan UUD dilakukan PPKI pada 18 Agustus 1945." },
+    { m: "pilar", h: 1, q: "Hasil sidang PPKI pada 18 Agustus 1945 adalah ...",
+      o: ["mengesahkan UUD, memilih Soekarno dan Hatta sebagai Presiden dan Wakil Presiden, serta menetapkan Presiden untuk sementara dibantu Komite Nasional",
+        "membagi wilayah Indonesia menjadi delapan provinsi dan membentuk dua belas kementerian",
+        "membentuk Badan Keamanan Rakyat, Komite Nasional Indonesia Pusat, dan Partai Nasional Indonesia",
+        "merumuskan Piagam Jakarta sebagai rancangan pembukaan UUD",
+        "menetapkan bentuk negara serikat sesuai hasil perundingan dengan Belanda"],
+      x: "Pembagian provinsi dan kementerian diputuskan 19 Agustus; BKR, KNIP, dan PNI pada 22 Agustus 1945. Piagam Jakarta disusun Panitia Sembilan pada 22 Juni 1945." },
+    { m: "pilar", h: 1, q: "Pada 18 Agustus 1945, Mohammad Hatta mengajak sejumlah tokoh Islam bermusyawarah atas keberatan wakil Indonesia bagian timur terhadap tujuh kata dalam Piagam Jakarta. Para tokoh itu menerima perubahan rumusan sila pertama. Sikap mereka menunjukkan ...",
+      o: ["kesediaan mendahulukan persatuan bangsa di atas kepentingan golongan",
+        "kekalahan golongan Islam dalam perdebatan dasar negara",
+        "keinginan memisahkan urusan agama dari kehidupan bernegara",
+        "keputusan yang diambil karena tekanan pemerintah pendudukan",
+        "ketidakpedulian terhadap aspirasi umat beragama"],
+      x: "Perubahan tujuh kata menjadi \"Ketuhanan Yang Maha Esa\" dicapai lewat musyawarah dan menjadi teladan mengutamakan persatuan." },
+    { m: "pilar", h: 1, q: "Setelah perubahan UUD 1945, salah satu wewenang Majelis Permusyawaratan Rakyat adalah ...",
+      o: ["melantik Presiden dan/atau Wakil Presiden", "menetapkan Garis-Garis Besar Haluan Negara",
+        "membentuk undang-undang bersama Presiden", "memutus pembubaran partai politik", "memeriksa pengelolaan keuangan negara"],
+      x: "Pasal 3 UUD NRI 1945: MPR mengubah dan menetapkan UUD, melantik Presiden dan/atau Wakil Presiden, serta hanya dapat memberhentikan mereka menurut UUD. GBHN tidak lagi ditetapkan MPR; membentuk UU adalah wewenang DPR bersama Presiden." },
+    { m: "pilar", h: 1, q: "Lembaga negara yang bebas dan mandiri untuk memeriksa pengelolaan dan tanggung jawab tentang keuangan negara adalah ...",
+      o: ["Badan Pemeriksa Keuangan", "Badan Pengawasan Keuangan dan Pembangunan", "Komisi Pemberantasan Korupsi", "Otoritas Jasa Keuangan", "Bank Indonesia"],
+      x: "Pasal 23E ayat (1) UUD NRI 1945. BPKP adalah aparat pengawas intern pemerintah, bukan lembaga yang dibentuk UUD." },
+    { m: "pilar", h: 1, q: "Dewan Perwakilan Daerah dapat mengajukan kepada DPR rancangan undang-undang yang berkaitan dengan ...",
+      o: ["otonomi daerah, hubungan pusat dan daerah, serta pembentukan, pemekaran, dan penggabungan daerah",
+        "pertahanan dan keamanan negara", "anggaran pendapatan dan belanja negara secara keseluruhan",
+        "hubungan luar negeri dan perjanjian internasional", "susunan dan kedudukan lembaga peradilan"],
+      x: "Pasal 22D ayat (1): termasuk juga pengelolaan sumber daya alam dan perimbangan keuangan pusat dan daerah. Untuk RUU APBN, DPD hanya memberi pertimbangan." },
+    { m: "pilar", h: 1, q: "Apabila Komisi Yudisial tidak menjalankan tugasnya, akibat yang paling mungkin terjadi adalah ...",
+      o: ["pengawasan terhadap perilaku hakim melemah sehingga kehormatan dan keluhuran martabat hakim sulit dijaga",
+        "undang-undang tidak dapat diuji terhadap UUD", "perselisihan hasil pemilu tidak dapat diputus",
+        "peraturan daerah tidak dapat diuji terhadap undang-undang", "Presiden tidak dapat mengangkat menteri"],
+      x: "Pasal 24B: Komisi Yudisial mengusulkan pengangkatan hakim agung dan menjaga kehormatan, keluhuran martabat, serta perilaku hakim. Pengujian UU dan sengketa hasil pemilu adalah wewenang MK; pengujian peraturan di bawah UU wewenang MA." },
+    { m: "pilar", h: 1, q: "Menurut Pasal 7B UUD NRI 1945, sebelum MPR bersidang untuk memutus usul pemberhentian Presiden, pendapat DPR tentang dugaan pelanggaran Presiden harus lebih dahulu ...",
+      o: ["diperiksa, diadili, dan diputus oleh Mahkamah Konstitusi", "diputus oleh Mahkamah Agung", "mendapat persetujuan DPD",
+        "diperiksa oleh Komisi Yudisial", "ditetapkan melalui referendum"],
+      x: "Pasal 24C ayat (2): MK wajib memberi putusan atas pendapat DPR mengenai dugaan pelanggaran Presiden dan/atau Wakil Presiden. Bila terbukti, DPR meneruskan usul ke MPR." },
+    { m: "pilar", h: 1, q: "Pemerintah daerah wajib mengalokasikan sekurang-kurangnya 20% anggarannya untuk pendidikan. Kewajiban itu bersumber dari ...",
+      o: ["Pasal 31 ayat (4) UUD NRI 1945", "Pasal 28C ayat (1) UUD NRI 1945", "Pasal 32 ayat (1) UUD NRI 1945",
+        "Pasal 33 ayat (4) UUD NRI 1945", "Pasal 34 ayat (3) UUD NRI 1945"],
+      x: "Pasal 31 ayat (4): negara memprioritaskan anggaran pendidikan sekurang-kurangnya 20% dari APBN serta APBD." },
+    { m: "pilar", h: 1, q: "Pemerintah mewajibkan perusahaan tambang mengolah hasil tambang di dalam negeri dan menyisihkan bagian keuntungan untuk daerah penghasil. Kebijakan itu paling sejalan dengan ...",
+      o: ["Pasal 33 ayat (3): kekayaan alam dikuasai negara dan dipergunakan untuk sebesar-besar kemakmuran rakyat",
+        "Pasal 28H ayat (4): hak milik pribadi tidak boleh diambil alih sewenang-wenang", "Pasal 27 ayat (2): hak atas pekerjaan dan penghidupan yang layak",
+        "Pasal 23A: pajak dan pungutan diatur dengan undang-undang", "Pasal 18 ayat (2): pemerintah daerah mengurus urusan pemerintahan sendiri"],
+      x: "Bumi, air, dan kekayaan alam di dalamnya dikuasai negara untuk kemakmuran rakyat, termasuk masyarakat di daerah penghasil." },
+    { m: "pilar", h: 1, q: "Sekelompok karyawan mendirikan serikat pekerja untuk menyampaikan aspirasi kepada perusahaan. Hak mereka dijamin oleh ...",
+      o: ["Pasal 28E ayat (3) UUD NRI 1945", "Pasal 28I ayat (1) UUD NRI 1945", "Pasal 29 ayat (2) UUD NRI 1945",
+        "Pasal 27 ayat (3) UUD NRI 1945", "Pasal 30 ayat (1) UUD NRI 1945"],
+      x: "Pasal 28E ayat (3): setiap orang berhak atas kebebasan berserikat, berkumpul, dan mengeluarkan pendapat." },
+    { m: "pilar", q: "Warga menggugat pabrik yang mencemari sungai sumber air minum mereka. Hak konstitusional yang mereka perjuangkan adalah ...",
+      o: ["hak mendapat lingkungan hidup yang baik dan sehat (Pasal 28H ayat (1))", "hak atas pekerjaan dan penghidupan yang layak (Pasal 27 ayat (2))",
+        "hak berserikat dan berkumpul (Pasal 28E ayat (3))", "hak memperoleh pendidikan (Pasal 31 ayat (1))", "hak ikut serta dalam pembelaan negara (Pasal 27 ayat (3))"],
+      x: "Pasal 28H ayat (1) menjamin hak hidup sejahtera lahir dan batin, bertempat tinggal, serta mendapat lingkungan hidup yang baik dan sehat." },
+    { m: "pilar", h: 1, q: "Menjelang pemilu, seseorang membagikan uang kepada warga agar tidak datang ke TPS. Perbuatan itu paling bertentangan dengan sila ...",
+      o: ["keempat, karena merusak kedaulatan rakyat dalam mengambil keputusan secara demokratis", "kedua, karena merendahkan martabat manusia",
+        "ketiga, karena memecah belah persatuan", "kelima, karena menimbulkan kesenjangan ekonomi", "pertama, karena bertentangan dengan ajaran agama"],
+      x: "Pemilu adalah wujud kedaulatan rakyat (sila keempat). Memberi uang agar pemilih tidak memakai hak pilihnya juga merupakan tindak pidana pemilu menurut UU Nomor 7 Tahun 2017." },
+    { m: "pilar", h: 1, q: "Warga sebuah desa bergotong royong memperbaiki saluran irigasi dan membagi sebagian hasil panen kepada tetangga yang gagal panen. Menurut butir pengamalan Pancasila, perilaku itu terutama mencerminkan sila ...",
+      o: ["kelima: mengembangkan perbuatan luhur yang mencerminkan sikap kekeluargaan dan kegotongroyongan",
+        "ketiga: rela berkorban untuk kepentingan bangsa dan negara", "kedua: gemar melakukan kegiatan kemanusiaan",
+        "keempat: mengutamakan musyawarah dalam mengambil keputusan", "pertama: membina kerukunan hidup antarumat beragama"],
+      x: "Butir pertama sila kelima berbunyi mengembangkan perbuatan yang luhur, yang mencerminkan sikap dan suasana kekeluargaan dan kegotongroyongan." }
+  ]);
+  SKD.add("twk", [
+    { m: "int", h: 1, q: "Dalam Palagan Ambarawa (November–Desember 1945), pasukan TKR di bawah Kolonel Soedirman terus bertempur meskipun kalah persenjataan hingga pasukan Sekutu mundur ke Semarang. Nilai integritas yang paling menonjol dari peristiwa itu adalah ...",
+      o: ["berani", "sederhana", "adil", "mandiri", "disiplin"],
+      x: "Berani berarti tidak gentar menghadapi kesulitan dan risiko demi kebenaran serta kepentingan bangsa. Kemenangan ini diperingati sebagai Hari Juang Kartika (Hari Juang TNI AD) setiap 15 Desember." },
+    { m: "int", h: 1, q: "Saat diangkat menjadi Kepala Jawatan Imigrasi, Hoegeng meminta istrinya menutup toko bunga milik keluarga agar tidak ada orang yang membeli bunga demi mendapat kemudahan urusan. Tindakan itu terutama bertujuan mencegah ...",
+      o: ["benturan kepentingan antara jabatan dan usaha keluarga", "persaingan usaha dengan toko bunga lain",
+        "kerugian keuangan negara", "pemborosan anggaran instansi", "pelanggaran jam kerja oleh keluarga pejabat"],
+      x: "Benturan kepentingan muncul ketika jabatan dapat dimanfaatkan untuk kepentingan pribadi atau keluarga. Menutup sumbernya adalah wujud integritas." },
+    { m: "int", h: 1, q: "Seorang ASN rutin memakai printer dan kertas kantor untuk mencetak brosur usaha pribadinya. Perilaku itu bertentangan dengan panduan perilaku nilai dasar ASN ...",
+      o: ["Akuntabel: menggunakan barang milik negara secara bertanggung jawab, efektif, dan efisien", "Harmonis: menghargai setiap orang apa pun latar belakangnya",
+        "Adaptif: cepat menyesuaikan diri menghadapi perubahan", "Kolaboratif: memberi kesempatan kepada berbagai pihak untuk berkontribusi",
+        "Kompeten: meningkatkan kompetensi diri untuk menjawab tantangan"],
+      x: "Panduan nilai Akuntabel mencakup memakai kekayaan dan barang milik negara secara bertanggung jawab serta tidak menyalahgunakan kewenangan." }
+  ]);
+  SKD.add("twk", [
+    { m: "nas", h: 1, q: "Sarekat Dagang Islam didirikan untuk melindungi pedagang pribumi dari dominasi pedagang asing. Relevansi semangat organisasi itu pada masa kini adalah ...",
+      o: ["memperkuat usaha rakyat, koperasi, dan UMKM agar mampu bersaing di negeri sendiri",
+        "menolak seluruh investasi asing", "membatasi kegiatan dagang hanya untuk satu golongan",
+        "membentuk partai politik berbasis profesi pedagang", "melarang impor semua barang konsumsi"],
+      x: "Semangatnya adalah kemandirian ekonomi rakyat, bukan menutup diri dari bangsa lain." },
+    { m: "nas", h: 1, q: "Semboyan Ki Hajar Dewantara \"ing ngarsa sung tuladha, ing madya mangun karsa, tut wuri handayani\" yang relevan bagi pemimpin masa kini berarti ...",
+      o: ["di depan memberi teladan, di tengah membangun semangat, di belakang memberi dorongan",
+        "di depan memberi perintah, di tengah mengawasi, di belakang menilai",
+        "di depan memimpin upacara, di tengah memeriksa, di belakang menghukum",
+        "di depan menjadi juru bicara, di tengah menjadi penengah, di belakang menjadi penonton",
+        "di depan menentukan target, di tengah menagih hasil, di belakang memberi penghargaan"],
+      x: "Semboyan Taman Siswa (didirikan 1922) ini kini menjadi prinsip kepemimpinan dan pendidikan nasional; tut wuri handayani menjadi semboyan Kementerian Pendidikan." },
+    { m: "nas", q: "Peringatan Hari Ibu setiap 22 Desember berakar pada peristiwa ...",
+      o: ["Kongres Perempuan Indonesia I di Yogyakarta tahun 1928", "kelahiran R.A. Kartini di Jepara",
+        "berdirinya organisasi Putri Mardika tahun 1912", "Kongres Pemuda II tahun 1928", "pengesahan UU Perkawinan tahun 1974"],
+      x: "Kongres Perempuan Indonesia I dibuka pada 22 Desember 1928 di Yogyakarta dan menyatukan organisasi perempuan dalam perjuangan bangsa." },
+    { m: "nas", h: 1, q: "Seorang konten kreator ditawari sponsor besar untuk membuat video yang menertawakan logat dan adat suku lain agar viral. Sikap yang mencerminkan nasionalisme adalah ...",
+      o: ["menolak tawaran itu dan membuat konten yang mengenalkan keberagaman budaya secara positif",
+        "menerima karena konten humor tidak dimaksudkan menyinggung", "menerima, tetapi menyamarkan nama suku yang ditertawakan",
+        "menerima dan meminta maaf jika ada yang tersinggung", "menolak, tetapi membuat konten serupa tentang suku sendiri"],
+      x: "Nasionalisme menjaga persatuan: konten yang merendahkan suku lain memecah belah, sedangkan mengenalkan keberagaman secara positif memperkuatnya." }
+  ]);
+  SKD.add("twk", [
+    { m: "bind", h: 1, q: "Kata yang seharusnya ditulis dengan huruf miring dalam kalimat \"Warga Kampung Naga menggelar upacara hajat sasih di dekat Masjid Agung\" adalah ...",
+      o: ["hajat sasih", "Kampung Naga", "Masjid Agung", "upacara", "warga"],
+      x: "Huruf miring dipakai untuk kata atau ungkapan dalam bahasa daerah atau bahasa asing. Nama diri seperti Kampung Naga dan Masjid Agung tidak dimiringkan." },
+    { m: "bind", h: 1, q: "Penggunaan huruf miring yang tepat menurut EYD adalah untuk menuliskan ...",
+      o: ["judul buku, nama majalah, atau nama surat kabar yang dikutip dalam tulisan", "nama orang dari negara lain",
+        "judul artikel yang dimuat dalam surat kabar", "singkatan nama lembaga pemerintah", "nama hari dan nama bulan"],
+      x: "Judul artikel ditulis di antara tanda petik, sedangkan nama surat kabar tempat artikel itu dimuat dimiringkan. Nama diri berbahasa asing tidak dimiringkan." },
+    { m: "bind", h: 1, q: "Penggunaan tanda koma yang tepat terdapat pada kalimat ...",
+      o: ["Saya ingin hadir, tetapi hujan turun sangat deras.", "Saya ingin hadir tetapi, hujan turun sangat deras.",
+        "Ia tidak masuk kerja, karena sedang sakit.", "Kami membeli buku, pensil, dan, penggaris.", "Oleh karena itu kita harus hemat."],
+      x: "Koma dipakai sebelum tetapi, melainkan, dan sedangkan. Koma tidak dipakai sebelum anak kalimat yang mengikuti induk kalimat, tetapi dipakai setelah ungkapan penghubung antarkalimat seperti \"Oleh karena itu,\"." },
+    { m: "bind", h: 1, p: "literasi", q: "Gagasan utama paragraf kedua bacaan tersebut adalah ...",
+      o: ["literasi digital mencakup kebiasaan waspada, bukan sekadar kemampuan memakai aplikasi", "penipuan daring memakai suara tiruan kecerdasan artifisial",
+        "korban penipuan kebanyakan orang yang awam teknologi", "warga harus selalu mengikuti perkembangan aplikasi terbaru", "pemerintah wajib memblokir semua tautan palsu"],
+      x: "Kalimat utama paragraf kedua ada di awal (deduktif): literasi digital tidak cukup diartikan sebagai kemampuan mengoperasikan aplikasi." },
+    { m: "bind", h: 1, p: "literasi", q: "Pernyataan yang sesuai dengan isi paragraf pertama adalah ...",
+      o: ["orang yang terbiasa memakai gawai pun dapat menjadi korban penipuan daring", "penipuan daring hanya menyasar orang lanjut usia",
+        "pelaku penipuan selalu mengaku sebagai instansi resmi", "suara tiruan kecerdasan artifisial belum dipakai penipu", "korban penipuan daring sudah berkurang"],
+      x: "Paragraf pertama menyebut banyak korban justru orang yang terbiasa memakai gawai tetapi lengah." }
+  ]);
 })();
 
 </script>
@@ -1531,6 +1680,50 @@ select.input { padding-right: 28px; }
     { m: "cer", h: 1, q: "Sebuah motor menghabiskan 1 liter bensin untuk 45 km. Harga bensin Rp10.000 per liter. Biaya bensin untuk perjalanan pulang-pergi ke kota berjarak 135 km adalah ...", o: ["Rp60.000", "Rp30.000", "Rp54.000", "Rp66.000", "Rp45.000"],
       x: "Jarak total 270 km membutuhkan 270 ÷ 45 = 6 liter, biayanya 6 × 10.000 = 60.000." }
   ]);
+
+  // ===================== TAMBAHAN NOV 2026: pola yang dilaporkan peserta SKD 2024 =====================
+  // Silogisme tiga premis, analisis tabel, susunan duduk melingkar, antrean.
+  SKD.add("tiu", [
+    { m: "sil", h: 1, q: "Semua pegawai yang lulus uji kompetensi mendapat sertifikat.\nSemua pemegang sertifikat boleh menjadi instruktur.\nSebagian staf baru lulus uji kompetensi.\nKesimpulan yang tepat adalah ...",
+      o: ["Sebagian staf baru boleh menjadi instruktur", "Semua staf baru boleh menjadi instruktur", "Semua instruktur adalah staf baru",
+        "Sebagian staf baru tidak boleh menjadi instruktur", "Tidak ada staf baru yang boleh menjadi instruktur"],
+      x: "Rantai: lulus uji → bersertifikat → boleh menjadi instruktur. Karena sebagian staf baru lulus uji, sebagian staf baru boleh menjadi instruktur. Tentang staf baru lainnya tidak dapat dipastikan." },
+    { m: "sil", h: 1, q: "Jika hujan deras, maka sungai meluap.\nJika sungai meluap, maka jalan desa tergenang.\nJalan desa tidak tergenang.\nKesimpulan yang tepat adalah ...",
+      o: ["Hujan tidak deras", "Hujan deras", "Sungai meluap", "Sungai meluap, tetapi jalan desa tidak tergenang", "Tidak dapat ditarik kesimpulan"],
+      x: "Dari p → q dan q → r diperoleh p → r. Karena tidak r, maka tidak p (modus tollens): hujan tidak deras, dan sungai pun tidak meluap." },
+    { m: "sil", h: 1, q: "Semua peserta pelatihan wajib membawa laptop.\nSebagian pembawa laptop memakai sistem operasi terbaru.\nRina adalah peserta pelatihan.\nKesimpulan yang pasti benar adalah ...",
+      o: ["Rina membawa laptop", "Rina memakai sistem operasi terbaru", "Rina tidak memakai sistem operasi terbaru",
+        "Semua peserta memakai sistem operasi terbaru", "Rina bukan pembawa laptop"],
+      x: "Rina peserta, maka ia membawa laptop. Premis kedua hanya menyebut sebagian pembawa laptop, sehingga sistem operasi Rina tidak dapat dipastikan." },
+    { m: "sil", h: 1, q: "Tidak ada pegawai yang sering terlambat mendapat tunjangan penuh.\nSemua pegawai bagian keuangan mendapat tunjangan penuh.\nSebagian pegawai yang rajin berolahraga adalah pegawai bagian keuangan.\nKesimpulan yang tepat adalah ...",
+      o: ["Sebagian pegawai yang rajin berolahraga tidak sering terlambat", "Semua pegawai yang rajin berolahraga tidak sering terlambat",
+        "Sebagian pegawai yang rajin berolahraga sering terlambat", "Semua pegawai yang tidak sering terlambat bekerja di bagian keuangan",
+        "Tidak ada pegawai bagian keuangan yang rajin berolahraga"],
+      x: "Pegawai keuangan mendapat tunjangan penuh, sehingga mereka tidak sering terlambat. Sebagian yang rajin berolahraga adalah pegawai keuangan, jadi sebagian yang rajin berolahraga tidak sering terlambat." },
+    { m: "sil", h: 1, q: "Andi memilih formasi A atau formasi B.\nJika memilih formasi A, Andi harus pindah ke luar Jawa.\nAndi tidak pindah ke luar Jawa.\nKesimpulan yang tepat adalah ...",
+      o: ["Andi memilih formasi B", "Andi memilih formasi A", "Andi tidak memilih formasi mana pun", "Andi memilih formasi A dan B", "Tidak dapat ditarik kesimpulan"],
+      x: "Modus tollens: tidak pindah, maka tidak memilih A. Silogisme disjungtif: A atau B, bukan A, maka B." }
+  ]);
+  SKD.add("tiu", [
+    { m: "anl", h: 1, q: "Berdasarkan tabel berikut, instansi dengan jumlah pelamar per formasi paling sedikit adalah ...",
+      tb: { h: ["Instansi", "Pelamar", "Formasi"], r: [["A", "1.200", "40"], ["B", "900", "20"], ["C", "750", "30"], ["D", "2.000", "50"]] },
+      o: ["Instansi C", "Instansi A", "Instansi B", "Instansi D", "Instansi A dan C"],
+      x: "A = 30, B = 45, C = 25, D = 40 pelamar per formasi. Pelamar paling sedikit bukan jaminan persaingan paling ringan; yang menentukan adalah rasionya." },
+    { m: "anl", h: 1, q: "Berdasarkan tabel produksi berikut, persentase kenaikan produksi dari tahun 2025 ke tahun 2026 adalah ...",
+      tb: { h: ["Tahun", "Produksi (ton)"], r: [["2023", "180"], ["2024", "200"], ["2025", "250"], ["2026", "300"]] },
+      o: ["20%", "16,7%", "25%", "50%", "30%"],
+      x: "Naik 300 − 250 = 50 ton. Persentase dihitung dari tahun awal: 50 ÷ 250 × 100% = 20%." },
+    { m: "anl", h: 1, q: "Berdasarkan tabel berikut, unit dengan jumlah pegawai perempuan terbanyak adalah ...",
+      tb: { h: ["Unit", "Jumlah pegawai", "Bagian perempuan"], r: [["A", "40", "3/8"], ["B", "36", "4/9"], ["C", "30", "2/5"]] },
+      o: ["Unit B", "Unit A", "Unit C", "Unit A dan B sama banyak", "Tidak dapat ditentukan"],
+      x: "A = 3/8 × 40 = 15, B = 4/9 × 36 = 16, C = 2/5 × 30 = 12. Unit A paling banyak pegawainya, tetapi perempuan terbanyak ada di unit B." },
+    { m: "anl", h: 1, q: "Enam orang A, B, C, D, E, dan F duduk mengelilingi meja bundar dengan jarak sama dan menghadap ke tengah. A berhadapan dengan D. B duduk bersebelahan dengan A dan C. E duduk bersebelahan dengan D dan F.\nSiapa yang duduk berhadapan dengan B?",
+      o: ["E", "C", "F", "D", "A"],
+      x: "A dan D berhadapan. B di samping A, lalu C di samping B; E di samping D, lalu F di samping E. Dari kedua kemungkinan susunan, B selalu berhadapan dengan E, dan C berhadapan dengan F." },
+    { m: "anl", h: 1, q: "Lima orang P, Q, R, S, dan T mengantre di loket. T berada paling depan. P berada di depan Q, tetapi di belakang R. S berada tepat di belakang Q.\nSiapa yang berada di urutan ketiga?",
+      o: ["P", "Q", "R", "S", "T"],
+      x: "Urutan dari depan: T, R, P, Q, S. Urutan ketiga adalah P." }
+  ]);
 })();
 
 </script>
@@ -1727,6 +1920,61 @@ select.input { padding-right: 28px; }
       o: ["Menghubungi penghubung di instansi mitra, menanyakan kendalanya, dan menyepakati waktu pengiriman sambil menyiapkan bagian laporan lain", "Mengirim surat pengingat resmi", "Melaporkan keterlambatan kepada atasan", "Menunggu data datang dengan sendirinya", "Mengisi data dengan perkiraan sendiri"],
       x: "Menjaga hubungan kerja sambil aktif mencari solusi menjaga kerja sama tetap efektif." }
   ]);
+
+  // ===================== TAMBAHAN NOV 2026: tema yang dilaporkan peserta SKD 2024 + isu terkini =====================
+  SKD.add("tkp", [
+    { m: "pro", h: 1, q: "Seorang kenalan dari perusahaan asing menawarkan imbalan besar jika Anda memberikan salinan dokumen rencana strategis instansi yang berklasifikasi rahasia. Yang Anda lakukan adalah ...",
+      o: ["Menolak dengan tegas, melaporkan upaya itu kepada atasan dan unit pengamanan informasi, serta memastikan dokumen tetap tersimpan sesuai klasifikasinya",
+        "Menolak dengan tegas dan memutus komunikasi dengan kenalan tersebut",
+        "Menolak, tetapi menawarkan dokumen lain yang sudah dipublikasikan",
+        "Menanyakan dulu untuk apa dokumen itu akan dipakai",
+        "Memberikan salinan karena dokumen itu tidak akan disalahgunakan"],
+      x: "Kerahasiaan negara wajib dijaga. Upaya mendapatkan dokumen rahasia termasuk spionase sehingga harus ditolak dan dilaporkan agar dapat diantisipasi." },
+    { m: "tik", h: 1, q: "Anda melihat orang yang tidak dikenal memotret layar komputer dan dokumen di ruang terbatas kantor Anda. Yang Anda lakukan adalah ...",
+      o: ["Menanyakan identitas dan keperluannya dengan sopan, meminta ia berhenti memotret, lalu melapor ke petugas keamanan",
+        "Segera melapor ke petugas keamanan tanpa menegurnya", "Menegurnya agar berhenti memotret", "Mengawasinya dari jauh sampai ia pergi",
+        "Membiarkannya karena mungkin ia tamu atasan"],
+      x: "Keamanan informasi menuntut tindakan cepat namun santun: hentikan potensi kebocoran dan libatkan pihak berwenang." },
+    { m: "pro", h: 1, q: "Anda ketua RT dan dijadwalkan memimpin kerja bakti hari Sabtu. Pada hari yang sama, atasan meminta Anda hadir dalam rapat mendesak di kantor yang membahas tugas Anda. Yang Anda lakukan adalah ...",
+      o: ["Menghadiri rapat kantor, menyerahkan koordinasi kerja bakti kepada pengurus RT lain dengan arahan jelas, lalu menyusul setelah rapat selesai",
+        "Menghadiri rapat kantor dan meminta warga menunda kerja bakti", "Memimpin kerja bakti sebentar, lalu terlambat datang ke rapat",
+        "Meminta rekan mewakili Anda di rapat kantor", "Memilih memimpin kerja bakti karena sudah dijadwalkan lebih dulu"],
+      x: "Profesionalisme mendahulukan tugas kedinasan yang mendesak tanpa mengabaikan tanggung jawab sosial, misalnya dengan mendelegasikannya secara jelas." },
+    { m: "pro", h: 1, q: "Sehari sebelum acara kantor, atasan memindahkan Anda dari seksi acara ke seksi konsumsi karena ada kendala. Persiapan seksi acara sudah Anda kerjakan sebagian. Yang Anda lakukan adalah ...",
+      o: ["Menerima penugasan baru, menyerahkan catatan pekerjaan seksi acara kepada pengganti, lalu segera mempelajari kebutuhan seksi konsumsi",
+        "Menerima penugasan baru dan langsung bekerja di seksi konsumsi", "Menerima, tetapi tetap ikut mengurus seksi acara",
+        "Meminta atasan mempertimbangkan ulang karena persiapan acara hampir selesai", "Menolak karena tidak memahami tugas seksi konsumsi"],
+      x: "Profesional bersikap fleksibel terhadap kebutuhan organisasi dan memastikan peralihan tugas berjalan rapi." },
+    { m: "sos", h: 1, q: "Menjelang pemilu, dua rekan kerja Anda berdebat panas tentang calon presiden pilihan masing-masing di ruang kerja sehingga suasana menjadi tegang. Yang Anda lakukan adalah ...",
+      o: ["Menengahi dengan santun, mengingatkan kewajiban netralitas ASN dan saling menghormati pilihan, lalu mengajak kembali fokus bekerja",
+        "Mengajak keduanya berhenti berdebat dan kembali bekerja", "Menyampaikan kepada atasan agar menegur keduanya",
+        "Meninggalkan ruangan agar tidak terlibat", "Ikut menyampaikan pendapat tentang calon yang paling layak"],
+      x: "ASN wajib netral dan menjaga harmoni. Perbedaan pilihan dihormati tanpa diperdebatkan di lingkungan kerja." },
+    { m: "pro", h: 1, q: "Anda ASN yang juga aktif sebagai pembuat konten. Sebuah merek menawarkan kerja sama endorsement dengan syarat video dibuat memakai seragam dinas di kantor pada jam kerja. Yang Anda lakukan adalah ...",
+      o: ["Menolak syarat itu, dan bila tetap bekerja sama, membuat konten di luar jam kerja tanpa atribut dinas sesuai kode etik",
+        "Menolak seluruh tawaran kerja sama tersebut", "Meminta izin atasan untuk membuat konten di kantor",
+        "Membuat konten saat jam istirahat dengan seragam dinas", "Menerima karena konten dapat sekaligus mempromosikan instansi"],
+      x: "Kegiatan pribadi tidak boleh memakai atribut, fasilitas, dan waktu kedinasan. Integritas dan profesionalisme menjaga nama baik instansi." },
+    { m: "tik", h: 1, q: "Anda diminta menyusun ringkasan laporan dan tergoda memakai aplikasi kecerdasan artifisial generatif. Laporan itu memuat data pribadi warga. Yang Anda lakukan adalah ...",
+      o: ["Memakai alat yang diizinkan instansi tanpa mengunggah data pribadi atau rahasia, lalu memeriksa ulang hasilnya sebelum dipakai",
+        "Memakai alat AI hanya untuk merapikan bahasa tanpa memeriksa ulang isinya", "Bertanya dulu kepada rekan apakah aman memakai AI",
+        "Tidak memakai AI sama sekali meskipun pekerjaan jadi lebih lama", "Mengunggah seluruh laporan ke aplikasi AI publik agar cepat selesai"],
+      x: "TIK dimanfaatkan untuk kinerja, tetapi pelindungan data pribadi dan ketelitian tetap diutamakan; hasil AI wajib diverifikasi." },
+    { m: "pro", h: 1, q: "Seorang rekan mengajak Anda ikut permainan judi daring yang menurutnya bisa menambah penghasilan dengan cepat. Yang Anda lakukan adalah ...",
+      o: ["Menolak, mengingatkan bahwa judi daring melanggar hukum dan merugikan, serta menyarankan ia mencari bantuan bila sudah kecanduan",
+        "Menolak dan meminta ia tidak mengajak lagi", "Menolak tanpa berkomentar", "Mencoba sekali agar tidak dianggap sombong",
+        "Ikut bermain karena dilakukan di luar jam kerja"],
+      x: "Judi daring adalah tindak pidana dan dilarang bagi ASN. Sikap terbaik menolak sekaligus peduli pada rekan." },
+    { m: "pro", q: "Anda melihat rekan memakai mobil dinas untuk keperluan keluarga pada akhir pekan. Yang Anda lakukan adalah ...",
+      o: ["Mengingatkannya secara pribadi bahwa kendaraan dinas hanya untuk kepentingan dinas, dan melapor sesuai mekanisme bila terus berulang",
+        "Mengingatkannya secara pribadi", "Langsung melaporkannya kepada atasan", "Membicarakan hal itu dengan rekan lain", "Membiarkannya karena banyak pegawai melakukan hal serupa"],
+      x: "Menegakkan aturan dimulai dengan teguran yang menjaga hubungan, lalu ditindaklanjuti lewat jalur resmi bila pelanggaran berlanjut." },
+    { m: "jej", h: 1, q: "Seorang rekan baru belum memahami aplikasi kepegawaian, sementara Anda sedang mengejar tenggat laporan. Ia meminta bantuan. Yang Anda lakukan adalah ...",
+      o: ["Menjelaskan langkah dasarnya secara singkat, memberi panduan tertulis, dan menjanjikan pendampingan lebih lengkap setelah tenggat",
+        "Membantu sepenuhnya saat itu juga meskipun laporan Anda terlambat", "Memintanya bertanya kepada rekan lain",
+        "Memintanya menunggu sampai laporan Anda selesai", "Menyarankannya mencari tutorial sendiri"],
+      x: "Nilai Kolaboratif dijalankan tanpa mengorbankan tanggung jawab sendiri: bantu secukupnya sekarang dan tuntaskan kemudian." }
+  ]);
 })();
 
 </script>
@@ -1836,6 +2084,22 @@ select.input { padding-right: 28px; }
         }
         return out;
       }
+      case "j": {
+        var hR = f.rows.length, wR = 0, r, c;
+        for (r = 0; r < hR; r++) wR = Math.max(wR, f.rows[r].length);
+        var sz = Math.min(92 / wR, 92 / hR), ox = (100 - sz * wR) / 2, oy = (100 - sz * hR) / 2;
+        for (r = 0; r < hR; r++) {
+          for (c = 0; c < f.rows[r].length; c++) {
+            var ch = f.rows[r].charAt(c);
+            if (ch === ".") continue;
+            var x = n2(ox + c * sz), y = n2(oy + r * sz);
+            out += '<rect x="' + x + '" y="' + y + '" width="' + n2(sz) + '" height="' + n2(sz) + '" fill="none" stroke="currentColor" stroke-width="1.6"/>';
+            out += '<text x="' + n2(ox + (c + 0.5) * sz) + '" y="' + n2(oy + (r + 0.5) * sz + sz * 0.17) + '" font-size="' + n2(sz * 0.5) +
+              '" font-weight="700" text-anchor="middle" fill="currentColor" stroke="none" font-family="inherit">' + ch + "</text>";
+          }
+        }
+        return out;
+      }
       default:
         return '<text x="50" y="68" font-size="54" font-weight="700" text-anchor="middle" fill="currentColor" font-family="inherit">?</text>';
     }
@@ -1850,6 +2114,7 @@ select.input { padding-right: 28px; }
       case "n": return "n" + f.n + f.sh + (f.fl ? 1 : 0);
       case "x": return "x" + f.o + f.i + (f.fo ? 1 : 0) + (f.fi ? 1 : 0);
       case "p": return "p" + f.sd + "|" + f.dt;
+      case "j": return "j" + f.rows.join("/");
       default: return "?";
     }
   }
@@ -1860,6 +2125,11 @@ select.input { padding-right: 28px; }
       case "n": return f.n + " " + SHAPE_NAME[f.sh] + (f.fl ? " berisi" : " kosong");
       case "x": return SHAPE_NAME[f.o] + (f.fo ? " berisi" : " kosong") + " dengan " + SHAPE_NAME[f.i] + (f.fi ? " berisi" : " kosong") + " di dalamnya";
       case "p": return SIDES_NAME[f.sd] + " dengan " + f.dt + " titik";
+      case "j": return "jaring-jaring kubus. " + f.rows.map(function (row, r) {
+        var cells = [];
+        for (var c = 0; c < row.length; c++) if (row.charAt(c) !== ".") cells.push(row.charAt(c) + " di kolom " + (c + 1));
+        return "Baris " + (r + 1) + ": " + cells.join(", ");
+      }).join(". ");
       default: return "tanda tanya";
     }
   }
@@ -2089,10 +2359,96 @@ select.input { padding-right: 28px; }
     return { layout: "beda", figs: [], text: "Manakah gambar yang tidak sekelompok dengan empat gambar lainnya?", opts: opts, expl: expl };
   }
 
+  // ---------- JARING-JARING KUBUS ----------
+  // 11 jaring-jaring kubus (hasil enumerasi semua heksomino, lihat scripts/validate.mjs). "#" = sisi.
+  var NETS = [["...#", "####", "...#"], ["..#.", "####", "...#"], [".#..", "####", "...#"], ["#...", "####", "...#"],
+    [".#..", "####", ".#.."], ["..#.", "####", ".#.."], [".#.", ".#.", "###", "..#"], ["###..", "..###"],
+    [".#..", "###.", "..##"], ["#...", "###.", "..##"], ["##..", ".##.", "..##"]];
+  // Menggelindingkan kubus di atas jaring: posisi bawah (D) menyentuh sel yang sedang ditempati.
+  var ROLL = {
+    E: function (o) { return { D: o.E, E: o.U, U: o.W, W: o.D, N: o.N, S: o.S }; },
+    W: function (o) { return { D: o.W, W: o.U, U: o.E, E: o.D, N: o.N, S: o.S }; },
+    N: function (o) { return { D: o.N, N: o.U, U: o.S, S: o.D, E: o.E, W: o.W }; },
+    S: function (o) { return { D: o.S, S: o.U, U: o.N, N: o.D, E: o.E, W: o.W }; }
+  };
+  var STEP = { N: [-1, 0], S: [1, 0], E: [0, 1], W: [0, -1] };
+  /** cells: [[baris, kolom], ...]. Hasil: nomor sisi fisik (0..5) untuk tiap sel; 0-1, 2-3, 4-5 saling berhadapan. */
+  function lipat(cells) {
+    var idx = {}, face = cells.map(function () { return null; }), stack = [[0, { D: 0, U: 1, N: 2, S: 3, E: 4, W: 5 }]];
+    cells.forEach(function (x, i) { idx[x[0] + "," + x[1]] = i; });
+    face[0] = 0;
+    while (stack.length) {
+      var top = stack.pop(), cell = cells[top[0]];
+      for (var d in STEP) {
+        var j = idx[(cell[0] + STEP[d][0]) + "," + (cell[1] + STEP[d][1])];
+        if (j === undefined || face[j] !== null) continue;
+        var o2 = ROLL[d](top[1]);
+        face[j] = o2.D;
+        stack.push([j, o2]);
+      }
+    }
+    return face;
+  }
+  function netCells(rows) {
+    var out = [];
+    rows.forEach(function (row, r) { for (var c = 0; c < row.length; c++) if (row.charAt(c) !== ".") out.push([r, c]); });
+    return out;
+  }
+  function putar(rows) { // 90 derajat searah jarum jam
+    var h = rows.length, w = rows[0].length, out = [];
+    for (var c = 0; c < w; c++) { var line = ""; for (var r = h - 1; r >= 0; r--) line += rows[r].charAt(c); out.push(line); }
+    return out;
+  }
+  function cermin(rows) { return rows.map(function (row) { return row.split("").reverse().join(""); }); }
+  function kubus(R) {
+    var rows = R.pick(NETS).slice(), i;
+    for (i = R.int(0, 3); i > 0; i--) rows = putar(rows);
+    if (R.int(0, 1)) rows = cermin(rows);
+    var cells = netCells(rows), face = lipat(cells), huruf = R.shuffle(["1", "2", "3", "4", "5", "6"]);
+    var label = cells.map(function (x, k) { return huruf[k]; });
+    rows = rows.map(function (row, r) {
+      return row.split("").map(function (ch, c) {
+        if (ch === ".") return ".";
+        for (var k = 0; k < cells.length; k++) if (cells[k][0] === r && cells[k][1] === c) return label[k];
+        return ".";
+      }).join("");
+    });
+    var lawan = function (k) { var f = face[k] ^ 1; return face.indexOf(f); };
+    var pasangan = [], dipakai = {};
+    for (i = 0; i < 6; i++) {
+      if (dipakai[i]) continue;
+      var j = lawan(i);
+      dipakai[i] = dipakai[j] = 1;
+      pasangan.push(label[i] + "–" + label[j]);
+    }
+    var net = { k: "j", rows: rows }, t = R.int(0, 5), opp = lawan(t), ragam = R.int(0, 3), text, opts;
+    var tetangga = label.filter(function (x, k) { return k !== t && k !== opp; });
+    if (ragam === 3) {
+      // Pasangan sisi yang berhadapan.
+      var salah = [];
+      for (i = 0; i < 6; i++) for (var j2 = i + 1; j2 < 6; j2++) if (lawan(i) !== j2) salah.push(label[i] + " dan " + label[j2]);
+      text = "Jika jaring-jaring berikut dirakit menjadi kubus, pasangan sisi yang saling berhadapan adalah ...";
+      opts = ["sisi " + label[t] + " dan " + label[opp]].concat(R.shuffle(salah).slice(0, 4).map(function (x) { return "sisi " + x; }));
+    } else {
+      text = [
+        "Jika jaring-jaring berikut dirakit menjadi kubus, sisi yang berhadapan dengan sisi " + label[t] + " adalah sisi ...",
+        "Jika jaring-jaring berikut dirakit menjadi kubus dan sisi " + label[t] + " menjadi alas, sisi yang menjadi tutup (atas) adalah sisi ...",
+        "Jika jaring-jaring berikut dirakit menjadi kubus, sisi yang tidak mungkin bersebelahan dengan sisi " + label[t] + " adalah sisi ..."
+      ][ragam];
+      opts = [label[opp]].concat(tetangga);
+    }
+    return {
+      layout: "jaring", figs: [net], text: text, opts: opts,
+      expl: "Bayangkan sisi-sisi dilipat ke atas. Dua sisi yang terpisah tepat satu sisi pada satu garis lurus akan saling berhadapan, dan sisi yang saling berhadapan tidak pernah bersebelahan. Pada jaring-jaring ini pasangan yang berhadapan adalah " +
+        pasangan.join(", ") + ". Jadi jawabannya " + (ragam === 3 ? opts[0] : "sisi " + opts[0]) + "."
+    };
+  }
+
   var GEN = {
     "fig-seri": [seriRot, seriRing, seriCount, seriPoly, matriks, matriks],
     "fig-ana": [anaGlyph, anaGlyph, anaNest, anaPoly],
-    "fig-beda": [bedaMirror, bedaRule, bedaRule]
+    "fig-beda": [bedaMirror, bedaRule, bedaRule],
+    "fig-kubus": [kubus]
   };
 
   SKD.fig = {
@@ -2105,7 +2461,7 @@ select.input { padding-right: 28px; }
       for (var tries = 0; tries < 20; tries++) {
         var out = R.pick(list)(R), seen = {}, ok = out.opts.length === 5;
         for (var i = 0; ok && i < out.opts.length; i++) {
-          var s = sig(out.opts[i]);
+          var s = typeof out.opts[i] === "string" ? "t:" + out.opts[i] : sig(out.opts[i]);
           if (seen[s]) ok = false;
           seen[s] = 1;
         }
@@ -2113,7 +2469,10 @@ select.input { padding-right: 28px; }
       }
       return bedaMirror(R);
     },
-    _gen: GEN
+    _gen: GEN,
+    _nets: NETS,
+    _lipat: lipat,
+    _netCells: netCells
   };
 })();
 
@@ -2335,7 +2694,11 @@ select.input { padding-right: 28px; }
     var order = R.shuffle([0, 1, 2, 3, 4]), best = 0, g, opts;
     if (materi.indexOf("fig-") === 0) {
       g = SKD.fig.generate(materi, R);
-      opts = order.map(function (oi, i) { if (oi === 0) best = i; return { fig: g.opts[oi], pts: oi === 0 ? 5 : 0 }; });
+      opts = order.map(function (oi, i) {
+        if (oi === 0) best = i;
+        var o = g.opts[oi];
+        return typeof o === "string" ? { t: o, pts: oi === 0 ? 5 : 0 } : { fig: o, pts: oi === 0 ? 5 : 0 };
+      });
       return {
         id: null, gen: materi, sec: "tiu", m: materi, hot: true, text: g.text, passage: null, table: null,
         stem: g.figs.length ? { layout: g.layout, figs: g.figs } : null, opts: opts, best: best, expl: g.expl
@@ -3375,6 +3738,7 @@ select.input { padding-right: 28px; }
   function stemView(st) {
     if (!st) return null;
     if (st.layout === "matriks") return h("div", { class: "stem matriks" }, st.figs.map(figBox));
+    if (st.layout === "jaring") return h("div", { class: "stem jaring" }, st.figs.map(figBox));
     var kids = [];
     st.figs.forEach(function (f, i) {
       if (st.layout === "analogi" && i > 0) kids.push(h("span", { class: "sep", "aria-hidden": "true" }, i === 2 ? "=" : ":"));
@@ -3792,7 +4156,9 @@ select.input { padding-right: 28px; }
       h("div", { class: "stack" }, h("h1", null, "Peta materi"),
         h("p", { class: "lede" }, "Soal CAT bersifat rahasia dan diacak untuk tiap peserta, jadi tidak ada yang bisa memastikan soal tertentu keluar. Yang bisa dipetakan adalah materi dalam kisi-kisi resmi dan pola soal yang paling sering dilaporkan peserta. Bank soal di sini ditimbang ke pola-pola itu.")),
       h("section", { class: "panel" }, h("h2", null, "Status per " + R.tanggal), h("ul", { class: "plain-list" }, R.status.map(function (t) { return h("li", null, t); }))),
-      h("section", { class: "panel" }, h("h2", null, "Yang paling sering dilaporkan keluar"), h("ul", { class: "plain-list" }, R.temuan.map(function (t) { return h("li", null, t); }))),
+      h("section", { class: "panel" }, h("h2", null, "Yang paling sering dilaporkan keluar"),
+        R.rumus ? h("p", { class: "note info" }, R.rumus) : null,
+        h("ul", { class: "plain-list" }, R.temuan.map(function (t) { return h("li", null, t); }))),
       CFG.sections.map(function (sec) {
         return h("section", { class: "stack" }, h("h2", null, sec.short + " · " + sec.name),
           h("div", { class: "peta-grid" }, CFG.materi.filter(function (m) { return m.sec === sec.id; }).map(function (m) {

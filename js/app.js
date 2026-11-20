@@ -239,6 +239,7 @@
   function stemView(st) {
     if (!st) return null;
     if (st.layout === "matriks") return h("div", { class: "stem matriks" }, st.figs.map(figBox));
+    if (st.layout === "jaring") return h("div", { class: "stem jaring" }, st.figs.map(figBox));
     var kids = [];
     st.figs.forEach(function (f, i) {
       if (st.layout === "analogi" && i > 0) kids.push(h("span", { class: "sep", "aria-hidden": "true" }, i === 2 ? "=" : ":"));
@@ -656,7 +657,9 @@
       h("div", { class: "stack" }, h("h1", null, "Peta materi"),
         h("p", { class: "lede" }, "Soal CAT bersifat rahasia dan diacak untuk tiap peserta, jadi tidak ada yang bisa memastikan soal tertentu keluar. Yang bisa dipetakan adalah materi dalam kisi-kisi resmi dan pola soal yang paling sering dilaporkan peserta. Bank soal di sini ditimbang ke pola-pola itu.")),
       h("section", { class: "panel" }, h("h2", null, "Status per " + R.tanggal), h("ul", { class: "plain-list" }, R.status.map(function (t) { return h("li", null, t); }))),
-      h("section", { class: "panel" }, h("h2", null, "Yang paling sering dilaporkan keluar"), h("ul", { class: "plain-list" }, R.temuan.map(function (t) { return h("li", null, t); }))),
+      h("section", { class: "panel" }, h("h2", null, "Yang paling sering dilaporkan keluar"),
+        R.rumus ? h("p", { class: "note info" }, R.rumus) : null,
+        h("ul", { class: "plain-list" }, R.temuan.map(function (t) { return h("li", null, t); }))),
       CFG.sections.map(function (sec) {
         return h("section", { class: "stack" }, h("h2", null, sec.short + " · " + sec.name),
           h("div", { class: "peta-grid" }, CFG.materi.filter(function (m) { return m.sec === sec.id; }).map(function (m) {

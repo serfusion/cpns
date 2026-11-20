@@ -26,7 +26,7 @@
           "Sejarah pergerakan: Budi Utomo, Sumpah Pemuda, organisasi pergerakan, peristiwa sekitar proklamasi",
           "Identitas nasional dan integrasi nasional (faktor pendorong dan penghambat)",
           "Netralitas ASN dan peran ASN sebagai perekat bangsa"
-        ]
+        , "Organisasi pergerakan (Sarekat Dagang Islam, Taman Siswa, Kongres Perempuan) dan relevansinya kini"]
       },
       {
         id: "int", sec: "twk", name: "Integritas", quota: 6,
@@ -36,7 +36,7 @@
           "Gratifikasi, suap, konflik kepentingan, LHKPN",
           "Kode etik dan disiplin ASN, netralitas dalam pemilu",
           "Trisula pemberantasan korupsi: penindakan, pencegahan, pendidikan"
-        ]
+        , "Nilai integritas pada tokoh dan peristiwa sejarah (Hoegeng, Hatta, Palagan Ambarawa)"]
       },
       {
         id: "bela", sec: "twk", name: "Bela Negara", quota: 6,
@@ -58,7 +58,7 @@
           "Pasal UUD 1945 dan maknanya; Pembukaan (alinea dan pokok pikiran); amandemen",
           "Lembaga negara dan wewenangnya (MPR, DPR, DPD, Presiden, MA, MK, KY, BPK), pemilu, HAM",
           "NKRI, otonomi daerah, wawasan nusantara, Bhinneka Tunggal Ika"
-        ]
+        , "BPUPKI (ketua, sidang I dan II), Panitia Sembilan, hasil sidang PPKI 18 Agustus 1945", "Wewenang MPR, BPK, DPD, KY; pemberhentian Presiden (Pasal 7B)"]
       },
       {
         id: "bind", sec: "twk", name: "Bahasa Indonesia", quota: 5,
@@ -69,7 +69,7 @@
           "Kalimat efektif, kata baku, ejaan (huruf kapital, kata depan, tanda baca)",
           "Majas, jenis paragraf, fakta dan opini",
           "Kedudukan dan fungsi bahasa Indonesia"
-        ]
+        , "Huruf miring dan tanda koma"]
       },
 
       {
@@ -80,12 +80,12 @@
       {
         id: "sil", sec: "tiu", name: "Silogisme", group: "Verbal", quota: 4,
         def: "Menarik kesimpulan dari dua pernyataan yang diberikan.",
-        pola: ["Silogisme dua premis: semua, sebagian, tidak ada", "Modus ponens dan modus tollens (jika-maka)", "Memilih kesimpulan yang pasti benar, bukan yang mungkin benar"]
+        pola: ["Silogisme dua premis: semua, sebagian, tidak ada", "Modus ponens dan modus tollens (jika-maka)", "Memilih kesimpulan yang pasti benar, bukan yang mungkin benar", "Silogisme tiga premis: rantai semua–semua–sebagian dan rantai jika–maka"]
       },
       {
         id: "anl", sec: "tiu", name: "Analitis", group: "Verbal", quota: 4,
         def: "Menganalisis informasi yang diberikan dan menarik kesimpulan.",
-        pola: ["Urutan dan posisi duduk", "Penjadwalan dan pengelompokan bersyarat", "Menarik kesimpulan dari tabel"]
+        pola: ["Urutan dan posisi duduk", "Penjadwalan dan pengelompokan bersyarat", "Menarik kesimpulan dari tabel", "Susunan duduk melingkar dan antrean", "Analisis tabel: rasio, persentase kenaikan, pecahan"]
       },
       {
         id: "hit", sec: "tiu", name: "Berhitung", group: "Numerik", quota: 3,
@@ -118,7 +118,7 @@
         pola: ["Rotasi dan pencerminan", "Perubahan arsiran", "Pertukaran bentuk luar dan dalam"]
       },
       {
-        id: "fig-beda", sec: "tiu", name: "Ketidaksamaan Gambar", group: "Figural", quota: 2, gen: 1,
+        id: "fig-beda", sec: "tiu", name: "Ketidaksamaan Gambar", group: "Figural", quota: 1, gen: 1,
         def: "Melihat perbedaan beberapa gambar.",
         pola: ["Satu gambar hasil cermin di antara gambar hasil putaran", "Aturan jumlah elemen yang dilanggar satu gambar"]
       },
@@ -126,6 +126,11 @@
         id: "fig-seri", sec: "tiu", name: "Serial Gambar", group: "Figural", quota: 2, gen: 1,
         def: "Melihat pola hubungan dalam bentuk gambar.",
         pola: ["Rotasi bertahap", "Pergeseran posisi", "Penambahan elemen", "Pola 9 kotak (3×3)"]
+      },
+      {
+        id: "fig-kubus", sec: "tiu", name: "Jaring-jaring Kubus", group: "Figural", quota: 1, gen: 1,
+        def: "Membayangkan jaring-jaring yang dirakit menjadi kubus: sisi mana yang berhadapan dan mana yang bersebelahan.",
+        pola: ["Sisi yang berhadapan dengan sisi tertentu", "Sisi yang menjadi tutup bila sisi tertentu menjadi alas", "Pasangan sisi yang saling berhadapan"]
       },
 
       {
@@ -146,12 +151,12 @@
       {
         id: "tik", sec: "tkp", name: "Teknologi Informasi dan Komunikasi", quota: 7,
         def: "Memanfaatkan teknologi informasi secara efektif untuk meningkatkan kinerja.",
-        pola: ["Aplikasi dan sistem baru di kantor", "Keamanan data dan kerahasiaan", "Hoaks dan media sosial", "Inovasi digital"]
+        pola: ["Aplikasi dan sistem baru di kantor", "Keamanan data dan kerahasiaan", "Hoaks dan media sosial", "Inovasi digital", "Kecerdasan artifisial generatif dan pelindungan data pribadi"]
       },
       {
         id: "pro", sec: "tkp", name: "Profesionalisme", quota: 8,
         def: "Melaksanakan tugas dan fungsi sesuai dengan tuntutan jabatan.",
-        pola: ["Prioritas dan tenggat", "Tanggung jawab atas kesalahan", "Menempatkan diri di antara tugas kantor dan urusan lain", "Belajar dan berinovasi"]
+        pola: ["Prioritas dan tenggat", "Tanggung jawab atas kesalahan", "Menempatkan diri di antara tugas kantor dan urusan lain", "Belajar dan berinovasi", "Kerahasiaan dan spionase, judi daring, perubahan penugasan mendadak"]
       },
       {
         id: "rad", sec: "tkp", name: "Anti Radikalisme", quota: 8,
@@ -160,26 +165,31 @@
       }
     ],
     riset: {
-      tanggal: "16 November 2026",
+      tanggal: "20 November 2026",
       status: [
-        "Rekrutmen CPNS 2026 diumumkan pemerintah pada 6 November 2026; pembuatan akun SSCASN dibuka sejak 14 November 2026.",
-        "Rincian formasi dan jadwal direncanakan terbit sekitar 20–23 November 2026. Jadwal SKD belum diumumkan.",
-        "Keputusan Menteri PANRB tentang ambang batas SKD CPNS 2026 belum terbit. Acuan terakhir untuk CPNS adalah KepmenPANRB 321/2024: 110 soal, 100 menit, ambang batas TWK 65, TIU 80, TKP 166.",
-        "SKD sekolah kedinasan 2026 (KepmenPANRB 406/2026) memakai struktur yang sama dengan ambang batas TKP 156."
+        "Formasi dan jadwal pendaftaran CPNS 2026 belum terbit per 20 November 2026; BKN menargetkan pendaftaran pada pekan keempat November. Jadwal SKD belum diumumkan.",
+        "SKD sekolah kedinasan 2026 sudah berlangsung 22 September–7 Oktober 2026 dengan CAT BKN: 110 soal, 100 menit, ambang batas TWK 65, TIU 80, TKP 156 (KepmenPANRB 406/2026).",
+        "Ambang batas SKD CPNS 2026 belum ditetapkan. Acuan terakhir untuk CPNS adalah KepmenPANRB 321/2024: TWK 65, TIU 80, TKP 166.",
+        "Soal CAT BKN rahasia dan diacak per peserta. Tidak ada cara sah mendapatkan soal yang akan keluar; tawaran \"bocoran\" adalah penipuan dan dapat menggugurkan peserta."
       ],
+      rumus: "Prioritas pola = tercantum di kisi-kisi resmi × jumlah rangkuman laporan peserta yang menyebutnya (0–3). Soal bertanda Sering keluar mengikuti pola dengan dua laporan atau lebih.",
       temuan: [
-        "TWK dinilai paling sulit oleh peserta 2024: soal penalaran panjang, bukan hafalan. Paling banyak dilaporkan: penerapan nilai Pancasila, nasionalisme, amandemen UUD, peristiwa sekitar kemerdekaan, netralitas ASN, pemilu, integritas, HAM, wewenang MK dan KY.",
-        "TIU: silogisme dua premis, analogi tiga kata, analisis tabel, deret angka, perbandingan kuantitatif, soal cerita (perbandingan senilai, persentase untung, tambahan pekerja), akar pangkat sederhana, dan figural termasuk pola 9 kotak.",
-        "TKP: soal panjang dengan opsi pendek; tema teknologi, isu terkini, prioritas tugas, inovasi di kantor, kerahasiaan, dan isu SARA dalam pemilu."
+        "TWK, dilaporkan di 3 rangkuman peserta SKD CPNS 2024: penerapan sila (kasus diskriminasi, golput), nilai integritas termasuk tokoh BPUPKI dan peristiwa sejarah, BPUPKI/PPKI, lembaga negara (MA, MK, MPR, KY), gagasan utama paragraf. Di 2 rangkuman: penerapan pasal UUD, sejarah organisasi pergerakan, nasionalisme konten kreator, huruf miring.",
+        "TIU, di 3 rangkuman: silogisme (termasuk tiga premis), figural pola 9 kotak, analisis tabel. Di 2 rangkuman: deret angka, perbandingan senilai dan berbalik nilai, berhitung cepat, kecepatan, hubungan x dan y, jaring-jaring kubus, antrean dan susunan duduk.",
+        "TKP, di 3 rangkuman: prioritas antara kesibukan pribadi atau masyarakat dan tugas kantor. Di 2 rangkuman: sikap terhadap spionase dan penerapan BerAKHLAK. Di 1 rangkuman: perbedaan pilihan politik, konten kreator, pelatihan, perubahan penugasan, inovasi TIK.",
+        "SKD kedinasan 2026: peserta melaporkan TIU sebagai bagian paling menantang; belum ada rincian soal yang dapat diverifikasi."
       ],
       sumber: [
-        { t: "Status CPNS 2026 (Drillo, diperbarui 16 Nov 2026)", u: "https://www.drillo.id/blog/cpns-2026-dibuka-november" },
-        { t: "Materi dan ambang batas SKD 2026 (tes-cpns.com)", u: "https://tes-cpns.com/artikel/materi-skd-cpns-2026-lengkap-twk-tiu-dan-tkp" },
-        { t: "Kisi-kisi SKD CPNS 2024 dari KemenPANRB (Kompas TV)", u: "https://www.kompas.tv/ekonomi/537047/kisi-kisi-soal-twk-tiu-tkp-materi-skd-cpns-2024-resmi-dari-kemenpanrb-ini-link-pdf-nya" },
-        { t: "Rangkuman laporan peserta SKD 2024 (AyoJakarta)", u: "https://www.ayojakarta.com/news/0316335/rangkuman-penting-fr-skd-cpns-2024-insight-dari-field-report-3-hari-pertama-yang-wajib-kamu-baca" },
+        { t: "Rangkuman FR SKD CPNS 2024, 16–25 Okt (AyoJakarta)", u: "https://www.ayojakarta.com/news/7613818100/terbaru-dan-lengkap-rangkuman-fr-skd-cpns-2024-sejak-hari-pertama-hingga-kemarin-twk-tiu-tkp-pasti-keluar" },
+        { t: "Rangkuman FR SKD CPNS 2024, 28 Okt (AyoJakarta)", u: "https://www.ayojakarta.com/news/7613828932/lengkap-ini-rangkuman-fr-skd-cpns-2024-untuk-materi-twk-tiu-tkp-yang-dipastikan-keluar-saat-tes" },
+        { t: "Rekap FR SKD CPNS 2024, 24 Okt (AyoJakarta)", u: "https://www.ayojakarta.com/news/0315783/catat-rekap-fr-skd-cpns-2024-lengkap-untuk-soal-tiu-twk-dan-tkp" },
         { t: "Laporan peserta SKD 2024 (ASN Institute)", u: "https://www.asninstitute.id/field-report-cpns-2024/" },
-        { t: "Siaran pers BKN: 110 soal dalam 100 menit", u: "https://www.bkn.go.id/storage/2021/08/SIARAN-PERS-Peserta-Calon-PNS-2021-akan-Berkompetisi-dalam-100-Menit-untuk-Menjawab-110-Soal-SKD-dengan-CAT-BKN.pdf" },
-        { t: "SKD sekolah kedinasan 2026 (Bisnis.com)", u: "https://kabar24.bisnis.com/read/20260819/243/1997257/jadwal-lengkap-pendaftaran-cpns-2026-lewat-jalur-sekolah-kedinasan" }
+        { t: "FR SKD Sekolah Kedinasan 2026: TIU jadi tantangan", u: "https://www.bimbelptk.com/blog/fr-skd-sekolah-kedinasan-2026--tiu-jadi-tantangan--cek-persiapan-sebelum-ujian" },
+        { t: "Materi SKD Sekolah Kedinasan 2026 dan KepmenPANRB 406/2026", u: "https://www.bimbelptk.com/blog/resmi--bkn-ungkap-materi-skd-sekolah-kedinasan-2026--ini-rincian-twk--tiu--dan-tkp" },
+        { t: "Passing grade SKD Sekolah Kedinasan 2026 (Kompas)", u: "https://money.kompas.com/read/2026/09/24/095752726/passing-grade-skd-sekolah-kedinasan-2026-cek-nilai-minimal-twk-tiu-dan-tkp" },
+        { t: "Status CPNS 2026 (Drillo)", u: "https://www.drillo.id/blog/cpns-2026-dibuka-november" },
+        { t: "Kisi-kisi SKD CPNS 2024 dari KemenPANRB (Kompas TV)", u: "https://www.kompas.tv/ekonomi/537047/kisi-kisi-soal-twk-tiu-tkp-materi-skd-cpns-2024-resmi-dari-kemenpanrb-ini-link-pdf-nya" },
+        { t: "Siaran pers BKN: 110 soal dalam 100 menit", u: "https://www.bkn.go.id/storage/2021/08/SIARAN-PERS-Peserta-Calon-PNS-2021-akan-Berkompetisi-dalam-100-Menit-untuk-Menjawab-110-Soal-SKD-dengan-CAT-BKN.pdf" }
       ]
     }
   };

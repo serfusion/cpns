@@ -44,6 +44,41 @@ SKD.bankRaw.forEach((q, i) => {
 const usedPassages = new Set(SKD.bankRaw.map((q) => q.p).filter(Boolean));
 for (const k of Object.keys(SKD.passages)) if (!usedPassages.has(k)) errors.push(`bacaan "${k}" tidak dipakai`);
 
+// ---------- uji pembangkit jaring-jaring kubus ----------
+{
+  const F = SKD.fig;
+  const cellsOf = (rows) => F._netCells(rows);
+  const rot = (rows) => rows[0].split("").map((_, c) => rows.map((r) => r[c]).reverse().join(""));
+  const mir = (rows) => rows.map((r) => r.split("").reverse().join(""));
+  if (F._nets.length !== 11) errors.push(`jaring-jaring kubus harus 11, ada ${F._nets.length}`);
+  for (const base of F._nets) {
+    let rows = base;
+    for (let i = 0; i < 4; i++) {
+      for (const v of [rows, mir(rows)]) {
+        const face = F._lipat(cellsOf(v));
+        if (new Set(face).size !== 6) errors.push(`jaring ${v.join("/")} tidak terlipat menjadi 6 sisi berbeda`);
+      }
+      rows = rot(rows);
+    }
+  }
+  // Fakta yang sudah dikenal: pada deret lurus 4 sisi, sisi ke-1 dan ke-3 serta ke-2 dan ke-4 berhadapan.
+  const known = ["#...", "####", "#..."], kc = cellsOf(known), kf = F._lipat(kc);
+  const at = (r, c) => kf[kc.findIndex(([a, b]) => a === r && b === c)];
+  if ((at(1, 0) ^ 1) !== at(1, 2) || (at(1, 1) ^ 1) !== at(1, 3) || (at(0, 0) ^ 1) !== at(2, 0)) errors.push("lipatan jaring-jaring tidak sesuai fakta sisi berhadapan");
+  const R = SKD.engine.rng(20261120);
+  for (let i = 0; i < 400; i++) {
+    const g = F.generate("fig-kubus", R);
+    if (g.opts.length !== 5 || new Set(g.opts).size !== 5) errors.push("soal kubus: opsi tidak 5 atau kembar");
+    const rows = g.figs[0].rows, cells = cellsOf(rows), face = F._lipat(cells);
+    const lab = cells.map(([r, c]) => rows[r][c]);
+    const opp = (x) => lab[face.indexOf(face[lab.indexOf(x)] ^ 1)];
+    const m = g.text.match(/sisi ([1-6])/), ans = g.opts[0];
+    if (/pasangan/.test(g.text)) { const [, a, , b] = ans.split(" "); if (opp(a) !== b) errors.push("soal kubus: pasangan salah"); }
+    else if (!m || opp(m[1]) !== ans) errors.push("soal kubus: kunci salah " + g.text);
+  }
+  console.log("Jaring-jaring kubus: 11 bentuk x 8 posisi terlipat benar, 400 soal acak terperiksa.");
+}
+
 let total = 0;
 for (const sec of SKD.config.sections) {
   const rows = SKD.config.materi.filter((m) => m.sec === sec.id);

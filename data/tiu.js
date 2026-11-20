@@ -235,4 +235,48 @@
     { m: "cer", h: 1, q: "Sebuah motor menghabiskan 1 liter bensin untuk 45 km. Harga bensin Rp10.000 per liter. Biaya bensin untuk perjalanan pulang-pergi ke kota berjarak 135 km adalah ...", o: ["Rp60.000", "Rp30.000", "Rp54.000", "Rp66.000", "Rp45.000"],
       x: "Jarak total 270 km membutuhkan 270 ÷ 45 = 6 liter, biayanya 6 × 10.000 = 60.000." }
   ]);
+
+  // ===================== TAMBAHAN NOV 2026: pola yang dilaporkan peserta SKD 2024 =====================
+  // Silogisme tiga premis, analisis tabel, susunan duduk melingkar, antrean.
+  SKD.add("tiu", [
+    { m: "sil", h: 1, q: "Semua pegawai yang lulus uji kompetensi mendapat sertifikat.\nSemua pemegang sertifikat boleh menjadi instruktur.\nSebagian staf baru lulus uji kompetensi.\nKesimpulan yang tepat adalah ...",
+      o: ["Sebagian staf baru boleh menjadi instruktur", "Semua staf baru boleh menjadi instruktur", "Semua instruktur adalah staf baru",
+        "Sebagian staf baru tidak boleh menjadi instruktur", "Tidak ada staf baru yang boleh menjadi instruktur"],
+      x: "Rantai: lulus uji → bersertifikat → boleh menjadi instruktur. Karena sebagian staf baru lulus uji, sebagian staf baru boleh menjadi instruktur. Tentang staf baru lainnya tidak dapat dipastikan." },
+    { m: "sil", h: 1, q: "Jika hujan deras, maka sungai meluap.\nJika sungai meluap, maka jalan desa tergenang.\nJalan desa tidak tergenang.\nKesimpulan yang tepat adalah ...",
+      o: ["Hujan tidak deras", "Hujan deras", "Sungai meluap", "Sungai meluap, tetapi jalan desa tidak tergenang", "Tidak dapat ditarik kesimpulan"],
+      x: "Dari p → q dan q → r diperoleh p → r. Karena tidak r, maka tidak p (modus tollens): hujan tidak deras, dan sungai pun tidak meluap." },
+    { m: "sil", h: 1, q: "Semua peserta pelatihan wajib membawa laptop.\nSebagian pembawa laptop memakai sistem operasi terbaru.\nRina adalah peserta pelatihan.\nKesimpulan yang pasti benar adalah ...",
+      o: ["Rina membawa laptop", "Rina memakai sistem operasi terbaru", "Rina tidak memakai sistem operasi terbaru",
+        "Semua peserta memakai sistem operasi terbaru", "Rina bukan pembawa laptop"],
+      x: "Rina peserta, maka ia membawa laptop. Premis kedua hanya menyebut sebagian pembawa laptop, sehingga sistem operasi Rina tidak dapat dipastikan." },
+    { m: "sil", h: 1, q: "Tidak ada pegawai yang sering terlambat mendapat tunjangan penuh.\nSemua pegawai bagian keuangan mendapat tunjangan penuh.\nSebagian pegawai yang rajin berolahraga adalah pegawai bagian keuangan.\nKesimpulan yang tepat adalah ...",
+      o: ["Sebagian pegawai yang rajin berolahraga tidak sering terlambat", "Semua pegawai yang rajin berolahraga tidak sering terlambat",
+        "Sebagian pegawai yang rajin berolahraga sering terlambat", "Semua pegawai yang tidak sering terlambat bekerja di bagian keuangan",
+        "Tidak ada pegawai bagian keuangan yang rajin berolahraga"],
+      x: "Pegawai keuangan mendapat tunjangan penuh, sehingga mereka tidak sering terlambat. Sebagian yang rajin berolahraga adalah pegawai keuangan, jadi sebagian yang rajin berolahraga tidak sering terlambat." },
+    { m: "sil", h: 1, q: "Andi memilih formasi A atau formasi B.\nJika memilih formasi A, Andi harus pindah ke luar Jawa.\nAndi tidak pindah ke luar Jawa.\nKesimpulan yang tepat adalah ...",
+      o: ["Andi memilih formasi B", "Andi memilih formasi A", "Andi tidak memilih formasi mana pun", "Andi memilih formasi A dan B", "Tidak dapat ditarik kesimpulan"],
+      x: "Modus tollens: tidak pindah, maka tidak memilih A. Silogisme disjungtif: A atau B, bukan A, maka B." }
+  ]);
+  SKD.add("tiu", [
+    { m: "anl", h: 1, q: "Berdasarkan tabel berikut, instansi dengan jumlah pelamar per formasi paling sedikit adalah ...",
+      tb: { h: ["Instansi", "Pelamar", "Formasi"], r: [["A", "1.200", "40"], ["B", "900", "20"], ["C", "750", "30"], ["D", "2.000", "50"]] },
+      o: ["Instansi C", "Instansi A", "Instansi B", "Instansi D", "Instansi A dan C"],
+      x: "A = 30, B = 45, C = 25, D = 40 pelamar per formasi. Pelamar paling sedikit bukan jaminan persaingan paling ringan; yang menentukan adalah rasionya." },
+    { m: "anl", h: 1, q: "Berdasarkan tabel produksi berikut, persentase kenaikan produksi dari tahun 2025 ke tahun 2026 adalah ...",
+      tb: { h: ["Tahun", "Produksi (ton)"], r: [["2023", "180"], ["2024", "200"], ["2025", "250"], ["2026", "300"]] },
+      o: ["20%", "16,7%", "25%", "50%", "30%"],
+      x: "Naik 300 − 250 = 50 ton. Persentase dihitung dari tahun awal: 50 ÷ 250 × 100% = 20%." },
+    { m: "anl", h: 1, q: "Berdasarkan tabel berikut, unit dengan jumlah pegawai perempuan terbanyak adalah ...",
+      tb: { h: ["Unit", "Jumlah pegawai", "Bagian perempuan"], r: [["A", "40", "3/8"], ["B", "36", "4/9"], ["C", "30", "2/5"]] },
+      o: ["Unit B", "Unit A", "Unit C", "Unit A dan B sama banyak", "Tidak dapat ditentukan"],
+      x: "A = 3/8 × 40 = 15, B = 4/9 × 36 = 16, C = 2/5 × 30 = 12. Unit A paling banyak pegawainya, tetapi perempuan terbanyak ada di unit B." },
+    { m: "anl", h: 1, q: "Enam orang A, B, C, D, E, dan F duduk mengelilingi meja bundar dengan jarak sama dan menghadap ke tengah. A berhadapan dengan D. B duduk bersebelahan dengan A dan C. E duduk bersebelahan dengan D dan F.\nSiapa yang duduk berhadapan dengan B?",
+      o: ["E", "C", "F", "D", "A"],
+      x: "A dan D berhadapan. B di samping A, lalu C di samping B; E di samping D, lalu F di samping E. Dari kedua kemungkinan susunan, B selalu berhadapan dengan E, dan C berhadapan dengan F." },
+    { m: "anl", h: 1, q: "Lima orang P, Q, R, S, dan T mengantre di loket. T berada paling depan. P berada di depan Q, tetapi di belakang R. S berada tepat di belakang Q.\nSiapa yang berada di urutan ketiga?",
+      o: ["P", "Q", "R", "S", "T"],
+      x: "Urutan dari depan: T, R, P, Q, S. Urutan ketiga adalah P." }
+  ]);
 })();
