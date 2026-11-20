@@ -4,17 +4,23 @@ Aplikasi web latihan SKD CPNS (TWK, TIU, TKP) yang meniru alur ujian CAT.
 
 ## Fitur
 
-- **Koreksi langsung**: begitu memilih jawaban, pilihan salah jadi merah dan jawaban benar jadi hijau, lalu pembahasan muncul.
-- **Semua diacak**: urutan soal dan urutan pilihan A–E diacak setiap kali.
-- **Ulangi sampai benar**: soal yang salah muncul lagi beberapa nomor kemudian dengan pilihan diacak ulang, dan masuk daftar *Ulangi salah* sampai dijawab benar.
-- **Simulasi CAT**: 110 soal (TWK 30, TIU 35, TKP 45), 100 menit, panel nomor soal, *Simpan dan Lanjutkan*, *Lewatkan soal ini*, *Selesai Ujian*. Bisa mode koreksi langsung atau mode ujian asli (koreksi di akhir). Ada paket setengah 55 soal / 50 menit.
-- **Nilai & ambang batas**: TWK/TIU benar 5, salah 0; TKP 1–5 poin. Ambang batas 65 / 80 / 166 (KepmenPANRB 321/2024) bisa diubah di Pengaturan bila aturan 2026 berbeda.
-- **Soal prioritas**: soal bertanda *Sering keluar* mengikuti pola yang paling banyak dilaporkan peserta SKD 2024.
-- **Soal figural dan deret angka tanpa batas**: dibangkitkan otomatis dari aturan, jadi jawabannya pasti benar dan selalu baru.
-- Statistik per materi, riwayat simulasi, peta materi + sumber riset, progres tersimpan dan sesi bisa dilanjutkan.
-- **Strategi formasi CPNS 2026** (menu *Formasi*): jabatan yang terbukti menerima S-1 Ilmu Komunikasi (dari formasi dan rekap hasil CPNS 2024), peringkat target, aturan memilih formasi, cek profil (IPK, akreditasi saat lulus, usia, filter jabatan yang banyak bicara di depan orang), kalkulator peluang (rasio pelamar per kursi dan posisi yang harus dicapai untuk ikut SKB), daftar langkah, dan jalur non-CPNS. Data ada di `data/formasi.js`.
+Tampilan dirombak dengan teknik REA (*Craft Anything*): **Study** (tampilan acuan diukur sebagai pengunjung: font Plus Jakarta Sans,
+navy + kuning amber; layar ujian dari buku panduan CAT resmi BKN), **Build** (kode sendiri, tanpa menyalin kode, logo, atau merek acuan),
+**Check** (tangkapan layar dibandingkan dengan acuan dan diuji di Chromium), **Ready** (APK).
 
-Bank soal: 277 soal tulis tangan (TWK 128, TIU 88, TKP 61) + soal figural, jaring-jaring kubus, dan deret otomatis. Semua kunci TWK/TIU sudah diperiksa ulang; soal logika baru diuji dengan pencarian menyeluruh.
+- **Beranda gaya dasbor**: sapaan dengan nama Anda, jumlah tryout dan skor terbaik, kartu *Hasil terakhir* dengan batang skor per subtes
+  dan garis ambang batas, riwayat tryout.
+- **Tryout SKD Paket 1–6**: paket tetap (soal, urutan, dan pilihan selalu sama, jadi kemajuan bisa dibandingkan), tryout acak, dan paket setengah.
+- **Layar ujian seperti CAT BKN**: halaman informasi peserta sebelum mulai; baris informasi ujian (nomor peserta, nama, batas waktu,
+  jumlah soal, soal dijawab, belum dijawab, Selesai Ujian, sisa waktu); submateri di atas *Soal No.*; pilihan bulat A–E; jawaban baru
+  tersimpan setelah **Simpan dan Lanjutkan**; **Lewatkan soal ini**; kotak nomor merah/hijau berisi huruf jawaban, berhalaman 40 nomor
+  dengan tombol On/Off; Selesai Ujian aktif setelah semua soal dijawab; dialog konfirmasi dan halaman nilai bergaya CAT.
+- **Hasil + analisis per topik** (TWK per materi, TIU Verbal/Numerik/Figural, TKP per aspek) dan **pembahasan** (disimpan untuk 3 tryout terakhir).
+- **Lembar hasil** 1080×1350 dengan stempel LOLOS/BELUM LOLOS, selisih terhadap ambang batas, topik terkuat dan perlu dilatih;
+  di APK bisa disimpan ke Galeri atau dibagikan.
+- **Latihan per materi** dengan koreksi langsung, **ulangi soal salah**, **riwayat & statistik**, **peta materi**, **strategi formasi**, **audio hafalan**.
+- Soal figural, deret angka, dan **jaring-jaring kubus** dibangkitkan otomatis dari aturan, jadi kuncinya pasti benar.
+- Ambang batas 65 / 80 / 166 (KepmenPANRB 321/2024) bisa diubah di Pengaturan bila aturan 2026 berbeda.
 
 ## Audio hafalan
 
@@ -37,7 +43,7 @@ APK dibangun otomatis oleh GitHub Actions setiap ada push (`.github/workflows/ap
 
 Alternatif: tab **Actions** → *Build APK* → run terbaru → bagian *Artifacts* → `latihan-skd-apk`.
 
-Kode Android ada di folder `android/` (WebView sederhana yang memuat `dist/latihan-skd.html`, bisa dipakai offline).
+Kode Android ada di folder `android/` (WebView yang memuat `dist/latihan-skd.html`, bisa dipakai offline, plus jembatan kecil untuk menyimpan lembar hasil ke Galeri).
 
 ## Menjalankan
 

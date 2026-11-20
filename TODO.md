@@ -91,3 +91,12 @@ SKD.add("tkp", [
 Catatan data: angka 2024 diambil dari lampiran pengumuman Kemendikbudristek, Kemensetneg/Setkab, Bawaslu, dan rekap hasil akhir BKN untuk Mahkamah Agung
 (lihat daftar `sumber` di `data/formasi.js`). Penilaian persaingan adalah analisis, bukan data resmi. Isian pengguna di halaman ini
 disimpan di localStorage dengan kunci `skd.formasi.v1` (tidak ikut sinkron).
+
+## 5. Rombak tampilan (teknik REA, clean room) — 20 November 2026
+
+- [x] Study: ukur tampilan acuan sebagai pengunjung (font, warna, jarak); layar ujian dari buku panduan CAT resmi BKN
+- [x] Build: `js/app.js` ditulis ulang (beranda, tryout paket, persiapan, ujian CAT, nilai, hasil, pembahasan, lembar), `css/style.css` baru,
+      `js/lembar.js` (gambar lembar hasil), font Plus Jakarta Sans lokal (`fonts/`, OFL) disisipkan saat build
+- [x] Check: alur penuh diuji di Chromium (paket tetap deterministik, jawaban baru tersimpan setelah Simpan dan Lanjutkan,
+      Selesai Ujian aktif setelah semua dijawab, tanpa galat, tanpa gulir samping di 360–1366 px, mode gelap)
+- [ ] Uji APK di HP: simpan/bagikan lembar hasil (Android 10 ke atas), tampilan font offline

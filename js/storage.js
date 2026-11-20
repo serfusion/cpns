@@ -4,14 +4,14 @@
   "use strict";
   var SKD = (window.SKD = window.SKD || {});
   var CFG = SKD.config;
-  var KEY = "skd.progres.v1", KEY_SESI = "skd.sesi.v1";
+  var KEY = "skd.progres.v1", KEY_SESI = "skd.sesi.v1", KEY_ULAS = "skd.ulas.v1";
 
   function num(v) { return typeof v === "number" && isFinite(v) ? v : 0; }
   function blank() {
     var pass = {};
     CFG.sections.forEach(function (s) { pass[s.id] = s.pass; });
     // q[id] = [dilihat, benar, beruntun benar, waktu terakhir, poin terakhir, jumlah poin]
-    return { v: 1, q: {}, hist: [], set: { pass: pass, instant: true, requeue: true, ts: 0 }, resetAt: 0 };
+    return { v: 1, q: {}, hist: [], set: { pass: pass, instant: true, requeue: true, nama: "", nop: "", ts: 0 }, resetAt: 0 };
   }
   function sane(d) {
     var b = blank(), k;
@@ -32,6 +32,8 @@
       }
       b.set.instant = d.set.instant !== false;
       b.set.requeue = d.set.requeue !== false;
+      b.set.nama = typeof d.set.nama === "string" ? d.set.nama.slice(0, 40) : "";
+      b.set.nop = typeof d.set.nop === "string" && /^\d{6,16}$/.test(d.set.nop) ? d.set.nop : "";
       b.set.ts = num(d.set.ts);
     }
     b.resetAt = num(d.resetAt);
@@ -185,12 +187,40 @@
       try { var s = JSON.parse(raw); return s && Array.isArray(s.items) && s.items.length ? s : null; } catch (e) { return null; }
     },
     clearSession: function () { lsDel(KEY_SESI); },
+    setNama: function (v) { data.set.nama = String(v || "").trim().slice(0, 40); data.set.ts = Date.now(); persist(); emit(); },
+    /** Nomor peserta tiruan untuk layar ujian; dibuat sekali lalu disimpan. */
+    nomorPeserta: function () {
+      if (!data.set.nop) {
+        var n = "2026";
+        for (var i = 0; i < 8; i++) n += Math.floor(Math.random() * 10);
+        data.set.nop = n;
+        persist();
+      }
+      return data.set.nop;
+    },
+    /** Pembahasan tryout terakhir (hanya di perangkat ini, maksimal 3 percobaan). */
+    saveUlas: function (entry) {
+      var list = [];
+      try { list = JSON.parse(lsGet(KEY_ULAS) || "[]"); } catch (e) { list = []; }
+      if (!Array.isArray(list)) list = [];
+      list.push(entry);
+      while (list.length > 3) list.shift();
+      if (!lsSet(KEY_ULAS, JSON.stringify(list)) && list.length > 1) lsSet(KEY_ULAS, JSON.stringify(list.slice(-1)));
+    },
+    ulas: function (t) {
+      var list = [];
+      try { list = JSON.parse(lsGet(KEY_ULAS) || "[]"); } catch (e) { list = []; }
+      if (!Array.isArray(list)) return null;
+      for (var i = list.length - 1; i >= 0; i--) if (list[i] && list[i].t === t && Array.isArray(list[i].items)) return list[i];
+      return null;
+    },
     resetAll: function () {
       var set = data.set;
       data = blank();
       data.set = set;
       data.resetAt = Date.now();
       lsDel(KEY_SESI);
+      lsDel(KEY_ULAS);
       persist();
       emit();
     },

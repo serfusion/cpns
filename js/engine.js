@@ -303,6 +303,10 @@
     });
     return out.map(wrap);
   }
+  /** Paket tryout tetap: soal, urutan, dan pilihan selalu sama untuk nomor paket yang sama. */
+  function buildPackage(no, scale) {
+    return buildSimulation(scale || "full", {}, makeRng(7919 * no + (scale === "mini" ? 104729 : 0)));
+  }
   function simCount(sec, scale) {
     if (scale !== "mini") return sec.count;
     return { twk: 15, tiu: 18, tkp: 22 }[sec.id];
@@ -356,7 +360,7 @@
     materi: function (id) { return materiById[id]; },
     section: function (id) { return sectionById[id]; },
     present: present, generate: generate, genDeret: genDeret, again: again,
-    buildPractice: buildPractice, buildSimulation: buildSimulation, buildFromIds: buildFromIds,
+    buildPractice: buildPractice, buildSimulation: buildSimulation, buildPackage: buildPackage, buildFromIds: buildFromIds,
     simCount: simCount, allocate: allocate, needsReview: needsReview, score: score,
     reset: function () { cache = null; }
   };
