@@ -14,7 +14,18 @@ Aplikasi web latihan SKD CPNS (TWK, TIU, TKP) yang meniru alur ujian CAT.
 - Statistik per materi, riwayat simulasi, peta materi + sumber riset, progres tersimpan dan sesi bisa dilanjutkan.
 - **Strategi formasi CPNS 2026** (menu *Formasi*): jabatan yang terbukti menerima S-1 Ilmu Komunikasi (dari formasi dan rekap hasil CPNS 2024), peringkat target, aturan memilih formasi, cek profil (IPK, akreditasi saat lulus, usia, filter jabatan yang banyak bicara di depan orang), kalkulator peluang (rasio pelamar per kursi dan posisi yang harus dicapai untuk ikut SKB), daftar langkah, dan jalur non-CPNS. Data ada di `data/formasi.js`.
 
-Bank soal: 230 soal tulis tangan (TWK 101, TIU 78, TKP 51) + soal figural & deret otomatis.
+Bank soal: 277 soal tulis tangan (TWK 128, TIU 88, TKP 61) + soal figural, jaring-jaring kubus, dan deret otomatis. Semua kunci TWK/TIU sudah diperiksa ulang; soal logika baru diuji dengan pencarian menyeluruh.
+
+## Audio hafalan
+
+Semua soal tulis dibacakan: soal, lalu jawaban benar (TKP: jawaban terbaik dan yang harus dihindari), lalu pembahasan.
+Satu MP3 per materi, soal bertanda *Sering keluar* lebih dulu, total sekitar 2,5 jam. Dibuat otomatis oleh GitHub Actions
+(`.github/workflows/audio.yml`) setiap bank soal berubah, memakai Piper TTS dengan suara `id_ID-news_tts-medium`.
+
+Unduh di halaman **Releases**, rilis *Audio Hafalan SKD* terbaru: `audio-hafalan-skd.zip` atau per materi.
+
+Membuat sendiri: `node scripts/audio-teks.mjs > naskah.json` lalu `python scripts/audio.py naskah.json model.onnx audio`
+(butuh `pip install piper-tts==1.8.0` dan ffmpeg).
 
 ## Unduh APK (Android)
 

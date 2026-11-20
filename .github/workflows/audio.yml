@@ -1,0 +1,58 @@
+name: Build audio
+
+# Audio hafalan (soal -> jawaban benar -> pembahasan) dibuat ulang setiap bank soal berubah.
+on:
+  push:
+    branches: [main, claude/charming-gates-mu7s4i, claude/admiring-cerf-9bgc4h]
+    paths: ["data/**", "js/config.js", "scripts/audio*", ".github/workflows/audio.yml"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  audio:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Pasang ffmpeg, Piper, dan suara bahasa Indonesia
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg zip
+          pip install -q piper-tts==1.8.0
+          mkdir -p model
+          base=https://huggingface.co/rhasspy/piper-voices/resolve/main/id/id_ID/news_tts/medium
+          curl -sSfL -o model/id.onnx "$base/id_ID-news_tts-medium.onnx"
+          curl -sSfL -o model/id.onnx.json "$base/id_ID-news_tts-medium.onnx.json"
+          echo "ed8f02aa593f7af6b19acbdb8142e0da0dd72f46194eb33d38e0eb10a52597e8  model/id.onnx" | sha256sum -c
+          echo "1ef677072668a5e172e0759b1d3871f129009d1167f093325a17607f7add5ad7  model/id.onnx.json" | sha256sum -c
+      - name: Susun naskah dan buat MP3
+        run: |
+          node scripts/validate.mjs
+          node scripts/audio-teks.mjs > naskah.json
+          python scripts/audio.py naskah.json model/id.onnx audio | tee daftar.txt
+          (cd audio && zip -q ../audio-hafalan-skd.zip *.mp3)
+          {
+            echo "Audio hafalan: setiap soal dibacakan, lalu jawaban benar dan pembahasannya. Satu berkas per materi; soal bertanda Sering keluar dibacakan lebih dulu."
+            echo ""
+            echo "Cara pakai: unduh audio-hafalan-skd.zip di HP, ekstrak, lalu putar di aplikasi musik (bisa sambil layar mati). Atau unduh per materi di bawah."
+            echo ""
+            echo '```'
+            cat daftar.txt
+            echo '```'
+          } > catatan.md
+      - name: Terbitkan di halaman Releases
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: audio-${{ github.run_number }}
+          name: Audio Hafalan SKD ${{ github.run_number }}
+          target_commitish: ${{ github.sha }}
+          body_path: catatan.md
+          files: |
+            audio-hafalan-skd.zip
+            audio/*.mp3

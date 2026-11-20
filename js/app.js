@@ -437,6 +437,9 @@
       h("div", { class: "note info row between" },
         h("div", null, h("b", null, "Strategi formasi CPNS 2026. "), "Jabatan yang menerima S-1 Ilmu Komunikasi, peta persaingan, dan kalkulator peluang."),
         h("a", { class: "btn sm", href: "#formasi" }, "Lihat strategi")),
+      h("div", { class: "note info row between" },
+        h("div", null, h("b", null, "Audio hafalan. "), "Semua soal tulis dibacakan bersama jawaban benar dan pembahasannya, satu berkas MP3 per materi. Unduh lalu putar di aplikasi musik sambil beraktivitas."),
+        h("a", { class: "btn sm", href: "https://github.com/serfusion/cpns/releases?q=Audio+Hafalan", target: "_blank", rel: "noopener" }, "Unduh audio")),
       h("p", { class: "note info" }, "Aturan ambang batas khusus CPNS 2026 belum terbit per " + CFG.riset.tanggal + ". Angka di atas mengikuti seleksi CPNS terakhir (KepmenPANRB 321/2024) dan bisa diubah di menu Pengaturan.")];
   }
 
