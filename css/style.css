@@ -495,8 +495,17 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
 .fm-cand .bd { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 4px; }
 .fm-cand .nm { font-weight: 700; min-width: 0; overflow-wrap: anywhere; }
 .fm-cand .mt { font-size: 0.875rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.fm-form .field.sel { flex: 1 1 200px; min-width: 0; }
+.fm-form .field.sel .input { width: 100%; max-width: none; }
+.fm-skor { font-weight: 800; font-variant-numeric: tabular-nums; }
+.fm-tbl table { width: 100%; }
+.fm-tbl th:first-child, .fm-tbl td:first-child { text-align: left; }
+.fm-rumus summary { font-weight: 700; cursor: pointer; }
+.fm-rumus .plain-list { margin-top: 10px; }
 @media (max-width: 560px) {
   .fm-form .field:not(.grow) { flex: 1 1 30%; }
   .fm-form .field:not(.grow) .input { width: 100%; max-width: none; }
+  .fm-form .field.sel { flex: 1 1 100%; }
   .fm-form .btn { flex: 1 1 100%; }
+  .fm-tbl th, .fm-tbl td { padding: 6px 8px; }
 }

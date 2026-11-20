@@ -22,6 +22,15 @@ navy + kuning amber; layar ujian dari buku panduan CAT resmi BKN), **Build** (ko
 - Soal figural, deret angka, dan **jaring-jaring kubus** dibangkitkan otomatis dari aturan, jadi kuncinya pasti benar.
 - Ambang batas 65 / 80 / 166 (KepmenPANRB 321/2024) bisa diubah di Pengaturan bila aturan 2026 berbeda.
 
+## Strategi formasi CPNS 2026
+
+Menu **Strategi formasi** memindai formasi untuk lulusan S-1 Ilmu Komunikasi dengan rumus dokumen riset pengguna
+(rasio 35, jumlah kursi 20, kecocokan tugas 20, lokasi 10, syarat dan risiko 15): status resmi CPNS 2026, validasi angka dokumen riset,
+skor sementara per jabatan, instansi yang dipantau, dan kalkulator skor per formasi. Datanya di `data/formasi.js`.
+
+Dokumen lengkapnya: `docs/pemindaian-formasi-cpns-2026.md`, dan versi PDF ikut terlampir di setiap rilis APK.
+Membuat ulang PDF: `node scripts/dokumen-pdf.cjs docs/pemindaian-formasi-cpns-2026.md` (butuh pandoc dan Playwright).
+
 ## Audio hafalan
 
 Semua soal tulis dibacakan: soal, lalu jawaban benar (TKP: jawaban terbaik dan yang harus dihindari), lalu pembahasan.

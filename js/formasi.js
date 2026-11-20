@@ -1,5 +1,7 @@
-/* Halaman Formasi: strategi pemilihan formasi CPNS 2026 + cek profil + kalkulator peluang.
-   Data ada di data/formasi.js. Isian pengguna disimpan di localStorage perangkat ini saja. */
+/* Halaman Formasi: strategi pemilihan formasi CPNS 2026 + cek profil + skor dokumen riset + kalkulator.
+   Data ada di data/formasi.js. Isian pengguna disimpan di localStorage perangkat ini saja.
+   Rumus skor mengikuti dokumen riset pengguna: rasio 35, jumlah kursi 20, kecocokan tugas 20,
+   lokasi 10, syarat dan risiko 15 (total 100). Skor ini alat bantu, bukan rumus resmi BKN. */
 (function () {
   "use strict";
   var SKD = (window.SKD = window.SKD || {});
@@ -18,6 +20,32 @@
   var SAING = { rendah: ["ok", "Persaingan rendah"], sedang: ["warn", "Persaingan sedang"], tinggi: ["bad", "Persaingan tinggi"] };
   var COCOK = { tinggi: "Cocok minat IT/digital", sedang: "Cukup cocok" };
   var LISAN = { rendah: ["ok", "Sedikit bicara"], sedang: ["warn", "Sebagian tugas lisan"], tinggi: ["bad", "Banyak bicara"] };
+  var KAT = { layak: ["accent", "Layak, tunggu data 2026"], cadangan: ["warn", "Cadangan"], keluar: ["bad", "Keluar: tugas inti lisan"] };
+
+  // ---------- rumus skor dokumen riset ----------
+  var RASIO = [[5, 35], [10, 30], [20, 24], [30, 18], [50, 12], [100, 6]]; // di atas 100 pelamar per kursi: 2
+  var SYARAT = {
+    aman: ["Semua syarat terpenuhi", 15],
+    catatan: ["Ada catatan (SKB wawancara, sertifikat menyusul)", 8],
+    gugur: ["Syarat wajib tidak terpenuhi", 0]
+  };
+  var LOKF = [{ v: "jabo", t: "Jabodetabek" }, { v: "luar", t: "Luar Jabodetabek" }];
+  function skorRasio(r) { for (var i = 0; i < RASIO.length; i++) if (r <= RASIO[i][0]) return RASIO[i][1]; return 2; }
+  function skorKursi(k) { return k >= 10 ? 20 : k >= 4 ? 16 : k >= 2 ? 12 : 8; }
+  function skorLokasi(lok, pref) { if (lok === "jabo" || pref === "nasional") return 10; return pref === "jabo" ? 0 : 6; }
+  function kategori(total, gugur) {
+    if (gugur) return ["bad", "Gugur"];
+    if (total >= 75) return ["ok", "Sangat layak diteliti"];
+    if (total >= 60) return ["accent", "Layak"];
+    return ["warn", "Cadangan"];
+  }
+  function pre(j) { return j && j.skor ? j.skor.jumlah + j.skor.tugas + j.skor.lokasi + j.skor.syarat : null; }
+  function jabById(id) {
+    var D = SKD.formasi;
+    if (!D || !id) return null;
+    for (var i = 0; i < D.jabatan.length; i++) if (D.jabatan[i].id === id) return D.jabatan[i];
+    return null;
+  }
 
   function blank() { return { profil: { ipk: "", akr: "B", usia: "", lokasi: "jabo-nasional", nonverbal: true }, kandidat: [], cek: {} }; }
   function numOr(v, d) { var n = Number(String(v).replace(",", ".")); return isFinite(n) && n > 0 ? n : d; }
@@ -32,7 +60,12 @@
     if (p.nonverbal === false) b.profil.nonverbal = false;
     if (Array.isArray(d.kandidat)) {
       b.kandidat = d.kandidat.filter(function (k) { return k && typeof k.nama === "string"; }).slice(0, 40).map(function (k) {
-        return { id: String(k.id || Math.random()), nama: k.nama.slice(0, 160), kursi: numOr(k.kursi, 1), pelamar: numOr(k.pelamar, 0), sejenis: numOr(k.sejenis, 0) };
+        return {
+          id: String(k.id || Math.random()), nama: k.nama.slice(0, 160), kursi: numOr(k.kursi, 1), pelamar: numOr(k.pelamar, 0), sejenis: numOr(k.sejenis, 0),
+          jab: typeof k.jab === "string" ? k.jab.slice(0, 40) : "",
+          lok: k.lok === "jabo" ? "jabo" : "luar",
+          syarat: SYARAT[k.syarat] ? k.syarat : "catatan"
+        };
       });
     }
     if (d.cek && typeof d.cek === "object") for (var c in d.cek) if (d.cek[c] === true) b.cek[c] = true;
@@ -56,20 +89,29 @@
     return parts.join(",");
   }
 
-  /** Analisis satu kandidat formasi: rasio, kursi SKB (3x kursi), dan posisi yang harus dicapai di SKD. */
-  function analisis(k) {
+  /** Analisis satu kandidat formasi: rasio, kursi SKB (3x kursi), posisi yang harus dicapai di SKD,
+      dan skor rumus dokumen riset (pref = preferensi lokasi di Cek profil). */
+  function analisis(k, pref) {
     var kursi = Math.max(1, Math.round(k.kursi)), n = Math.max(0, Math.round(k.pelamar)), skb = kursi * 3;
     var rasio = n / kursi, lev = rasio <= 10 ? "rendah" : rasio <= 30 ? "sedang" : "tinggi";
     var posisi = n <= skb ? "Cukup lulus ambang batas untuk ikut SKB" : "Masuk " + fmt(skb) + " besar dari " + fmt(n) + " (" + fmt((skb / n) * 100, skb / n < 0.1 ? 1 : 0) + "% teratas)";
-    return { kursi: kursi, n: n, skb: skb, rasio: rasio, lev: lev, posisi: posisi };
+    var j = jabById(k.jab), sy = SYARAT[k.syarat] || SYARAT.catatan;
+    var parts = { rasio: skorRasio(rasio), kursi: skorKursi(kursi), tugas: j && j.skor ? j.skor.tugas : 10, lokasi: skorLokasi(k.lok, pref || "jabo-nasional"), syarat: sy[1] };
+    var gugur = k.syarat === "gugur", total = gugur ? 0 : parts.rasio + parts.kursi + parts.tugas + parts.lokasi + parts.syarat;
+    return { kursi: kursi, n: n, skb: skb, rasio: rasio, lev: lev, posisi: posisi, parts: parts, total: total, kat: kategori(total, gugur) };
   }
   SKD.formasiAnalisis = analisis; // untuk pengujian
+  SKD.formasiSkor = { rasio: skorRasio, kursi: skorKursi, lokasi: skorLokasi, kategori: kategori, pre: pre };
 
   SKD.formasiView = function (ctx) {
     var h = ctx.h, D = SKD.formasi, S = state(), P = S.profil;
     if (!D) return h("p", null, "Data formasi belum dimuat.");
 
     function set(path, v) { P[path] = v; save(); ctx.rerender(); }
+    function scrollTo(id) {
+      var el = document.getElementById(id);
+      if (el && el.scrollIntoView) el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
 
     // ---------- cek profil ----------
     function checks() {
@@ -85,8 +127,8 @@
       if (!usia) out.push(["", "Isi usia saat pendaftaran ditutup."]);
       else if (usia <= 35) out.push(["ok", "Usia " + P.usia + " tahun masih di dalam batas umum 18–35 tahun."]);
       else out.push(["bad", "Usia di atas 35 tahun: tidak memenuhi batas umum CPNS (kecuali jabatan tertentu)."]);
-      if (P.nonverbal) out.push(["ok", "Filter aktif: jabatan yang tugas intinya bicara di depan orang (protokol, instruktur, penggerak masyarakat, fasilitator, edukator) disembunyikan."]);
-      if (P.lokasi === "jabo") out.push(["warn", "Hanya Jabodetabek berarti hanya formasi yang paling ramai. Pertimbangkan Tier 1 di luar Jabodetabek bila peluang lebih penting."]);
+      if (P.nonverbal) out.push(["ok", "Filter aktif: jabatan yang tugas intinya bicara di depan orang (protokol, fasilitator, penyuluh, penggerak masyarakat, instruktur, edukator) disembunyikan."]);
+      if (P.lokasi === "jabo") out.push(["warn", "Hanya Jabodetabek berarti hanya formasi yang paling ramai. Di kalkulator, formasi luar Jabodetabek mendapat 0 poin lokasi."]);
       else out.push(["ok", "Siap ditempatkan di luar Jabodetabek: Tier 1 di bawah terbuka untuk Anda."]);
       hist.forEach(function (x) { if (x.kind !== "mini" && (!best || x.total > best.total)) best = x; });
       if (!best) out.push(["", "Belum ada simulasi penuh 110 soal. Kerjakan satu untuk mengukur posisi Anda."]);
@@ -115,6 +157,37 @@
         return h("li", null, h("span", { class: "tag " + (c[0] || "") }, c[0] === "ok" ? "Aman" : c[0] === "warn" ? "Perhatikan" : c[0] === "bad" ? "Kendala" : "Isi"), h("span", null, c[1]));
       })));
 
+    // ---------- skor sementara (rumus dokumen riset, tanpa rasio) ----------
+    var berskor = D.jabatan.filter(function (j) { return j.skor; }).map(function (j) { return { j: j, s: pre(j) }; })
+      .sort(function (a, b) { return b.s - a.s; });
+    var urut = berskor.filter(function (x) { return !P.nonverbal || x.j.lisan !== "tinggi"; });
+    var keluar = berskor.filter(function (x) { return urut.indexOf(x) < 0; });
+    var skor = h("section", { class: "panel", "aria-labelledby": "fm-skor" },
+      h("h2", { id: "fm-skor" }, "Skor sementara per jabatan"),
+      h("p", { class: "small muted" }, "Rumus dokumen riset Anda: rasio 35 + jumlah formasi 20 + kecocokan tugas 20 + lokasi 10 + syarat dan risiko 15. Rasio pelamar 2026 belum tersedia, jadi skor di bawah dari 65 poin dan memakai data 2024. Gunakan untuk menentukan formasi mana yang dicek lebih dulu, bukan sebagai peluang lolos."),
+      h("ol", { class: "fm-cands", "aria-label": "Jabatan, skor sementara tertinggi lebih dulu" }, urut.map(function (x, i) {
+        var k = KAT[x.j.kat] || ["", ""], s = x.j.skor;
+        if (x.j.lisan === "tinggi") k = KAT.keluar;
+        return h("li", { class: "fm-cand" },
+          h("span", { class: "rk" }, i + 1),
+          h("div", { class: "bd" },
+            h("div", { class: "row between" }, h("span", { class: "nm" }, x.j.nama), h("span", { class: "tag accent fm-skor" }, x.s + "/65")),
+            h("span", { class: "mt" }, "Jumlah " + s.jumlah + " · Tugas " + s.tugas + " · Lokasi " + s.lokasi + " · Syarat " + s.syarat + " · Rasio: belum tersedia"),
+            x.j.n ? h("span", { class: "small muted" }, "2024: " + fmt(x.j.n.kursi) + " kursi, " + fmt(x.j.n.formasi) + " formasi, S-1 Ilmu Komunikasi tercantum di " + fmt(x.j.n.ilkom) + " formasi") : null,
+            h("div", { class: "row" }, h("span", { class: "tag " + k[0] }, k[1]), h("span", { class: "tag " + (SAING[x.j.saing] || [""])[0] }, (SAING[x.j.saing] || ["", ""])[1] + " (2024)"))));
+      })),
+      keluar.length ? h("p", { class: "note" }, h("b", null, "Keluar karena tugas inti lisan: "),
+        keluar.map(function (x) { return x.j.nama + " (" + x.s + "/65)"; }).join(", ") + ". Skornya tidak rendah karena kursinya banyak, tetapi tugas intinya bicara di depan orang.") : null,
+      h("p", { class: "note info" }, D.gugur),
+      h("details", { class: "fm-rumus" }, h("summary", null, "Cara menghitung skor"),
+        h("ul", { class: "plain-list small" },
+          h("li", null, h("b", null, "Jumlah formasi (20): "), "formasi 2024 yang mencantumkan S-1 Ilmu Komunikasi. 500 atau lebih = 20, 250–499 = 16, 100–249 = 12, 50–99 = 8, di bawah 50 = 4. Di kalkulator diganti kursi formasi itu: 10 atau lebih = 20, 4–9 = 16, 2–3 = 12, 1 = 8."),
+          h("li", null, h("b", null, "Kecocokan tugas (20): "), "20 kerja digital, data, atau arsip hampir tanpa bicara; 15 dokumen atau konten dengan sedikit tugas lisan; 10 sebagian tugas lisan; 5 koordinasi atau pendampingan tatap muka; 0 tugas inti bicara di depan orang."),
+          h("li", null, h("b", null, "Lokasi (10): "), "10 banyak formasi di Jakarta dan daerah; 8 ada di Jakarta tetapi sedikit; 7 sebagian besar di daerah; 4 hampir semua di daerah. Di kalkulator: Jabodetabek 10, luar Jabodetabek 6 (0 bila Anda memilih Jabodetabek saja)."),
+          h("li", null, h("b", null, "Syarat dan risiko (15): "), "15 Ilmu Komunikasi hampir selalu tercantum; 12 sering tercantum dengan catatan; 10 sekitar 1 dari 4 formasi atau ada SKB praktik; 8 sekitar 1 dari 10 formasi atau tes khusus; 5 jarang tercantum. Di kalkulator: semua syarat terpenuhi 15, ada catatan 8, syarat wajib tidak terpenuhi = gugur."),
+          h("li", null, h("b", null, "Rasio (35): "), "diisi di kalkulator saat data 2026 ada. 5 pelamar per kursi atau kurang = 35, 10 = 30, 20 = 24, 30 = 18, 50 = 12, 100 = 6, di atas 100 = 2."),
+          h("li", null, h("b", null, "Kategori akhir: "), "75 atau lebih = Sangat layak diteliti, 60–74 = Layak, di bawah 60 = Cadangan, syarat wajib tidak terpenuhi = Gugur."))));
+
     // ---------- target ----------
     var target = h("section", { class: "stack", "aria-labelledby": "fm-target" },
       h("h2", { id: "fm-target" }, "Peringkat target untuk Anda"),
@@ -129,17 +202,30 @@
       h("div", { class: "note" }, h("b", null, "Hindari bila tujuan utama Anda peluang lolos: "),
         h("ul", { class: "plain-list" }, D.hindari.map(function (x) { return h("li", null, x); }))));
 
+    // ---------- instansi dipantau ----------
+    var pantau = h("section", { class: "stack", "aria-labelledby": "fm-pantau" },
+      h("h2", { id: "fm-pantau" }, "Instansi yang dipantau untuk 2026"),
+      h("p", { class: "lede" }, "Sinyal resmi 2026 dicocokkan dengan jejak formasi Ilmu Komunikasi 2024. Begitu SSCASN terbit, cek urutan ini lebih dulu."),
+      h("div", { class: "fm-tiers" }, D.pantau.map(function (x) {
+        return h("article", { class: "panel fm-tier " + (x.kelas || "") },
+          h("h3", null, x.nama),
+          h("p", { class: "small" }, h("b", null, "Sinyal 2026: "), x.sinyal),
+          h("p", { class: "small" }, h("b", null, "Jejak 2024: "), x.jejak),
+          h("p", { class: "small muted" }, h("b", null, "Saran: "), x.saran));
+      })));
+
     // ---------- jabatan ----------
     var tampil = D.jabatan.filter(function (j) { return !P.nonverbal || j.lisan !== "tinggi"; });
     var sembunyi = D.jabatan.filter(function (j) { return tampil.indexOf(j) < 0; });
     var jabatan = h("section", { class: "stack", "aria-labelledby": "fm-jab" },
       h("h2", { id: "fm-jab" }, "Jabatan yang menerima " + D.jurusan),
-      h("p", { class: "lede" }, "Urut dari yang paling cocok: sedikit bicara, persaingan rendah, dekat minat IT. Semua contoh diambil dari pengumuman dan rekap hasil CPNS 2024. Nama jabatan saja tidak cukup: di satu instansi Pranata Humas menerima Ilmu Komunikasi, di instansi lain tidak."),
+      h("p", { class: "lede" }, "Rincian bukti per jabatan dari pengumuman resmi dan data formasi 2024. Nama jabatan saja tidak cukup: di satu instansi Pranata Humas menerima Ilmu Komunikasi, di instansi lain tidak."),
       h("div", { class: "peta-grid" }, tampil.map(function (j) {
-        var sg = SAING[j.saing] || ["", j.saing], ls = LISAN[j.lisan] || ["", ""];
+        var sg = SAING[j.saing] || ["", j.saing], ls = LISAN[j.lisan] || ["", ""], sp = pre(j);
         return h("article", { class: "peta-card" },
           h("h3", null, j.nama),
-          h("div", { class: "row" }, h("span", { class: "tag " + sg[0] }, sg[1]), h("span", { class: "tag " + ls[0] }, ls[1]), h("span", { class: "tag accent" }, COCOK[j.cocok] || "")),
+          h("div", { class: "row" }, h("span", { class: "tag " + sg[0] }, sg[1]), h("span", { class: "tag " + ls[0] }, ls[1]), h("span", { class: "tag accent" }, COCOK[j.cocok] || ""),
+            sp !== null ? h("span", { class: "tag" }, "Skor sementara " + sp + "/65") : null),
           h("p", { class: "small" }, j.tugas),
           h("ul", null, j.bukti.map(function (b) { return h("li", null, b); })),
           h("p", { class: "small muted" }, j.catatan));
@@ -147,6 +233,25 @@
       sembunyi.length ? h("p", { class: "note" }, h("b", null, "Disembunyikan karena banyak bicara di depan orang: "),
         sembunyi.map(function (j) { return j.nama; }).join(", ") + ". Semuanya menerima Ilmu Komunikasi pada 2024; matikan filter di Cek profil untuk melihat rinciannya.") : null,
       h("p", { class: "note info" }, D.tidakBisa));
+
+    // ---------- validasi dokumen riset ----------
+    var V = D.validasi;
+    var validasi = h("section", { class: "panel", "aria-labelledby": "fm-validasi" },
+      h("h2", { id: "fm-validasi" }, "Validasi dokumen riset Anda"),
+      h("p", { class: "small muted" }, "Angka di bagian 5 dokumen riset dicocokkan dengan data formasi 2024 (olahan MisiPNS atas data BKN, pihak ketiga) dan pengumuman resmi instansi."),
+      h("h3", null, "Jumlah formasi per jabatan (5.1)"),
+      h("div", { class: "qtable fm-tbl" }, h("table", null,
+        h("thead", null, h("tr", null, h("th", { scope: "col" }, "Jabatan"), h("th", { scope: "col" }, "Dokumen"), h("th", { scope: "col" }, "Data 2024"), h("th", { scope: "col" }, "Selisih"))),
+        h("tbody", null, V.jabatan.map(function (r) {
+          return h("tr", null, h("td", null, r.nama), h("td", null, fmt(r.md)), h("td", null, fmt(r.ilkom)), h("td", null, "+" + fmt(((r.ilkom - r.md) / r.md) * 100) + "%"));
+        })))),
+      h("p", { class: "small" }, h("b", null, "Hasil: "), V.jabatanHasil),
+      h("h3", null, "Instansi dengan rasio rendah (5.2)"),
+      h("ul", { class: "fm-checks" }, V.instansi.map(function (r) {
+        var c = r.hasil === "Gugur" ? "bad" : r.hasil === "Belum jelas" ? "" : "warn";
+        return h("li", null, h("span", { class: "tag " + c }, r.hasil), h("span", null, h("b", null, r.nama + " "), "(" + r.md + "): " + r.isi + "."));
+      })),
+      h("p", { class: "note" }, V.instansiHasil));
 
     // ---------- aturan ----------
     var aturan = h("section", { class: "panel", "aria-labelledby": "fm-aturan" },
@@ -160,36 +265,51 @@
       if (!nama) { ctx.toast("Isi nama formasi."); return; }
       if (!kursi) { ctx.toast("Isi jumlah kursi (minimal 1)."); return; }
       if (!isFinite(pel) || pel < 0 || f.elements.pelamar.value.trim() === "") { ctx.toast("Isi jumlah pelamar (perkiraan boleh)."); return; }
-      S.kandidat.push({ id: String(Date.now()), nama: nama.slice(0, 160), kursi: kursi, pelamar: pel, sejenis: numOr(f.elements.sejenis.value, 0) });
+      S.kandidat.push({
+        id: String(Date.now()), nama: nama.slice(0, 160), kursi: kursi, pelamar: pel, sejenis: numOr(f.elements.sejenis.value, 0),
+        jab: f.elements.jab.value, lok: f.elements.lok.value === "jabo" ? "jabo" : "luar", syarat: SYARAT[f.elements.syarat.value] ? f.elements.syarat.value : "catatan"
+      });
       save();
       ctx.rerender();
       ctx.toast("Kandidat ditambahkan.");
     }
-    var rows = S.kandidat.map(function (k) { return { k: k, a: analisis(k) }; }).sort(function (x, y) { return x.a.rasio - y.a.rasio; });
+    var rows = S.kandidat.map(function (k) { return { k: k, a: analisis(k, P.lokasi) }; })
+      .sort(function (x, y) { return y.a.total - x.a.total || x.a.rasio - y.a.rasio; });
     var kalk = h("section", { class: "panel", "aria-labelledby": "fm-kalk" },
       h("h2", { id: "fm-kalk" }, "Kalkulator peluang"),
-      h("p", { class: "small muted" }, "Masukkan formasi kandidat dari SSCASN. Selama pendaftaran, jumlah pelamar per formasi biasanya belum ditampilkan, jadi isi perkiraan (pakai rasio instansi dari rilis BKN). Setelah seleksi administrasi, ganti dengan jumlah pesaing yang memenuhi syarat. Peserta dengan nilai SKD tertinggi sampai 3 kali jumlah kursi lanjut ke SKB."),
+      h("p", { class: "small muted" }, "Masukkan formasi kandidat dari SSCASN. Skor dihitung dengan rumus dokumen riset Anda (rasio 35, kursi 20, tugas 20, lokasi 10, syarat 15). Selama pendaftaran, jumlah pelamar per formasi biasanya belum ditampilkan, jadi isi perkiraan; setelah seleksi administrasi, ganti dengan jumlah pesaing yang memenuhi syarat. Peserta dengan nilai SKD tertinggi sampai 3 kali jumlah kursi lanjut ke SKB."),
       h("form", { class: "fm-form", onsubmit: addKandidat },
         h("label", { class: "field grow" }, h("span", { class: "label" }, "Formasi (jabatan, instansi, lokasi)"), h("input", { class: "input wide", name: "nama", placeholder: "Arsiparis Ahli Pertama, PTN X" })),
+        h("label", { class: "field sel" }, h("span", { class: "label" }, "Jabatan"),
+          h("select", { class: "input wide", name: "jab" },
+            D.jabatan.filter(function (j) { return j.skor; }).map(function (j) { return h("option", { value: j.id }, j.nama); })
+              .concat([h("option", { value: "" }, "Jabatan lain (tugas dinilai 10)")]))),
         h("label", { class: "field" }, h("span", { class: "label" }, "Kursi"), h("input", { class: "input", name: "kursi", inputmode: "numeric", placeholder: "1" })),
         h("label", { class: "field" }, h("span", { class: "label" }, "Pelamar"), h("input", { class: "input", name: "pelamar", inputmode: "numeric", placeholder: "40" })),
         h("label", { class: "field" }, h("span", { class: "label" }, "Lokasi sejenis"), h("input", { class: "input", name: "sejenis", inputmode: "numeric", placeholder: "opsional" })),
+        h("label", { class: "field sel" }, h("span", { class: "label" }, "Lokasi"),
+          h("select", { class: "input wide", name: "lok" }, LOKF.map(function (l) { return h("option", { value: l.v }, l.t); }))),
+        h("label", { class: "field sel" }, h("span", { class: "label" }, "Syarat"),
+          h("select", { class: "input wide", name: "syarat" }, ["aman", "catatan", "gugur"].map(function (v) { return h("option", { value: v }, SYARAT[v][0]); }))),
         h("button", { class: "btn primary", type: "submit" }, "Tambah")),
-      rows.length ? h("ol", { class: "fm-cands", "aria-label": "Kandidat, rasio terendah lebih dulu" }, rows.map(function (r, i) {
-        var sg = SAING[r.a.lev];
+      rows.length ? h("ol", { class: "fm-cands", "aria-label": "Kandidat, skor tertinggi lebih dulu" }, rows.map(function (r, i) {
+        var sg = SAING[r.a.lev], p = r.a.parts, j = jabById(r.k.jab);
         return h("li", { class: "fm-cand" },
           h("span", { class: "rk" }, i + 1),
           h("div", { class: "bd" },
             h("div", { class: "row between" }, h("span", { class: "nm" }, r.k.nama),
+              h("span", { class: "tag " + r.a.kat[0] + " fm-skor" }, r.a.total + "/100")),
+            h("div", { class: "row" }, h("span", { class: "tag " + r.a.kat[0] }, r.a.kat[1]),
               h("span", { class: "tag " + sg[0] }, fmt(r.a.rasio, r.a.rasio < 10 ? 1 : 0) + " per kursi")),
-            h("span", { class: "mt" }, fmt(r.a.kursi) + " kursi · " + fmt(r.a.n) + " pelamar · " + fmt(r.a.skb) + " kursi SKB"),
+            h("span", { class: "mt" }, "Rasio " + p.rasio + " · Kursi " + p.kursi + " · Tugas " + p.tugas + " · Lokasi " + p.lokasi + " · Syarat " + p.syarat),
+            h("span", { class: "mt" }, (j ? j.nama + " · " : "") + fmt(r.a.kursi) + " kursi · " + fmt(r.a.n) + " pelamar · " + fmt(r.a.skb) + " kursi SKB"),
             h("span", { class: "small" }, h("b", null, "Syarat ikut SKB: "), r.a.posisi),
             r.k.sejenis > 1 ? h("span", { class: "small muted" }, "Jabatan sama di " + fmt(r.k.sejenis) + " lokasi dalam instansi ini: ada peluang optimalisasi.") : null),
           h("button", { class: "btn sm ghost", type: "button", "aria-label": "Hapus " + r.k.nama, onclick: function () {
             S.kandidat = S.kandidat.filter(function (x) { return x.id !== r.k.id; }); save(); ctx.rerender();
           } }, "Hapus"));
-      })) : h("p", { class: "muted small" }, "Belum ada kandidat. Rincian formasi 2026 diperkirakan terbit 20–23 November 2026."),
-      rows.length ? h("p", { class: "small muted" }, "Urutan teratas = rasio terendah. Rendah: ≤10 pelamar per kursi, sedang: ≤30, tinggi: di atas 30.") : null);
+      })) : h("p", { class: "muted small" }, "Belum ada kandidat. Rincian formasi 2026 kini ditargetkan terbit 23–29 November 2026."),
+      rows.length ? h("p", { class: "small muted" }, "Urutan teratas = skor tertinggi. Skor ini alat bantu keputusan dari dokumen riset Anda, bukan rumus resmi BKN dan bukan peluang lolos.") : null);
 
     // ---------- langkah ----------
     var done = D.langkah.filter(function (l) { return S.cek[l.id]; }).length;
@@ -213,20 +333,18 @@
 
     var sumber = h("section", { class: "panel", "aria-labelledby": "fm-sumber" },
       h("h2", { id: "fm-sumber" }, "Sumber"),
-      h("p", { class: "small muted" }, "Angka 2024 berasal dari pengumuman resmi dan rekap hasil BKN. Penilaian persaingan dan perkiraan 2026 adalah analisis, bukan data resmi."),
+      h("p", { class: "small muted" }, "Angka 2024 berasal dari pengumuman resmi, rekap hasil BKN, dan olahan pihak ketiga atas data BKN. Skor, penilaian persaingan, dan perkiraan 2026 adalah analisis, bukan data resmi."),
       h("ul", { class: "plain-list" }, D.sumber.map(function (s) { return h("li", null, h("a", { href: s.u, target: "_blank", rel: "noopener" }, s.t)); })));
 
     return [
       h("div", { class: "stack" }, h("h1", null, "Strategi formasi CPNS 2026"),
-        h("p", { class: "lede" }, "Pemindaian untuk lulusan " + D.jurusan + ": jabatan yang benar-benar menerima jurusan ini, peta persaingan, dan kalkulator peluang. Rincian formasi 2026 belum terbit per " + D.tanggal + "; begitu terbit, pindai di SSCASN lalu masukkan kandidat ke kalkulator."),
+        h("p", { class: "lede" }, "Pemindaian untuk lulusan " + D.jurusan + " dengan rumus dokumen riset Anda: jabatan yang benar-benar menerima jurusan ini, skor sementara, instansi yang dipantau, dan kalkulator. Rincian formasi 2026 belum terbit per " + D.tanggal + "; begitu terbit, pindai di SSCASN lalu masukkan kandidat ke kalkulator."),
         h("div", { class: "row" }, h("a", { class: "btn primary", href: "https://sscasn.bkn.go.id/", target: "_blank", rel: "noopener" }, "Buka SSCASN"),
-          h("button", { class: "btn", type: "button", onclick: function () {
-            var el = document.getElementById("fm-kalk");
-            if (el && el.scrollIntoView) el.scrollIntoView({ behavior: "smooth", block: "start" });
-          } }, "Ke kalkulator"))),
+          h("button", { class: "btn", type: "button", onclick: function () { scrollTo("fm-kalk"); } }, "Ke kalkulator"),
+          D.dokumen ? h("a", { class: "btn", href: D.dokumen, target: "_blank", rel: "noopener" }, "Dokumen PDF") : null)),
       h("section", { class: "panel", "aria-labelledby": "fm-status" }, h("h2", { id: "fm-status" }, "Status per " + D.tanggal), h("ul", { class: "plain-list" }, D.status.map(function (t) { return h("li", null, t); }))),
       h("div", { class: "tiles" }, D.angka.map(function (a) { return h("div", { class: "tile" }, h("span", { class: "v" }, a.v), h("span", { class: "l" }, a.l), h("span", { class: "d" }, a.d)); })),
-      profil, target, jabatan, aturan, kalk, langkah, lain, sumber
+      profil, skor, target, pantau, jabatan, validasi, aturan, kalk, langkah, lain, sumber
     ];
   };
 })();

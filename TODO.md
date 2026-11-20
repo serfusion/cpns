@@ -85,7 +85,10 @@ SKD.add("tkp", [
 
 - [x] Pindai status CPNS 2026 dan formasi CPNS 2024 yang menerima S-1 Ilmu Komunikasi — `data/formasi.js`
 - [x] Halaman Formasi: status, cek profil, peringkat target, peta jabatan, aturan memilih, kalkulator peluang, langkah, jalur lain — `js/formasi.js`
-- [ ] Begitu SSCASN menampilkan formasi 2026 (diperkirakan 20–23 Nov 2026): perbarui `status`, `jabatan.bukti`, dan `target` di `data/formasi.js` dengan formasi 2026 yang menerima S-1 Ilmu Komunikasi
+- [x] Pemindaian 20 Nov 2026 dengan rumus dokumen riset pengguna: validasi tabel 5.1/5.2, skor sementara per jabatan (tanpa rasio),
+      instansi yang dipantau, kalkulator skor 100 poin; dokumen `docs/pemindaian-formasi-cpns-2026.md` + PDF (dilampirkan ke rilis APK)
+- [ ] Begitu SSCASN menampilkan formasi 2026 (kini ditargetkan 23–29 Nov 2026): perbarui `status`, `jabatan`, `pantau`, dan `target` di
+      `data/formasi.js` serta dokumen di `docs/`, lalu buat ulang PDF dengan `node scripts/dokumen-pdf.cjs`
 - [ ] Setelah KepmenPANRB ambang batas SKD 2026 terbit: perbarui ambang batas di `js/config.js`
 
 Catatan data: angka 2024 diambil dari lampiran pengumuman Kemendikbudristek, Kemensetneg/Setkab, Bawaslu, dan rekap hasil akhir BKN untuk Mahkamah Agung
