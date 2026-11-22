@@ -87,6 +87,8 @@ SKD.add("tkp", [
 - [x] Halaman Formasi: status, cek profil, peringkat target, peta jabatan, aturan memilih, kalkulator peluang, langkah, jalur lain — `js/formasi.js`
 - [x] Pemindaian 20 Nov 2026 dengan rumus dokumen riset pengguna: validasi tabel 5.1/5.2, skor sementara per jabatan (tanpa rasio),
       instansi yang dipantau, kalkulator skor 100 poin; dokumen `docs/pemindaian-formasi-cpns-2026.md` + PDF (dilampirkan ke rilis APK)
+- [x] Prioritas Pemda 22 Nov 2026 (dokumen strategi Pemda pengguna): status pemda, Kota Tangerang, daerah sepi, matriks Pemda di kalkulator;
+      dokumen `docs/prioritas-formasi-pemda-2026.md` + PDF
 - [ ] Begitu SSCASN menampilkan formasi 2026 (kini ditargetkan 23–29 Nov 2026): perbarui `status`, `jabatan`, `pantau`, dan `target` di
       `data/formasi.js` serta dokumen di `docs/`, lalu buat ulang PDF dengan `node scripts/dokumen-pdf.cjs`
 - [ ] Setelah KepmenPANRB ambang batas SKD 2026 terbit: perbarui ambang batas di `js/config.js`

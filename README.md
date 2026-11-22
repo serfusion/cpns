@@ -28,7 +28,10 @@ Menu **Strategi formasi** memindai formasi untuk lulusan S-1 Ilmu Komunikasi den
 (rasio 35, jumlah kursi 20, kecocokan tugas 20, lokasi 10, syarat dan risiko 15): status resmi CPNS 2026, validasi angka dokumen riset,
 skor sementara per jabatan, instansi yang dipantau, dan kalkulator skor per formasi. Datanya di `data/formasi.js`.
 
-Dokumen lengkapnya: `docs/pemindaian-formasi-cpns-2026.md`, dan versi PDF ikut terlampir di setiap rilis APK.
+Bagian **Prioritas Pemda** mengikuti dokumen strategi Pemda pengguna (Prioritas 1 jabatan/unit baru, 2 Kota Tangerang, 3 daerah sepi pesaing),
+dan kalkulator juga menghitung matriks Pemda (pendidikan 25, jumlah formasi 20, jabatan/unit baru 20, persaingan 15, mekanisme 10, kesiapan SKB 10).
+
+Dokumen lengkapnya: `docs/pemindaian-formasi-cpns-2026.md` dan `docs/prioritas-formasi-pemda-2026.md`; versi PDF keduanya ikut terlampir di setiap rilis APK.
 Membuat ulang PDF: `node scripts/dokumen-pdf.cjs docs/pemindaian-formasi-cpns-2026.md` (butuh pandoc dan Playwright).
 
 ## Audio hafalan

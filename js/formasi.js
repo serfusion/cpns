@@ -1,7 +1,9 @@
 /* Halaman Formasi: strategi pemilihan formasi CPNS 2026 + cek profil + skor dokumen riset + kalkulator.
    Data ada di data/formasi.js. Isian pengguna disimpan di localStorage perangkat ini saja.
    Rumus skor mengikuti dokumen riset pengguna: rasio 35, jumlah kursi 20, kecocokan tugas 20,
-   lokasi 10, syarat dan risiko 15 (total 100). Skor ini alat bantu, bukan rumus resmi BKN. */
+   lokasi 10, syarat dan risiko 15 (total 100). Matriks kedua dari dokumen strategi Pemda pengguna:
+   pendidikan 25, jumlah formasi 20, jabatan/unit baru 20, persaingan 15, mekanisme seleksi 10, kesiapan SKB 10
+   (tiap kriteria 1–5, nilai = jumlah skor/5 x bobot). Keduanya alat bantu, bukan rumus resmi BKN. */
 (function () {
   "use strict";
   var SKD = (window.SKD = window.SKD || {});
@@ -39,6 +41,27 @@
     if (total >= 60) return ["accent", "Layak"];
     return ["warn", "Cadangan"];
   }
+  // ---------- matriks dokumen strategi Pemda ----------
+  var BARU = { resmi: ["Ada bukti resmi (SOTK, unit baru)", 5], indikasi: ["Ada indikasi, belum resmi", 3], tidak: ["Tidak ada atau belum dicek", 1] };
+  var MEKAN = { cat: ["SKB CAT saja", 5], jelas: ["Ada tes non-CAT, aturan jelas", 3], belum: ["Belum jelas", 1] };
+  var BOBOT = { pendidikan: 25, jumlah: 20, baru: 20, persaingan: 15, mekanisme: 10, skb: 10 };
+  function skala(v, batas) { for (var i = 0; i < batas.length; i++) if (v <= batas[i]) return 5 - i; return 1; }
+  /** Skor 1–5 per kriteria dan nilai akhir 0–100 (aturan gugur: pendidikan tidak cocok). */
+  function matriks(k, a, j) {
+    var gugur = k.syarat === "gugur";
+    var s = {
+      pendidikan: gugur ? 0 : k.syarat === "aman" ? 5 : 4,
+      jumlah: a.kursi > 5 ? 5 : a.kursi >= 4 ? 4 : a.kursi,
+      baru: (BARU[k.baru] || BARU.tidak)[1],
+      persaingan: skala(a.rasio, [5, 10, 20, 50]),
+      mekanisme: (MEKAN[k.mek] || MEKAN.belum)[1],
+      skb: j && j.skor ? j.skor.tugas / 5 + 1 : 3 // tugas 20/15/10/5/0 -> 5/4/3/2/1
+    };
+    var total = 0;
+    for (var key in BOBOT) total += (s[key] / 5) * BOBOT[key];
+    return { s: s, total: gugur ? 0 : Math.round(total), gugur: gugur };
+  }
+
   function pre(j) { return j && j.skor ? j.skor.jumlah + j.skor.tugas + j.skor.lokasi + j.skor.syarat : null; }
   function jabById(id) {
     var D = SKD.formasi;
@@ -47,7 +70,7 @@
     return null;
   }
 
-  function blank() { return { profil: { ipk: "", akr: "B", usia: "", lokasi: "jabo-nasional", nonverbal: true }, kandidat: [], cek: {} }; }
+  function blank() { return { profil: { ipk: "", akr: "B", usia: "", lokasi: "jabo-nasional", nonverbal: true }, kandidat: [], cek: {}, urut: "pemda" }; }
   function numOr(v, d) { var n = Number(String(v).replace(",", ".")); return isFinite(n) && n > 0 ? n : d; }
   function sane(d) {
     var b = blank();
@@ -64,11 +87,14 @@
           id: String(k.id || Math.random()), nama: k.nama.slice(0, 160), kursi: numOr(k.kursi, 1), pelamar: numOr(k.pelamar, 0), sejenis: numOr(k.sejenis, 0),
           jab: typeof k.jab === "string" ? k.jab.slice(0, 40) : "",
           lok: k.lok === "jabo" ? "jabo" : "luar",
-          syarat: SYARAT[k.syarat] ? k.syarat : "catatan"
+          syarat: SYARAT[k.syarat] ? k.syarat : "catatan",
+          baru: BARU[k.baru] ? k.baru : "tidak",
+          mek: MEKAN[k.mek] ? k.mek : "belum"
         };
       });
     }
     if (d.cek && typeof d.cek === "object") for (var c in d.cek) if (d.cek[c] === true) b.cek[c] = true;
+    if (d.urut === "dok") b.urut = "dok";
     return b;
   }
   var st = null;
@@ -98,10 +124,12 @@
     var j = jabById(k.jab), sy = SYARAT[k.syarat] || SYARAT.catatan;
     var parts = { rasio: skorRasio(rasio), kursi: skorKursi(kursi), tugas: j && j.skor ? j.skor.tugas : 10, lokasi: skorLokasi(k.lok, pref || "jabo-nasional"), syarat: sy[1] };
     var gugur = k.syarat === "gugur", total = gugur ? 0 : parts.rasio + parts.kursi + parts.tugas + parts.lokasi + parts.syarat;
-    return { kursi: kursi, n: n, skb: skb, rasio: rasio, lev: lev, posisi: posisi, parts: parts, total: total, kat: kategori(total, gugur) };
+    var res = { kursi: kursi, n: n, skb: skb, rasio: rasio, lev: lev, posisi: posisi, parts: parts, total: total, kat: kategori(total, gugur) };
+    res.pemda = matriks(k, res, j);
+    return res;
   }
   SKD.formasiAnalisis = analisis; // untuk pengujian
-  SKD.formasiSkor = { rasio: skorRasio, kursi: skorKursi, lokasi: skorLokasi, kategori: kategori, pre: pre };
+  SKD.formasiSkor = { rasio: skorRasio, kursi: skorKursi, lokasi: skorLokasi, kategori: kategori, pre: pre, matriks: matriks };
 
   SKD.formasiView = function (ctx) {
     var h = ctx.h, D = SKD.formasi, S = state(), P = S.profil;
@@ -188,6 +216,20 @@
           h("li", null, h("b", null, "Rasio (35): "), "diisi di kalkulator saat data 2026 ada. 5 pelamar per kursi atau kurang = 35, 10 = 30, 20 = 24, 30 = 18, 50 = 12, 100 = 6, di atas 100 = 2."),
           h("li", null, h("b", null, "Kategori akhir: "), "75 atau lebih = Sangat layak diteliti, 60–74 = Layak, di bawah 60 = Cadangan, syarat wajib tidak terpenuhi = Gugur."))));
 
+    // ---------- prioritas Pemda (dokumen strategi Pemda) ----------
+    var PD = D.pemda;
+    var pemda = PD ? h("section", { class: "stack", "aria-labelledby": "fm-pemda" },
+      h("h2", { id: "fm-pemda" }, "Prioritas Pemda: jabatan baru, Kota Tangerang, daerah sepi"),
+      h("p", { class: "lede" }, "Urutan dari dokumen strategi Pemda Anda. Status per " + PD.tanggal + ":"),
+      h("ul", { class: "plain-list small" }, PD.status.map(function (t) { return h("li", null, t); })),
+      h("div", { class: "fm-tiers" }, PD.prioritas.map(function (x) {
+        return h("article", { class: "panel fm-tier " + x.kelas },
+          h("div", { class: "row between" }, h("h3", null, "Prioritas " + x.no + ": " + x.judul)),
+          h("p", { class: "small" }, x.ringkas),
+          h("ul", { class: "plain-list small" }, x.isi.map(function (t) { return h("li", null, t); })));
+      })),
+      h("p", { class: "small muted" }, PD.catatanData + " Di kalkulator, pilih \"Matriks Pemda\" untuk menghitung nilai tiap formasi dengan bobot dokumen ini (pendidikan 25, jumlah formasi 20, jabatan/unit baru 20, persaingan 15, mekanisme 10, kesiapan SKB 10).")) : null;
+
     // ---------- target ----------
     var target = h("section", { class: "stack", "aria-labelledby": "fm-target" },
       h("h2", { id: "fm-target" }, "Peringkat target untuk Anda"),
@@ -267,14 +309,16 @@
       if (!isFinite(pel) || pel < 0 || f.elements.pelamar.value.trim() === "") { ctx.toast("Isi jumlah pelamar (perkiraan boleh)."); return; }
       S.kandidat.push({
         id: String(Date.now()), nama: nama.slice(0, 160), kursi: kursi, pelamar: pel, sejenis: numOr(f.elements.sejenis.value, 0),
-        jab: f.elements.jab.value, lok: f.elements.lok.value === "jabo" ? "jabo" : "luar", syarat: SYARAT[f.elements.syarat.value] ? f.elements.syarat.value : "catatan"
+        jab: f.elements.jab.value, lok: f.elements.lok.value === "jabo" ? "jabo" : "luar", syarat: SYARAT[f.elements.syarat.value] ? f.elements.syarat.value : "catatan",
+        baru: BARU[f.elements.baru.value] ? f.elements.baru.value : "tidak", mek: MEKAN[f.elements.mek.value] ? f.elements.mek.value : "belum"
       });
       save();
       ctx.rerender();
       ctx.toast("Kandidat ditambahkan.");
     }
+    var pakaiPemda = S.urut !== "dok";
     var rows = S.kandidat.map(function (k) { return { k: k, a: analisis(k, P.lokasi) }; })
-      .sort(function (x, y) { return y.a.total - x.a.total || x.a.rasio - y.a.rasio; });
+      .sort(function (x, y) { return (pakaiPemda ? y.a.pemda.total - x.a.pemda.total : y.a.total - x.a.total) || x.a.rasio - y.a.rasio; });
     var kalk = h("section", { class: "panel", "aria-labelledby": "fm-kalk" },
       h("h2", { id: "fm-kalk" }, "Kalkulator peluang"),
       h("p", { class: "small muted" }, "Masukkan formasi kandidat dari SSCASN. Skor dihitung dengan rumus dokumen riset Anda (rasio 35, kursi 20, tugas 20, lokasi 10, syarat 15). Selama pendaftaran, jumlah pelamar per formasi biasanya belum ditampilkan, jadi isi perkiraan; setelah seleksi administrasi, ganti dengan jumlah pesaing yang memenuhi syarat. Peserta dengan nilai SKD tertinggi sampai 3 kali jumlah kursi lanjut ke SKB."),
@@ -291,17 +335,27 @@
           h("select", { class: "input wide", name: "lok" }, LOKF.map(function (l) { return h("option", { value: l.v }, l.t); }))),
         h("label", { class: "field sel" }, h("span", { class: "label" }, "Syarat"),
           h("select", { class: "input wide", name: "syarat" }, ["aman", "catatan", "gugur"].map(function (v) { return h("option", { value: v }, SYARAT[v][0]); }))),
+        h("label", { class: "field sel" }, h("span", { class: "label" }, "Jabatan/unit baru"),
+          h("select", { class: "input wide", name: "baru" }, ["tidak", "indikasi", "resmi"].map(function (v) { return h("option", { value: v }, BARU[v][0]); }))),
+        h("label", { class: "field sel" }, h("span", { class: "label" }, "Tahapan seleksi"),
+          h("select", { class: "input wide", name: "mek" }, ["belum", "cat", "jelas"].map(function (v) { return h("option", { value: v }, MEKAN[v][0]); }))),
         h("button", { class: "btn primary", type: "submit" }, "Tambah")),
+      rows.length ? h("div", { class: "field" }, h("span", { class: "label" }, "Urutkan dengan"),
+        h("div", { class: "seg", role: "group", "aria-label": "Urutkan dengan" }, [["pemda", "Matriks Pemda"], ["dok", "Rumus dokumen riset"]].map(function (o) {
+          return h("button", { type: "button", "aria-pressed": (o[0] === "pemda") === pakaiPemda ? "true" : "false", onclick: function () { S.urut = o[0]; save(); ctx.rerender(); } }, o[1]);
+        }))) : null,
       rows.length ? h("ol", { class: "fm-cands", "aria-label": "Kandidat, skor tertinggi lebih dulu" }, rows.map(function (r, i) {
         var sg = SAING[r.a.lev], p = r.a.parts, j = jabById(r.k.jab);
+        var kat = pakaiPemda ? kategori(r.a.pemda.total, r.a.pemda.gugur) : r.a.kat, nilai = pakaiPemda ? r.a.pemda.total : r.a.total;
         return h("li", { class: "fm-cand" },
           h("span", { class: "rk" }, i + 1),
           h("div", { class: "bd" },
             h("div", { class: "row between" }, h("span", { class: "nm" }, r.k.nama),
-              h("span", { class: "tag " + r.a.kat[0] + " fm-skor" }, r.a.total + "/100")),
-            h("div", { class: "row" }, h("span", { class: "tag " + r.a.kat[0] }, r.a.kat[1]),
+              h("span", { class: "tag " + kat[0] + " fm-skor" }, nilai + "/100")),
+            h("div", { class: "row" }, h("span", { class: "tag " + kat[0] }, kat[1]),
               h("span", { class: "tag " + sg[0] }, fmt(r.a.rasio, r.a.rasio < 10 ? 1 : 0) + " per kursi")),
-            h("span", { class: "mt" }, "Rasio " + p.rasio + " · Kursi " + p.kursi + " · Tugas " + p.tugas + " · Lokasi " + p.lokasi + " · Syarat " + p.syarat),
+            h("span", { class: "mt" }, "Matriks Pemda " + r.a.pemda.total + "/100: pendidikan " + r.a.pemda.s.pendidikan + " · jumlah " + r.a.pemda.s.jumlah + " · baru " + r.a.pemda.s.baru + " · persaingan " + r.a.pemda.s.persaingan + " · mekanisme " + r.a.pemda.s.mekanisme + " · SKB " + r.a.pemda.s.skb + " (skala 1–5)"),
+            h("span", { class: "mt" }, "Rumus dokumen riset " + r.a.total + "/100: rasio " + p.rasio + " · kursi " + p.kursi + " · tugas " + p.tugas + " · lokasi " + p.lokasi + " · syarat " + p.syarat),
             h("span", { class: "mt" }, (j ? j.nama + " · " : "") + fmt(r.a.kursi) + " kursi · " + fmt(r.a.n) + " pelamar · " + fmt(r.a.skb) + " kursi SKB"),
             h("span", { class: "small" }, h("b", null, "Syarat ikut SKB: "), r.a.posisi),
             r.k.sejenis > 1 ? h("span", { class: "small muted" }, "Jabatan sama di " + fmt(r.k.sejenis) + " lokasi dalam instansi ini: ada peluang optimalisasi.") : null),
@@ -309,7 +363,7 @@
             S.kandidat = S.kandidat.filter(function (x) { return x.id !== r.k.id; }); save(); ctx.rerender();
           } }, "Hapus"));
       })) : h("p", { class: "muted small" }, "Belum ada kandidat. Rincian formasi 2026 kini ditargetkan terbit 23–29 November 2026."),
-      rows.length ? h("p", { class: "small muted" }, "Urutan teratas = skor tertinggi. Skor ini alat bantu keputusan dari dokumen riset Anda, bukan rumus resmi BKN dan bukan peluang lolos.") : null);
+      rows.length ? h("p", { class: "small muted" }, "Urutan teratas = nilai tertinggi menurut pilihan di atas. Kedua skor adalah alat bantu dari dokumen Anda, bukan rumus resmi BKN dan bukan peluang lolos. Formasi yang tidak menerima ijazah Anda gugur di kedua rumus.") : null);
 
     // ---------- langkah ----------
     var done = D.langkah.filter(function (l) { return S.cek[l.id]; }).length;
@@ -341,10 +395,11 @@
         h("p", { class: "lede" }, "Pemindaian untuk lulusan " + D.jurusan + " dengan rumus dokumen riset Anda: jabatan yang benar-benar menerima jurusan ini, skor sementara, instansi yang dipantau, dan kalkulator. Rincian formasi 2026 belum terbit per " + D.tanggal + "; begitu terbit, pindai di SSCASN lalu masukkan kandidat ke kalkulator."),
         h("div", { class: "row" }, h("a", { class: "btn primary", href: "https://sscasn.bkn.go.id/", target: "_blank", rel: "noopener" }, "Buka SSCASN"),
           h("button", { class: "btn", type: "button", onclick: function () { scrollTo("fm-kalk"); } }, "Ke kalkulator"),
+          PD ? h("button", { class: "btn", type: "button", onclick: function () { scrollTo("fm-pemda"); } }, "Prioritas Pemda") : null,
           D.dokumen ? h("a", { class: "btn", href: D.dokumen, target: "_blank", rel: "noopener" }, "Dokumen PDF") : null)),
       h("section", { class: "panel", "aria-labelledby": "fm-status" }, h("h2", { id: "fm-status" }, "Status per " + D.tanggal), h("ul", { class: "plain-list" }, D.status.map(function (t) { return h("li", null, t); }))),
       h("div", { class: "tiles" }, D.angka.map(function (a) { return h("div", { class: "tile" }, h("span", { class: "v" }, a.v), h("span", { class: "l" }, a.l), h("span", { class: "d" }, a.d)); })),
-      profil, skor, target, pantau, jabatan, validasi, aturan, kalk, langkah, lain, sumber
+      pemda, profil, skor, target, pantau, jabatan, validasi, aturan, kalk, langkah, lain, sumber
     ];
   };
 })();

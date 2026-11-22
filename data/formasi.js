@@ -7,17 +7,18 @@
   var SKD = (window.SKD = window.SKD || {});
 
   SKD.formasi = {
-    tanggal: "20 November 2026",
+    tanggal: "22 November 2026",
     jurusan: "S-1 Ilmu Komunikasi",
     dokumen: "https://github.com/serfusion/cpns/releases?q=APK",
 
     status: [
-      "Rincian formasi CPNS 2026 belum terbit. Sampai Jumat 20 November siang, BKN belum mengumumkannya di situs maupun media sosial resminya. Kepala BKN kini menargetkan pekan keempat November (23–29 November) karena masih menunggu penetapan formasi dari KemenPANRB.",
+      "Rincian formasi CPNS 2026 belum terbit. Minggu 22 November pagi, beranda SSCASN masih menulis \"Data tahapan belum tersedia\" dan situs BKN belum memuat pengumuman CPNS 2026. Kepala BKN menargetkan pekan keempat November (23–29 November) karena masih menunggu penetapan formasi dari KemenPANRB.",
       "Rekrutmen diumumkan 6 November 2026 (Siaran Pers KemenPANRB No. 378/HUMAS-MENPANRB/2026). Akun SSCASN dibuka sejak 14 November; membuat akun belum berarti mendaftar formasi.",
       "Jumlah: sekitar 150 ribu menurut MenPANRB (masih dihitung ulang) dan 158 ribu menurut Dirjen Anggaran Kemenkeu (APBN KiTa, 13 November), terutama untuk mengganti PNS pensiun. Seleksi bisa berlanjut sampai semester I 2027.",
       "Formasi prioritas: Polisi Hutan, Manggala Agni, Guru Sekolah Terintegrasi, dan Guru Sekolah Unggul Garuda. Keempatnya bukan untuk S-1 Ilmu Komunikasi.",
       "Sudah menyebut angka: Mahkamah Agung 2.830 CPNS + 1.600 calon hakim (salah satu dari 14 K/L prioritas Presiden untuk tambahan pegawai, pengumuman akhir November) dan Kemenkeu 1.915 formasi umum untuk SMA/SMK, D-III, dan S-1. Kemenkes menyatakan segera membuka, belum dengan angka.",
-      "Formasi pemerintah daerah belum diputuskan resmi. Klaim \"pemda tidak membuka CPNS 2026\" hanya beredar di situs tidak resmi; BKD DKI masih menunggu juklak dan juknis pusat.",
+      "Formasi pemerintah daerah belum diputuskan resmi. Pemkot Tangerang belum menerima kuota (9 November), BKPSDM Tangsel memperkirakan tidak ada CPNS tahun ini, dan usulan sejumlah daerah (mis. Kota Jambi 322 formasi) belum disetujui pusat.",
+      "PPPK penuh waktu boleh ikut seleksi CPNS mulai 2027 (kesepakatan pemerintah dan DPR, 6 November 2026), jadi pesaing di formasi daerah bisa bertambah tahun depan.",
       "Seperti 2024, satu pelamar diperkirakan hanya boleh memilih satu formasi, dan seluruh tahapan gratis."
     ],
 
@@ -167,6 +168,52 @@
       }
     ],
 
+    // Prioritas dari dokumen "Strategi Memilih Formasi CPNS di Pemda" (pengguna, 22 Nov 2026):
+    // P1 jabatan/unit baru atau rekrutmen pertama, P2 Kota Tangerang, P3 daerah sepi pesaing.
+    // Matriks Pemda: pendidikan 25, jumlah formasi 20, jabatan/unit baru 20, persaingan 15, mekanisme 10, kesiapan SKB 10.
+    pemda: {
+      tanggal: "22 November 2026",
+      status: [
+        "Kuota CPNS daerah 2026 belum diputuskan. Sejumlah pemda sudah mengusulkan (Kota Jambi 322 formasi, Bangka Belitung 120, OKI, Lubuk Linggau, Musi Rawas), tetapi belum ada yang disetujui secara terbuka.",
+        "Kota Tangerang: Wakil Wali Kota menyatakan (9 November 2026) pemkot belum menerima pembagian kuota dari BKN dan menunggu pusat.",
+        "Kota Tangerang Selatan: BKPSDM menyebut (23 September 2026) sepertinya tidak ada rekrutmen CPNS tahun ini dan berharap ada pada 2027.",
+        "Kabupaten Tangerang: menunggu juknis pusat. Pada 2024 membuka 500 formasi CPNS dengan hampir 21.000 pelamar (sekitar 42 per formasi).",
+        "Mulai 2027 PPPK penuh waktu boleh ikut seleksi CPNS secara terbuka, jadi formasi daerah tahun depan bisa lebih ramai."
+      ],
+      prioritas: [
+        {
+          no: "1", judul: "Jabatan atau unit baru, rekrutmen pertama", kelas: "ok",
+          ringkas: "Belum ada bukti resmi pemda membentuk unit baru untuk 2026. Sinyal terkuat justru di instansi pusat yang dibentuk sejak Oktober 2024: belum pernah membuka CPNS umum sendiri, dan pegawainya masih pindahan dari kementerian lama.",
+          isi: [
+            "Kabinet Merah Putih memiliki 48 kementerian (Perpres 139/2024); 229.901 ASN dipindahkan ke struktur baru, dan kebutuhan kementerian baru diisi lebih dulu dari pegawai yang terdampak. Pola ini sama dengan contoh \"pegawai ad hoc diganti pegawai definitif\" di dokumen Anda",
+            "Instansi baru yang patut dicek begitu SSCASN terbit: Kementerian Kebudayaan, Kementerian HAM, Kementerian Ekonomi Kreatif, Kementerian UMKM, Kementerian Transmigrasi, Kementerian Haji dan Umrah, Badan Gizi Nasional, kemenko-kemenko baru, dan Badan Komunikasi Pemerintah (Perpres 96/2025, formasinya kemungkinan lewat Kemensetneg)",
+            "CPNS 2024 berlangsung sebelum kabinet dibentuk dan 2025 tidak ada CPNS umum, jadi formasi 2026 di instansi itu adalah rekrutmen pertamanya. Belum ada konfirmasi instansi mana yang mendapat formasi",
+            "Di pemda: bandingkan daftar formasi 2026 dengan 2024. Jabatan yang baru muncul, atau unit yang baru dibentuk menurut SOTK di JDIH, adalah kandidat jabatan baru. Untuk Kota Tangerang tidak ditemukan perangkat daerah baru 2025–2026 (SOTK masih Perda 8/2016 dan perubahannya)"
+          ]
+        },
+        {
+          no: "2", judul: "Kota Tangerang", kelas: "accent",
+          ringkas: "Pemkot belum punya kuota CPNS 2026, dan data formasi CPNS 2024 tidak memuat Pemkot Tangerang (2024 pemkot fokus pada 5.186 formasi PPPK). Jalur yang realistis justru kantor instansi pusat yang berlokasi di Kota Tangerang.",
+          isi: [
+            "Pemkot Tangerang: pantau BKPSDM dan rekrutmen.tangerangkota.go.id. Bila dibuka, cari Pranata Humas di Diskominfo, Arsiparis, Pengembang Teknologi Pembelajaran, dan Perencana yang mencantumkan S-1 Ilmu Komunikasi",
+            "Kantor instansi pusat di Kota Tangerang yang instansinya sudah pasti membuka CPNS 2026: Pengadilan Negeri dan Pengadilan Agama Tangerang (Mahkamah Agung), RS dr. Sitanala dan kantor kekarantinaan kesehatan Bandara Soekarno-Hatta (Kemenkes), Bea Cukai Soekarno-Hatta dan KPP di Tangerang (Kemenkeu). Lokasi formasinya baru terlihat saat SSCASN terbit",
+            "Tetangga: Kabupaten Tangerang (2024: Pranata Humas di Diskominfo, tetapi sekitar 42 pelamar per formasi) dan Kota Tangerang Selatan (kemungkinan tidak membuka CPNS 2026)"
+          ]
+        },
+        {
+          no: "3", judul: "Daerah sepi pesaing", kelas: "warn",
+          ringkas: "Kandidat dari data 2024: pemda luar Jawa yang membuka Pranata Humas lebih dari 5 kursi. Semuanya baru berlaku bila pemda itu mendapat formasi 2026, dan nama prodi harus dicek per formasi.",
+          isi: [
+            "Kota Ambon: Pranata Humas 46 kursi (2024). Instansinya membuka 1.264 formasi dengan 10.508 pelamar lolos administrasi, sekitar 8 per formasi",
+            "Kabupaten Aceh Tenggara: Pranata Humas 15 kursi, S-1 Ilmu Komunikasi tercantum; 1.722 pelamar menjelang penutupan, ketiga terendah di wilayah kerja BKN Aceh",
+            "Kabupaten Sumbawa Barat (Pranata Humas 18 kursi di Diskominfo), Kabupaten Lebong (15 kursi di Diskominfotik), Kabupaten Lembata (12), Provinsi NTB (12), Provinsi Sumatera Utara (29), Provinsi Sulawesi Tenggara (16)",
+            "Papua: sekitar 80% formasi kabupaten/kota untuk Orang Asli Papua (UU Otsus 21/2021), jadi untuk pelamar non-OAP hanya sekitar 20%. Jangan jadikan pilihan utama"
+          ]
+        }
+      ],
+      catatanData: "Kuota per jabatan dari olahan MisiPNS atas data BKN 2024 (pihak ketiga); angka pelamar adalah tingkat instansi, bukan per jabatan. Rasio per formasi baru bisa dihitung saat data 2026 terbit."
+    },
+
     gugur: "Gugur karena S-1 Ilmu Komunikasi tidak tercantum di data 2024: Pranata Komputer, Penata Kelola Sistem dan Teknologi Informasi, Administrator Database Kependudukan, Statistisi, dan Pustakawan (semuanya meminta jurusan komputer, statistik, atau perpustakaan). Analis SDM Aparatur dan Pengelola Pengadaan juga tidak memuat Ilmu Komunikasi di 20 jurusan teratasnya.",
     tidakBisa: "Jabatan TI murni (Pranata Komputer, Penata Kelola Sistem dan Teknologi Informasi, Administrator Database Kependudukan) mensyaratkan ijazah komputer. Pada 2024 ada 15.192 kursi Penata Kelola Sistem dan TI dan 11.428 kursi Pranata Komputer, tetapi S-1 Ilmu Komunikasi tidak masuk 20 jurusan teratas keduanya. Salurkan minat IT lewat Pengembang Teknologi Pembelajaran, arsip digital, dan produksi media.",
 
@@ -311,6 +358,18 @@
       { t: "Cara cek jumlah pesaing per formasi (CNN Indonesia)", u: "https://www.cnnindonesia.com/edukasi/20241004165434-561-1151655/cara-cek-jumlah-pesaing-cpns-2024-sesuai-jabatan-yang-dilamar" },
       { t: "Formasi pemda belum pasti (topik.id)", u: "https://www.topik.id/benarkah-cpns-2026-hanya-buka-formasi-pusat-ini-penjelasan-bkn-dan-kemenpanrb" },
       { t: "PPPK Sekolah Rakyat 2026 (Kompas TV)", u: "https://www.kompas.tv/ekonomi/673121/link-jadwal-dan-cara-daftar-pppk-tendik-sekolah-rakyat-2026-ada-5-127-formasi-maksimal-45-tahun" },
+      { t: "Kota Tangerang menunggu kepastian kuota CPNS (Satelit News, 9 Nov 2026)", u: "https://www.satelitnews.com/168694/pemerintah-buka-lowongan-cpns-kota-tangerang-tunggu-kepastian/" },
+      { t: "Pemkot Tangerang 5.186 formasi PPPK 2024 (Antara)", u: "https://megapolitan.antaranews.com/berita/307771/5186-pegawai-non-asn-pemkot-tangerang-ikuti-seleksi-pppk-tahun-2024" },
+      { t: "BKPSDM Tangsel: CPNS 2026 kemungkinan tidak ada (Tangerang Ekspres)", u: "https://tangerangekspres.disway.id/tangerang-hub/read/40118/pppk-jadi-pns-pemkot-tunggu-pusat" },
+      { t: "Pemkab Tangerang tunggu juknis PPPK ke CPNS (Banten Ekspres, 11 Nov 2026)", u: "https://www.bantenekspres.co.id/2026/11/11/pppk-penuh-waktu-berpeluang-jadi-cpns-pemkab-tangerang-tunggu-juknis/" },
+      { t: "Kabupaten Tangerang 2024: 500 formasi, hampir 21.000 pelamar (Koran Jakarta)", u: "https://koran-jakarta.com/2024-11-05/14000-kandidat-berebut-jadi-pns-tangerang" },
+      { t: "PPPK penuh waktu boleh ikut CPNS 2027 (detikNews, 6 Nov 2026)", u: "https://news.detik.com/berita/d-8741258/dpr-dan-pemerintah-sepakati-pppk-paruh-waktu-lintas-profesi-jadi-penuh-waktu" },
+      { t: "Usulan formasi Kota Jambi belum disetujui pusat (Jambi TV)", u: "https://jambitv.disway.id/kota-jambi/read/18391/nasib-cpns-pemkot-jambi-2026-di-ujung-tanduk-322-formasi-belum-disetujui-pusat" },
+      { t: "Pemkot Ambon 2024: 1.264 formasi, 10.508 lolos administrasi (Antara)", u: "https://ambon.antaranews.com/berita/230591/pemkot-ambon-umumkan-10-508-pelamar-lolos-seleksi-administrasi-cpns-2024" },
+      { t: "Pelamar terendah per wilayah kerja BKN menjelang penutupan 2024 (Setkab)", u: "https://setkab.go.id/jelang-penutupan-34-juta-pelamar-telah-pastikan-ikut-seleksi-cpns/" },
+      { t: "Kuota 80% Orang Asli Papua di formasi CPNS 2024 (Tirto)", u: "https://tirto.id/formasi-cpns-pemprov-papua-tengah-2024-pdf-info-persyaratan-g3dn" },
+      { t: "229.901 ASN dipindahkan ke kementerian baru (CNN Indonesia)", u: "https://www.cnnindonesia.com/nasional/20241029094831-20-1160677/fakta-fakta-nasib-229901-asn-usai-prabowo-tambah-kementerian" },
+      { t: "PCO menjadi Badan Komunikasi Pemerintah (CNN Indonesia)", u: "https://www.cnnindonesia.com/nasional/20250917171615-32-1274769/istana-pco-ganti-jadi-badan-komunikasi-pemerintah-tugas-lebih-luas" },
       { t: "Portal resmi SSCASN", u: "https://sscasn.bkn.go.id/" }
     ]
   };
