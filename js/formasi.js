@@ -393,7 +393,7 @@
     return [
       h("div", { class: "stack" }, h("h1", null, "Strategi formasi CPNS 2026"),
         h("p", { class: "lede" }, "Pemindaian untuk lulusan " + D.jurusan + " dengan rumus dokumen riset Anda: jabatan yang benar-benar menerima jurusan ini, skor sementara, instansi yang dipantau, dan kalkulator. Rincian formasi 2026 belum terbit per " + D.tanggal + "; begitu terbit, pindai di SSCASN lalu masukkan kandidat ke kalkulator."),
-        h("div", { class: "row" }, h("a", { class: "btn primary", href: "https://sscasn.bkn.go.id/", target: "_blank", rel: "noopener" }, "Buka SSCASN"),
+        h("div", { class: "row" }, h("a", { class: "btn primary", href: "https://sscasn.bkn.go.id/daftar-formasi/", target: "_blank", rel: "noopener" }, "Daftar formasi SSCASN"),
           h("button", { class: "btn", type: "button", onclick: function () { scrollTo("fm-kalk"); } }, "Ke kalkulator"),
           PD ? h("button", { class: "btn", type: "button", onclick: function () { scrollTo("fm-pemda"); } }, "Prioritas Pemda") : null,
           D.dokumen ? h("a", { class: "btn", href: D.dokumen, target: "_blank", rel: "noopener" }, "Dokumen PDF") : null)),
