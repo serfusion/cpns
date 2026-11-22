@@ -234,8 +234,19 @@
     it.pts = it.pq.opts[sel].pts;
     ui.pending = null;
     saveSession();
-    if (s.cur < s.items.length - 1) goTo(s.cur + 1); else render();
+    var lanjut = function () { if (s.cur < s.items.length - 1) goTo(s.cur + 1); else render(); };
+    if (!modeBelajar()) { lanjut(); return; }
+    if (it.pts === 5) { toast(it.pq.sec === "tkp" ? "Tepat, 5 poin" : "Benar"); lanjut(); return; }
+    // Mode belajar: jawaban salah langsung diberi tahu jawaban benarnya dan pembahasannya.
+    closeModal();
+    var ok = h("button", { class: "btn primary", type: "button", onclick: function () { closeModal(); lanjut(); } }, "Mengerti, lanjut");
+    var box = h("div", { class: "modal", role: "dialog", "aria-modal": "true", "aria-label": "Koreksi jawaban" },
+      h("p", { class: "small muted" }, "Soal No. " + (s.cur + 1) + " · jawaban Anda: " + LET[sel]),
+      feedbackView(it), h("div", { class: "row end" }, ok));
+    modalRoot.appendChild(h("div", { class: "backdrop" }, box));
+    ok.focus();
   }
+  function modeBelajar() { try { return localStorage.getItem("skd.belajar") !== "0"; } catch (e) { return true; } }
   function catSkip() {
     var s = ui.session;
     ui.pending = null;
@@ -572,6 +583,9 @@
         h("span", { class: "small" }, (pg * NAV_PER_PAGE + 1) + "–" + Math.min(total, (pg + 1) * NAV_PER_PAGE)),
         h("button", { class: "cat-arrow", type: "button", "aria-label": "Nomor berikutnya", disabled: pg >= pages - 1, onclick: function () { ui.navPage = pg + 1; render(); } }, "›"),
         h("button", { class: "cat-switch" + (ui.navOn ? " on" : ""), type: "button", role: "switch", "aria-checked": ui.navOn ? "true" : "false", "aria-label": "Tampilkan navigasi", onclick: function () { ui.navOn = !ui.navOn; render(); } }, h("i"))),
+      h("label", { class: "check small" }, h("input", { type: "checkbox", id: "mode-belajar", checked: modeBelajar(), onchange: function (e) {
+        try { localStorage.setItem("skd.belajar", e.target.checked ? "1" : "0"); } catch (x) { /* abaikan */ }
+      } }), h("span", null, "Mode belajar: jawaban salah langsung dikoreksi setelah Simpan dan Lanjutkan (matikan untuk simulasi seperti CAT asli)")),
       h("button", { class: "cat-link", type: "button", onclick: function () { catAskFinish(true); } }, "Akhiri sekarang (hanya di latihan)"));
     return h("div", { class: "cat-shell" }, head, h("div", { class: "cat-main" }, soal, nav), catFoot());
   }
