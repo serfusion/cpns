@@ -165,7 +165,7 @@
       }
     ],
     riset: {
-      tanggal: "20 November 2026",
+      tanggal: "22 November 2026",
       status: [
         "Formasi dan jadwal pendaftaran CPNS 2026 belum terbit per 20 November 2026; BKN menargetkan pendaftaran pada pekan keempat November. Jadwal SKD belum diumumkan.",
         "SKD sekolah kedinasan 2026 sudah berlangsung 22 September–7 Oktober 2026 dengan CAT BKN: 110 soal, 100 menit, ambang batas TWK 65, TIU 80, TKP 156 (KepmenPANRB 406/2026).",
@@ -174,7 +174,8 @@
       ],
       rumus: "Prioritas pola = tercantum di kisi-kisi resmi × jumlah rangkuman laporan peserta yang menyebutnya (0–3). Soal bertanda Sering keluar mengikuti pola dengan dua laporan atau lebih.",
       temuan: [
-        "TWK, dilaporkan di 3 rangkuman peserta SKD CPNS 2024: penerapan sila (kasus diskriminasi, golput), nilai integritas termasuk tokoh BPUPKI dan peristiwa sejarah, BPUPKI/PPKI, lembaga negara (MA, MK, MPR, KY), gagasan utama paragraf. Di 2 rangkuman: penerapan pasal UUD, sejarah organisasi pergerakan, nasionalisme konten kreator, huruf miring.",
+        "TWK HOTS: peserta SKD 2024 melaporkan soal TWK berbentuk kasus panjang dengan pilihan yang mirip, sehingga hafalan definisi saja tidak cukup. Set \"HOTS 2026\" (31 soal) menambahkan kasus serupa dengan konteks terkini: KUHP baru (berlaku 2 Januari 2026), putusan MK 2 Januari 2025, keamanan siber, deepfake, gratifikasi, pelindungan data pribadi, dan EYD Edisi V.",
+      "TWK, dilaporkan di 3 rangkuman peserta SKD CPNS 2024: penerapan sila (kasus diskriminasi, golput), nilai integritas termasuk tokoh BPUPKI dan peristiwa sejarah, BPUPKI/PPKI, lembaga negara (MA, MK, MPR, KY), gagasan utama paragraf. Di 2 rangkuman: penerapan pasal UUD, sejarah organisasi pergerakan, nasionalisme konten kreator, huruf miring.",
         "TIU, di 3 rangkuman: silogisme (termasuk tiga premis), figural pola 9 kotak, analisis tabel. Di 2 rangkuman: deret angka, perbandingan senilai dan berbalik nilai, berhitung cepat, kecepatan, hubungan x dan y, jaring-jaring kubus, antrean dan susunan duduk.",
         "TKP, di 3 rangkuman: prioritas antara kesibukan pribadi atau masyarakat dan tugas kantor. Di 2 rangkuman: sikap terhadap spionase dan penerapan BerAKHLAK. Di 1 rangkuman: perbedaan pilihan politik, konten kreator, pelatihan, perubahan penugasan, inovasi TIK.",
         "SKD kedinasan 2026: peserta melaporkan TIU sebagai bagian paling menantang; belum ada rincian soal yang dapat diverifikasi."

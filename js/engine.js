@@ -56,7 +56,7 @@
       var q = {
         id: hash(r.sec + "|" + (r.p || "") + "|" + r.q),
         sec: r.sec, m: r.m, q: r.q, o: r.o, a: r.a || 0, fix: !!r.fix,
-        x: r.x || "", p: r.p || null, tb: r.tb || null, hot: !!r.h
+        x: r.x || "", p: r.p || null, tb: r.tb || null, hot: !!r.h, baru: !!r.b
       };
       cache.push(q);
       byId[q.id] = q;
@@ -205,7 +205,7 @@
       return { t: q.o[oi], pts: pts };
     });
     return {
-      id: q.id, sec: q.sec, m: q.m, hot: q.hot, text: q.q, passage: q.p ? SKD.passages[q.p] || null : null,
+      id: q.id, sec: q.sec, m: q.m, hot: q.hot, baru: q.baru, text: q.q, passage: q.p ? SKD.passages[q.p] || null : null,
       table: q.tb, stem: null, opts: opts, best: best, expl: q.x
     };
   }
@@ -237,15 +237,16 @@
     if (needsReview(q.sec, st)) return 1;
     return st[2] < 2 ? 2 : 3;
   }
+  function lolos(q, opt) { return (!opt.hot || q.hot) && (!opt.baru || q.baru); }
   function pickBank(materi, n, R, stats, opt) {
-    var pool = poolOf(materi).filter(function (q) { return (!opt.hot || q.hot) && !(opt.exclude && opt.exclude[q.id]); });
+    var pool = poolOf(materi).filter(function (q) { return lolos(q, opt) && !(opt.exclude && opt.exclude[q.id]); });
     var sh = R.shuffle(pool).map(function (q) { return { q: q, t: tierOf(q, stats) }; });
     sh.sort(function (a, b) { return a.t - b.t; });
     return sh.slice(0, n).map(function (x) { return x.q; });
   }
   function capacity(m, opt) {
     if (m.gen) return Infinity;
-    return poolOf(m.id).filter(function (q) { return !opt.hot || q.hot; }).length;
+    return poolOf(m.id).filter(function (q) { return lolos(q, opt); }).length;
   }
   /** Bagi n soal ke beberapa materi sebanding kuotanya (metode D'Hondt), dibatasi stok soal. */
   function allocate(n, mats, opt) {
@@ -267,7 +268,7 @@
     var out = [], nGen = 0, i;
     if (m.gen) {
       nGen = m.gen >= 1 ? n : Math.round(n * m.gen);
-      var avail = poolOf(m.id).filter(function (q) { return !opt.hot || q.hot; }).length;
+      var avail = poolOf(m.id).filter(function (q) { return lolos(q, opt); }).length;
       if (n - nGen > avail) nGen = n - avail;
     }
     pickBank(m.id, n - nGen, R, stats, opt).forEach(function (q) { out.push(present(q, R)); });

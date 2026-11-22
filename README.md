@@ -15,6 +15,10 @@ navy + kuning amber; layar ujian dari buku panduan CAT resmi BKN), **Build** (ko
   jumlah soal, soal dijawab, belum dijawab, Selesai Ujian, sisa waktu); submateri di atas *Soal No.*; pilihan bulat A–E; jawaban baru
   tersimpan setelah **Simpan dan Lanjutkan**; **Lewatkan soal ini**; kotak nomor merah/hijau berisi huruf jawaban, berhalaman 40 nomor
   dengan tombol On/Off; Selesai Ujian aktif setelah semua soal dijawab; dialog konfirmasi dan halaman nilai bergaya CAT.
+- **Mode belajar** (aktif bawaan, bisa dimatikan di layar ujian): setelah Simpan dan Lanjutkan, jawaban yang salah langsung dibenarkan di soal itu
+  (opsi benar hijau, pilihan salah merah) dan pembahasan muncul di bawahnya, tanpa jendela pop-up.
+- **TWK HOTS 2026**: 31 soal kasus panjang dengan pilihan mirip dan konteks terkini (KUHP baru, putusan MK 2025, keamanan siber, deepfake,
+  gratifikasi, pelindungan data pribadi, EYD Edisi V); bisa dilatih terpisah lewat centang "TWK HOTS 2026 saja" di menu Latihan.
 - **Hasil + analisis per topik** (TWK per materi, TIU Verbal/Numerik/Figural, TKP per aspek) dan **pembahasan** (disimpan untuk 3 tryout terakhir).
 - **Lembar hasil** 1080×1350 dengan stempel LOLOS/BELUM LOLOS, selisih terhadap ambang batas, topik terkuat dan perlu dilatih;
   di APK bisa disimpan ke Galeri atau dibagikan.

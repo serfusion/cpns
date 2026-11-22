@@ -105,3 +105,9 @@ disimpan di localStorage dengan kunci `skd.formasi.v1` (tidak ikut sinkron).
 - [x] Check: alur penuh diuji di Chromium (paket tetap deterministik, jawaban baru tersimpan setelah Simpan dan Lanjutkan,
       Selesai Ujian aktif setelah semua dijawab, tanpa galat, tanpa gulir samping di 360–1366 px, mode gelap)
 - [ ] Uji APK di HP: simpan/bagikan lembar hasil (Android 10 ke atas), tampilan font offline
+
+## 6. Mode belajar dan TWK HOTS — 22 November 2026
+
+- [x] Mode belajar di ujian CAT: koreksi langsung di bawah soal (tanpa pop-up), jawaban terkunci setelah dikoreksi, bisa dimatikan
+- [x] Cek sumber data situs formasi pihak ketiga (jadiasn.id memakai server sendiri, disalin dari SSCASN) dan daftar formasi resmi SSCASN
+- [x] 31 soal TWK HOTS 2026 (`b: 1` di `data/twk.js`) + saringan "TWK HOTS 2026 saja" di menu Latihan

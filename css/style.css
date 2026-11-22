@@ -413,6 +413,23 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
 .cat-btn { background: linear-gradient(#77bdf7, #3c90e3); color: #fff; border: 1px solid #2f7fcf; border-radius: 6px; font-weight: 700; font-size: 17px; padding: 11px 20px; cursor: pointer; box-shadow: 0 2px 3px rgba(0, 0, 0, 0.18); text-shadow: 0 1px 0 rgba(0, 0, 0, 0.15); }
 .cat-btn:hover { filter: brightness(1.05); }
 .cat-note { color: #b45309; font-size: 13.5px; }
+/* mode belajar: koreksi langsung di bawah soal */
+.cat-opt.right { background: #e3f5e9; box-shadow: inset 0 0 0 2px #1e8e3e; }
+.cat-opt.wrong { background: #fde4e1; box-shadow: inset 0 0 0 2px #c0352b; }
+.cat-opts.rv .cat-opt { cursor: default; }
+.cat-opts.rv .cat-opt:not(.right):not(.wrong) { opacity: 0.75; }
+.cat-tag { margin-left: auto; flex: none; align-self: center; font-size: 12px; font-weight: 700; padding: 1px 8px; border-radius: 999px; white-space: nowrap; }
+.cat-tag.ok { background: #1e8e3e; color: #fff; }
+.cat-tag.bad { background: #c0352b; color: #fff; }
+.cat-opts.figs .cat-tag { margin-left: 0; }
+.cat-koreksi .feedback { background: #f6f8fb; color: #111; border-color: #bdbdbd; }
+.cat-koreksi .feedback.right { background: #e3f5e9; border-color: #1e8e3e; }
+.cat-koreksi .feedback.right .verdict { color: #1e7a3f; }
+.cat-koreksi .feedback.wrong { background: #fde4e1; border-color: #c0352b; }
+.cat-koreksi .feedback.wrong .verdict { color: #b42318; }
+.cat-koreksi .feedback.mid { background: #fff1d6; border-color: #b45309; }
+.cat-koreksi .feedback.mid .verdict { color: #8a5300; }
+.cat-koreksi .feedback .expl-l { color: #555; }
 .cat-nav { background: rgba(255, 255, 255, 0.6); border: 1px solid #cfd6dc; padding: 10px; display: flex; flex-direction: column; gap: 10px; position: sticky; top: 92px; }
 .cat-nav.off { background: transparent; border-color: transparent; }
 .cat-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 4px; }

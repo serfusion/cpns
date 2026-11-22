@@ -423,6 +423,23 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
 .cat-btn { background: linear-gradient(#77bdf7, #3c90e3); color: #fff; border: 1px solid #2f7fcf; border-radius: 6px; font-weight: 700; font-size: 17px; padding: 11px 20px; cursor: pointer; box-shadow: 0 2px 3px rgba(0, 0, 0, 0.18); text-shadow: 0 1px 0 rgba(0, 0, 0, 0.15); }
 .cat-btn:hover { filter: brightness(1.05); }
 .cat-note { color: #b45309; font-size: 13.5px; }
+/* mode belajar: koreksi langsung di bawah soal */
+.cat-opt.right { background: #e3f5e9; box-shadow: inset 0 0 0 2px #1e8e3e; }
+.cat-opt.wrong { background: #fde4e1; box-shadow: inset 0 0 0 2px #c0352b; }
+.cat-opts.rv .cat-opt { cursor: default; }
+.cat-opts.rv .cat-opt:not(.right):not(.wrong) { opacity: 0.75; }
+.cat-tag { margin-left: auto; flex: none; align-self: center; font-size: 12px; font-weight: 700; padding: 1px 8px; border-radius: 999px; white-space: nowrap; }
+.cat-tag.ok { background: #1e8e3e; color: #fff; }
+.cat-tag.bad { background: #c0352b; color: #fff; }
+.cat-opts.figs .cat-tag { margin-left: 0; }
+.cat-koreksi .feedback { background: #f6f8fb; color: #111; border-color: #bdbdbd; }
+.cat-koreksi .feedback.right { background: #e3f5e9; border-color: #1e8e3e; }
+.cat-koreksi .feedback.right .verdict { color: #1e7a3f; }
+.cat-koreksi .feedback.wrong { background: #fde4e1; border-color: #c0352b; }
+.cat-koreksi .feedback.wrong .verdict { color: #b42318; }
+.cat-koreksi .feedback.mid { background: #fff1d6; border-color: #b45309; }
+.cat-koreksi .feedback.mid .verdict { color: #8a5300; }
+.cat-koreksi .feedback .expl-l { color: #555; }
 .cat-nav { background: rgba(255, 255, 255, 0.6); border: 1px solid #cfd6dc; padding: 10px; display: flex; flex-direction: column; gap: 10px; position: sticky; top: 92px; }
 .cat-nav.off { background: transparent; border-color: transparent; }
 .cat-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 4px; }
@@ -718,7 +735,7 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
       }
     ],
     riset: {
-      tanggal: "20 November 2026",
+      tanggal: "22 November 2026",
       status: [
         "Formasi dan jadwal pendaftaran CPNS 2026 belum terbit per 20 November 2026; BKN menargetkan pendaftaran pada pekan keempat November. Jadwal SKD belum diumumkan.",
         "SKD sekolah kedinasan 2026 sudah berlangsung 22 September–7 Oktober 2026 dengan CAT BKN: 110 soal, 100 menit, ambang batas TWK 65, TIU 80, TKP 156 (KepmenPANRB 406/2026).",
@@ -727,7 +744,8 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
       ],
       rumus: "Prioritas pola = tercantum di kisi-kisi resmi × jumlah rangkuman laporan peserta yang menyebutnya (0–3). Soal bertanda Sering keluar mengikuti pola dengan dua laporan atau lebih.",
       temuan: [
-        "TWK, dilaporkan di 3 rangkuman peserta SKD CPNS 2024: penerapan sila (kasus diskriminasi, golput), nilai integritas termasuk tokoh BPUPKI dan peristiwa sejarah, BPUPKI/PPKI, lembaga negara (MA, MK, MPR, KY), gagasan utama paragraf. Di 2 rangkuman: penerapan pasal UUD, sejarah organisasi pergerakan, nasionalisme konten kreator, huruf miring.",
+        "TWK HOTS: peserta SKD 2024 melaporkan soal TWK berbentuk kasus panjang dengan pilihan yang mirip, sehingga hafalan definisi saja tidak cukup. Set \"HOTS 2026\" (31 soal) menambahkan kasus serupa dengan konteks terkini: KUHP baru (berlaku 2 Januari 2026), putusan MK 2 Januari 2025, keamanan siber, deepfake, gratifikasi, pelindungan data pribadi, dan EYD Edisi V.",
+      "TWK, dilaporkan di 3 rangkuman peserta SKD CPNS 2024: penerapan sila (kasus diskriminasi, golput), nilai integritas termasuk tokoh BPUPKI dan peristiwa sejarah, BPUPKI/PPKI, lembaga negara (MA, MK, MPR, KY), gagasan utama paragraf. Di 2 rangkuman: penerapan pasal UUD, sejarah organisasi pergerakan, nasionalisme konten kreator, huruf miring.",
         "TIU, di 3 rangkuman: silogisme (termasuk tiga premis), figural pola 9 kotak, analisis tabel. Di 2 rangkuman: deret angka, perbandingan senilai dan berbalik nilai, berhitung cepat, kecepatan, hubungan x dan y, jaring-jaring kubus, antrean dan susunan duduk.",
         "TKP, di 3 rangkuman: prioritas antara kesibukan pribadi atau masyarakat dan tugas kantor. Di 2 rangkuman: sikap terhadap spionase dan penerapan BerAKHLAK. Di 1 rangkuman: perbedaan pilihan politik, konten kreator, pelatihan, perubahan penugasan, inovasi TIK.",
         "SKD kedinasan 2026: peserta melaporkan TIU sebagai bagian paling menantang; belum ada rincian soal yang dapat diverifikasi."
@@ -1507,6 +1525,268 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
       o: ["orang yang terbiasa memakai gawai pun dapat menjadi korban penipuan daring", "penipuan daring hanya menyasar orang lanjut usia",
         "pelaku penipuan selalu mengaku sebagai instansi resmi", "suara tiruan kecerdasan artifisial belum dipakai penipu", "korban penipuan daring sudah berkurang"],
       x: "Paragraf pertama menyebut banyak korban justru orang yang terbiasa memakai gawai tetapi lengah." }
+  ]);
+
+  // ===================== HOTS 2026 =====================
+  // Soal kasus bergaya HOTS seperti yang dilaporkan peserta SKD 2024: kalimat panjang, pilihan mirip,
+  // konteks terkini 2024–2026 (KUHP baru, putusan MK 2025, keamanan siber, disinformasi, EYD V).
+  // b:1 = set HOTS 2026 (bisa dilatih terpisah di menu Latihan).
+  SKD.add("twk", [
+    // ---- Nasionalisme ----
+    { m: "nas", b: 1,
+      q: "Dina berjualan pakaian secara daring. Seorang pemasok menawarinya pakaian bekas impor yang masuk tanpa izin dengan harga sangat murah sehingga keuntungannya bisa berlipat. Di sisi lain, penjualan konveksi lokal yang selama ini ia pasarkan sedang menurun. Sikap Dina yang paling mencerminkan nasionalisme adalah ...",
+      o: ["menolak pasokan ilegal itu dan memperkuat pemasaran konveksi lokal, misalnya dengan foto produk dan layanan yang lebih baik",
+        "menerima pasokan untuk sementara sampai penjualan konveksi lokal kembali naik",
+        "menerima pasokan karena pembeli berhak mendapat barang yang lebih murah",
+        "menolak pasokan dan mengajak warganet memboikot semua barang impor",
+        "menjual keduanya agar pelanggan bebas memilih"],
+      x: "Pakaian bekas impor ilegal merugikan industri dalam negeri dan melanggar hukum. Nasionalisme ditunjukkan dengan menolaknya sekaligus memajukan produk lokal; memboikot semua barang impor (termasuk yang legal) adalah sikap chauvinis." },
+    { m: "nas", b: 1,
+      q: "Setelah penetapan hasil pilkada, grup percakapan keluarga Raka memanas. Sebagian anggota menyebarkan tuduhan kecurangan tanpa bukti dan mengajak menolak hasil dengan turun ke jalan, sementara yang lain membalas dengan ejekan. Sikap Raka yang paling tepat sebagai warga negara adalah ...",
+      o: ["mengingatkan bahwa keberatan atas hasil pemilihan disalurkan lewat jalur hukum ke Mahkamah Konstitusi, sambil meredakan ejekan agar keluarga tetap rukun",
+        "keluar dari grup agar tidak ikut terseret perdebatan",
+        "mendukung ajakan turun ke jalan karena kecurangan harus dilawan",
+        "ikut mengejek pendukung yang kalah agar mereka menerima kenyataan",
+        "menyebarkan tangkapan layar percakapan ke media sosial supaya publik menilai"],
+      x: "Perselisihan hasil pemilihan diselesaikan melalui Mahkamah Konstitusi, bukan pengerahan massa. Menjaga persatuan keluarga dan menyalurkan keberatan secara konstitusional adalah wujud nasionalisme dan sila ketiga." },
+    { m: "nas", b: 1,
+      q: "Gerakan \"bangga buatan Indonesia\" di sebuah kota berubah menjadi aksi sekelompok orang mendatangi toko yang menjual produk impor legal, menurunkan barang dari rak, dan mengancam pemilik toko. Penilaian yang paling tepat atas aksi itu adalah ...",
+      o: ["aksi itu keliru: mencintai produk dalam negeri harus dilakukan tanpa memaksa dan tanpa melanggar hak orang lain yang berdagang secara sah",
+        "aksi itu wajar karena bertujuan melindungi ekonomi nasional",
+        "aksi itu boleh asalkan tidak sampai merusak barang",
+        "aksi itu tepat bila dilakukan bersama aparat pemerintah daerah",
+        "aksi itu menunjukkan nasionalisme yang tinggi dan perlu ditiru kota lain"],
+      x: "Nasionalisme yang sehat tidak berubah menjadi chauvinisme atau main hakim sendiri. Produk impor yang masuk secara legal dilindungi hukum, dan memaksa orang lain bertentangan dengan sila kedua." },
+    { m: "nas", b: 1,
+      q: "Sebuah akun luar negeri mengunggah video motif tenun asal Nusa Tenggara Timur dengan keterangan bahwa motif itu berasal dari negaranya. Unggahan itu viral dan warganet Indonesia mulai membalas dengan kata-kata kasar. Langkah yang paling tepat untuk melindungi budaya bangsa adalah ...",
+      o: ["menanggapi dengan konten berbasis data sejarah dan mendorong pencatatan resmi motif itu sebagai kekayaan budaya Indonesia",
+        "ikut membalas dengan kata-kata kasar agar akun itu jera",
+        "melaporkan akun itu secara beramai-ramai agar ditutup",
+        "membiarkan saja karena budaya bisa dimiliki siapa pun",
+        "meminta pemerintah memutus hubungan diplomatik dengan negara tersebut"],
+      x: "Perlindungan budaya paling kuat dilakukan dengan bukti dan pencatatan resmi (misalnya sebagai warisan budaya takbenda atau kekayaan intelektual komunal), bukan dengan ujaran kasar yang justru merusak citra bangsa." },
+    { m: "nas", b: 1,
+      q: "Bima menerima beasiswa negara untuk kuliah magister di luar negeri dengan perjanjian wajib kembali dan berkarya di Indonesia. Menjelang lulus, ia ditawari pekerjaan tetap bergaji tinggi di negara tempatnya belajar. Sikap Bima yang paling mencerminkan nasionalisme dan integritas adalah ...",
+      o: ["menunaikan kewajiban kembali ke Indonesia sesuai perjanjian sambil menjaga jejaring internasional untuk kemajuan bidangnya di tanah air",
+        "menerima tawaran itu karena ilmu bisa dibagikan dari mana saja",
+        "menerima tawaran itu lalu mengembalikan biaya beasiswa bila diminta",
+        "menunda kepulangan tanpa kabar sampai kontraknya selesai",
+        "mencari celah perjanjian agar dapat tetap tinggal di luar negeri"],
+      x: "Beasiswa negara dibiayai rakyat. Menepati perjanjian untuk kembali berkarya adalah wujud tanggung jawab kepada bangsa; jejaring internasional tetap bisa dimanfaatkan untuk kepentingan nasional." },
+    { m: "nas", b: 1,
+      q: "Pada 3 April 1950 Mohammad Natsir mengajukan Mosi Integral di parlemen Republik Indonesia Serikat sehingga negara-negara bagian bersatu kembali dalam Negara Kesatuan Republik Indonesia. Nilai dari peristiwa itu yang paling relevan untuk menyikapi tuntutan sebuah daerah agar diberi kewenangan lebih besar saat ini adalah ...",
+      o: ["memperjuangkan aspirasi melalui jalur konstitusional dan musyawarah dengan tetap menjaga keutuhan NKRI",
+        "mendorong daerah yang tidak puas untuk membentuk negara bagian sendiri",
+        "menolak semua aspirasi daerah agar persatuan tidak terganggu",
+        "menyerahkan penyelesaian kepada pihak asing yang netral",
+        "menunda pembahasan aspirasi itu sampai situasi politik tenang"],
+      x: "Mosi Integral menunjukkan bahwa perubahan besar ketatanegaraan dicapai lewat jalur parlementer dan musyawarah, dengan tujuan memperkuat persatuan dalam NKRI." },
+
+    // ---- Integritas ----
+    { m: "int", b: 1,
+      q: "Sepekan setelah tender selesai, Sari, anggota kelompok kerja pengadaan, menerima voucer belanja digital dari perusahaan pemenang dengan pesan \"sekadar ucapan terima kasih\". Voucer itu sudah masuk ke akun belanja daringnya. Tindakan Sari yang paling tepat adalah ...",
+      o: ["tidak menggunakan voucer itu dan melaporkannya sebagai gratifikasi kepada KPK paling lambat 30 hari kerja sejak diterima",
+        "menggunakan voucer itu karena tender sudah selesai sehingga tidak memengaruhi keputusan",
+        "membagikan voucer itu kepada seluruh anggota kelompok kerja agar adil",
+        "menukarkan voucer menjadi uang lalu menyumbangkannya ke panti asuhan",
+        "membiarkan voucer itu kedaluwarsa tanpa memberi tahu siapa pun"],
+      x: "Pemberian kepada penyelenggara negara yang berhubungan dengan jabatan adalah gratifikasi. Bila tidak dapat ditolak, wajib dilaporkan ke KPK paling lambat 30 hari kerja; menyumbangkannya atau membiarkannya tidak menghapus kewajiban melapor." },
+    { m: "int", b: 1,
+      q: "Andi ditugasi menilai proposal bantuan hibah. Saat membaca berkas, ia mendapati salah satu pemohon adalah yayasan yang diketuai kakak kandungnya. Proposal itu sebenarnya cukup baik. Tindakan Andi yang paling sesuai dengan prinsip integritas adalah ...",
+      o: ["memberi tahu atasan adanya konflik kepentingan dan meminta tidak dilibatkan dalam penilaian proposal tersebut",
+        "tetap menilai secara objektif karena proposalnya memang layak",
+        "memberi nilai lebih rendah agar tidak dituduh berpihak",
+        "menilai proposal itu tetapi tidak memberi tahu siapa pun tentang hubungan keluarganya",
+        "meminta kakaknya menarik proposal agar tidak menimbulkan masalah"],
+      x: "Pejabat yang memiliki konflik kepentingan wajib melaporkannya dan tidak ikut mengambil keputusan (UU Administrasi Pemerintahan). Objektivitas pribadi tidak cukup; yang penting proses yang bebas dari benturan kepentingan." },
+    { m: "int", b: 1,
+      q: "Seorang teman lama yang bekerja di perusahaan penagihan pinjaman daring menghubungi Rina, pegawai dinas kependudukan, dan meminta alamat terbaru seseorang yang menunggak. Ia menjanjikan imbalan dan berkata \"hanya alamat, bukan data rahasia\". Sikap Rina yang paling tepat adalah ...",
+      o: ["menolak karena data kependudukan adalah data pribadi yang dilindungi undang-undang dan hanya boleh diakses sesuai prosedur resmi",
+        "memberikan alamat saja tanpa menerima imbalan",
+        "memberikan alamat karena penunggak memang wajib membayar utang",
+        "meminta temannya mengajukan surat resmi lalu memberikan data tanpa pemeriksaan",
+        "menanyakan dulu kepada orang yang dicari apakah keberatan"],
+      x: "Alamat termasuk data pribadi yang dilindungi (UU 27/2022 tentang Pelindungan Data Pribadi dan aturan administrasi kependudukan). Menyerahkannya di luar prosedur adalah penyalahgunaan wewenang, dengan atau tanpa imbalan." },
+    { m: "int", b: 1,
+      q: "Menjelang akhir tahun, capaian program di unit Tono baru 70 persen. Atasannya meminta laporan kinerja ditulis 95 persen agar unit tidak mendapat evaluasi buruk, dengan alasan \"tahun depan bisa dikejar\". Sikap Tono yang paling mencerminkan integritas adalah ...",
+      o: ["menyajikan capaian yang sebenarnya disertai penjelasan kendala dan rencana perbaikan, lalu menyampaikan keberatan secara santun kepada atasan",
+        "mengikuti perintah atasan karena tanggung jawab ada pada atasan",
+        "menulis angka di antara keduanya agar kompromi",
+        "menolak menyusun laporan dan menyerahkannya kepada rekan lain",
+        "menulis 95 persen lalu menambah catatan kecil bahwa data belum final"],
+      x: "Akuntabel berarti melaporkan data apa adanya. Perintah yang melanggar aturan tidak wajib diikuti; cara yang tepat adalah tetap jujur sambil menawarkan solusi." },
+    { m: "int", b: 1,
+      q: "Untuk mempercepat penyusunan kajian kebijakan, Lia memakai aplikasi kecerdasan artifisial generatif. Hasilnya rapi, tetapi memuat beberapa angka statistik dan kutipan peraturan yang tidak ia ketahui sumbernya. Kajian harus diserahkan besok pagi. Tindakan Lia yang paling tepat adalah ...",
+      o: ["memeriksa setiap angka dan kutipan ke sumber resmi, menghapus yang tidak dapat dibuktikan, dan mencantumkan sumber yang dipakai",
+        "menyerahkan apa adanya karena aplikasi itu umumnya akurat",
+        "menyerahkan kajian dengan catatan bahwa isinya dibuat aplikasi",
+        "mengganti angka yang meragukan dengan perkiraan sendiri agar tetap lengkap",
+        "meminta perpanjangan waktu tanpa mengerjakan pemeriksaan apa pun"],
+      x: "Penyusun tetap bertanggung jawab atas isi kajian. Kecerdasan artifisial dapat membuat data dan kutipan palsu, sehingga semuanya harus diverifikasi ke sumber resmi." },
+    { m: "int", b: 1,
+      q: "Doni, pengelola kas kecil di kantornya, bercerita bahwa ia \"meminjam\" uang kas untuk menutup utang judi daring dan berjanji mengembalikannya saat gajian. Ia meminta Anda, rekan satu ruangan, merahasiakannya. Tindakan yang paling tepat adalah ...",
+      o: ["menolak merahasiakannya dan melaporkan kepada atasan atau aparat pengawas internal agar ditangani sesuai ketentuan",
+        "merahasiakannya asalkan uang dikembalikan sebelum pemeriksaan",
+        "meminjami Doni uang pribadi agar kas segera tertutup",
+        "menasihati Doni berhenti berjudi tanpa melapor",
+        "menyebarkan kejadian itu ke grup kantor agar menjadi pelajaran"],
+      x: "Memakai uang negara untuk kepentingan pribadi adalah penyalahgunaan keuangan negara, meskipun ada niat mengembalikan. Pelaporan melalui jalur resmi melindungi keuangan negara; menyebarkannya ke grup bukan jalur yang benar." },
+
+    // ---- Bela negara ----
+    { m: "bela", b: 1,
+      q: "Pada pertengahan 2024 serangan ransomware terhadap pusat data nasional sementara mengganggu banyak layanan publik. Bagi ASN pengelola data di sebuah dinas, bentuk bela negara yang paling tepat dalam menghadapi ancaman serupa adalah ...",
+      o: ["menerapkan kebiasaan keamanan siber, seperti cadangan data berkala, pembaruan sistem, dan kata sandi kuat, serta segera melaporkan insiden sesuai prosedur",
+        "menyerahkan seluruh urusan keamanan siber kepada TNI",
+        "menghentikan semua layanan daring dan kembali ke layanan manual",
+        "menyimpan data penting di akun penyimpanan pribadi agar lebih aman",
+        "menunggu pedoman dari pusat sebelum melakukan apa pun"],
+      x: "Serangan siber adalah ancaman nirmiliter. Bela negara nonfisik bagi ASN diwujudkan dengan menjalankan tugas secara profesional, termasuk menjaga keamanan data dan melaporkan insiden." },
+    { m: "bela", b: 1,
+      q: "Menjelang pemungutan suara, sebuah video yang memperlihatkan seorang calon kepala daerah seolah menghina kelompok agama tertentu beredar di grup warga. Belakangan diketahui video itu hasil rekayasa kecerdasan artifisial (deepfake). Sikap warga yang paling mencerminkan bela negara adalah ...",
+      o: ["tidak meneruskan video itu, memeriksa kebenarannya melalui kanal resmi atau cek fakta, lalu melaporkan kontennya ke platform",
+        "meneruskan video itu dengan peringatan \"belum tentu benar\"",
+        "menyebarkan video tandingan untuk menyerang calon lain",
+        "keluar dari grup warga agar tidak terlibat",
+        "menyimpan video itu sebagai bukti tanpa memberi tahu siapa pun"],
+      x: "Disinformasi yang memecah belah adalah ancaman nirmiliter. Memutus rantai penyebaran, memverifikasi, dan melapor adalah bentuk bela negara di ruang digital." },
+    { m: "bela", b: 1,
+      q: "Nelayan di Natuna melihat kapal asing menangkap ikan di zona ekonomi eksklusif Indonesia. Kapal itu lebih besar dan awaknya tampak bersenjata. Tindakan para nelayan yang paling tepat sebagai bentuk bela negara adalah ...",
+      o: ["mencatat posisi, waktu, dan ciri kapal serta mengambil dokumentasi dari jarak aman, lalu segera melapor kepada aparat seperti Bakamla, TNI AL, atau pengawas perikanan",
+        "mendekati kapal itu untuk mengusirnya bersama-sama",
+        "membiarkannya karena laut adalah wilayah bebas",
+        "mengunggah video ke media sosial tanpa melapor ke aparat",
+        "ikut menangkap ikan di dekat kapal asing agar tidak kalah hasil"],
+      x: "Bela negara tidak berarti bertindak sendiri yang membahayakan nyawa. Laporan yang akurat kepada aparat berwenang adalah peran warga yang paling efektif menjaga kedaulatan." },
+    { m: "bela", b: 1,
+      q: "Seorang ASN muda tertarik mendaftar Komponen Cadangan setelah membaca pengumuman Kementerian Pertahanan. Pernyataan yang benar tentang Komponen Cadangan menurut UU 23/2019 tentang Pengelolaan Sumber Daya Nasional untuk Pertahanan Negara adalah ...",
+      o: ["pendaftaran calon Komponen Cadangan bersifat sukarela",
+        "setiap ASN wajib menjadi anggota Komponen Cadangan",
+        "anggota Komponen Cadangan otomatis menjadi prajurit TNI",
+        "Komponen Cadangan dapat dikerahkan oleh kepala instansi tempat anggotanya bekerja",
+        "Komponen Cadangan hanya terbuka bagi lulusan SMA"],
+      x: "UU 23/2019 menyatakan pendaftaran calon Komponen Cadangan bersifat sukarela. Anggotanya tidak otomatis menjadi prajurit TNI dan pengerahannya hanya melalui mobilisasi oleh Presiden." },
+    { m: "bela", b: 1,
+      q: "Desa tempat tinggal Ayu rawan banjir bandang. Ia mengajak pemuda karang taruna mengikuti pelatihan tanggap bencana, memetakan jalur evakuasi, dan menyusun daftar warga lanjut usia yang perlu dibantu saat evakuasi. Ditinjau dari bela negara, kegiatan Ayu paling tepat digolongkan sebagai ...",
+      o: ["bela negara nonfisik dalam menghadapi ancaman nirmiliter berupa bencana alam",
+        "bela negara fisik dalam menghadapi ancaman militer",
+        "kegiatan sosial biasa yang tidak berkaitan dengan bela negara",
+        "tugas pemerintah daerah yang tidak boleh diambil alih warga",
+        "bela negara fisik karena melibatkan kegiatan di lapangan"],
+      x: "Bencana alam termasuk ancaman nirmiliter. Menyiapkan kemampuan warga menghadapinya adalah bela negara nonfisik yang sesuai dengan profesi dan lingkungan masing-masing." },
+    { m: "bela", b: 1,
+      q: "Ketika Belanda melancarkan Agresi Militer II dan menangkap pimpinan negara di Yogyakarta pada 19 Desember 1948, Syafruddin Prawiranegara membentuk Pemerintahan Darurat Republik Indonesia (PDRI) di Sumatra Barat. Nilai dari peristiwa itu yang paling relevan bagi ASN saat ini adalah ...",
+      o: ["menjaga agar pemerintahan dan pelayanan kepada rakyat tetap berjalan dalam keadaan darurat",
+        "mengutamakan keselamatan pribadi saat negara dalam bahaya",
+        "memindahkan kantor pemerintahan setiap kali ada ancaman",
+        "menunggu perintah pimpinan tertinggi sebelum bertindak dalam krisis",
+        "menghentikan pelayanan publik sampai keadaan benar-benar aman"],
+      x: "PDRI memastikan Republik tetap ada dan berfungsi meski pemimpinnya ditawan. Peristiwa ini diperingati sebagai Hari Bela Negara (19 Desember); nilainya bagi ASN adalah kesinambungan pemerintahan dan pelayanan dalam krisis." },
+
+    // ---- Pilar negara ----
+    { m: "pilar", b: 1,
+      q: "Pada 2 Januari 2025 Mahkamah Konstitusi memutuskan bahwa ketentuan ambang batas pencalonan presiden dalam UU Pemilu bertentangan dengan UUD 1945. Sekelompok warga yang tidak setuju kemudian berencana meminta Mahkamah Agung membatalkan putusan itu. Penilaian yang tepat atas rencana tersebut adalah ...",
+      o: ["tidak dapat dilakukan karena putusan Mahkamah Konstitusi bersifat final dan langsung mengikat sejak diucapkan",
+        "dapat dilakukan karena Mahkamah Agung adalah lembaga peradilan tertinggi",
+        "dapat dilakukan melalui banding dalam 14 hari setelah putusan",
+        "hanya DPR yang dapat membatalkan putusan itu melalui sidang paripurna",
+        "Presiden dapat menunda berlakunya putusan itu demi stabilitas politik"],
+      x: "Pasal 24C ayat (1) UUD 1945: Mahkamah Konstitusi mengadili pada tingkat pertama dan terakhir yang putusannya bersifat final. Tidak ada upaya hukum banding atau pembatalan oleh lembaga lain." },
+    { m: "pilar", b: 1,
+      q: "KUHP nasional (UU 1/2023) mulai berlaku pada 2 Januari 2026 dan mengatur beberapa perbuatan yang sebelumnya bukan tindak pidana. Seseorang dilaporkan atas perbuatan semacam itu yang ia lakukan pada Oktober 2025. Penilaian yang paling tepat adalah ...",
+      o: ["ia tidak dapat dipidana karena hukum pidana tidak boleh berlaku surut terhadap perbuatan sebelum aturan itu berlaku",
+        "ia dapat dipidana karena laporannya dibuat setelah KUHP baru berlaku",
+        "ia dapat dipidana bila perbuatannya dianggap meresahkan masyarakat",
+        "hakim bebas memilih antara KUHP lama dan KUHP baru",
+        "ia dapat dipidana karena ketidaktahuan akan hukum bukan alasan pemaaf"],
+      x: "Asas legalitas dan larangan berlaku surut: Pasal 28I ayat (1) UUD 1945 menjamin hak untuk tidak dituntut atas dasar hukum yang berlaku surut, dan KUHP pun memuat asas legalitas." },
+    { m: "pilar", b: 1,
+      q: "Pemerintah kota mengeluarkan aturan yang melarang semua unjuk rasa di pusat kota tanpa pengecualian. Sejumlah mahasiswa menilai aturan itu melanggar hak konstitusional mereka. Pernyataan yang paling sesuai dengan UUD 1945 adalah ...",
+      o: ["kebebasan menyampaikan pendapat dapat dibatasi, tetapi pembatasannya harus ditetapkan dengan undang-undang dan untuk alasan yang diatur Pasal 28J ayat (2)",
+        "kebebasan berpendapat adalah hak mutlak yang sama sekali tidak boleh dibatasi",
+        "pemerintah kota bebas membatasi hak asasi demi ketertiban tanpa dasar undang-undang",
+        "hak menyampaikan pendapat hanya berlaku di ruang tertutup",
+        "unjuk rasa hanya boleh dilakukan setelah mendapat izin DPRD"],
+      x: "Pasal 28E ayat (3) menjamin kebebasan mengeluarkan pendapat, sedangkan Pasal 28J ayat (2) membolehkan pembatasan hanya dengan undang-undang untuk menghormati hak orang lain, moral, nilai agama, keamanan, dan ketertiban umum." },
+    { m: "pilar", b: 1,
+      q: "Sebuah proyek pembangunan direncanakan melintasi hutan yang dikelola turun-temurun oleh masyarakat hukum adat yang masih hidup dan menjalankan aturan adatnya. Sikap pemerintah yang paling sesuai dengan UUD 1945 adalah ...",
+      o: ["mengakui dan menghormati hak tradisional masyarakat adat itu, melibatkan mereka dalam musyawarah, dan memastikan hak mereka terlindungi",
+        "melanjutkan proyek karena seluruh tanah dikuasai negara",
+        "memindahkan masyarakat adat tanpa musyawarah demi kepentingan umum",
+        "menunggu masyarakat adat mendaftarkan diri sebagai badan usaha",
+        "menyerahkan keputusan sepenuhnya kepada investor proyek"],
+      x: "Pasal 18B ayat (2) UUD 1945: negara mengakui dan menghormati kesatuan masyarakat hukum adat beserta hak tradisionalnya sepanjang masih hidup dan sesuai prinsip NKRI." },
+    { m: "pilar", b: 1,
+      q: "Pada Kabinet Merah Putih jumlah kementerian bertambah menjadi 48. Menurut UUD 1945, ketentuan tentang pembentukan, pengubahan, dan pembubaran kementerian negara ...",
+      o: ["diatur dalam undang-undang", "ditetapkan oleh MPR melalui ketetapan",
+        "merupakan hak prerogatif Presiden tanpa memerlukan undang-undang", "harus mendapat persetujuan DPD",
+        "ditetapkan oleh Mahkamah Konstitusi"],
+      x: "Pasal 17 ayat (4) UUD 1945 menyatakan pembentukan, pengubahan, dan pembubaran kementerian negara diatur dalam undang-undang; Presiden mengangkat menteri dalam kerangka undang-undang itu." },
+    { m: "pilar", b: 1,
+      q: "Sebuah pemerintah kabupaten berencana menerbitkan token digital sebagai alat pembayaran resmi pengganti rupiah di wilayahnya agar ekonomi lokal tumbuh. Penilaian yang paling tepat adalah ...",
+      o: ["tidak dapat dilakukan karena urusan moneter dan fiskal nasional adalah urusan pemerintahan absolut yang menjadi kewenangan pusat",
+        "dapat dilakukan karena daerah memiliki otonomi seluas-luasnya",
+        "dapat dilakukan bila disetujui DPRD kabupaten",
+        "dapat dilakukan asalkan rupiah tetap boleh dipakai",
+        "dapat dilakukan setelah mendapat izin gubernur"],
+      x: "Pasal 18 ayat (5) UUD 1945 memberi otonomi seluas-luasnya kecuali urusan yang ditentukan undang-undang sebagai urusan pusat. Moneter dan fiskal nasional termasuk urusan pemerintahan absolut (UU 23/2014)." },
+    { m: "pilar", b: 1,
+      q: "Sebuah kelompok agama minoritas di suatu desa sudah memenuhi seluruh persyaratan izin pendirian rumah ibadah, tetapi sekelompok warga tetap menghalangi pembangunannya. Langkah yang paling sesuai dengan Pancasila dan UUD 1945 adalah ...",
+      o: ["menyelesaikannya melalui dialog bersama forum kerukunan umat beragama dan pemerintah setempat sambil menegakkan hak beribadat yang dijamin Pasal 29 ayat (2)",
+        "menunda pembangunan sampai seluruh warga desa setuju",
+        "memindahkan rencana pembangunan ke desa lain agar tidak ribut",
+        "membiarkan kedua kelompok menyelesaikannya sendiri",
+        "mengadakan pemungutan suara warga untuk menentukan boleh atau tidaknya"],
+      x: "Pasal 29 ayat (2) menjamin kemerdekaan tiap penduduk memeluk agama dan beribadat. Hak konstitusional tidak ditentukan oleh suara mayoritas; dialog dan penegakan hukum dijalankan bersamaan." },
+    { m: "pilar", b: 1,
+      q: "Pemerintah mendorong pembentukan koperasi di desa-desa agar warga mengelola usaha secara bersama untuk kesejahteraan anggotanya. Ketentuan UUD 1945 yang paling sejalan dengan kebijakan itu adalah ...",
+      o: ["Pasal 33 ayat (1): perekonomian disusun sebagai usaha bersama berdasar atas asas kekeluargaan",
+        "Pasal 33 ayat (3): bumi, air, dan kekayaan alam dikuasai negara",
+        "Pasal 34 ayat (1): fakir miskin dan anak telantar dipelihara negara",
+        "Pasal 27 ayat (3): hak dan kewajiban ikut serta dalam pembelaan negara",
+        "Pasal 31 ayat (1): hak mendapat pendidikan"],
+      x: "Koperasi adalah bangun usaha yang paling sesuai dengan asas kekeluargaan dan usaha bersama dalam Pasal 33 ayat (1) UUD 1945." },
+
+    // ---- Bahasa negara (EYD Edisi V) ----
+    { m: "bind", b: 1,
+      q: "Kalimat yang penulisan gabungan katanya tepat menurut EYD Edisi V adalah ...",
+      o: ["Kedua instansi bekerja sama untuk mempertanggungjawabkan penggunaan anggaran.",
+        "Kedua instansi bekerjasama untuk mempertanggungjawabkan penggunaan anggaran.",
+        "Kedua instansi bekerja sama untuk mempertanggung jawabkan penggunaan anggaran.",
+        "Kedua instansi menjalin kerjasama dan bertanggungjawab atas anggaran.",
+        "Kedua instansi menjalin kerja sama dan bertanggungjawab atas anggaran."],
+      x: "Gabungan kata ditulis terpisah (kerja sama, bekerja sama, bertanggung jawab), tetapi ditulis serangkai bila mendapat awalan dan akhiran sekaligus (mempertanggungjawabkan, pertanggungjawaban)." },
+    { m: "bind", b: 1,
+      q: "Kalimat yang penggunaan huruf kapitalnya tepat adalah ...",
+      o: ["Kegiatan itu dibuka oleh Gubernur Banten.",
+        "Upacara dipimpin oleh Bupati yang baru dilantik.",
+        "Warga Suku Baduy menjaga hutan adatnya.",
+        "Ia fasih berbahasa Inggris dan Bahasa Jepang.",
+        "Rapat dipimpin oleh kepala Dinas Komunikasi dan Informatika Kota Tangerang."],
+      x: "Nama jabatan ditulis kapital bila diikuti nama orang, instansi, atau tempat (Gubernur Banten; Kepala Dinas ... Kota Tangerang). Tanpa itu ditulis kecil (bupati yang baru dilantik). Kata suku dan bahasa tidak dikapitalkan: suku Baduy, bahasa Jepang." },
+    { m: "bind", b: 1,
+      q: "Kalimat berikut yang paling efektif adalah ...",
+      o: ["Peserta diminta mengunggah dokumen sebelum batas waktu.",
+        "Para peserta-peserta diminta untuk mengunggah dokumen sebelum batas waktu.",
+        "Bagi peserta yang belum mengunggah dokumen diminta segera melengkapinya.",
+        "Sejak dari pagi peserta sudah mengunggah dokumen sebelum batas waktu.",
+        "Dokumen yang mana harus diunggah oleh para peserta sebelum batas waktu."],
+      x: "Kalimat efektif hemat dan bersubjek jelas. \"Para peserta-peserta\" dan \"sejak dari\" berlebihan, \"Bagi peserta ... diminta\" mengaburkan subjek, dan \"yang mana\" membuat kalimat tidak lengkap." },
+    { m: "bind", b: 1,
+      q: "Bacalah paragraf berikut. \"Banyak pemerintah daerah kini menyediakan layanan perizinan secara daring sehingga warga tidak perlu antre berjam-jam. Namun, di sejumlah desa sinyal internet masih lemah dan sebagian warga lanjut usia belum terbiasa memakai gawai. Tanpa pendampingan dan perbaikan jaringan, layanan daring justru dapat menyingkirkan warga yang paling membutuhkan. Karena itu, digitalisasi layanan harus dibarengi pemerataan infrastruktur dan literasi digital.\" Gagasan utama paragraf tersebut adalah ...",
+      o: ["digitalisasi layanan perlu disertai pemerataan infrastruktur dan literasi digital agar tidak menyingkirkan sebagian warga",
+        "layanan perizinan daring membuat warga tidak perlu antre",
+        "sinyal internet di banyak desa masih lemah",
+        "warga lanjut usia belum terbiasa memakai gawai",
+        "pemerintah daerah harus menghapus layanan tatap muka"],
+      x: "Paragraf ini induktif: kalimat utama ada di akhir (\"Karena itu, ...\"). Kalimat-kalimat sebelumnya adalah penjelas yang mengarah pada simpulan itu." },
+    { m: "bind", b: 1,
+      q: "Kalimat yang seluruh katanya baku adalah ...",
+      o: ["Silakan urus izin praktik sebelum sertifikat Anda kedaluwarsa.",
+        "Silahkan urus izin praktik sebelum sertifikat Anda kedaluwarsa.",
+        "Silakan urus ijin praktik sebelum sertifikat Anda kedaluwarsa.",
+        "Silakan urus izin praktek sebelum sertifikat Anda kedaluwarsa.",
+        "Silakan urus izin praktik sebelum sertifikat Anda kadaluarsa."],
+      x: "Bentuk baku: silakan (bukan silahkan), izin (bukan ijin), praktik (bukan praktek), sertifikat, dan kedaluwarsa (bukan kadaluarsa)." }
   ]);
 })();
 
@@ -2605,7 +2885,7 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
       var q = {
         id: hash(r.sec + "|" + (r.p || "") + "|" + r.q),
         sec: r.sec, m: r.m, q: r.q, o: r.o, a: r.a || 0, fix: !!r.fix,
-        x: r.x || "", p: r.p || null, tb: r.tb || null, hot: !!r.h
+        x: r.x || "", p: r.p || null, tb: r.tb || null, hot: !!r.h, baru: !!r.b
       };
       cache.push(q);
       byId[q.id] = q;
@@ -2754,7 +3034,7 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
       return { t: q.o[oi], pts: pts };
     });
     return {
-      id: q.id, sec: q.sec, m: q.m, hot: q.hot, text: q.q, passage: q.p ? SKD.passages[q.p] || null : null,
+      id: q.id, sec: q.sec, m: q.m, hot: q.hot, baru: q.baru, text: q.q, passage: q.p ? SKD.passages[q.p] || null : null,
       table: q.tb, stem: null, opts: opts, best: best, expl: q.x
     };
   }
@@ -2786,15 +3066,16 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
     if (needsReview(q.sec, st)) return 1;
     return st[2] < 2 ? 2 : 3;
   }
+  function lolos(q, opt) { return (!opt.hot || q.hot) && (!opt.baru || q.baru); }
   function pickBank(materi, n, R, stats, opt) {
-    var pool = poolOf(materi).filter(function (q) { return (!opt.hot || q.hot) && !(opt.exclude && opt.exclude[q.id]); });
+    var pool = poolOf(materi).filter(function (q) { return lolos(q, opt) && !(opt.exclude && opt.exclude[q.id]); });
     var sh = R.shuffle(pool).map(function (q) { return { q: q, t: tierOf(q, stats) }; });
     sh.sort(function (a, b) { return a.t - b.t; });
     return sh.slice(0, n).map(function (x) { return x.q; });
   }
   function capacity(m, opt) {
     if (m.gen) return Infinity;
-    return poolOf(m.id).filter(function (q) { return !opt.hot || q.hot; }).length;
+    return poolOf(m.id).filter(function (q) { return lolos(q, opt); }).length;
   }
   /** Bagi n soal ke beberapa materi sebanding kuotanya (metode D'Hondt), dibatasi stok soal. */
   function allocate(n, mats, opt) {
@@ -2816,7 +3097,7 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
     var out = [], nGen = 0, i;
     if (m.gen) {
       nGen = m.gen >= 1 ? n : Math.round(n * m.gen);
-      var avail = poolOf(m.id).filter(function (q) { return !opt.hot || q.hot; }).length;
+      var avail = poolOf(m.id).filter(function (q) { return lolos(q, opt); }).length;
       if (n - nGen > avail) nGen = n - avail;
     }
     pickBank(m.id, n - nGen, R, stats, opt).forEach(function (q) { out.push(present(q, R)); });
@@ -4103,7 +4384,7 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
 
   var ui = {
     route: "beranda", session: null, result: null, saved: null, prep: null,
-    setup: { sec: "twk", off: {}, n: 10, hot: false },
+    setup: { sec: "twk", off: {}, n: 10, hot: false, baru: false },
     rvFilter: "salah", railOpen: null, tick: null, lastTick: 0, ticks: 0,
     pending: null, navPage: 0, navOn: true
   };
@@ -4153,7 +4434,7 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
   }
   function startPractice(o) {
     guardNew(function () {
-      var items = E.buildPractice({ materi: o.materi, n: o.n, hot: o.hot }, S.qstats());
+      var items = E.buildPractice({ materi: o.materi, n: o.n, hot: o.hot, baru: o.baru }, S.qstats());
       if (!items.length) { toast("Belum ada soal untuk pilihan ini."); return; }
       begin({ kind: "latihan", scale: null, title: o.title, instant: true, requeue: S.settings().requeue, items: items, cur: 0, limit: 0, elapsed: 0 });
     });
@@ -4262,26 +4543,28 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
   }
 
   // ---------- ujian CAT ----------
-  function catPick(idx) { ui.pending = idx; render(); }
+  function catPick(idx) {
+    var it = ui.session.items[ui.session.cur];
+    if (it.revealed) return; // sudah dikoreksi di mode belajar: jawaban terkunci
+    ui.pending = idx; render();
+  }
+  function catNext() { var s = ui.session; if (s.cur < s.items.length - 1) goTo(s.cur + 1); else render(); }
   function catSave() {
     var s = ui.session, it = s.items[s.cur];
+    if (it.revealed) return catNext(); // koreksi sudah tampil: tombol berfungsi sebagai Lanjut
     var sel = ui.pending != null ? ui.pending : it.chosen;
     if (sel == null) { toast("Pilih satu jawaban dulu, atau tekan Lewatkan soal ini."); return; }
     it.chosen = sel;
     it.pts = it.pq.opts[sel].pts;
     ui.pending = null;
+    if (modeBelajar()) it.revealed = true;
     saveSession();
-    var lanjut = function () { if (s.cur < s.items.length - 1) goTo(s.cur + 1); else render(); };
-    if (!modeBelajar()) { lanjut(); return; }
-    if (it.pts === 5) { toast(it.pq.sec === "tkp" ? "Tepat, 5 poin" : "Benar"); lanjut(); return; }
-    // Mode belajar: jawaban salah langsung diberi tahu jawaban benarnya dan pembahasannya.
-    closeModal();
-    var ok = h("button", { class: "btn primary", type: "button", onclick: function () { closeModal(); lanjut(); } }, "Mengerti, lanjut");
-    var box = h("div", { class: "modal", role: "dialog", "aria-modal": "true", "aria-label": "Koreksi jawaban" },
-      h("p", { class: "small muted" }, "Soal No. " + (s.cur + 1) + " · jawaban Anda: " + LET[sel]),
-      feedbackView(it), h("div", { class: "row end" }, ok));
-    modalRoot.appendChild(h("div", { class: "backdrop" }, box));
-    ok.focus();
+    if (!it.revealed) return catNext();
+    if (it.pts === 5) { toast(it.pq.sec === "tkp" ? "Tepat, 5 poin" : "Benar"); return catNext(); }
+    // Mode belajar: jawaban salah langsung dibenarkan di soal yang sama, pembahasan di bawahnya.
+    render();
+    var fb = document.getElementById("cat-koreksi");
+    if (fb && fb.scrollIntoView) fb.scrollIntoView({ block: "nearest" });
   }
   function modeBelajar() { try { return localStorage.getItem("skd.belajar") !== "0"; } catch (e) { return true; } }
   function catSkip() {
@@ -4427,6 +4710,7 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
     var pq = it.pq, sec = E.section(pq.sec);
     return [h("span", { class: "tag accent" }, sec.short), h("span", { class: "tag" }, materiName(pq.m)),
       pq.hot ? h("span", { class: "tag warn", title: "Pola soal yang sering dilaporkan keluar" }, "Sering keluar") : null,
+      pq.baru ? h("span", { class: "tag ok", title: "Set soal kasus bergaya HOTS dengan konteks 2024–2026" }, "HOTS 2026") : null,
       it.retry ? h("span", { class: "tag bad" }, "Ulangan") : null];
   }
   function qBody(pq) {
@@ -4595,20 +4879,27 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
         h("button", { class: "cat-end", type: "button", disabled: !all, title: all ? "Akhiri ujian" : "Aktif setelah semua soal dijawab", onclick: function () { catAskFinish(false); } }, "Selesai Ujian"),
         h("div", { class: "cat-clock", id: "clock", role: "timer", "aria-label": "Sisa waktu" }, "")));
 
-    var opts = h("div", { class: "cat-opts" + (isFig ? " figs" : ""), role: "radiogroup", "aria-label": "Pilihan jawaban" }, it.pq.opts.map(function (o, i) {
-      return h("label", { class: "cat-opt" + (sel === i ? " on" : "") },
-        h("input", { type: "radio", name: "jawab", value: i, checked: sel === i, onchange: function () { catPick(i); } }),
+    var rv = !!it.revealed, tkp = it.pq.sec === "tkp";
+    var opts = h("div", { class: "cat-opts" + (isFig ? " figs" : "") + (rv ? " rv" : ""), role: "radiogroup", "aria-label": "Pilihan jawaban" }, it.pq.opts.map(function (o, i) {
+      var cls = "cat-opt" + (sel === i ? " on" : ""), tag = null;
+      if (rv) {
+        if (i === it.pq.best) { cls += " right"; tag = h("span", { class: "cat-tag ok" }, tkp ? "Nilai 5" : (it.chosen === i ? "Benar" : "Jawaban benar")); }
+        else if (it.chosen === i) { cls += " wrong"; tag = h("span", { class: "cat-tag bad" }, tkp ? "Pilihan Anda, nilai " + o.pts : "Pilihan Anda"); }
+      }
+      return h("label", { class: cls },
+        h("input", { type: "radio", name: "jawab", value: i, checked: sel === i, disabled: rv, onchange: function () { catPick(i); } }),
         h("span", { class: "cat-l" }, LET[i] + "."),
-        o.fig ? figBox(o.fig) : h("span", { class: "cat-t" }, o.t));
+        o.fig ? figBox(o.fig) : h("span", { class: "cat-t" }, o.t), tag);
     }));
     var soal = h("section", { class: "cat-soal" },
       h("div", { class: "cat-sub" }, m ? (m.group ? m.group + " · " : "") + m.name : ""),
       h("fieldset", { class: "cat-q" }, h("legend", null, "Soal No." + (s.cur + 1)),
         it.pq.passage ? h("div", { class: "passage" }, it.pq.passage) : null,
-        h("div", { class: "qtext" }, it.pq.text), tableView(it.pq.table), stemView(it.pq.stem), opts),
+        h("div", { class: "qtext" }, it.pq.text), tableView(it.pq.table), stemView(it.pq.stem), opts,
+        rv ? h("div", { class: "cat-koreksi", id: "cat-koreksi", role: "status" }, feedbackView(it)) : null),
       h("div", { class: "cat-actions" },
-        h("button", { class: "cat-btn", type: "button", id: "btn-next", onclick: catSave }, "Simpan dan Lanjutkan"),
-        h("button", { class: "cat-btn", type: "button", onclick: catSkip }, "Lewatkan soal ini")),
+        h("button", { class: "cat-btn", type: "button", id: "btn-next", onclick: catSave }, rv ? (s.cur < total - 1 ? "Lanjut ke soal berikutnya" : "Lanjut") : "Simpan dan Lanjutkan"),
+        rv ? null : h("button", { class: "cat-btn", type: "button", onclick: catSkip }, "Lewatkan soal ini")),
       ui.pending != null && ui.pending !== it.chosen ? h("p", { class: "cat-note" }, "Jawaban belum tersimpan. Tekan Simpan dan Lanjutkan.") : null);
 
     var pages = Math.ceil(total / NAV_PER_PAGE), pg = Math.min(ui.navPage, pages - 1), boxes = [];
@@ -4622,7 +4913,7 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
         h("button", { class: "cat-switch" + (ui.navOn ? " on" : ""), type: "button", role: "switch", "aria-checked": ui.navOn ? "true" : "false", "aria-label": "Tampilkan navigasi", onclick: function () { ui.navOn = !ui.navOn; render(); } }, h("i"))),
       h("label", { class: "check small" }, h("input", { type: "checkbox", id: "mode-belajar", checked: modeBelajar(), onchange: function (e) {
         try { localStorage.setItem("skd.belajar", e.target.checked ? "1" : "0"); } catch (x) { /* abaikan */ }
-      } }), h("span", null, "Mode belajar: jawaban salah langsung dikoreksi setelah Simpan dan Lanjutkan (matikan untuk simulasi seperti CAT asli)")),
+      } }), h("span", null, "Mode belajar: setelah Simpan dan Lanjutkan, jawaban yang salah langsung dibenarkan di soal itu dan pembahasannya muncul di bawahnya (matikan untuk simulasi seperti CAT asli)")),
       h("button", { class: "cat-link", type: "button", onclick: function () { catAskFinish(true); } }, "Akhiri sekarang (hanya di latihan)"));
     return h("div", { class: "cat-shell" }, head, h("div", { class: "cat-main" }, soal, nav), catFoot());
   }
@@ -4790,7 +5081,7 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
     var stock = 0, unlimited = false;
     chosen.forEach(function (m) {
       if (m.gen) unlimited = true;
-      stock += E.poolOf(m.id).filter(function (q) { return !st.hot || q.hot; }).length;
+      stock += E.poolOf(m.id).filter(function (q) { return (!st.hot || q.hot) && (!(st.baru && st.sec === "twk") || q.baru); }).length;
     });
     function seg(val, label) {
       return h("button", { type: "button", "aria-pressed": st.sec === val ? "true" : "false", onclick: function () { st.sec = val; render(); } }, label);
@@ -4814,12 +5105,14 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
           h("div", { class: "seg", role: "group", "aria-label": "Jumlah soal" }, nBtn(10), nBtn(20), nBtn(30), nBtn(50))),
         h("label", { class: "check" }, h("input", { type: "checkbox", id: "opt-hot", checked: st.hot, onchange: function (e) { st.hot = e.target.checked; render(); } }),
           h("span", null, h("b", null, "Soal prioritas saja. "), "Hanya pola soal yang paling sering dilaporkan keluar oleh peserta.")),
+        st.sec === "twk" ? h("label", { class: "check" }, h("input", { type: "checkbox", id: "opt-baru", checked: !!st.baru, onchange: function (e) { st.baru = e.target.checked; render(); } }),
+          h("span", null, h("b", null, "TWK HOTS 2026 saja. "), "Soal kasus panjang dengan pilihan mirip dan konteks terkini (KUHP baru, putusan MK, keamanan siber, deepfake, EYD V).")) : null,
         h("label", { class: "check" }, h("input", { type: "checkbox", id: "opt-requeue", checked: S.settings().requeue, onchange: function (e) { S.setFlag("requeue", e.target.checked); } }),
           h("span", null, h("b", null, "Ulangi yang salah sampai benar. "), "Soal yang dijawab salah muncul lagi beberapa soal kemudian dengan pilihan diacak ulang.")),
         h("div", { class: "row" },
           h("button", {
             class: "btn primary lg", type: "button", id: "btn-start", disabled: !chosen.length,
-            onclick: function () { startPractice({ materi: chosen.map(function (m) { return m.id; }), n: st.n, hot: st.hot, title: "Latihan " + secName + (st.hot ? " prioritas" : "") }); }
+            onclick: function () { var baru = st.sec === "twk" && !!st.baru; startPractice({ materi: chosen.map(function (m) { return m.id; }), n: st.n, hot: st.hot, baru: baru, title: "Latihan " + secName + (baru ? " HOTS 2026" : "") + (st.hot ? " prioritas" : "") }); }
           }, "Mulai latihan"),
           h("span", { class: "small muted" }, chosen.length ? "Tersedia " + stock + " soal bank" + (unlimited ? " + soal yang dibangkitkan otomatis." : ".") : "Pilih minimal satu materi."))),
       h("section", { class: "card" }, h("h2", null, "Langsung per materi"),

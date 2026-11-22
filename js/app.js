@@ -66,7 +66,7 @@
 
   var ui = {
     route: "beranda", session: null, result: null, saved: null, prep: null,
-    setup: { sec: "twk", off: {}, n: 10, hot: false },
+    setup: { sec: "twk", off: {}, n: 10, hot: false, baru: false },
     rvFilter: "salah", railOpen: null, tick: null, lastTick: 0, ticks: 0,
     pending: null, navPage: 0, navOn: true
   };
@@ -116,7 +116,7 @@
   }
   function startPractice(o) {
     guardNew(function () {
-      var items = E.buildPractice({ materi: o.materi, n: o.n, hot: o.hot }, S.qstats());
+      var items = E.buildPractice({ materi: o.materi, n: o.n, hot: o.hot, baru: o.baru }, S.qstats());
       if (!items.length) { toast("Belum ada soal untuk pilihan ini."); return; }
       begin({ kind: "latihan", scale: null, title: o.title, instant: true, requeue: S.settings().requeue, items: items, cur: 0, limit: 0, elapsed: 0 });
     });
@@ -225,26 +225,28 @@
   }
 
   // ---------- ujian CAT ----------
-  function catPick(idx) { ui.pending = idx; render(); }
+  function catPick(idx) {
+    var it = ui.session.items[ui.session.cur];
+    if (it.revealed) return; // sudah dikoreksi di mode belajar: jawaban terkunci
+    ui.pending = idx; render();
+  }
+  function catNext() { var s = ui.session; if (s.cur < s.items.length - 1) goTo(s.cur + 1); else render(); }
   function catSave() {
     var s = ui.session, it = s.items[s.cur];
+    if (it.revealed) return catNext(); // koreksi sudah tampil: tombol berfungsi sebagai Lanjut
     var sel = ui.pending != null ? ui.pending : it.chosen;
     if (sel == null) { toast("Pilih satu jawaban dulu, atau tekan Lewatkan soal ini."); return; }
     it.chosen = sel;
     it.pts = it.pq.opts[sel].pts;
     ui.pending = null;
+    if (modeBelajar()) it.revealed = true;
     saveSession();
-    var lanjut = function () { if (s.cur < s.items.length - 1) goTo(s.cur + 1); else render(); };
-    if (!modeBelajar()) { lanjut(); return; }
-    if (it.pts === 5) { toast(it.pq.sec === "tkp" ? "Tepat, 5 poin" : "Benar"); lanjut(); return; }
-    // Mode belajar: jawaban salah langsung diberi tahu jawaban benarnya dan pembahasannya.
-    closeModal();
-    var ok = h("button", { class: "btn primary", type: "button", onclick: function () { closeModal(); lanjut(); } }, "Mengerti, lanjut");
-    var box = h("div", { class: "modal", role: "dialog", "aria-modal": "true", "aria-label": "Koreksi jawaban" },
-      h("p", { class: "small muted" }, "Soal No. " + (s.cur + 1) + " · jawaban Anda: " + LET[sel]),
-      feedbackView(it), h("div", { class: "row end" }, ok));
-    modalRoot.appendChild(h("div", { class: "backdrop" }, box));
-    ok.focus();
+    if (!it.revealed) return catNext();
+    if (it.pts === 5) { toast(it.pq.sec === "tkp" ? "Tepat, 5 poin" : "Benar"); return catNext(); }
+    // Mode belajar: jawaban salah langsung dibenarkan di soal yang sama, pembahasan di bawahnya.
+    render();
+    var fb = document.getElementById("cat-koreksi");
+    if (fb && fb.scrollIntoView) fb.scrollIntoView({ block: "nearest" });
   }
   function modeBelajar() { try { return localStorage.getItem("skd.belajar") !== "0"; } catch (e) { return true; } }
   function catSkip() {
@@ -390,6 +392,7 @@
     var pq = it.pq, sec = E.section(pq.sec);
     return [h("span", { class: "tag accent" }, sec.short), h("span", { class: "tag" }, materiName(pq.m)),
       pq.hot ? h("span", { class: "tag warn", title: "Pola soal yang sering dilaporkan keluar" }, "Sering keluar") : null,
+      pq.baru ? h("span", { class: "tag ok", title: "Set soal kasus bergaya HOTS dengan konteks 2024–2026" }, "HOTS 2026") : null,
       it.retry ? h("span", { class: "tag bad" }, "Ulangan") : null];
   }
   function qBody(pq) {
@@ -558,20 +561,27 @@
         h("button", { class: "cat-end", type: "button", disabled: !all, title: all ? "Akhiri ujian" : "Aktif setelah semua soal dijawab", onclick: function () { catAskFinish(false); } }, "Selesai Ujian"),
         h("div", { class: "cat-clock", id: "clock", role: "timer", "aria-label": "Sisa waktu" }, "")));
 
-    var opts = h("div", { class: "cat-opts" + (isFig ? " figs" : ""), role: "radiogroup", "aria-label": "Pilihan jawaban" }, it.pq.opts.map(function (o, i) {
-      return h("label", { class: "cat-opt" + (sel === i ? " on" : "") },
-        h("input", { type: "radio", name: "jawab", value: i, checked: sel === i, onchange: function () { catPick(i); } }),
+    var rv = !!it.revealed, tkp = it.pq.sec === "tkp";
+    var opts = h("div", { class: "cat-opts" + (isFig ? " figs" : "") + (rv ? " rv" : ""), role: "radiogroup", "aria-label": "Pilihan jawaban" }, it.pq.opts.map(function (o, i) {
+      var cls = "cat-opt" + (sel === i ? " on" : ""), tag = null;
+      if (rv) {
+        if (i === it.pq.best) { cls += " right"; tag = h("span", { class: "cat-tag ok" }, tkp ? "Nilai 5" : (it.chosen === i ? "Benar" : "Jawaban benar")); }
+        else if (it.chosen === i) { cls += " wrong"; tag = h("span", { class: "cat-tag bad" }, tkp ? "Pilihan Anda, nilai " + o.pts : "Pilihan Anda"); }
+      }
+      return h("label", { class: cls },
+        h("input", { type: "radio", name: "jawab", value: i, checked: sel === i, disabled: rv, onchange: function () { catPick(i); } }),
         h("span", { class: "cat-l" }, LET[i] + "."),
-        o.fig ? figBox(o.fig) : h("span", { class: "cat-t" }, o.t));
+        o.fig ? figBox(o.fig) : h("span", { class: "cat-t" }, o.t), tag);
     }));
     var soal = h("section", { class: "cat-soal" },
       h("div", { class: "cat-sub" }, m ? (m.group ? m.group + " · " : "") + m.name : ""),
       h("fieldset", { class: "cat-q" }, h("legend", null, "Soal No." + (s.cur + 1)),
         it.pq.passage ? h("div", { class: "passage" }, it.pq.passage) : null,
-        h("div", { class: "qtext" }, it.pq.text), tableView(it.pq.table), stemView(it.pq.stem), opts),
+        h("div", { class: "qtext" }, it.pq.text), tableView(it.pq.table), stemView(it.pq.stem), opts,
+        rv ? h("div", { class: "cat-koreksi", id: "cat-koreksi", role: "status" }, feedbackView(it)) : null),
       h("div", { class: "cat-actions" },
-        h("button", { class: "cat-btn", type: "button", id: "btn-next", onclick: catSave }, "Simpan dan Lanjutkan"),
-        h("button", { class: "cat-btn", type: "button", onclick: catSkip }, "Lewatkan soal ini")),
+        h("button", { class: "cat-btn", type: "button", id: "btn-next", onclick: catSave }, rv ? (s.cur < total - 1 ? "Lanjut ke soal berikutnya" : "Lanjut") : "Simpan dan Lanjutkan"),
+        rv ? null : h("button", { class: "cat-btn", type: "button", onclick: catSkip }, "Lewatkan soal ini")),
       ui.pending != null && ui.pending !== it.chosen ? h("p", { class: "cat-note" }, "Jawaban belum tersimpan. Tekan Simpan dan Lanjutkan.") : null);
 
     var pages = Math.ceil(total / NAV_PER_PAGE), pg = Math.min(ui.navPage, pages - 1), boxes = [];
@@ -585,7 +595,7 @@
         h("button", { class: "cat-switch" + (ui.navOn ? " on" : ""), type: "button", role: "switch", "aria-checked": ui.navOn ? "true" : "false", "aria-label": "Tampilkan navigasi", onclick: function () { ui.navOn = !ui.navOn; render(); } }, h("i"))),
       h("label", { class: "check small" }, h("input", { type: "checkbox", id: "mode-belajar", checked: modeBelajar(), onchange: function (e) {
         try { localStorage.setItem("skd.belajar", e.target.checked ? "1" : "0"); } catch (x) { /* abaikan */ }
-      } }), h("span", null, "Mode belajar: jawaban salah langsung dikoreksi setelah Simpan dan Lanjutkan (matikan untuk simulasi seperti CAT asli)")),
+      } }), h("span", null, "Mode belajar: setelah Simpan dan Lanjutkan, jawaban yang salah langsung dibenarkan di soal itu dan pembahasannya muncul di bawahnya (matikan untuk simulasi seperti CAT asli)")),
       h("button", { class: "cat-link", type: "button", onclick: function () { catAskFinish(true); } }, "Akhiri sekarang (hanya di latihan)"));
     return h("div", { class: "cat-shell" }, head, h("div", { class: "cat-main" }, soal, nav), catFoot());
   }
@@ -753,7 +763,7 @@
     var stock = 0, unlimited = false;
     chosen.forEach(function (m) {
       if (m.gen) unlimited = true;
-      stock += E.poolOf(m.id).filter(function (q) { return !st.hot || q.hot; }).length;
+      stock += E.poolOf(m.id).filter(function (q) { return (!st.hot || q.hot) && (!(st.baru && st.sec === "twk") || q.baru); }).length;
     });
     function seg(val, label) {
       return h("button", { type: "button", "aria-pressed": st.sec === val ? "true" : "false", onclick: function () { st.sec = val; render(); } }, label);
@@ -777,12 +787,14 @@
           h("div", { class: "seg", role: "group", "aria-label": "Jumlah soal" }, nBtn(10), nBtn(20), nBtn(30), nBtn(50))),
         h("label", { class: "check" }, h("input", { type: "checkbox", id: "opt-hot", checked: st.hot, onchange: function (e) { st.hot = e.target.checked; render(); } }),
           h("span", null, h("b", null, "Soal prioritas saja. "), "Hanya pola soal yang paling sering dilaporkan keluar oleh peserta.")),
+        st.sec === "twk" ? h("label", { class: "check" }, h("input", { type: "checkbox", id: "opt-baru", checked: !!st.baru, onchange: function (e) { st.baru = e.target.checked; render(); } }),
+          h("span", null, h("b", null, "TWK HOTS 2026 saja. "), "Soal kasus panjang dengan pilihan mirip dan konteks terkini (KUHP baru, putusan MK, keamanan siber, deepfake, EYD V).")) : null,
         h("label", { class: "check" }, h("input", { type: "checkbox", id: "opt-requeue", checked: S.settings().requeue, onchange: function (e) { S.setFlag("requeue", e.target.checked); } }),
           h("span", null, h("b", null, "Ulangi yang salah sampai benar. "), "Soal yang dijawab salah muncul lagi beberapa soal kemudian dengan pilihan diacak ulang.")),
         h("div", { class: "row" },
           h("button", {
             class: "btn primary lg", type: "button", id: "btn-start", disabled: !chosen.length,
-            onclick: function () { startPractice({ materi: chosen.map(function (m) { return m.id; }), n: st.n, hot: st.hot, title: "Latihan " + secName + (st.hot ? " prioritas" : "") }); }
+            onclick: function () { var baru = st.sec === "twk" && !!st.baru; startPractice({ materi: chosen.map(function (m) { return m.id; }), n: st.n, hot: st.hot, baru: baru, title: "Latihan " + secName + (baru ? " HOTS 2026" : "") + (st.hot ? " prioritas" : "") }); }
           }, "Mulai latihan"),
           h("span", { class: "small muted" }, chosen.length ? "Tersedia " + stock + " soal bank" + (unlimited ? " + soal yang dibangkitkan otomatis." : ".") : "Pilih minimal satu materi."))),
       h("section", { class: "card" }, h("h2", null, "Langsung per materi"),
