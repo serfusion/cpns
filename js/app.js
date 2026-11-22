@@ -756,6 +756,41 @@
   }
 
   // ---------- latihan ----------
+  // ---------- fokus TWK + TKP (TIU cukup aman lewat soal tanpa hitungan berat) ----------
+  var TIU_LUNAK = ["ana", "sil", "anl", "der", "fig-ana", "fig-beda", "fig-seri", "fig-kubus"];
+  var TARGET = { twk: 110, tiu: 85, tkp: 200 };
+  function fokusCard() {
+    var ids = function (sec) { return CFG.materi.filter(function (m) { return m.sec === sec; }).map(function (m) { return m.id; }); };
+    var lunak = CFG.materi.filter(function (m) { return TIU_LUNAK.indexOf(m.id) >= 0; });
+    var nLunak = lunak.reduce(function (a, m) { return a + m.quota; }, 0), tiuSec = E.section("tiu");
+    var hist = S.history().filter(function (x) { return x.s && x.s.twk; }), last = hist[hist.length - 1];
+    function cell(sec) {
+      var info = E.section(sec), tgt = TARGET[sec], min = passOf(sec), v = last ? last.s[sec][0] : null;
+      return h("div", null, h("span", null, info.short + " · target " + tgt),
+        h("b", { class: v == null ? "" : v >= tgt ? "ok-t" : v >= min ? "warn-t" : "bad-t" }, v == null ? "–" : String(v)),
+        h("span", null, "ambang " + min));
+    }
+    var lunakAcc = null;
+    if (last && last.m) {
+      var r = 0, n = 0;
+      TIU_LUNAK.forEach(function (id) { var b = last.m[id]; if (b) { r += b[0]; n += b[1]; } });
+      if (n) lunakAcc = Math.round((r / n) * 100);
+    }
+    return h("section", { class: "card stack fokus" },
+      h("h2", null, "Fokus Anda: kuatkan TWK dan TKP"),
+      h("p", { class: "small" }, "Ambang batas TIU " + passOf("tiu") + " berarti cukup " + Math.ceil(passOf("tiu") / 5) + " benar dari " + tiuSec.count + " soal. Sebanyak " + nLunak +
+        " soal TIU tidak butuh hitungan berat (analogi, silogisme, analitis, deret, dan figural), jadi amankan TIU dari soal-soal itu dan kejar skor dari TWK dan TKP."),
+      h("div", { class: "info3" }, cell("twk"), cell("tiu"), cell("tkp")),
+      h("p", { class: "small muted" }, last ? "Angka di atas dari tryout terakhir (" + last.p + ")." + (lunakAcc != null ? " Ketepatan soal TIU tanpa hitungan berat: " + lunakAcc + "%." : "") : "Kerjakan satu tryout untuk melihat posisi Anda terhadap target."),
+      h("div", { class: "row wrap" },
+        h("button", { class: "btn primary", type: "button", id: "btn-fokus-hots", onclick: function () {
+          startPractice({ materi: ids("twk").concat(ids("tkp")), n: 30, hot: false, baru: true, title: "Fokus TWK + TKP HOTS 2026" }); } }, "TWK + TKP HOTS (30 soal)"),
+        h("button", { class: "btn", type: "button", id: "btn-fokus-all", onclick: function () {
+          startPractice({ materi: ids("twk").concat(ids("tkp")), n: 50, hot: false, title: "Fokus TWK + TKP" }); } }, "TWK + TKP campuran (50 soal)"),
+        h("button", { class: "btn", type: "button", id: "btn-tiu-lunak", onclick: function () {
+          startPractice({ materi: lunak.map(function (m) { return m.id; }), n: 20, hot: false, title: "TIU tanpa hitungan berat" }); } }, "TIU tanpa hitungan berat (20 soal)")),
+      h("p", { class: "small muted" }, "Saat ujian: kerjakan soal TIU yang tidak butuh hitungan lebih dulu, tekan \"Lewatkan soal ini\" untuk soal hitungan panjang, lalu kembali bila waktu tersisa."));
+  }
   function viewLatihan() {
     var st = ui.setup, mixed = st.sec === "mix";
     var mats = CFG.materi.filter(function (m) { return mixed || m.sec === st.sec; });
@@ -763,7 +798,7 @@
     var stock = 0, unlimited = false;
     chosen.forEach(function (m) {
       if (m.gen) unlimited = true;
-      stock += E.poolOf(m.id).filter(function (q) { return (!st.hot || q.hot) && (!(st.baru && st.sec === "twk") || q.baru); }).length;
+      stock += E.poolOf(m.id).filter(function (q) { return (!st.hot || q.hot) && (!(st.baru && (st.sec === "twk" || st.sec === "tkp")) || q.baru); }).length;
     });
     function seg(val, label) {
       return h("button", { type: "button", "aria-pressed": st.sec === val ? "true" : "false", onclick: function () { st.sec = val; render(); } }, label);
@@ -773,6 +808,7 @@
     return [
       h("div", { class: "page-head" }, h("h1", null, "Latihan per materi"), h("p", { class: "lede" }, "Setiap jawaban langsung dikoreksi: yang salah merah, jawaban benar hijau, lalu pembahasan muncul.")),
       resumeCard(),
+      fokusCard(),
       h("section", { class: "card stack" },
         h("div", { class: "field" }, h("span", { class: "label" }, "Subtes"),
           h("div", { class: "seg", role: "group", "aria-label": "Subtes" }, seg("twk", "TWK"), seg("tiu", "TIU"), seg("tkp", "TKP"), seg("mix", "Campuran"))),
@@ -787,14 +823,16 @@
           h("div", { class: "seg", role: "group", "aria-label": "Jumlah soal" }, nBtn(10), nBtn(20), nBtn(30), nBtn(50))),
         h("label", { class: "check" }, h("input", { type: "checkbox", id: "opt-hot", checked: st.hot, onchange: function (e) { st.hot = e.target.checked; render(); } }),
           h("span", null, h("b", null, "Soal prioritas saja. "), "Hanya pola soal yang paling sering dilaporkan keluar oleh peserta.")),
-        st.sec === "twk" ? h("label", { class: "check" }, h("input", { type: "checkbox", id: "opt-baru", checked: !!st.baru, onchange: function (e) { st.baru = e.target.checked; render(); } }),
-          h("span", null, h("b", null, "TWK HOTS 2026 saja. "), "Soal kasus panjang dengan pilihan mirip dan konteks terkini (KUHP baru, putusan MK, keamanan siber, deepfake, EYD V).")) : null,
+        st.sec === "twk" || st.sec === "tkp" ? h("label", { class: "check" }, h("input", { type: "checkbox", id: "opt-baru", checked: !!st.baru, onchange: function (e) { st.baru = e.target.checked; render(); } }),
+          h("span", null, h("b", null, (st.sec === "twk" ? "TWK" : "TKP") + " HOTS 2026 saja. "), st.sec === "twk"
+            ? "Soal kasus panjang dengan pilihan mirip dan konteks terkini (KUHP baru, putusan MK, keamanan siber, deepfake, EYD V)."
+            : "Kasus panjang dengan pilihan yang mirip-mirip untuk keenam aspek TKP (pelayanan publik, jejaring kerja, sosial budaya, TIK, profesionalisme, anti radikalisme).")) : null,
         h("label", { class: "check" }, h("input", { type: "checkbox", id: "opt-requeue", checked: S.settings().requeue, onchange: function (e) { S.setFlag("requeue", e.target.checked); } }),
           h("span", null, h("b", null, "Ulangi yang salah sampai benar. "), "Soal yang dijawab salah muncul lagi beberapa soal kemudian dengan pilihan diacak ulang.")),
         h("div", { class: "row" },
           h("button", {
             class: "btn primary lg", type: "button", id: "btn-start", disabled: !chosen.length,
-            onclick: function () { var baru = st.sec === "twk" && !!st.baru; startPractice({ materi: chosen.map(function (m) { return m.id; }), n: st.n, hot: st.hot, baru: baru, title: "Latihan " + secName + (baru ? " HOTS 2026" : "") + (st.hot ? " prioritas" : "") }); }
+            onclick: function () { var baru = (st.sec === "twk" || st.sec === "tkp") && !!st.baru; startPractice({ materi: chosen.map(function (m) { return m.id; }), n: st.n, hot: st.hot, baru: baru, title: "Latihan " + secName + (baru ? " HOTS 2026" : "") + (st.hot ? " prioritas" : "") }); }
           }, "Mulai latihan"),
           h("span", { class: "small muted" }, chosen.length ? "Tersedia " + stock + " soal bank" + (unlimited ? " + soal yang dibangkitkan otomatis." : ".") : "Pilih minimal satu materi."))),
       h("section", { class: "card" }, h("h2", null, "Langsung per materi"),

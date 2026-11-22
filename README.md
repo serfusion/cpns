@@ -19,6 +19,11 @@ navy + kuning amber; layar ujian dari buku panduan CAT resmi BKN), **Build** (ko
   (opsi benar hijau, pilihan salah merah) dan pembahasan muncul di bawahnya, tanpa jendela pop-up.
 - **TWK HOTS 2026**: 31 soal kasus panjang dengan pilihan mirip dan konteks terkini (KUHP baru, putusan MK 2025, keamanan siber, deepfake,
   gratifikasi, pelindungan data pribadi, EYD Edisi V); bisa dilatih terpisah lewat centang "TWK HOTS 2026 saja" di menu Latihan.
+- **TKP HOTS 2026**: 42 soal kasus panjang untuk keenam aspek TKP; centang "TKP HOTS 2026 saja" di menu Latihan.
+- **Fokus TWK + TKP**: kartu strategi skor (ambang batas dan target per subtes) dengan latihan TWK + TKP HOTS,
+  TWK + TKP campuran, dan TIU tanpa hitungan berat (analogi, silogisme, analitis, deret, figural).
+- **Kandidat formasi 2026**: diisi pemantau terjadwal begitu formasi resmi terbit (aturan di `docs/kriteria-pemindaian-otomatis.md`),
+  lalu diurutkan aplikasi dengan matriks Pemda dan rumus dokumen riset.
 - **Hasil + analisis per topik** (TWK per materi, TIU Verbal/Numerik/Figural, TKP per aspek) dan **pembahasan** (disimpan untuk 3 tryout terakhir).
 - **Lembar hasil** 1080×1350 dengan stempel LOLOS/BELUM LOLOS, selisih terhadap ambang batas, topik terkuat dan perlu dilatih;
   di APK bisa disimpan ke Galeri atau dibagikan.

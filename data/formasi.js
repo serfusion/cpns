@@ -214,6 +214,17 @@
       catatanData: "Kuota per jabatan dari olahan MisiPNS atas data BKN 2024 (pihak ketiga); angka pelamar adalah tingkat instansi, bukan per jabatan. Rasio per formasi baru bisa dihitung saat data 2026 terbit."
     },
 
+    // Diisi otomatis oleh sesi pemantau terjadwal begitu formasi CPNS 2026 terbit
+    // (aturan: docs/kriteria-pemindaian-otomatis.md). Skor dan peringkat dihitung aplikasi.
+    kandidat2026: {
+      tanggal: "22 November 2026",
+      status: "menunggu",
+      jadwal: "tiga kali sehari, sekitar pukul 07.42, 12.42, dan 17.42 WIB",
+      catatan: "Formasi CPNS 2026 belum terbit. Pemantau memeriksa SSCASN dan pengumuman resmi; begitu terbit, formasi yang mencantumkan S-1 Ilmu Komunikasi diurutkan di sini dengan kedua rumus dokumen Anda.",
+      sumber: [],
+      list: []
+    },
+
     gugur: "Gugur karena S-1 Ilmu Komunikasi tidak tercantum di data 2024: Pranata Komputer, Penata Kelola Sistem dan Teknologi Informasi, Administrator Database Kependudukan, Statistisi, dan Pustakawan (semuanya meminta jurusan komputer, statistik, atau perpustakaan). Analis SDM Aparatur dan Pengelola Pengadaan juga tidak memuat Ilmu Komunikasi di 20 jurusan teratasnya.",
     tidakBisa: "Jabatan TI murni (Pranata Komputer, Penata Kelola Sistem dan Teknologi Informasi, Administrator Database Kependudukan) mensyaratkan ijazah komputer. Pada 2024 ada 15.192 kursi Penata Kelola Sistem dan TI dan 11.428 kursi Pranata Komputer, tetapi S-1 Ilmu Komunikasi tidak masuk 20 jurusan teratas keduanya. Salurkan minat IT lewat Pengembang Teknologi Pembelajaran, arsip digital, dan produksi media.",
 

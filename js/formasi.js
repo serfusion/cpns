@@ -129,6 +129,28 @@
     return res;
   }
   SKD.formasiAnalisis = analisis; // untuk pengujian
+
+  /** Skor kandidat hasil pemindaian otomatis. Bila jumlah pelamar belum ada, komponen persaingan/rasio
+      tidak dihitung dan skor diskalakan ke 100 ("tanpa rasio"), sesuai prinsip dokumen riset. */
+  var PRI = { P1: 1, P2: 2, P3: 3 };
+  function skorKandidat(c, pref) {
+    var k = { kursi: Math.max(1, Number(c.kursi) || 1), pelamar: c.pelamar == null ? 0 : Number(c.pelamar) || 0, jab: c.jab || "",
+      lok: c.jabo ? "jabo" : "luar", syarat: SYARAT[c.syarat] ? c.syarat : "catatan", baru: BARU[c.baru] ? c.baru : "tidak", mek: MEKAN[c.mek] ? c.mek : "belum" };
+    var a = analisis(k, pref);
+    if (c.pelamar != null && isFinite(Number(c.pelamar))) return { a: a.total, b: a.pemda.total, kat: a.kat, tanpaRasio: false, an: a };
+    var p = a.parts, gugur = k.syarat === "gugur";
+    var aPre = gugur ? 0 : Math.round(((p.kursi + p.tugas + p.lokasi + p.syarat) / 65) * 100);
+    var bs = a.pemda.s, bPre = 0;
+    ["pendidikan", "jumlah", "baru", "mekanisme", "skb"].forEach(function (key) { bPre += (bs[key] / 5) * BOBOT[key]; });
+    bPre = gugur ? 0 : Math.round((bPre / 85) * 100);
+    return { a: aPre, b: bPre, kat: kategori(bPre, gugur), tanpaRasio: true, an: a };
+  }
+  function urutKandidat(list, pref) {
+    return list.map(function (c) { return { c: c, s: skorKandidat(c, pref) }; }).sort(function (x, y) {
+      return y.s.b - x.s.b || y.s.a - x.s.a || (PRI[x.c.prioritas] || 9) - (PRI[y.c.prioritas] || 9);
+    });
+  }
+  SKD.formasiKandidat = { skor: skorKandidat, urut: urutKandidat };
   SKD.formasiSkor = { rasio: skorRasio, kursi: skorKursi, lokasi: skorLokasi, kategori: kategori, pre: pre, matriks: matriks };
 
   SKD.formasiView = function (ctx) {
@@ -184,6 +206,48 @@
       h("ul", { class: "fm-checks" }, checks().map(function (c) {
         return h("li", null, h("span", { class: "tag " + (c[0] || "") }, c[0] === "ok" ? "Aman" : c[0] === "warn" ? "Perhatikan" : c[0] === "bad" ? "Kendala" : "Isi"), h("span", null, c[1]));
       })));
+
+    // ---------- kandidat formasi 2026 (pemindaian otomatis) ----------
+    function isiKalkulator(c) {
+      var f = document.querySelector(".fm-form");
+      if (!f) return;
+      f.elements.nama.value = [c.nama, c.instansi, c.lokasi].filter(Boolean).join(", ").slice(0, 160);
+      if (c.jab && jabById(c.jab)) f.elements.jab.value = c.jab; else f.elements.jab.value = "";
+      f.elements.kursi.value = String(c.kursi || 1);
+      f.elements.pelamar.value = c.pelamar == null ? "" : String(c.pelamar);
+      f.elements.lok.value = c.jabo ? "jabo" : "luar";
+      f.elements.syarat.value = SYARAT[c.syarat] ? c.syarat : "catatan";
+      f.elements.baru.value = BARU[c.baru] ? c.baru : "tidak";
+      f.elements.mek.value = MEKAN[c.mek] ? c.mek : "belum";
+      scrollTo("fm-kalk");
+      f.elements.pelamar.focus();
+      ctx.toast(c.pelamar == null ? "Data terisi. Isi jumlah pelamar (perkiraan boleh), lalu tekan Tambah." : "Data terisi. Tekan Tambah.");
+    }
+    var K = D.kandidat2026 || { list: [] }, kList = urutKandidat(K.list || [], P.lokasi);
+    var kandidat = h("section", { class: "panel", "aria-labelledby": "fm-kandidat" },
+      h("div", { class: "row between" }, h("h2", { id: "fm-kandidat" }, "Kandidat formasi 2026"),
+        h("span", { class: "tag " + (K.status === "terbit" ? "ok" : K.status === "ditutup" ? "" : "warn") }, K.status === "terbit" ? "Formasi terbit" : K.status === "ditutup" ? "Pendaftaran ditutup" : "Menunggu formasi")),
+      h("p", { class: "small muted" }, (K.catatan || "") + (K.tanggal ? " Pemindaian terakhir: " + K.tanggal + "." : "") + (K.jadwal ? " Jadwal pemantauan: " + K.jadwal + "." : "")),
+      kList.length ? h("ol", { class: "fm-cands", "aria-label": "Kandidat formasi, peringkat tertinggi lebih dulu" }, kList.map(function (x, i) {
+        var c = x.c, sk = x.s, j = jabById(c.jab);
+        return h("li", { class: "fm-cand" },
+          h("span", { class: "rk" }, i + 1),
+          h("div", { class: "bd" },
+            h("div", { class: "row between" }, h("span", { class: "nm" }, c.nama), h("span", { class: "tag " + sk.kat[0] + " fm-skor" }, sk.b + "/100")),
+            h("span", { class: "small" }, [c.instansi, c.lokasi].filter(Boolean).join(" · ")),
+            h("div", { class: "row" },
+              c.prioritas ? h("span", { class: "tag accent" }, c.prioritas === "P1" ? "P1 jabatan/unit baru" : c.prioritas === "P2" ? "P2 Kota Tangerang/Jabodetabek" : "P3 daerah sepi") : null,
+              h("span", { class: "tag " + sk.kat[0] }, sk.kat[1]),
+              sk.tanpaRasio ? h("span", { class: "tag" }, "tanpa rasio") : null,
+              j && j.lisan === "tinggi" ? h("span", { class: "tag bad" }, "banyak bicara") : null),
+            h("span", { class: "mt" }, "Matriks Pemda " + sk.b + " · Rumus dokumen riset " + sk.a + " · " + fmt(Number(c.kursi) || 1) + " kursi · " + (c.pelamar == null ? "pelamar belum ada" : fmt(Number(c.pelamar)) + " pelamar")),
+            c.pendidikan ? h("span", { class: "small muted" }, "Pendidikan: " + c.pendidikan) : null,
+            c.catatan ? h("span", { class: "small" }, c.catatan) : null,
+            h("div", { class: "row" },
+              c.url ? h("a", { class: "btn sm", href: c.url, target: "_blank", rel: "noopener" }, "Pengumuman resmi") : null,
+              h("button", { class: "btn sm ghost", type: "button", onclick: function () { isiKalkulator(c); } }, "Masukkan ke kalkulator"))));
+      })) : h("p", { class: "note info" }, "Belum ada kandidat. Begitu formasi resmi terbit, pemantau otomatis mengisi daftar ini lalu aplikasi mengurutkannya: Matriks Pemda lebih dulu, lalu rumus dokumen riset, lalu prioritas P1 jabatan/unit baru, P2 Kota Tangerang, P3 daerah sepi. Jabatan yang banyak bicara dan formasi yang tidak menerima S-1 Ilmu Komunikasi tidak dimasukkan."),
+      (K.sumber || []).length ? h("ul", { class: "plain-list small" }, K.sumber.map(function (x) { return h("li", null, h("a", { href: x.u, target: "_blank", rel: "noopener" }, x.t)); })) : null);
 
     // ---------- skor sementara (rumus dokumen riset, tanpa rasio) ----------
     var berskor = D.jabatan.filter(function (j) { return j.skor; }).map(function (j) { return { j: j, s: pre(j) }; })
@@ -399,7 +463,7 @@
           D.dokumen ? h("a", { class: "btn", href: D.dokumen, target: "_blank", rel: "noopener" }, "Dokumen PDF") : null)),
       h("section", { class: "panel", "aria-labelledby": "fm-status" }, h("h2", { id: "fm-status" }, "Status per " + D.tanggal), h("ul", { class: "plain-list" }, D.status.map(function (t) { return h("li", null, t); }))),
       h("div", { class: "tiles" }, D.angka.map(function (a) { return h("div", { class: "tile" }, h("span", { class: "v" }, a.v), h("span", { class: "l" }, a.l), h("span", { class: "d" }, a.d)); })),
-      pemda, profil, skor, target, pantau, jabatan, validasi, aturan, kalk, langkah, lain, sumber
+      kandidat, pemda, profil, skor, target, pantau, jabatan, validasi, aturan, kalk, langkah, lain, sumber
     ];
   };
 })();

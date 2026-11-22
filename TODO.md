@@ -111,3 +111,7 @@ disimpan di localStorage dengan kunci `skd.formasi.v1` (tidak ikut sinkron).
 - [x] Mode belajar di ujian CAT: koreksi langsung di bawah soal (tanpa pop-up), jawaban terkunci setelah dikoreksi, bisa dimatikan
 - [x] Cek sumber data situs formasi pihak ketiga (jadiasn.id memakai server sendiri, disalin dari SSCASN) dan daftar formasi resmi SSCASN
 - [x] 31 soal TWK HOTS 2026 (`b: 1` di `data/twk.js`) + saringan "TWK HOTS 2026 saja" di menu Latihan
+- [x] 42 soal TKP HOTS 2026 dan 14 soal TWK HOTS tambahan (fakta pilar, sejarah, EYD)
+- [x] Kartu Fokus TWK + TKP di menu Latihan; TIU tanpa hitungan berat
+- [x] Bagian Kandidat formasi 2026 + `docs/kriteria-pemindaian-otomatis.md`; pemantau terjadwal tiga kali sehari
+- [ ] Pemantau terjadwal: isi `kandidat2026` begitu formasi terbit, lalu matikan jadwal setelah pendaftaran ditutup

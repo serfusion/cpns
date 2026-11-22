@@ -526,3 +526,8 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
   .fm-form .btn { flex: 1 1 100%; }
   .fm-tbl th, .fm-tbl td { padding: 6px 8px; }
 }
+/* kartu fokus TWK + TKP (menu Latihan) */
+.fokus .info3 b.ok-t { color: var(--ok); }
+.fokus .info3 b.warn-t { color: var(--warn); }
+.fokus .info3 b.bad-t { color: var(--bad); }
+.row.wrap { flex-wrap: wrap; }
