@@ -73,7 +73,7 @@
       },
 
       {
-        id: "ana", sec: "tiu", name: "Analogi", group: "Verbal", quota: 3,
+        id: "ana", sec: "tiu", name: "Analogi", group: "Verbal", quota: 3, gen: 0.35,
         def: "Bernalar melalui perbandingan dua konsep kata yang memiliki hubungan tertentu, lalu memakai hubungan itu pada situasi lain.",
         pola: ["Analogi dua kata dan tiga kata", "Hubungan fungsi, sebab-akibat, bagian-keseluruhan, alat-profesi, tingkatan, tempat"]
       },
@@ -83,7 +83,7 @@
         pola: ["Silogisme dua premis: semua, sebagian, tidak ada", "Modus ponens dan modus tollens (jika-maka)", "Memilih kesimpulan yang pasti benar, bukan yang mungkin benar", "Silogisme tiga premis: rantai semua–semua–sebagian dan rantai jika–maka"]
       },
       {
-        id: "anl", sec: "tiu", name: "Analitis", group: "Verbal", quota: 4,
+        id: "anl", sec: "tiu", name: "Analitis", group: "Verbal", quota: 4, gen: 0.3,
         def: "Menganalisis informasi yang diberikan dan menarik kesimpulan.",
         pola: ["Urutan dan posisi duduk", "Penjadwalan dan pengelompokan bersyarat", "Menarik kesimpulan dari tabel", "Susunan duduk melingkar dan antrean", "Analisis tabel: rasio, persentase kenaikan, pecahan"]
       },
@@ -176,8 +176,8 @@
       temuan: [
         "Kisi-kisi resmi SKD 2021, 2023, 2024, dan kedinasan 2026 isinya sama: TWK (nasionalisme, integritas, bela negara, pilar negara, bahasa Indonesia), TIU (verbal, numerik, figural), TKP (enam aspek). Semua materi tetap keluar; yang berubah adalah bentuk soalnya.",
         "Laporan peserta yang bisa diperiksa hanya ada untuk SKD CPNS 2024 (AyoJakarta 3 rangkuman, ASN Institute, Analitica) dan kedinasan 2026. Untuk 2021 dan 2023 yang beredar hanya kumpulan latihan, bukan laporan peserta, jadi tidak dihitung.",
-        "Sangat sering keluar, TWK: penerapan sila dalam kasus (4 laporan), BPUPKI/PPKI dan sikap tokohnya (5), lembaga negara MA, MK, MPR, KY (3), organisasi pergerakan seperti Budi Utomo dan Sarekat Dagang Islam (3), nasionalisme di media sosial dan konten kreator (3), netralitas ASN (3), gagasan utama dan simpulan bacaan (5), huruf miring (3).",
-        "Sangat sering keluar, TIU tanpa hitungan: silogisme termasuk tiga premis (3), figural 9 kotak (4), susunan duduk dan antrean (3). Dengan hitungan ringan: analisis tabel (4), pecahan, desimal, dan persen tanpa pangkat (3), hubungan x dan y (3).",
+        "Sangat sering keluar, TWK (7 sumber peserta berbeda, SKD 2024): penerapan nilai Pancasila (7), penerapan isi pasal UUD (5), BPUPKI/PPKI dan sikap tokohnya (5), simpulan dan gagasan utama bacaan (5), lembaga negara MA, MK, KY, MPR (4), organisasi pergerakan (4), inti kalimat (4), kata bercetak miring (4), netralitas ASN (3), nasionalisme konten kreator (3), peristiwa sekitar dan sesudah kemerdekaan (3).",
+        "Sangat sering keluar, TIU tanpa hitungan: silogisme dua dan tiga premis (5), pola 9 kotak (5), analogi kata (4), susunan duduk dan antrean (4). Dengan hitungan: analisis tabel (5), pecahan dan hitung cepat (5), perbandingan senilai dan berbalik nilai (4), hubungan x dan y (4), deret angka (4).",
         "Sangat sering keluar, TKP (8 sumber peserta berbeda, SKD 2024): menempatkan diri antara kesibukan pribadi atau masyarakat dan pekerjaan (4), spionase dan kebocoran rahasia (4), inovasi dan masalah TIK termasuk rekan gagap teknologi (4), penerapan BerAKHLAK (3), netralitas dan isu SARA saat pilkada (3). Peserta melaporkan nilai 4 dan 5 paling sulit dibedakan.",
         "TKP 2023, kedinasan 2025, dan kedinasan 2026: tidak ditemukan laporan yang bisa diperiksa. Materi bimbel 2025–2026 mengulang tema TKP 2024, jadi tema itu masih dianggap paling mungkin keluar, tetapi tidak dihitung sebagai bukti baru.",
         "Analitica (FR 2024): semua soal TWK bersifat penalaran, tidak ada hafalan murni; soalnya tidak sepanjang tryout pada umumnya, tetapi pilihan jawabannya mirip-mirip. Karena itu soal acak TWK di aplikasi ini kebanyakan berbentuk kasus (sila, lembaga negara, pasal).",

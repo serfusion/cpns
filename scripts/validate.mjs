@@ -107,7 +107,7 @@ for (const k of Object.keys(SKD.passages)) if (!usedPassages.has(k)) errors.push
   let nSil = 0;
   const cekSil = (g, tag) => {
     const c = g._cek;
-    if (!c) return;
+    if (!c || (c.jenis !== "kat" && c.jenis !== "prop")) return;
     nSil++;
     const md = c.jenis === "kat" ? A._kat.model(c.premis, c.istilah) : A._prop.model(c.premis);
     if (!md.konsisten) errors.push(`${tag}: premis tidak konsisten`);
@@ -127,6 +127,51 @@ for (const k of Object.keys(SKD.passages)) if (!usedPassages.has(k)) errors.push
       cekSil(g, tag);
     }
   }
+  // analogi: keluarga hubungan saling lepas, pengecoh bukan dari keluarga yang sama (kecuali urutan terbalik pada hubungan searah)
+  const fams = Object.fromEntries(F.analogi.map((f) => [f.id, f]));
+  const pairFam = new Map();
+  for (const f of F.analogi) for (const [a, b] of f.p) {
+    for (const key of [a + "|" + b, b + "|" + a]) {
+      if (pairFam.has(key) && pairFam.get(key) !== f.id) errors.push(`analogi: pasangan ${a} : ${b} ada di dua keluarga`);
+    }
+    pairFam.set(a + "|" + b, f.id);
+  }
+  let nAna = 0;
+  for (let i = 0; i < 3000; i++) {
+    const g = A._fn.analogi(R), c = g._cek, fam = fams[c.fam];
+    nAna++;
+    if (!fam.p.some(([a, b]) => a === c.ans[0] && b === c.ans[1])) errors.push(`analogi: jawaban bukan dari keluarga ${c.fam}`);
+    if (c.ans[0] === c.st[0] && c.ans[1] === c.st[1]) errors.push("analogi: jawaban sama dengan soal");
+    for (const d of c.dis) {
+      const f = pairFam.get(d[0] + "|" + d[1]);
+      if (f === c.fam) errors.push(`analogi: pengecoh ${d.join(" : ")} satu keluarga dengan soal`);
+      if (!f) {
+        const fr = pairFam.get(d[1] + "|" + d[0]);
+        if (fr !== c.fam || fam.sim) errors.push(`analogi: pengecoh terbalik tidak sah ${d.join(" : ")}`);
+      } else if ((fam.bentrok || []).includes(f)) errors.push(`analogi: pengecoh dari keluarga bentrok ${f}`);
+    }
+  }
+  // analitis: hitung ulang semua susunan dan pastikan jawabannya tunggal
+  let nAnl = 0;
+  for (let i = 0; i < 600; i++) {
+    const g = A._fn.analitis(R);
+    if (!g) { errors.push("analitis: gagal membangkitkan soal"); break; }
+    const c = g._cek, n = c.n, P = A._anl.susunan(n);
+    const C = P.filter((s) => { const ps = A._anl.pos(s); return c.petunjuk.every((y) => A._anl.benar(y, ps, n)); });
+    nAnl++;
+    if (!C.length) { errors.push("analitis: petunjuk saling bertentangan"); continue; }
+    if (c.q.t === "benar") {
+      if (C.length !== 1) errors.push("analitis: susunan tidak tunggal");
+      const ps = A._anl.pos(C[0]);
+      if (!A._anl.benar(c.opsi[0], ps, n)) errors.push("analitis: kunci tidak benar");
+      for (const o of c.opsi.slice(1)) if (A._anl.benar(o, ps, n)) errors.push("analitis: pengecoh ikut benar");
+    } else {
+      const jaw = (s) => c.q.t === "posk" ? s[c.q.k] : s[(A._anl.pos(s)[c.q.x] + 3) % 6];
+      if (!C.every((s) => jaw(s) === c.q.ans)) errors.push("analitis: jawaban tidak tunggal");
+    }
+  }
+  console.log(`Analogi: ${nAna} soal terperiksa (${F.analogi.length} jenis hubungan). Analitis: ${nAnl} soal, jawaban tunggal terbukti dengan memeriksa semua susunan.`);
+
   // lewat mesin: setiap materi bangkitan menghasilkan soal; filter "sangat sering" hanya memberi jenis sangat sering
   for (const m of Object.keys(A._jenis)) {
     for (const opt of [{}, { sangat: true }]) {

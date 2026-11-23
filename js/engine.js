@@ -240,7 +240,7 @@
     }
     g = genDeret(R);
     opts = order.map(function (oi, i) { if (oi === 0) best = i; return { t: g.opts[oi], pts: oi === 0 ? 5 : 0 }; });
-    return { id: null, gen: materi, sec: "tiu", m: materi, hot: true, text: g.text, passage: null, table: null, stem: null, opts: opts, best: best, expl: g.expl };
+    return { id: null, gen: materi, sec: "tiu", m: materi, hot: true, sangat: true, text: g.text, passage: null, table: null, stem: null, opts: opts, best: best, expl: g.expl };
   }
 
   // ---------- pemilihan ----------
@@ -256,7 +256,7 @@
   function canGen(m, opt) {
     if (!m.gen || opt.baru) return false;
     if (!opt.sangat) return true;
-    if (m.id === "fig-seri") return true; // pola 9 kotak
+    if (m.id === "fig-seri" || m.id === "der") return true; // pola 9 kotak; deret angka (4 laporan)
     return !!(SKD.acak && SKD.acak.bisa(m.id, opt));
   }
   function pickBank(materi, n, R, stats, opt) {

@@ -649,7 +649,7 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
       },
 
       {
-        id: "ana", sec: "tiu", name: "Analogi", group: "Verbal", quota: 3,
+        id: "ana", sec: "tiu", name: "Analogi", group: "Verbal", quota: 3, gen: 0.35,
         def: "Bernalar melalui perbandingan dua konsep kata yang memiliki hubungan tertentu, lalu memakai hubungan itu pada situasi lain.",
         pola: ["Analogi dua kata dan tiga kata", "Hubungan fungsi, sebab-akibat, bagian-keseluruhan, alat-profesi, tingkatan, tempat"]
       },
@@ -659,7 +659,7 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
         pola: ["Silogisme dua premis: semua, sebagian, tidak ada", "Modus ponens dan modus tollens (jika-maka)", "Memilih kesimpulan yang pasti benar, bukan yang mungkin benar", "Silogisme tiga premis: rantai semua–semua–sebagian dan rantai jika–maka"]
       },
       {
-        id: "anl", sec: "tiu", name: "Analitis", group: "Verbal", quota: 4,
+        id: "anl", sec: "tiu", name: "Analitis", group: "Verbal", quota: 4, gen: 0.3,
         def: "Menganalisis informasi yang diberikan dan menarik kesimpulan.",
         pola: ["Urutan dan posisi duduk", "Penjadwalan dan pengelompokan bersyarat", "Menarik kesimpulan dari tabel", "Susunan duduk melingkar dan antrean", "Analisis tabel: rasio, persentase kenaikan, pecahan"]
       },
@@ -752,8 +752,8 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
       temuan: [
         "Kisi-kisi resmi SKD 2021, 2023, 2024, dan kedinasan 2026 isinya sama: TWK (nasionalisme, integritas, bela negara, pilar negara, bahasa Indonesia), TIU (verbal, numerik, figural), TKP (enam aspek). Semua materi tetap keluar; yang berubah adalah bentuk soalnya.",
         "Laporan peserta yang bisa diperiksa hanya ada untuk SKD CPNS 2024 (AyoJakarta 3 rangkuman, ASN Institute, Analitica) dan kedinasan 2026. Untuk 2021 dan 2023 yang beredar hanya kumpulan latihan, bukan laporan peserta, jadi tidak dihitung.",
-        "Sangat sering keluar, TWK: penerapan sila dalam kasus (4 laporan), BPUPKI/PPKI dan sikap tokohnya (5), lembaga negara MA, MK, MPR, KY (3), organisasi pergerakan seperti Budi Utomo dan Sarekat Dagang Islam (3), nasionalisme di media sosial dan konten kreator (3), netralitas ASN (3), gagasan utama dan simpulan bacaan (5), huruf miring (3).",
-        "Sangat sering keluar, TIU tanpa hitungan: silogisme termasuk tiga premis (3), figural 9 kotak (4), susunan duduk dan antrean (3). Dengan hitungan ringan: analisis tabel (4), pecahan, desimal, dan persen tanpa pangkat (3), hubungan x dan y (3).",
+        "Sangat sering keluar, TWK (7 sumber peserta berbeda, SKD 2024): penerapan nilai Pancasila (7), penerapan isi pasal UUD (5), BPUPKI/PPKI dan sikap tokohnya (5), simpulan dan gagasan utama bacaan (5), lembaga negara MA, MK, KY, MPR (4), organisasi pergerakan (4), inti kalimat (4), kata bercetak miring (4), netralitas ASN (3), nasionalisme konten kreator (3), peristiwa sekitar dan sesudah kemerdekaan (3).",
+        "Sangat sering keluar, TIU tanpa hitungan: silogisme dua dan tiga premis (5), pola 9 kotak (5), analogi kata (4), susunan duduk dan antrean (4). Dengan hitungan: analisis tabel (5), pecahan dan hitung cepat (5), perbandingan senilai dan berbalik nilai (4), hubungan x dan y (4), deret angka (4).",
         "Sangat sering keluar, TKP (8 sumber peserta berbeda, SKD 2024): menempatkan diri antara kesibukan pribadi atau masyarakat dan pekerjaan (4), spionase dan kebocoran rahasia (4), inovasi dan masalah TIK termasuk rekan gagap teknologi (4), penerapan BerAKHLAK (3), netralitas dan isu SARA saat pilkada (3). Peserta melaporkan nilai 4 dan 5 paling sulit dibedakan.",
         "TKP 2023, kedinasan 2025, dan kedinasan 2026: tidak ditemukan laporan yang bisa diperiksa. Materi bimbel 2025–2026 mengulang tema TKP 2024, jadi tema itu masih dianggap paling mungkin keluar, tetapi tidak dihitung sebagai bukti baru.",
         "Analitica (FR 2024): semua soal TWK bersifat penalaran, tidak ada hafalan murni; soalnya tidak sepanjang tryout pada umumnya, tetapi pilihan jawabannya mirip-mirip. Karena itu soal acak TWK di aplikasi ini kebanyakan berbentuk kasus (sila, lembaga negara, pasal).",
@@ -1083,7 +1083,7 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
 
   // ===================== BELA NEGARA =====================
   SKD.add("twk", [
-    { m: "bela", h: 1,
+    { m: "bela", h: 2,
       q: "Pasal 27 ayat (3) UUD NRI Tahun 1945 menyatakan, \"Setiap warga negara berhak dan wajib ikut serta dalam upaya pembelaan negara.\" Makna yang tepat dari ketentuan tersebut adalah ...",
       o: ["bela negara merupakan hak sekaligus kewajiban semua warga negara sesuai peran dan profesinya, bukan hanya tugas TNI",
         "bela negara wajib bagi anggota TNI dan Polri, sedangkan bagi warga lain bersifat sukarela",
@@ -1130,7 +1130,7 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
         "pertahanan hanya dilaksanakan oleh komponen utama",
         "pertahanan diselenggarakan bersama negara-negara sahabat"],
       x: "Kerakyatan: oleh dan untuk rakyat. Kesemestaan: seluruh sumber daya nasional didayagunakan. Kewilayahan: gelar kekuatan menyebar di seluruh wilayah NKRI." },
-    { m: "bela", h: 1,
+    { m: "bela", h: 2,
       q: "Menurut Pasal 30 ayat (2) UUD NRI Tahun 1945, usaha pertahanan dan keamanan negara dilaksanakan melalui sistem pertahanan dan keamanan rakyat semesta oleh ...",
       o: ["TNI dan Polri sebagai kekuatan utama, dan rakyat sebagai kekuatan pendukung",
         "TNI sebagai kekuatan utama, Polri sebagai kekuatan cadangan, dan rakyat sebagai kekuatan pendukung",
@@ -1261,12 +1261,12 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
       q: "Pemerintah menyediakan tempat ibadah bagi setiap agama dan menetapkan hari besar keagamaan sebagai hari libur nasional. Kebijakan itu merupakan pelaksanaan Pasal ...",
       o: ["29 ayat (2) UUD NRI 1945", "28I ayat (1) UUD NRI 1945", "27 ayat (1) UUD NRI 1945", "31 ayat (1) UUD NRI 1945", "33 ayat (3) UUD NRI 1945"],
       x: "Pasal 29 ayat (2): negara menjamin kemerdekaan tiap penduduk memeluk agama dan beribadat menurut agama dan kepercayaannya." },
-    { m: "pilar", h: 1,
+    { m: "pilar", h: 2,
       q: "Pasal 1 ayat (3) UUD NRI 1945 menyatakan \"Negara Indonesia adalah negara hukum.\" Makna ketentuan itu adalah ...",
       o: ["semua tindakan penyelenggara negara dan warga negara harus berdasarkan hukum", "kekuasaan tertinggi berada di tangan Presiden",
         "hukum hanya berlaku bagi rakyat biasa", "setiap masalah harus diselesaikan di pengadilan", "aparat hukum boleh bertindak tanpa batas"],
       x: "Negara hukum berarti supremasi hukum, persamaan di depan hukum, dan kekuasaan dibatasi oleh hukum." },
-    { m: "pilar", h: 1,
+    { m: "pilar", h: 2,
       q: "Asas pemilu dalam Pasal 22E ayat (1) UUD NRI 1945 adalah langsung, umum, bebas, rahasia, jujur, dan adil. Makna asas \"umum\" adalah ...",
       o: ["semua warga negara yang memenuhi syarat berhak memilih tanpa diskriminasi suku, agama, jenis kelamin, atau status sosial",
         "pemilih memberikan suaranya tanpa perantara", "pemilih bebas menentukan pilihan tanpa paksaan",
@@ -1297,11 +1297,11 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
         "perjuangan pergerakan yang mengantarkan ke pintu gerbang kemerdekaan", "pengakuan kemerdekaan sebagai berkat rahmat Allah",
         "susunan lembaga negara dan wewenangnya"],
       x: "Alinea I: hak merdeka; II: perjuangan; III: rahmat Tuhan dan pernyataan kemerdekaan; IV: tujuan negara, bentuk negara, kedaulatan rakyat, Pancasila." },
-    { m: "pilar", h: 1,
+    { m: "pilar", h: 2,
       q: "Pasal 33 ayat (1) UUD NRI 1945 menyatakan perekonomian disusun sebagai usaha bersama berdasar atas asas kekeluargaan. Bentuk usaha yang paling sesuai dengan asas itu adalah ...",
       o: ["koperasi", "perseroan terbatas milik asing", "monopoli swasta", "firma", "usaha perseorangan"],
       x: "Koperasi dipandang sebagai bentuk usaha yang paling sesuai dengan asas kekeluargaan dan usaha bersama." },
-    { m: "pilar", h: 1,
+    { m: "pilar", h: 2,
       q: "Pasal 25A UUD NRI 1945 menyebut NKRI sebagai negara kepulauan berciri Nusantara. Konsekuensi ketentuan itu adalah ...",
       o: ["laut di antara pulau-pulau merupakan pemersatu wilayah, bukan pemisah", "setiap pulau berhak menentukan hukumnya sendiri",
         "batas wilayah ditetapkan oleh pemerintah daerah", "wilayah laut tidak termasuk wilayah negara", "Indonesia menganut bentuk negara federal"],
@@ -1331,7 +1331,7 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
       o: ["menjadikan Indonesia negara adidaya di kawasan", "melindungi segenap bangsa dan seluruh tumpah darah Indonesia",
         "memajukan kesejahteraan umum", "mencerdaskan kehidupan bangsa", "ikut melaksanakan ketertiban dunia"],
       x: "Empat tujuan negara ada pada alinea keempat; menjadi negara adidaya tidak termasuk." },
-    { m: "pilar", h: 1,
+    { m: "pilar", h: 2,
       q: "Hak asasi yang tidak dapat dikurangi dalam keadaan apa pun menurut Pasal 28I ayat (1) UUD NRI 1945 antara lain ...",
       o: ["hak untuk hidup dan hak untuk tidak disiksa", "hak memperoleh pekerjaan", "hak berserikat dan berkumpul",
         "hak memilih dalam pemilu", "hak mendapat pendidikan tinggi gratis"],
@@ -1487,7 +1487,7 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
       x: "Butir pertama sila kelima berbunyi mengembangkan perbuatan yang luhur, yang mencerminkan sikap dan suasana kekeluargaan dan kegotongroyongan." }
   ]);
   SKD.add("twk", [
-    { m: "int", h: 1, q: "Dalam Palagan Ambarawa (November–Desember 1945), pasukan TKR di bawah Kolonel Soedirman terus bertempur meskipun kalah persenjataan hingga pasukan Sekutu mundur ke Semarang. Nilai integritas yang paling menonjol dari peristiwa itu adalah ...",
+    { m: "int", h: 2, q: "Dalam Palagan Ambarawa (November–Desember 1945), pasukan TKR di bawah Kolonel Soedirman terus bertempur meskipun kalah persenjataan hingga pasukan Sekutu mundur ke Semarang. Nilai integritas yang paling menonjol dari peristiwa itu adalah ...",
       o: ["berani", "sederhana", "adil", "mandiri", "disiplin"],
       x: "Berani berarti tidak gentar menghadapi kesulitan dan risiko demi kebenaran serta kepentingan bangsa. Kemenangan ini diperingati sebagai Hari Juang Kartika (Hari Juang TNI AD) setiap 15 Desember." },
     { m: "int", h: 2, q: "Saat diangkat menjadi Kepala Jawatan Imigrasi, Hoegeng meminta istrinya menutup toko bunga milik keluarga agar tidak ada orang yang membeli bunga demi mendapat kemudahan urusan. Tindakan itu terutama bertujuan mencegah ...",
@@ -1691,7 +1691,7 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
         "tugas pemerintah daerah yang tidak boleh diambil alih warga",
         "bela negara fisik karena melibatkan kegiatan di lapangan"],
       x: "Bencana alam termasuk ancaman nirmiliter. Menyiapkan kemampuan warga menghadapinya adalah bela negara nonfisik yang sesuai dengan profesi dan lingkungan masing-masing." },
-    { m: "bela", b: 1,
+    { m: "bela", h: 2, b: 1,
       q: "Ketika Belanda melancarkan Agresi Militer II dan menangkap pimpinan negara di Yogyakarta pada 19 Desember 1948, Syafruddin Prawiranegara membentuk Pemerintahan Darurat Republik Indonesia (PDRI) di Sumatra Barat. Nilai dari peristiwa itu yang paling relevan bagi ASN saat ini adalah ...",
       o: ["menjaga agar pemerintahan dan pelayanan kepada rakyat tetap berjalan dalam keadaan darurat",
         "mengutamakan keselamatan pribadi saat negara dalam bahaya",
@@ -1958,22 +1958,139 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
         "keluar dari grup warga agar tidak ikut terseret masalah"],
       x: "Hoaks bernuansa SARA adalah ancaman nonmiliter yang dapat memecah persatuan. Bela negara di ruang digital berarti memeriksa kebenaran, menghentikan penyebaran, melapor ke kanal resmi, dan mengingatkan lingkungan." },
     // ---- Inti kalimat (dilaporkan peserta SKD 2024) ----
-    { m: "bind", h: 1,
+    { m: "bind", h: 2,
       q: "Inti kalimat \"Pegawai baru yang lulus seleksi tahun ini mengikuti pelatihan dasar kepemimpinan di balai diklat selama tiga minggu.\" adalah ...",
       o: ["Pegawai mengikuti pelatihan.", "Pegawai baru mengikuti pelatihan dasar.", "Pegawai lulus seleksi.", "Pegawai mengikuti pelatihan di balai diklat.", "Pelatihan dasar kepemimpinan selama tiga minggu."],
       x: "Inti kalimat hanya memuat unsur wajib: subjek (pegawai), predikat (mengikuti), dan objek (pelatihan). Kata sifat (baru, dasar kepemimpinan), anak kalimat (yang lulus seleksi tahun ini), keterangan tempat, dan keterangan waktu dihilangkan." },
-    { m: "bind", h: 1,
+    { m: "bind", h: 2,
       q: "Inti kalimat \"Warga desa yang terdampak banjir menerima bantuan logistik dari pemerintah daerah pada Senin pagi.\" adalah ...",
       o: ["Warga menerima bantuan.", "Warga desa terdampak banjir.", "Warga menerima bantuan logistik dari pemerintah.", "Bantuan dari pemerintah daerah.", "Warga desa menerima bantuan pada Senin pagi."],
       x: "Subjek: warga; predikat: menerima; objek: bantuan. Unsur lain (desa, yang terdampak banjir, logistik, dari pemerintah daerah, pada Senin pagi) adalah perluasan sehingga tidak termasuk inti kalimat." },
-    { m: "bind", h: 1,
+    { m: "bind", h: 2,
       q: "Inti kalimat \"Atlet panahan asal Papua itu akhirnya meraih medali emas pertama bagi Indonesia di ajang internasional.\" adalah ...",
       o: ["Atlet meraih medali.", "Atlet panahan meraih medali emas.", "Atlet asal Papua meraih medali pertama.", "Medali emas pertama bagi Indonesia.", "Atlet meraih medali di ajang internasional."],
       x: "Subjek: atlet; predikat: meraih; objek: medali. Kata panahan, asal Papua, itu, akhirnya, emas pertama, bagi Indonesia, dan di ajang internasional adalah perluasan." },
-    { m: "bind", h: 1,
+    { m: "bind", h: 2,
       q: "Inti kalimat \"Perpustakaan daerah yang baru direnovasi itu menyediakan layanan peminjaman buku digital bagi seluruh warga.\" adalah ...",
       o: ["Perpustakaan menyediakan layanan.", "Perpustakaan daerah direnovasi.", "Perpustakaan menyediakan layanan peminjaman buku.", "Layanan peminjaman buku digital bagi warga.", "Perpustakaan baru menyediakan layanan digital."],
       x: "Subjek: perpustakaan; predikat: menyediakan; objek: layanan. Kata daerah, anak kalimat yang baru direnovasi itu, peminjaman buku digital, dan bagi seluruh warga adalah perluasan." }
+  ]);
+
+  // ===================== SANGAT SERING KELUAR, TAMBAHAN TWK 23 NOV 2026 =====================
+  // Dihitung dari 7 sumber laporan peserta SKD CPNS 2024 yang berbeda (@ujiancpns.id, @kyygnsoo, @idcpns, @imalagus,
+  // @widiadiantari, ASN Institute, Analitica): penerapan isi pasal (5), inti kalimat (4), kata bercetak miring (4),
+  // simpulan dan gagasan utama bacaan (5), peristiwa sekitar dan sesudah kemerdekaan serta sikap tokohnya (3+).
+  // Soal disusun sendiri mengikuti pola itu. Teks di antara garis bawah (_kata_) tampil miring.
+  SKD.add("twk", [
+    // ---- penerapan isi pasal ----
+    { m: "pilar", h: 2,
+      q: "Pasal 28I ayat (2) UUD NRI 1945 menyatakan, \"Setiap orang berhak bebas dari perlakuan yang bersifat diskriminatif atas dasar apa pun dan berhak mendapatkan perlindungan terhadap perlakuan yang bersifat diskriminatif itu.\" Contoh penerapan pasal tersebut adalah ...",
+      o: ["sekolah negeri menerima siswa dari berbagai agama dan suku tanpa membeda-bedakan",
+        "panitia lomba hanya menerima peserta dari suku tertentu agar lebih kompak",
+        "warga bergiliran menjaga keamanan kampung pada malam hari",
+        "pemerintah memprioritaskan anggaran pendidikan sekurang-kurangnya dua puluh persen",
+        "perusahaan menolak pelamar karena agamanya berbeda dengan pemilik"],
+      x: "Pasal 28I ayat (2) menjamin setiap orang bebas dari diskriminasi. Menerima siswa tanpa membedakan agama dan suku adalah penerapannya. Membatasi peserta karena suku dan menolak pelamar karena agama justru melanggar; dua pilihan lain adalah penerapan pasal yang berbeda." },
+    { m: "pilar", h: 2,
+      q: "Pasal 28H ayat (2) UUD NRI 1945 menyatakan, \"Setiap orang berhak mendapat kemudahan dan perlakuan khusus untuk memperoleh kesempatan dan manfaat yang sama guna mencapai persamaan dan keadilan.\" Contoh penerapan pasal tersebut adalah ...",
+      o: ["kantor pelayanan menyediakan jalur prioritas, kursi roda, dan bidang landai bagi lansia dan penyandang disabilitas",
+        "semua pemohon wajib mengantre dengan aturan yang sama tanpa pengecualian apa pun",
+        "kantor pelayanan memberi nomor antrean lebih awal kepada kerabat pegawai",
+        "instansi pemerintah memakai bahasa Indonesia dalam dokumen resmi",
+        "warga desa membentuk koperasi untuk memasarkan hasil panen"],
+      x: "Perlakuan khusus bagi kelompok rentan (lansia, penyandang disabilitas, ibu hamil) bukan diskriminasi, melainkan cara agar mereka memperoleh kesempatan yang sama. Antre tanpa pengecualian justru mengabaikan pasal ini; mendahulukan kerabat pegawai adalah nepotisme." },
+    { m: "pilar", h: 2,
+      q: "Pasal 30 ayat (1) UUD NRI 1945 menyatakan, \"Tiap-tiap warga negara berhak dan wajib ikut serta dalam usaha pertahanan dan keamanan negara.\" Contoh penerapan pasal tersebut dalam kehidupan sehari-hari adalah ...",
+      o: ["warga bergiliran melakukan ronda malam dan melapor kepada aparat bila melihat hal mencurigakan",
+        "warga membentuk kelompok bersenjata untuk menghukum sendiri pelaku kejahatan",
+        "mahasiswa menyampaikan pendapat di muka umum secara tertib",
+        "pemerintah membangun puskesmas di daerah terpencil",
+        "warga mengajukan permohonan informasi publik tentang dana desa"],
+      x: "Sistem keamanan lingkungan (ronda) adalah bentuk keikutsertaan warga dalam usaha keamanan, dengan penindakan tetap diserahkan kepada aparat. Main hakim sendiri melanggar hukum; pilihan lain penerapan pasal yang berbeda." },
+    { m: "pilar", h: 2,
+      q: "Pasal 34 ayat (2) UUD NRI 1945 menyatakan, \"Negara mengembangkan sistem jaminan sosial bagi seluruh rakyat dan memberdayakan masyarakat yang lemah dan tidak mampu sesuai dengan martabat kemanusiaan.\" Kebijakan yang paling sesuai dengan pasal tersebut adalah ...",
+      o: ["pemerintah membayar iuran jaminan kesehatan bagi warga miskin dan memberi mereka pelatihan usaha",
+        "pemerintah membagikan uang tunai setiap hari kepada semua warga tanpa pendataan",
+        "pemerintah menetapkan bahasa daerah sebagai muatan lokal di sekolah",
+        "pemerintah menetapkan batas wilayah laut dengan undang-undang",
+        "pemerintah menyerahkan urusan warga miskin sepenuhnya kepada lembaga amal"],
+      x: "Pasal 34 ayat (2) memuat dua hal: jaminan sosial bagi seluruh rakyat dan pemberdayaan masyarakat yang lemah. Pilihan pertama memenuhi keduanya. Bantuan tanpa pendataan tidak tepat sasaran dan tidak memberdayakan; menyerahkan sepenuhnya kepada lembaga amal berarti negara lepas tangan." },
+    { m: "pilar", h: 2,
+      q: "Pasal 28I ayat (3) UUD NRI 1945 menyatakan, \"Identitas budaya dan hak masyarakat tradisional dihormati selaras dengan perkembangan zaman dan peradaban.\" Contoh penerapan pasal tersebut adalah ...",
+      o: ["pemerintah daerah melibatkan masyarakat adat dalam menyusun aturan pengelolaan hutan adat mereka",
+        "pemerintah melarang semua upacara adat karena dianggap ketinggalan zaman",
+        "pemerintah memindahkan masyarakat adat ke kota tanpa persetujuan mereka agar lebih modern",
+        "pemerintah mewajibkan semua warga memakai pakaian adat setiap hari",
+        "pemerintah membangun jalan tanpa memperhatikan kawasan permukiman"],
+      x: "Negara menghormati identitas budaya dan hak masyarakat tradisional, tetapi tetap selaras dengan perkembangan zaman. Melibatkan masyarakat adat dalam aturan tentang wilayahnya memenuhi keduanya. Melarang atau memindahkan paksa melanggar hak mereka; mewajibkan pakaian adat setiap hari tidak selaras dengan perkembangan zaman." },
+    // ---- inti kalimat ----
+    { m: "bind", h: 2,
+      q: "Inti kalimat \"Relawan muda dari berbagai kampus membersihkan pantai wisata yang tercemar sampah plastik setiap akhir pekan.\" adalah ...",
+      o: ["Relawan membersihkan pantai.", "Relawan muda membersihkan pantai wisata.", "Pantai tercemar sampah plastik.", "Relawan membersihkan pantai setiap akhir pekan.", "Relawan dari berbagai kampus."],
+      x: "Subjek: relawan; predikat: membersihkan; objek: pantai. Muda, dari berbagai kampus, wisata, yang tercemar sampah plastik, dan setiap akhir pekan adalah perluasan." },
+    { m: "bind", h: 2,
+      q: "Inti kalimat \"Nelayan tradisional di pesisir selatan menjual ikan hasil tangkapan mereka di tempat pelelangan setiap pagi.\" adalah ...",
+      o: ["Nelayan menjual ikan.", "Nelayan tradisional menjual ikan hasil tangkapan.", "Ikan dijual di tempat pelelangan.", "Nelayan menjual ikan setiap pagi.", "Nelayan di pesisir selatan."],
+      x: "Subjek: nelayan; predikat: menjual; objek: ikan. Tradisional, di pesisir selatan, hasil tangkapan mereka, di tempat pelelangan, dan setiap pagi adalah perluasan." },
+    { m: "bind", h: 2,
+      q: "Inti kalimat \"Pemerintah kabupaten di wilayah timur itu meluncurkan aplikasi pengaduan masyarakat yang terhubung dengan semua dinas pekan lalu.\" adalah ...",
+      o: ["Pemerintah meluncurkan aplikasi.", "Pemerintah kabupaten meluncurkan aplikasi pengaduan.", "Aplikasi terhubung dengan semua dinas.", "Pemerintah meluncurkan aplikasi pekan lalu.", "Aplikasi pengaduan masyarakat."],
+      x: "Subjek: pemerintah; predikat: meluncurkan; objek: aplikasi. Kabupaten di wilayah timur itu, pengaduan masyarakat, yang terhubung dengan semua dinas, dan pekan lalu adalah perluasan." },
+    // ---- makna kata bercetak miring ----
+    { m: "bind", h: 2,
+      q: "Dalam rapat evaluasi, kepala dinas meminta agar proses pengadaan dilakukan secara _transparan_ sehingga masyarakat dapat memantau setiap tahapnya. Makna kata bercetak miring dalam kalimat tersebut adalah ...",
+      o: ["terbuka", "cepat", "hemat", "tertib", "tertutup"],
+      x: "Transparan berarti terbuka, dapat dilihat dan diketahui oleh umum. Konteks kalimat (masyarakat dapat memantau setiap tahap) menguatkan makna itu. Tertutup adalah lawan katanya." },
+    { m: "bind", h: 2,
+      q: "Pemerintah daerah berencana _merevitalisasi_ pasar tradisional agar kembali ramai dikunjungi warga. Makna kata bercetak miring dalam kalimat tersebut adalah ...",
+      o: ["menghidupkan kembali", "membongkar seluruhnya", "memindahkan ke tempat lain", "mengawasi dengan ketat", "memperluas wilayahnya"],
+      x: "Revitalisasi adalah proses menghidupkan atau menggiatkan kembali. Petunjuk konteks: agar kembali ramai dikunjungi warga." },
+    { m: "bind", h: 2,
+      q: "Aturan baru itu dinilai _ambigu_ karena dapat ditafsirkan berbeda oleh setiap pelaksana di lapangan. Makna kata bercetak miring dalam kalimat tersebut adalah ...",
+      o: ["bermakna ganda", "tidak adil", "terlalu ketat", "sulit dilaksanakan", "bertentangan dengan hukum"],
+      x: "Ambigu berarti bermakna lebih dari satu (taksa). Petunjuk konteks: dapat ditafsirkan berbeda oleh setiap pelaksana." },
+    { m: "bind", h: 2,
+      q: "Petugas pengaduan diminta bersikap _imparsial_ ketika menangani laporan dari dua pihak yang sedang bersengketa. Makna kata bercetak miring dalam kalimat tersebut adalah ...",
+      o: ["tidak memihak", "tegas", "cepat tanggap", "ramah", "tertutup"],
+      x: "Imparsial berarti tidak memihak atau netral. Sikap ini penting ketika menangani dua pihak yang bersengketa." },
+    { m: "bind", h: 2,
+      q: "Perencanaan pembangunan harus didasarkan pada data yang _valid_ agar programnya tepat sasaran. Makna kata bercetak miring dalam kalimat tersebut adalah ...",
+      o: ["sahih", "lengkap", "terbaru", "rahasia", "banyak"],
+      x: "Valid berarti sahih: sesuai dengan keadaan sebenarnya dan dapat dipertanggungjawabkan. Data yang lengkap atau terbaru belum tentu sahih." },
+    // ---- peristiwa sekitar dan sesudah kemerdekaan, sikap tokoh ----
+    { m: "pilar", h: 2,
+      q: "Dalam sidang kedua BPUPKI, Mohammad Hatta mengusulkan agar hak warga negara untuk berserikat, berkumpul, dan mengeluarkan pendapat dicantumkan dalam undang-undang dasar. Soekarno dan Soepomo semula menolak karena khawatir mengarah pada paham individualisme, tetapi akhirnya usul itu disepakati. Sikap Hatta tersebut paling tepat diteladani sebagai ...",
+      o: ["keberanian menyampaikan pendapat demi melindungi hak rakyat, disertai kesediaan bermusyawarah sampai tercapai kesepakatan",
+        "kepatuhan pada pendapat tokoh yang lebih senior",
+        "keinginan menjadikan Indonesia negara liberal seperti negara Barat",
+        "penolakan terhadap rumusan dasar negara Pancasila",
+        "upaya memperkuat kekuasaan presiden"],
+      x: "Hatta khawatir negara tanpa jaminan hak warga dapat berubah menjadi negara kekuasaan. Ia berani berbeda pendapat, tetapi menempuh musyawarah hingga lahir kesepakatan yang dituangkan dalam Pasal 28 UUD 1945." },
+    { m: "nas", h: 2,
+      q: "Pada rapat raksasa di Lapangan Ikada, Jakarta, 19 September 1945, ribuan rakyat berkumpul meskipun dijaga ketat tentara Jepang. Soekarno hanya berpidato singkat, meminta rakyat percaya kepada pemerintah dan pulang dengan tertib. Sikap Soekarno tersebut menunjukkan ...",
+      o: ["kepemimpinan yang mengutamakan keselamatan rakyat sambil menunjukkan dukungan rakyat kepada pemerintah Republik",
+        "ketakutan pemerintah terhadap tentara Jepang",
+        "keinginan agar rakyat tidak lagi terlibat dalam perjuangan",
+        "ketidakmampuan pemerintah memimpin rakyat",
+        "kesepakatan diam-diam dengan tentara Jepang"],
+      x: "Rapat Ikada memperlihatkan besarnya dukungan rakyat kepada pemerintah Republik. Soekarno memilih pidato singkat dan meminta massa bubar dengan tertib untuk mencegah bentrokan berdarah dengan tentara Jepang yang bersenjata lengkap." },
+    // ---- simpulan dan gagasan utama bacaan ----
+    { m: "bind", h: 2,
+      q: "Bacalah paragraf berikut. \"Bank sampah di Kelurahan Sukamaju kini melayani lebih dari tiga ratus rumah tangga. Warga menabung sampah plastik dan kertas yang sudah dipilah, lalu menukarnya dengan uang atau kebutuhan pokok. Volume sampah yang diangkut ke tempat pembuangan akhir dari kelurahan itu turun sepertiga dalam setahun.\" Simpulan yang paling tepat dari paragraf tersebut adalah ...",
+      o: ["bank sampah memberi manfaat ekonomi bagi warga sekaligus mengurangi sampah yang dibuang ke tempat pembuangan akhir",
+        "semua kelurahan wajib mendirikan bank sampah",
+        "sampah plastik lebih berharga daripada sampah kertas",
+        "warga Sukamaju tidak lagi membuang sampah ke tempat pembuangan akhir",
+        "bank sampah hanya diikuti rumah tangga berpenghasilan rendah"],
+      x: "Simpulan harus didukung isi paragraf: warga mendapat uang atau kebutuhan pokok, dan sampah ke tempat pembuangan akhir turun sepertiga. Pilihan lain melebihi isi bacaan (wajib untuk semua, tidak lagi membuang sama sekali) atau tidak disebutkan." },
+    { m: "bind", h: 2,
+      q: "Bacalah paragraf berikut. \"Banyak remaja kini mengenal tari daerah dari video pendek di media sosial. Sanggar-sanggar tari memanfaatkan tren itu dengan mengunggah potongan latihan yang dikemas menarik. Hasilnya, jumlah peserta kelas tari di beberapa sanggar meningkat. Media sosial yang sering dianggap menggerus budaya lokal ternyata dapat menjadi sarana pelestariannya.\" Gagasan utama paragraf tersebut adalah ...",
+      o: ["media sosial dapat menjadi sarana melestarikan tari daerah",
+        "remaja lebih menyukai video pendek daripada pertunjukan langsung",
+        "sanggar tari mengunggah potongan latihan di media sosial",
+        "media sosial menggerus budaya lokal",
+        "jumlah peserta kelas tari di semua sanggar meningkat"],
+      x: "Gagasan utama ada di kalimat terakhir (paragraf induktif): media sosial ternyata dapat menjadi sarana pelestarian budaya. Pilihan lain hanya rincian, berlawanan dengan isi, atau berlebihan (semua sanggar)." }
   ]);
 })();
 
@@ -1989,10 +2106,10 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
 
   // ===================== ANALOGI =====================
   SKD.add("tiu", [
-    { m: "ana", h: 1, q: "PADI : PETANI = ... : ...",
+    { m: "ana", h: 2, q: "PADI : PETANI = ... : ...",
       o: ["IKAN : NELAYAN", "BUKU : PEMBACA", "OBAT : PASIEN", "SEPATU : PEMAKAI", "JALAN : PENGEMUDI"],
       x: "Padi dihasilkan oleh petani, seperti ikan dihasilkan (ditangkap) oleh nelayan. Pilihan lain menunjukkan hubungan benda dengan penggunanya." },
-    { m: "ana", h: 1, q: "GURU : SEKOLAH : MURID = ... : ... : ...",
+    { m: "ana", h: 2, q: "GURU : SEKOLAH : MURID = ... : ... : ...",
       o: ["DOKTER : RUMAH SAKIT : PASIEN", "HAKIM : PENGADILAN : JAKSA", "PETANI : SAWAH : CANGKUL", "PILOT : PESAWAT : BANDARA", "PENJUAL : PEMBELI : PASAR"],
       x: "Polanya profesi : tempat bekerja : pihak yang dilayani. Guru bekerja di sekolah melayani murid; dokter bekerja di rumah sakit melayani pasien." }
   ]);
@@ -2027,7 +2144,7 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
 
   // ===================== DERET ANGKA =====================
   SKD.add("tiu", [
-    { m: "der", h: 1, q: "Tentukan suku berikutnya dari deret:\n3, 7, 15, 31, 63, ...",
+    { m: "der", h: 2, q: "Tentukan suku berikutnya dari deret:\n3, 7, 15, 31, 63, ...",
       o: ["127", "126", "125", "95", "94"],
       x: "Setiap suku adalah suku sebelumnya dikali 2 lalu ditambah 1 (selisihnya 4, 8, 16, 32, lalu 64). 63 × 2 + 1 = 127." }
   ]);
@@ -2042,10 +2159,10 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
 
   // ===================== SOAL CERITA =====================
   SKD.add("tiu", [
-    { m: "cer", h: 1, q: "Sebuah mobil menghabiskan 12 liter bensin untuk menempuh 150 km. Dengan pemakaian yang sama, berapa liter bensin yang dibutuhkan untuk menempuh 400 km?",
+    { m: "cer", h: 2, q: "Sebuah mobil menghabiskan 12 liter bensin untuk menempuh 150 km. Dengan pemakaian yang sama, berapa liter bensin yang dibutuhkan untuk menempuh 400 km?",
       o: ["32 liter", "30 liter", "34 liter", "36 liter", "28 liter"],
       x: "Perbandingan senilai: 12/150 = x/400, sehingga x = 12 × 400 ÷ 150 = 32 liter." },
-    { m: "cer", h: 1, q: "Sebuah proyek dapat diselesaikan oleh 12 pekerja dalam 30 hari. Setelah berjalan 10 hari, pekerjaan terhenti selama 4 hari. Agar proyek tetap selesai tepat waktu, berapa pekerja yang harus ditambahkan?",
+    { m: "cer", h: 2, q: "Sebuah proyek dapat diselesaikan oleh 12 pekerja dalam 30 hari. Setelah berjalan 10 hari, pekerjaan terhenti selama 4 hari. Agar proyek tetap selesai tepat waktu, berapa pekerja yang harus ditambahkan?",
       o: ["3 orang", "4 orang", "5 orang", "6 orang", "2 orang"],
       x: "Total pekerjaan 12 × 30 = 360 hari-orang. Selesai 12 × 10 = 120, sisa 240. Sisa waktu 30 − 10 − 4 = 16 hari, butuh 240 ÷ 16 = 15 pekerja. Tambahan 15 − 12 = 3 orang." },
     { m: "cer", h: 1, q: "Berdasarkan tabel penjualan berikut, bulan dengan pendapatan terbesar adalah ...",
@@ -2056,31 +2173,31 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
 
   // ===================== TAMBAHAN: VERBAL =====================
   SKD.add("tiu", [
-    { m: "ana", h: 1, q: "DOKTER : STETOSKOP = ... : ...",
+    { m: "ana", h: 2, q: "DOKTER : STETOSKOP = ... : ...",
       o: ["FOTOGRAFER : KAMERA", "PENJAHIT : KAIN", "PETANI : SAWAH", "GURU : MURID", "PILOT : BANDARA"],
       x: "Stetoskop adalah alat kerja dokter, seperti kamera alat kerja fotografer. Kain adalah bahan, sawah tempat, murid pihak yang dilayani, bandara tempat." },
-    { m: "ana", h: 1, q: "API : PANAS = ... : ...",
+    { m: "ana", h: 2, q: "API : PANAS = ... : ...",
       o: ["ES : DINGIN", "LAMPU : LISTRIK", "MATAHARI : SIANG", "HUJAN : PAYUNG", "GARAM : LAUT"],
       x: "Panas adalah sifat api, dingin adalah sifat es." },
-    { m: "ana", h: 1, q: "KAKI : SEPATU = ... : ...",
+    { m: "ana", h: 2, q: "KAKI : SEPATU = ... : ...",
       o: ["TANGAN : SARUNG TANGAN", "TELINGA : MENDENGAR", "KEPALA : RAMBUT", "MULUT : GIGI", "MATA : MELIHAT"],
       x: "Sepatu adalah pelindung yang dikenakan pada kaki, sarung tangan dikenakan pada tangan. Rambut dan gigi adalah bagian tubuh, bukan benda yang dikenakan." },
-    { m: "ana", h: 1, q: "BOROS : HEMAT = ... : ...",
+    { m: "ana", h: 2, q: "BOROS : HEMAT = ... : ...",
       o: ["RAJIN : MALAS", "CERDAS : PINTAR", "TINGGI : JANGKUNG", "BESAR : RAKSASA", "CEPAT : KILAT"],
       x: "Boros dan hemat berlawanan makna (antonim). Pilihan lain bersinonim atau berupa tingkatan." },
-    { m: "ana", h: 1, q: "SENYUM : TERTAWA : TERBAHAK-BAHAK = ... : ... : ...",
+    { m: "ana", h: 2, q: "SENYUM : TERTAWA : TERBAHAK-BAHAK = ... : ... : ...",
       o: ["GERIMIS : HUJAN : BADAI", "PAGI : SIANG : MALAM", "MERAH : KUNING : HIJAU", "MAKAN : MINUM : TIDUR", "SEDIH : MENANGIS : AIR MATA"],
       x: "Polanya tingkatan intensitas dari lemah ke kuat. Gerimis, hujan, badai juga makin kuat. Pagi-siang-malam hanya urutan waktu." },
-    { m: "ana", h: 1, q: "PENULIS : PENA : BUKU = ... : ... : ...",
+    { m: "ana", h: 2, q: "PENULIS : PENA : BUKU = ... : ... : ...",
       o: ["PENJAHIT : JARUM : PAKAIAN", "PETANI : SAWAH : PADI", "KOKI : DAPUR : MASAKAN", "GURU : SEKOLAH : MURID", "NELAYAN : LAUT : IKAN"],
       x: "Polanya pelaku : alat : hasil karya. Sawah, dapur, sekolah, dan laut adalah tempat, bukan alat." },
-    { m: "ana", q: "MOBIL : BENSIN = ... : ...",
+    { m: "ana", h: 2, q: "MOBIL : BENSIN = ... : ...",
       o: ["LAMPU : LISTRIK", "KAPAL : LAUT", "SEPEDA : RODA", "PESAWAT : PILOT", "RUMAH : ATAP"],
       x: "Bensin adalah sumber energi mobil, listrik sumber energi lampu." },
-    { m: "ana", q: "KATAK : AMFIBI = ... : ...",
+    { m: "ana", h: 2, q: "KATAK : AMFIBI = ... : ...",
       o: ["ULAR : REPTIL", "PAUS : IKAN", "KELELAWAR : BURUNG", "AYAM : TELUR", "KUCING : TIKUS"],
       x: "Katak termasuk golongan amfibi, ular golongan reptil. Paus mamalia, bukan ikan; kelelawar mamalia, bukan burung." },
-    { m: "ana", h: 1, q: "BUKU : PERPUSTAKAAN = ... : ...",
+    { m: "ana", h: 2, q: "BUKU : PERPUSTAKAAN = ... : ...",
       o: ["LUKISAN : GALERI", "OBAT : APOTEKER", "KERTAS : PENSIL", "IKAN : NELAYAN", "SURAT : PERANGKO"],
       x: "Perpustakaan adalah tempat menyimpan dan memajang buku, galeri tempat menyimpan dan memajang lukisan." },
 
@@ -2155,19 +2272,19 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
     { m: "hit", h: 1, q: "Jika a = 2 dan b = −3, nilai a² − 2ab + b² adalah ...", o: ["25", "1", "−1", "13", "5"],
       x: "a² − 2ab + b² = (a − b)² = (2 + 3)² = 25." },
 
-    { m: "der", h: 1, q: "Tentukan suku berikutnya dari deret:\n2, 3, 5, 8, 12, 17, ...", o: ["23", "22", "24", "25", "21"],
+    { m: "der", h: 2, q: "Tentukan suku berikutnya dari deret:\n2, 3, 5, 8, 12, 17, ...", o: ["23", "22", "24", "25", "21"],
       x: "Selisihnya +1, +2, +3, +4, +5, berikutnya +6: 17 + 6 = 23." },
-    { m: "der", h: 1, q: "Tentukan suku berikutnya dari deret:\n100, 95, 85, 70, 50, ...", o: ["25", "30", "20", "15", "35"],
+    { m: "der", h: 2, q: "Tentukan suku berikutnya dari deret:\n100, 95, 85, 70, 50, ...", o: ["25", "30", "20", "15", "35"],
       x: "Selisihnya −5, −10, −15, −20, berikutnya −25: 50 − 25 = 25." },
-    { m: "der", h: 1, q: "Tentukan huruf berikutnya dari deret:\nA, C, F, J, O, ...", o: ["U", "T", "V", "S", "W"],
+    { m: "der", h: 2, q: "Tentukan huruf berikutnya dari deret:\nA, C, F, J, O, ...", o: ["U", "T", "V", "S", "W"],
       x: "Urutan huruf 1, 3, 6, 10, 15 (selisih +2, +3, +4, +5). Berikutnya +6 = 21, yaitu U." },
-    { m: "der", h: 1, q: "Tentukan huruf berikutnya dari deret:\nB, D, G, K, ...", o: ["P", "O", "Q", "N", "R"],
+    { m: "der", h: 2, q: "Tentukan huruf berikutnya dari deret:\nB, D, G, K, ...", o: ["P", "O", "Q", "N", "R"],
       x: "Urutan huruf 2, 4, 7, 11 (selisih +2, +3, +4). Berikutnya +5 = 16, yaitu P." },
-    { m: "der", h: 1, q: "Tentukan suku berikutnya dari deret:\n2, 6, 3, 9, 6, 18, ...", o: ["15", "54", "21", "12", "16"],
+    { m: "der", h: 2, q: "Tentukan suku berikutnya dari deret:\n2, 6, 3, 9, 6, 18, ...", o: ["15", "54", "21", "12", "16"],
       x: "Polanya ×3, −3 berselang: 2×3=6, 6−3=3, 3×3=9, 9−3=6, 6×3=18, lalu 18−3 = 15." },
-    { m: "der", q: "Tentukan suku berikutnya dari deret:\n1, 1, 2, 6, 24, ...", o: ["120", "48", "96", "72", "100"],
+    { m: "der", h: 2, q: "Tentukan suku berikutnya dari deret:\n1, 1, 2, 6, 24, ...", o: ["120", "48", "96", "72", "100"],
       x: "Dikali 1, 2, 3, 4, lalu dikali 5: 24 × 5 = 120." },
-    { m: "der", q: "Tentukan suku berikutnya dari deret:\n81, 27, 9, 3, ...", o: ["1", "0", "1/3", "2", "1/9"],
+    { m: "der", h: 2, q: "Tentukan suku berikutnya dari deret:\n81, 27, 9, 3, ...", o: ["1", "0", "1/3", "2", "1/9"],
       x: "Setiap suku dibagi 3: 3 ÷ 3 = 1." },
 
     { m: "pk", h: 2, fix: 1, a: 1, q: "x = 0,6 × 0,6 dan y = 0,6. Maka ...", o: PK, x: "x = 0,36 dan y = 0,6, sehingga x < y." },
@@ -2193,7 +2310,7 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
       x: "Kecepatan saling mendekat 70 + 50 = 120 km/jam. Waktu = 300 ÷ 120 = 2,5 jam." },
     { m: "cer", h: 1, q: "Andi dapat menyelesaikan sebuah pekerjaan dalam 6 hari, sedangkan Budi dalam 12 hari. Jika bekerja bersama, pekerjaan itu selesai dalam ...", o: ["4 hari", "3 hari", "5 hari", "6 hari", "9 hari"],
       x: "Per hari: 1/6 + 1/12 = 3/12 = 1/4 pekerjaan. Jadi selesai dalam 4 hari." },
-    { m: "cer", h: 1, q: "Sebuah pekerjaan selesai dalam 15 hari oleh 8 pekerja. Jika dikerjakan 10 pekerja dengan kemampuan sama, pekerjaan selesai dalam ...", o: ["12 hari", "10 hari", "13 hari", "14 hari", "9 hari"],
+    { m: "cer", h: 2, q: "Sebuah pekerjaan selesai dalam 15 hari oleh 8 pekerja. Jika dikerjakan 10 pekerja dengan kemampuan sama, pekerjaan selesai dalam ...", o: ["12 hari", "10 hari", "13 hari", "14 hari", "9 hari"],
       x: "Perbandingan berbalik nilai: 8 × 15 = 120 hari-orang, lalu 120 ÷ 10 = 12 hari." },
     { m: "cer", h: 1, q: "Usia ayah sekarang tiga kali usia anaknya. Sepuluh tahun lagi, usia ayah dua kali usia anaknya. Usia anak sekarang adalah ...", o: ["10 tahun", "8 tahun", "12 tahun", "15 tahun", "20 tahun"],
       x: "Misal usia anak a: 3a + 10 = 2(a + 10), sehingga a = 10." },
@@ -2213,7 +2330,7 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
       x: "Turun 15 ton dari 150 ton: 15 ÷ 150 × 100% = 10%. Persentase dihitung dari nilai awal." },
     { m: "cer", h: 1, q: "Sebuah bak berkapasitas 1.200 liter diisi keran dengan debit 20 liter/menit, tetapi bak bocor 5 liter/menit. Bak kosong itu akan penuh dalam ...", o: ["1 jam 20 menit", "1 jam", "1 jam 30 menit", "48 menit", "1 jam 40 menit"],
       x: "Debit bersih 20 − 5 = 15 liter/menit. 1.200 ÷ 15 = 80 menit." },
-    { m: "cer", h: 1, q: "Sebuah motor menghabiskan 1 liter bensin untuk 45 km. Harga bensin Rp10.000 per liter. Biaya bensin untuk perjalanan pulang-pergi ke kota berjarak 135 km adalah ...", o: ["Rp60.000", "Rp30.000", "Rp54.000", "Rp66.000", "Rp45.000"],
+    { m: "cer", h: 2, q: "Sebuah motor menghabiskan 1 liter bensin untuk 45 km. Harga bensin Rp10.000 per liter. Biaya bensin untuk perjalanan pulang-pergi ke kota berjarak 135 km adalah ...", o: ["Rp60.000", "Rp30.000", "Rp54.000", "Rp66.000", "Rp45.000"],
       x: "Jarak total 270 km membutuhkan 270 ÷ 45 = 6 liter, biayanya 6 × 10.000 = 60.000." }
   ]);
 
@@ -3519,6 +3636,23 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
       { tgl: "10 Desember", nama: "Hari Hak Asasi Manusia Sedunia", asal: "pengesahan Deklarasi Universal Hak Asasi Manusia oleh PBB pada 1948" }
     ],
 
+    // ---------- analogi kata (TIU) ----------
+    /* Setiap keluarga memuat satu jenis hubungan. Soal memakai satu pasangan, jawabannya pasangan lain dari keluarga yang sama,
+       pengecohnya dari keluarga lain atau pasangan keluarga yang sama dengan urutan terbalik. sim: hubungan bolak-balik
+       (sinonim, antonim) sehingga urutan terbalik tidak boleh menjadi pengecoh. bentrok: keluarga yang tidak dipakai sebagai
+       pengecoh karena bisa dianggap mirip (mis. guru : sekolah bisa dibaca sebagai bagian : keseluruhan). */
+    analogi: [
+      { id: "alat", h: "{A} memakai {B} sebagai alat kerja utama", p: [["dokter", "stetoskop"], ["petani", "cangkul"], ["nelayan", "jala"], ["penjahit", "jarum"], ["fotografer", "kamera"], ["pelukis", "kuas"], ["tukang kayu", "gergaji"], ["montir", "kunci pas"], ["astronom", "teleskop"], ["juru masak", "wajan"]] },
+      { id: "tempat", h: "{A} bekerja di {B}", bentrok: ["bagian"], p: [["guru", "sekolah"], ["hakim", "pengadilan"], ["pilot", "kokpit"], ["koki", "dapur"], ["pustakawan", "perpustakaan"], ["apoteker", "apotek"], ["montir", "bengkel"], ["petani", "sawah"], ["dokter", "rumah sakit"], ["penyiar", "studio"]] },
+      { id: "bahan", h: "{A} adalah bahan untuk membuat {B}", p: [["kapas", "benang"], ["gandum", "roti"], ["tanah liat", "gerabah"], ["kedelai", "tempe"], ["susu", "keju"], ["pasir", "kaca"], ["tebu", "gula"], ["kakao", "cokelat"], ["getah karet", "ban"], ["kayu", "kertas"]] },
+      { id: "bagian", h: "{A} adalah bagian dari {B}", bentrok: ["tempat"], p: [["roda", "mobil"], ["daun", "pohon"], ["halaman", "buku"], ["jari", "tangan"], ["atap", "rumah"], ["kelopak", "bunga"], ["bab", "novel"], ["kecamatan", "kabupaten"], ["gerbong", "kereta"], ["sayap", "pesawat"]] },
+      { id: "sinonim", h: "{A} bersinonim (bermakna sama) dengan {B}", sim: true, p: [["pintar", "cerdas"], ["bohong", "dusta"], ["untung", "laba"], ["awal", "mula"], ["hening", "sunyi"], ["kendala", "hambatan"], ["lazim", "biasa"], ["elok", "indah"], ["tamat", "selesai"], ["kokoh", "kuat"]] },
+      { id: "antonim", h: "{A} berlawanan makna dengan {B}", sim: true, p: [["tinggi", "rendah"], ["panas", "dingin"], ["maju", "mundur"], ["terang", "gelap"], ["kaya", "miskin"], ["hemat", "boros"], ["rajin", "malas"], ["impor", "ekspor"], ["pasang", "surut"], ["sempit", "luas"]] },
+      { id: "suara", h: "bunyi {A} disebut {B}", p: [["anjing", "menggonggong"], ["ayam jantan", "berkokok"], ["kucing", "mengeong"], ["sapi", "melenguh"], ["kuda", "meringkik"], ["singa", "mengaum"], ["burung", "berkicau"], ["kambing", "mengembik"]] },
+      { id: "atasi", h: "{A} diatasi dengan {B}", p: [["haus", "minum"], ["lapar", "makan"], ["lelah", "istirahat"], ["mengantuk", "tidur"], ["sakit", "berobat"], ["bodoh", "belajar"], ["kotor", "mencuci"], ["gelap", "menyalakan lampu"]] },
+      { id: "ukur", h: "{A} adalah alat untuk mengukur {B}", p: [["termometer", "suhu"], ["barometer", "tekanan udara"], ["speedometer", "kecepatan"], ["timbangan", "massa"], ["meteran", "panjang"], ["higrometer", "kelembapan udara"], ["seismograf", "getaran gempa"], ["amperemeter", "kuat arus listrik"], ["stopwatch", "waktu"]] }
+    ],
+
     // ---------- kata baku (KBBI): [baku, tidak baku] ----------
     baku: [
       ["aktivitas", "aktifitas"], ["analisis", "analisa"], ["apotek", "apotik"], ["praktik", "praktek"], ["kualitas", "kwalitas"],
@@ -4044,7 +4178,7 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
 <script>
 /* Pembangkit soal acak dari tabel fakta (data/fakta.js) dan pola logika.
    TWK: kasus sila, butir Pancasila, wewenang lembaga negara, pasal UUD (kasus, bunyi, isi), sejarah, hari nasional, kata baku.
-   TIU: silogisme. Setiap kesimpulan silogisme dibuktikan dengan memeriksa semua kemungkinan (model) sehingga hanya satu
+   TIU: silogisme, analogi kata, dan analitis (susunan duduk dan antrean). Setiap kesimpulan silogisme dibuktikan dengan memeriksa semua kemungkinan (model) sehingga hanya satu
    pilihan yang pasti benar; pengecoh yang ternyata ikut benar dibuang otomatis.
    Keluaran generate(): { text, opts (opts[0] benar, atau opts[a] bila fix), expl, sangat, fix, a }. */
 (function () {
@@ -4121,6 +4255,16 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
       text: e.p + " UUD NRI 1945 mengatur tentang ...",
       opts: [cap(e.t)].concat(ambil(R, pasalPool(e).map(function (o) { return cap(o.t); }), 4)),
       expl: e.p + " berbunyi: \"" + e.isi + "\""
+    };
+  }
+  function pasalPenerapan(R) {
+    var e = R.pick(F.pasal.filter(function (o) { return o.k; }));
+    var pool = pasalPool(e).filter(function (o) { return o.k; }), pick = ambil(R, pool.map(function (o) { return o.k; }), 4);
+    var asal = pick.map(function (k) { return pool.filter(function (o) { return o.k === k; })[0].p; });
+    return {
+      text: e.p + " UUD NRI 1945 berbunyi, \"" + e.isi + "\" Contoh penerapan pasal tersebut adalah ...",
+      opts: [e.k].concat(pick),
+      expl: "Contoh itu sesuai isi " + e.p + ". Pilihan lain menerapkan pasal yang berbeda: " + asal.join(", ") + "."
     };
   }
   function sejarahDari(R, m) {
@@ -4346,13 +4490,185 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
   }
   function silogisme(R) { return R.chance(0.55) ? silKategoris(R) : silProposisi(R); }
 
+  // ===================== TIU: analogi kata =====================
+  function rel(f, a, b) { return cap(f.h.replace("{A}", a).replace("{B}", b)); }
+  function analogi(R) {
+    var fam = R.pick(F.analogi), ps = R.shuffle(fam.p), st = ps[0], ans = ps[1], rev = null;
+    var lain = R.shuffle(F.analogi.filter(function (f) { return f !== fam && (fam.bentrok || []).indexOf(f.id) < 0; }));
+    var dis = lain.slice(0, 4).map(function (f) { return R.pick(f.p); });
+    if (!fam.sim && ps.length > 2 && R.chance(0.35)) { rev = [ps[2][1], ps[2][0]]; dis[3] = rev; }
+    var teks = function (x) { return x[0] + " : " + x[1]; };
+    return {
+      text: st[0].toUpperCase() + " : " + st[1].toUpperCase() + " = ... : ...",
+      opts: [teks(ans)].concat(dis.map(teks)),
+      expl: "Hubungannya: " + rel(fam, st[0], st[1]) + ". Pasangan dengan hubungan yang sama: " + rel(fam, ans[0], ans[1]) + "." +
+        (rev ? " Pilihan " + teks(rev) + " memakai hubungan yang sama tetapi urutannya terbalik, jadi salah." : ""),
+      _cek: { jenis: "ana", fam: fam.id, st: st, ans: ans, dis: dis, rev: rev }
+    };
+  }
+
+  // ===================== TIU: analitis (susunan duduk dan antrean) =====================
+  /* Petunjuk dibuat dari susunan rahasia, lalu ditambah satu per satu sampai jawabannya tunggal di antara SEMUA susunan
+     yang mungkin (5! = 120 untuk baris dan antrean, 6! = 720 untuk meja bundar). Petunjuk yang tidak perlu dibuang. */
+  var ORANG = ["Ani", "Budi", "Citra", "Dedi", "Eka", "Fani", "Gilang", "Hana", "Indra", "Joko"];
+  var PERM = {};
+  function semuaSusunan(n) {
+    if (PERM[n]) return PERM[n];
+    var out = [], a = [];
+    (function rek(used) {
+      if (a.length === n) { out.push(a.slice()); return; }
+      for (var i = 0; i < n; i++) if (!(used & (1 << i))) { a.push(i); rek(used | (1 << i)); a.pop(); }
+    })(0);
+    return (PERM[n] = out);
+  }
+  function posOf(at) { var p = []; for (var i = 0; i < at.length; i++) p[at[i]] = i; return p; }
+  function benarDi(c, p, n) {
+    var d;
+    switch (c.t) {
+      case "pos": return p[c.a] === c.k;
+      case "end": return (p[c.a] === 0 || p[c.a] === n - 1) === c.v;
+      case "adj": return (Math.abs(p[c.a] - p[c.b]) === 1) === c.v;
+      case "next": return p[c.a] === p[c.b] + 1;
+      case "before": return p[c.a] < p[c.b];
+      case "gap": return Math.abs(p[c.a] - p[c.b]) === c.d + 1;
+      case "betw": return Math.abs(p[c.a] - p[c.b]) === 1 && Math.abs(p[c.a] - p[c.c]) === 1;
+      case "opp": return (p[c.a] - p[c.b] + 6) % 6 === 3;
+      case "adjC": d = (p[c.a] - p[c.b] + 6) % 6; return (d === 1 || d === 5) === c.v;
+      case "betwC":
+        var d1 = (p[c.a] - p[c.b] + 6) % 6, d2 = (p[c.a] - p[c.c] + 6) % 6;
+        return (d1 === 1 || d1 === 5) && (d2 === 1 || d2 === 5);
+    }
+    return false;
+  }
+  function semuaPetunjuk(jenis, n) {
+    var out = [], a, b, c, k;
+    for (a = 0; a < n; a++) for (b = 0; b < n; b++) {
+      if (a === b) continue;
+      if (jenis === "bundar") {
+        if (a < b) { out.push({ t: "opp", a: a, b: b }, { t: "adjC", a: a, b: b, v: true }, { t: "adjC", a: a, b: b, v: false }); }
+        for (c = b + 1; c < n; c++) if (c !== a) out.push({ t: "betwC", a: a, b: b, c: c });
+      } else {
+        out.push({ t: "next", a: a, b: b }, { t: "before", a: a, b: b });
+        if (a < b) out.push({ t: "adj", a: a, b: b, v: true }, { t: "adj", a: a, b: b, v: false }, { t: "gap", a: a, b: b, d: 1 }, { t: "gap", a: a, b: b, d: 2 });
+        for (c = b + 1; c < n; c++) if (c !== a) out.push({ t: "betw", a: a, b: b, c: c });
+      }
+    }
+    if (jenis !== "bundar") for (a = 0; a < n; a++) {
+      out.push({ t: "end", a: a, v: true }, { t: "end", a: a, v: false });
+      for (k = 0; k < n; k++) out.push({ t: "pos", a: a, k: k });
+    }
+    return out;
+  }
+  function teksPetunjuk(c, jenis, nm, opsi) {
+    var A = nm[c.a], B = nm[c.b], C = nm[c.c];
+    if (jenis === "bundar") {
+      if (c.t === "opp") return A + " duduk berhadapan dengan " + B + ".";
+      if (c.t === "adjC") return A + (c.v ? " duduk bersebelahan dengan " : " tidak duduk bersebelahan dengan ") + B + ".";
+      return A + " duduk tepat di antara " + B + " dan " + C + ".";
+    }
+    var baris = jenis === "baris";
+    switch (c.t) {
+      case "pos": return baris ? A + " duduk di kursi nomor " + (c.k + 1) + "." : A + " berada di urutan ke-" + (c.k + 1) + " dari depan.";
+      case "end": return baris ? A + (c.v ? " duduk di salah satu kursi paling ujung." : " tidak duduk di kursi paling ujung.")
+        : A + (c.v ? " berada di urutan paling depan atau paling belakang." : " tidak berada di urutan paling depan maupun paling belakang.");
+      case "adj": return baris ? A + (c.v ? " duduk bersebelahan dengan " : " tidak duduk bersebelahan dengan ") + B + "."
+        : A + (c.v ? " berdiri tepat di depan atau tepat di belakang " : " tidak berdiri tepat di depan maupun tepat di belakang ") + B + ".";
+      case "next": return baris ? A + " duduk tepat di sebelah kanan " + B + "." : A + " berdiri tepat di belakang " + B + ".";
+      case "before": return opsi ? (baris ? A + " duduk di sebelah kiri " + B + "." : A + " berada di depan " + B + ".")
+        : baris ? A + " duduk di sebelah kiri " + B + ", tetapi belum tentu bersebelahan." : A + " berada di depan " + B + ", tetapi belum tentu tepat di depannya.";
+      case "gap": return "Ada tepat " + (c.d === 1 ? "satu" : "dua") + " orang di antara " + A + " dan " + B + ".";
+      case "betw": return A + (baris ? " duduk" : " berdiri") + " tepat di antara " + B + " dan " + C + ".";
+    }
+    return "";
+  }
+  function urutanTeks(at, jenis, nm) {
+    var x = at.map(function (i) { return nm[i]; }).join(", ");
+    return jenis === "baris" ? "kursi 1 sampai " + at.length + ": " + x : jenis === "antre" ? "dari depan: " + x : "searah jarum jam: " + x;
+  }
+  function analitis(R) {
+    for (var coba = 0; coba < 60; coba++) {
+      var jenis = R.pick(["baris", "baris", "antre", "bundar"]), n = jenis === "bundar" ? 6 : 5;
+      var nm = R.shuffle(ORANG).slice(0, n).sort(), P = semuaSusunan(n), at = R.pick(P), p = posOf(at), q;
+      if (jenis === "bundar") { var x = R.int(0, n - 1); q = { t: "opp", x: x, ans: at[(p[x] + 3) % 6] }; }
+      else if (R.chance(0.7)) { var k = R.int(0, n - 1); q = { t: "posk", k: k, ans: at[k] }; }
+      else q = { t: "benar" };
+      var jawab = function (s) {
+        if (q.t === "posk") return s[q.k];
+        var ps = posOf(s);
+        return s[(ps[q.x] + 3) % 6];
+      };
+      var tunggal = function (C) {
+        if (q.t === "benar") return C.length === 1;
+        for (var i = 1; i < C.length; i++) if (jawab(C[i]) !== jawab(C[0])) return false;
+        return C.length > 0;
+      };
+      var cand = R.shuffle(semuaPetunjuk(jenis, n).filter(function (c) {
+        if (!benarDi(c, p, n)) return false;
+        if (q.t === "posk" && c.t === "pos" && (c.k === q.k || c.a === q.ans)) return false;
+        if (q.t === "opp" && c.t === "opp") return false;
+        return true;
+      }));
+      var C = P, pilih = [], adaPos = false;
+      for (var i = 0; i < cand.length && !tunggal(C); i++) {
+        var c = cand[i];
+        if (c.t === "pos" && adaPos) continue;
+        var C2 = C.filter(function (s) { return benarDi(c, posOf(s), n); });
+        if (C2.length < C.length) { pilih.push(c); C = C2; if (c.t === "pos") adaPos = true; }
+      }
+      if (!tunggal(C)) continue;
+      R.shuffle(pilih.slice()).forEach(function (c) {
+        var sisa = pilih.filter(function (y) { return y !== c; });
+        var C3 = P.filter(function (s) { var ps = posOf(s); return sisa.every(function (y) { return benarDi(y, ps, n); }); });
+        if (tunggal(C3)) { pilih = sisa; C = C3; }
+      });
+      if (pilih.length < 3 || pilih.length > 6) continue;
+      var pembuka = jenis === "baris" ? "Lima orang, yaitu " + nm.join(", ") + ", duduk berjajar pada lima kursi bernomor 1 sampai 5 dari kiri ke kanan. Arah kanan berarti ke kursi bernomor lebih besar."
+        : jenis === "antre" ? "Lima orang, yaitu " + nm.join(", ") + ", mengantre di depan loket. Urutan pertama adalah yang paling depan."
+          : "Enam orang, yaitu " + nm.join(", ") + ", duduk mengelilingi meja bundar dengan jarak yang sama dan menghadap ke tengah meja.";
+      var badan = pilih.map(function (c) { return teksPetunjuk(c, jenis, nm); }).join("\n");
+      var opts, tanya, cekOpsi = null;
+      if (q.t === "benar") {
+        var kunci = pilih.map(function (c) { return JSON.stringify(c); });
+        var cs = semuaPetunjuk(jenis, n).filter(function (c) { return c.t === "pos" || c.t === "adj" || c.t === "before" || c.t === "next"; });
+        var tepat = R.shuffle(cs.filter(function (c) { return benarDi(c, p, n) && kunci.indexOf(JSON.stringify(c)) < 0 && !(c.t === "adj" && !c.v); }));
+        var salah = R.shuffle(cs.filter(function (c) { return !benarDi(c, p, n) && !(c.t === "adj" && !c.v); }));
+        if (!tepat.length || salah.length < 4) continue;
+        cekOpsi = [tepat[0]].concat(salah.slice(0, 4));
+        opts = cekOpsi.map(function (c) { return teksPetunjuk(c, jenis, nm, true).replace(/\.$/, ""); });
+        tanya = "Pernyataan yang pasti benar adalah ...";
+      } else if (q.t === "posk") {
+        opts = [nm[q.ans]].concat(nm.filter(function (_, i) { return i !== q.ans; }));
+        tanya = jenis === "baris" ? (q.k === 0 ? "Siapa yang duduk di kursi paling kiri?" : q.k === n - 1 ? "Siapa yang duduk di kursi paling kanan?" : "Siapa yang duduk di kursi nomor " + (q.k + 1) + "?")
+          : (q.k === 0 ? "Siapa yang berada di urutan paling depan?" : q.k === n - 1 ? "Siapa yang berada di urutan paling belakang?" : "Siapa yang berada di urutan ke-" + (q.k + 1) + " dari depan?");
+      } else {
+        opts = [nm[q.ans]].concat(R.shuffle(nm.filter(function (_, i) { return i !== q.ans && i !== q.x; })).slice(0, 4));
+        tanya = "Siapa yang duduk berhadapan dengan " + nm[q.x] + "?";
+      }
+      var contoh = C.slice(0, jenis === "bundar" ? 1 : 3).map(function (s) { return urutanTeks(s, jenis, nm); });
+      var expl = (jenis === "bundar"
+        ? "Salah satu susunan yang memenuhi semua syarat (" + contoh[0] + "). Susunan lain yang memenuhi hanyalah hasil memutar atau mencerminkan meja, sehingga "
+          + nm[q.x] + " selalu berhadapan dengan " + nm[q.ans] + "."
+        : (C.length === 1 ? "Hanya ada satu susunan yang memenuhi semua syarat (" + contoh[0] + ")."
+          : "Ada " + C.length + " susunan yang memenuhi semua syarat (" + contoh.join("; ") + (C.length > 3 ? "; dan lainnya" : "") + ").")
+          + (q.t === "posk" ? " Pada setiap susunan itu, " + (jenis === "baris" ? "kursi nomor " + (q.k + 1) : "urutan ke-" + (q.k + 1)) + " ditempati " + nm[q.ans] + "."
+            : " Jadi yang pasti benar: " + opts[0] + "."));
+      return {
+        text: pembuka + "\n" + badan + "\n" + tanya, opts: opts, expl: expl,
+        _cek: { jenis: "anl", tipe: jenis, n: n, petunjuk: pilih, q: q, opsi: cekOpsi }
+      };
+    }
+    return null;
+  }
+
   // ===================== pendaftaran =====================
   /* [fungsi, bobot, sangat sering keluar?] — "sangat" mengikuti pola yang dilaporkan di 3 laporan peserta atau lebih. */
   var JENIS = {
-    pilar: [[silaKasus, 4, 1], [silaButir, 1, 1], [lembaga, 4, 1], [sejarahPilar, 2, 1], [pasalKasus, 2, 0], [pasalBunyi, 1, 0], [pasalIsi, 1, 0]],
+    pilar: [[silaKasus, 4, 1], [silaButir, 1, 1], [lembaga, 4, 1], [sejarahPilar, 2, 1], [pasalKasus, 2, 1], [pasalPenerapan, 2, 1], [pasalBunyi, 1, 0], [pasalIsi, 1, 0]],
     nas: [[sejarahNas, 3, 1], [hari, 2, 0]],
     bind: [[baku, 1, 0]],
-    sil: [[silogisme, 1, 1]]
+    sil: [[silogisme, 1, 1]],
+    ana: [[analogi, 1, 1]],
+    anl: [[analitis, 1, 1]]
   };
   function unik(opts) {
     if (!opts || opts.length !== 5) return false;
@@ -4383,7 +4699,9 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
     _kat: { model: katModel, teks: katTeks, S: S, bentuk: KAT_BENTUK, tema: KAT_TEMA },
     _prop: { model: propModel, teks: propTeks, bentuk: PROP_BENTUK, tema: PROP_TEMA },
     _fn: { silaKasus: silaKasus, silaButir: silaButir, lembaga: lembaga, pasalKasus: pasalKasus, pasalBunyi: pasalBunyi, pasalIsi: pasalIsi,
-      sejarahPilar: sejarahPilar, sejarahNas: sejarahNas, hari: hari, baku: baku, silKategoris: silKategoris, silProposisi: silProposisi }
+      pasalPenerapan: pasalPenerapan, sejarahPilar: sejarahPilar, sejarahNas: sejarahNas, hari: hari, baku: baku,
+      silKategoris: silKategoris, silProposisi: silProposisi, analogi: analogi, analitis: analitis },
+    _anl: { susunan: semuaSusunan, benar: benarDi, pos: posOf }
   };
 })();
 
@@ -4631,7 +4949,7 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
     }
     g = genDeret(R);
     opts = order.map(function (oi, i) { if (oi === 0) best = i; return { t: g.opts[oi], pts: oi === 0 ? 5 : 0 }; });
-    return { id: null, gen: materi, sec: "tiu", m: materi, hot: true, text: g.text, passage: null, table: null, stem: null, opts: opts, best: best, expl: g.expl };
+    return { id: null, gen: materi, sec: "tiu", m: materi, hot: true, sangat: true, text: g.text, passage: null, table: null, stem: null, opts: opts, best: best, expl: g.expl };
   }
 
   // ---------- pemilihan ----------
@@ -4647,7 +4965,7 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
   function canGen(m, opt) {
     if (!m.gen || opt.baru) return false;
     if (!opt.sangat) return true;
-    if (m.id === "fig-seri") return true; // pola 9 kotak
+    if (m.id === "fig-seri" || m.id === "der") return true; // pola 9 kotak; deret angka (4 laporan)
     return !!(SKD.acak && SKD.acak.bisa(m.id, opt));
   }
   function pickBank(materi, n, R, stats, opt) {
@@ -6377,8 +6695,13 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
       pq.baru ? h("span", { class: "tag ok", title: "Set soal kasus bergaya HOTS dengan konteks 2024–2026" }, "HOTS 2026") : null,
       it.retry ? h("span", { class: "tag bad" }, "Ulangan") : null];
   }
+  /** Teks soal dengan _kata_ ditampilkan miring (soal "makna kata bercetak miring"). */
+  function rich(t) {
+    if (!t || t.indexOf("_") < 0) return t;
+    return String(t).split(/_([^_\n]+)_/).map(function (p, i) { return i % 2 ? h("em", null, p) : p; });
+  }
   function qBody(pq) {
-    return [pq.passage ? h("div", { class: "passage" }, pq.passage) : null, h("div", { class: "qtext" }, pq.text), tableView(pq.table), stemView(pq.stem)];
+    return [pq.passage ? h("div", { class: "passage" }, pq.passage) : null, h("div", { class: "qtext" }, rich(pq.text)), tableView(pq.table), stemView(pq.stem)];
   }
   function badge(pass) { return h("span", { class: "pill " + (pass ? "ok" : "bad") }, pass ? "Lolos passing grade" : "Belum lolos passing grade"); }
   /** Batang skor subtes dengan garis ambang batas. dark = di atas kartu biru tua. */
@@ -6559,7 +6882,7 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
       h("div", { class: "cat-sub" }, m ? (m.group ? m.group + " · " : "") + m.name : ""),
       h("fieldset", { class: "cat-q" }, h("legend", null, "Soal No." + (s.cur + 1)),
         it.pq.passage ? h("div", { class: "passage" }, it.pq.passage) : null,
-        h("div", { class: "qtext" }, it.pq.text), tableView(it.pq.table), stemView(it.pq.stem), opts,
+        h("div", { class: "qtext" }, rich(it.pq.text)), tableView(it.pq.table), stemView(it.pq.stem), opts,
         rv ? h("div", { class: "cat-koreksi", id: "cat-koreksi", role: "status" }, feedbackView(it)) : null),
       h("div", { class: "cat-actions" },
         h("button", { class: "cat-btn", type: "button", id: "btn-next", onclick: catSave }, rv ? (s.cur < total - 1 ? "Lanjut ke soal berikutnya" : "Lanjut") : "Simpan dan Lanjutkan"),
@@ -6774,7 +7097,7 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
       h("p", { class: "small muted" }, "Saat ujian: kerjakan soal TIU yang tidak butuh hitungan lebih dulu, tekan \"Lewatkan soal ini\" untuk soal hitungan panjang, lalu kembali bila waktu tersisa."));
   }
   // ---------- sangat sering keluar (boleh diulang) dan soal acak (selalu baru) ----------
-  var TIU_SANGAT = ["sil", "anl", "fig-seri"];
+  var TIU_SANGAT = ["ana", "sil", "anl", "fig-seri"];
   function idsOf(sec) { return CFG.materi.filter(function (m) { return m.sec === sec; }).map(function (m) { return m.id; }); }
   function pracBtn(id, label, o, primary) {
     return h("button", { class: "btn" + (primary ? " primary" : ""), type: "button", id: id, onclick: function () { startPractice(o); } }, label);
@@ -6784,7 +7107,7 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
     var twk = idsOf("twk"), tkp = idsOf("tkp");
     return h("section", { class: "card stack" },
       h("h2", null, "Sangat sering keluar: boleh diulang-ulang"),
-      h("p", { class: "small" }, "Pola yang tercantum di kisi-kisi resmi dan dilaporkan peserta di tiga laporan atau lebih (SKD CPNS 2024). Isinya: penerapan sila, BPUPKI/PPKI dan sikap tokohnya, lembaga negara, organisasi pergerakan, netralitas ASN, nasionalisme di media sosial, gagasan utama, huruf miring, silogisme, susunan duduk, pola 9 kotak, menempatkan diri antara kesibukan dan pekerjaan, spionase, inovasi TIK dan rekan gaptek, serta penerapan BerAKHLAK."),
+      h("p", { class: "small" }, "Pola yang tercantum di kisi-kisi resmi dan dilaporkan peserta di tiga laporan atau lebih (SKD CPNS 2024). Isinya: penerapan sila dan isi pasal, BPUPKI/PPKI dan sikap tokohnya, peristiwa sesudah kemerdekaan, lembaga negara, organisasi pergerakan, netralitas ASN, nasionalisme di media sosial, inti kalimat, kata bercetak miring, simpulan bacaan, analogi, silogisme, susunan duduk dan antrean, pola 9 kotak, menempatkan diri antara kesibukan dan pekerjaan, spionase, inovasi TIK dan rekan gaptek, serta penerapan BerAKHLAK."),
       h("div", { class: "info3" },
         h("div", null, h("span", null, "TWK"), h("b", null, n(twk) + "+"), h("span", null, "soal + acak")),
         h("div", null, h("span", null, "TIU tanpa hitungan"), h("b", null, n(TIU_SANGAT) + "+"), h("span", null, "soal + acak")),
@@ -6802,11 +7125,14 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
       h("h2", null, "Soal acak: selalu berbeda"),
       h("p", { class: "small" }, "Dibangkitkan setiap kali dari tabel fakta yang sudah diperiksa: 45 butir Pancasila, " + F.wewenang.length + " wewenang lembaga negara, " +
         F.pasal.length + " pasal UUD, sejarah BPUPKI, PPKI, proklamasi, dan pergerakan nasional, " + F.hari.length + " hari nasional, " + F.baku.length +
-        " pasang kata baku, serta silogisme yang kesimpulannya dibuktikan otomatis. Kebanyakan berbentuk kasus, seperti laporan peserta 2024."),
+        " pasang kata baku. TIU tanpa hitungan: analogi kata (" + F.analogi.length + " jenis hubungan), silogisme, serta susunan duduk dan antrean; kuncinya diperiksa otomatis ke semua kemungkinan. Kebanyakan berbentuk kasus, seperti laporan peserta 2024."),
       h("div", { class: "row wrap" },
         pracBtn("btn-acak-twk", "TWK acak (20 soal)", { materi: ["pilar", "nas", "bind"], n: 20, acak: true, title: "TWK acak" }, true),
         pracBtn("btn-acak-pilar", "Pancasila, UUD, lembaga (15 soal)", { materi: ["pilar"], n: 15, acak: true, title: "Pilar negara acak" }),
-        pracBtn("btn-acak-sil", "Silogisme acak (10 soal)", { materi: ["sil"], n: 10, acak: true, title: "Silogisme acak" })));
+        pracBtn("btn-acak-sil", "Silogisme acak (10 soal)", { materi: ["sil"], n: 10, acak: true, title: "Silogisme acak" }),
+        pracBtn("btn-acak-ana", "Analogi kata acak (10 soal)", { materi: ["ana"], n: 10, acak: true, title: "Analogi acak" }),
+        pracBtn("btn-acak-anl", "Susunan duduk dan antrean acak (10 soal)", { materi: ["anl"], n: 10, acak: true, title: "Analitis acak" }),
+        pracBtn("btn-acak-tiu", "TIU tanpa hitungan acak (20 soal)", { materi: ["ana", "sil", "anl"], n: 20, acak: true, title: "TIU tanpa hitungan acak" })));
   }
   function viewLatihan() {
     var st = ui.setup, mixed = st.sec === "mix";

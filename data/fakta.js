@@ -342,6 +342,23 @@
       { tgl: "10 Desember", nama: "Hari Hak Asasi Manusia Sedunia", asal: "pengesahan Deklarasi Universal Hak Asasi Manusia oleh PBB pada 1948" }
     ],
 
+    // ---------- analogi kata (TIU) ----------
+    /* Setiap keluarga memuat satu jenis hubungan. Soal memakai satu pasangan, jawabannya pasangan lain dari keluarga yang sama,
+       pengecohnya dari keluarga lain atau pasangan keluarga yang sama dengan urutan terbalik. sim: hubungan bolak-balik
+       (sinonim, antonim) sehingga urutan terbalik tidak boleh menjadi pengecoh. bentrok: keluarga yang tidak dipakai sebagai
+       pengecoh karena bisa dianggap mirip (mis. guru : sekolah bisa dibaca sebagai bagian : keseluruhan). */
+    analogi: [
+      { id: "alat", h: "{A} memakai {B} sebagai alat kerja utama", p: [["dokter", "stetoskop"], ["petani", "cangkul"], ["nelayan", "jala"], ["penjahit", "jarum"], ["fotografer", "kamera"], ["pelukis", "kuas"], ["tukang kayu", "gergaji"], ["montir", "kunci pas"], ["astronom", "teleskop"], ["juru masak", "wajan"]] },
+      { id: "tempat", h: "{A} bekerja di {B}", bentrok: ["bagian"], p: [["guru", "sekolah"], ["hakim", "pengadilan"], ["pilot", "kokpit"], ["koki", "dapur"], ["pustakawan", "perpustakaan"], ["apoteker", "apotek"], ["montir", "bengkel"], ["petani", "sawah"], ["dokter", "rumah sakit"], ["penyiar", "studio"]] },
+      { id: "bahan", h: "{A} adalah bahan untuk membuat {B}", p: [["kapas", "benang"], ["gandum", "roti"], ["tanah liat", "gerabah"], ["kedelai", "tempe"], ["susu", "keju"], ["pasir", "kaca"], ["tebu", "gula"], ["kakao", "cokelat"], ["getah karet", "ban"], ["kayu", "kertas"]] },
+      { id: "bagian", h: "{A} adalah bagian dari {B}", bentrok: ["tempat"], p: [["roda", "mobil"], ["daun", "pohon"], ["halaman", "buku"], ["jari", "tangan"], ["atap", "rumah"], ["kelopak", "bunga"], ["bab", "novel"], ["kecamatan", "kabupaten"], ["gerbong", "kereta"], ["sayap", "pesawat"]] },
+      { id: "sinonim", h: "{A} bersinonim (bermakna sama) dengan {B}", sim: true, p: [["pintar", "cerdas"], ["bohong", "dusta"], ["untung", "laba"], ["awal", "mula"], ["hening", "sunyi"], ["kendala", "hambatan"], ["lazim", "biasa"], ["elok", "indah"], ["tamat", "selesai"], ["kokoh", "kuat"]] },
+      { id: "antonim", h: "{A} berlawanan makna dengan {B}", sim: true, p: [["tinggi", "rendah"], ["panas", "dingin"], ["maju", "mundur"], ["terang", "gelap"], ["kaya", "miskin"], ["hemat", "boros"], ["rajin", "malas"], ["impor", "ekspor"], ["pasang", "surut"], ["sempit", "luas"]] },
+      { id: "suara", h: "bunyi {A} disebut {B}", p: [["anjing", "menggonggong"], ["ayam jantan", "berkokok"], ["kucing", "mengeong"], ["sapi", "melenguh"], ["kuda", "meringkik"], ["singa", "mengaum"], ["burung", "berkicau"], ["kambing", "mengembik"]] },
+      { id: "atasi", h: "{A} diatasi dengan {B}", p: [["haus", "minum"], ["lapar", "makan"], ["lelah", "istirahat"], ["mengantuk", "tidur"], ["sakit", "berobat"], ["bodoh", "belajar"], ["kotor", "mencuci"], ["gelap", "menyalakan lampu"]] },
+      { id: "ukur", h: "{A} adalah alat untuk mengukur {B}", p: [["termometer", "suhu"], ["barometer", "tekanan udara"], ["speedometer", "kecepatan"], ["timbangan", "massa"], ["meteran", "panjang"], ["higrometer", "kelembapan udara"], ["seismograf", "getaran gempa"], ["amperemeter", "kuat arus listrik"], ["stopwatch", "waktu"]] }
+    ],
+
     // ---------- kata baku (KBBI): [baku, tidak baku] ----------
     baku: [
       ["aktivitas", "aktifitas"], ["analisis", "analisa"], ["apotek", "apotik"], ["praktik", "praktek"], ["kualitas", "kwalitas"],

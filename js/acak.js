@@ -1,6 +1,6 @@
 /* Pembangkit soal acak dari tabel fakta (data/fakta.js) dan pola logika.
    TWK: kasus sila, butir Pancasila, wewenang lembaga negara, pasal UUD (kasus, bunyi, isi), sejarah, hari nasional, kata baku.
-   TIU: silogisme. Setiap kesimpulan silogisme dibuktikan dengan memeriksa semua kemungkinan (model) sehingga hanya satu
+   TIU: silogisme, analogi kata, dan analitis (susunan duduk dan antrean). Setiap kesimpulan silogisme dibuktikan dengan memeriksa semua kemungkinan (model) sehingga hanya satu
    pilihan yang pasti benar; pengecoh yang ternyata ikut benar dibuang otomatis.
    Keluaran generate(): { text, opts (opts[0] benar, atau opts[a] bila fix), expl, sangat, fix, a }. */
 (function () {
@@ -77,6 +77,16 @@
       text: e.p + " UUD NRI 1945 mengatur tentang ...",
       opts: [cap(e.t)].concat(ambil(R, pasalPool(e).map(function (o) { return cap(o.t); }), 4)),
       expl: e.p + " berbunyi: \"" + e.isi + "\""
+    };
+  }
+  function pasalPenerapan(R) {
+    var e = R.pick(F.pasal.filter(function (o) { return o.k; }));
+    var pool = pasalPool(e).filter(function (o) { return o.k; }), pick = ambil(R, pool.map(function (o) { return o.k; }), 4);
+    var asal = pick.map(function (k) { return pool.filter(function (o) { return o.k === k; })[0].p; });
+    return {
+      text: e.p + " UUD NRI 1945 berbunyi, \"" + e.isi + "\" Contoh penerapan pasal tersebut adalah ...",
+      opts: [e.k].concat(pick),
+      expl: "Contoh itu sesuai isi " + e.p + ". Pilihan lain menerapkan pasal yang berbeda: " + asal.join(", ") + "."
     };
   }
   function sejarahDari(R, m) {
@@ -302,13 +312,185 @@
   }
   function silogisme(R) { return R.chance(0.55) ? silKategoris(R) : silProposisi(R); }
 
+  // ===================== TIU: analogi kata =====================
+  function rel(f, a, b) { return cap(f.h.replace("{A}", a).replace("{B}", b)); }
+  function analogi(R) {
+    var fam = R.pick(F.analogi), ps = R.shuffle(fam.p), st = ps[0], ans = ps[1], rev = null;
+    var lain = R.shuffle(F.analogi.filter(function (f) { return f !== fam && (fam.bentrok || []).indexOf(f.id) < 0; }));
+    var dis = lain.slice(0, 4).map(function (f) { return R.pick(f.p); });
+    if (!fam.sim && ps.length > 2 && R.chance(0.35)) { rev = [ps[2][1], ps[2][0]]; dis[3] = rev; }
+    var teks = function (x) { return x[0] + " : " + x[1]; };
+    return {
+      text: st[0].toUpperCase() + " : " + st[1].toUpperCase() + " = ... : ...",
+      opts: [teks(ans)].concat(dis.map(teks)),
+      expl: "Hubungannya: " + rel(fam, st[0], st[1]) + ". Pasangan dengan hubungan yang sama: " + rel(fam, ans[0], ans[1]) + "." +
+        (rev ? " Pilihan " + teks(rev) + " memakai hubungan yang sama tetapi urutannya terbalik, jadi salah." : ""),
+      _cek: { jenis: "ana", fam: fam.id, st: st, ans: ans, dis: dis, rev: rev }
+    };
+  }
+
+  // ===================== TIU: analitis (susunan duduk dan antrean) =====================
+  /* Petunjuk dibuat dari susunan rahasia, lalu ditambah satu per satu sampai jawabannya tunggal di antara SEMUA susunan
+     yang mungkin (5! = 120 untuk baris dan antrean, 6! = 720 untuk meja bundar). Petunjuk yang tidak perlu dibuang. */
+  var ORANG = ["Ani", "Budi", "Citra", "Dedi", "Eka", "Fani", "Gilang", "Hana", "Indra", "Joko"];
+  var PERM = {};
+  function semuaSusunan(n) {
+    if (PERM[n]) return PERM[n];
+    var out = [], a = [];
+    (function rek(used) {
+      if (a.length === n) { out.push(a.slice()); return; }
+      for (var i = 0; i < n; i++) if (!(used & (1 << i))) { a.push(i); rek(used | (1 << i)); a.pop(); }
+    })(0);
+    return (PERM[n] = out);
+  }
+  function posOf(at) { var p = []; for (var i = 0; i < at.length; i++) p[at[i]] = i; return p; }
+  function benarDi(c, p, n) {
+    var d;
+    switch (c.t) {
+      case "pos": return p[c.a] === c.k;
+      case "end": return (p[c.a] === 0 || p[c.a] === n - 1) === c.v;
+      case "adj": return (Math.abs(p[c.a] - p[c.b]) === 1) === c.v;
+      case "next": return p[c.a] === p[c.b] + 1;
+      case "before": return p[c.a] < p[c.b];
+      case "gap": return Math.abs(p[c.a] - p[c.b]) === c.d + 1;
+      case "betw": return Math.abs(p[c.a] - p[c.b]) === 1 && Math.abs(p[c.a] - p[c.c]) === 1;
+      case "opp": return (p[c.a] - p[c.b] + 6) % 6 === 3;
+      case "adjC": d = (p[c.a] - p[c.b] + 6) % 6; return (d === 1 || d === 5) === c.v;
+      case "betwC":
+        var d1 = (p[c.a] - p[c.b] + 6) % 6, d2 = (p[c.a] - p[c.c] + 6) % 6;
+        return (d1 === 1 || d1 === 5) && (d2 === 1 || d2 === 5);
+    }
+    return false;
+  }
+  function semuaPetunjuk(jenis, n) {
+    var out = [], a, b, c, k;
+    for (a = 0; a < n; a++) for (b = 0; b < n; b++) {
+      if (a === b) continue;
+      if (jenis === "bundar") {
+        if (a < b) { out.push({ t: "opp", a: a, b: b }, { t: "adjC", a: a, b: b, v: true }, { t: "adjC", a: a, b: b, v: false }); }
+        for (c = b + 1; c < n; c++) if (c !== a) out.push({ t: "betwC", a: a, b: b, c: c });
+      } else {
+        out.push({ t: "next", a: a, b: b }, { t: "before", a: a, b: b });
+        if (a < b) out.push({ t: "adj", a: a, b: b, v: true }, { t: "adj", a: a, b: b, v: false }, { t: "gap", a: a, b: b, d: 1 }, { t: "gap", a: a, b: b, d: 2 });
+        for (c = b + 1; c < n; c++) if (c !== a) out.push({ t: "betw", a: a, b: b, c: c });
+      }
+    }
+    if (jenis !== "bundar") for (a = 0; a < n; a++) {
+      out.push({ t: "end", a: a, v: true }, { t: "end", a: a, v: false });
+      for (k = 0; k < n; k++) out.push({ t: "pos", a: a, k: k });
+    }
+    return out;
+  }
+  function teksPetunjuk(c, jenis, nm, opsi) {
+    var A = nm[c.a], B = nm[c.b], C = nm[c.c];
+    if (jenis === "bundar") {
+      if (c.t === "opp") return A + " duduk berhadapan dengan " + B + ".";
+      if (c.t === "adjC") return A + (c.v ? " duduk bersebelahan dengan " : " tidak duduk bersebelahan dengan ") + B + ".";
+      return A + " duduk tepat di antara " + B + " dan " + C + ".";
+    }
+    var baris = jenis === "baris";
+    switch (c.t) {
+      case "pos": return baris ? A + " duduk di kursi nomor " + (c.k + 1) + "." : A + " berada di urutan ke-" + (c.k + 1) + " dari depan.";
+      case "end": return baris ? A + (c.v ? " duduk di salah satu kursi paling ujung." : " tidak duduk di kursi paling ujung.")
+        : A + (c.v ? " berada di urutan paling depan atau paling belakang." : " tidak berada di urutan paling depan maupun paling belakang.");
+      case "adj": return baris ? A + (c.v ? " duduk bersebelahan dengan " : " tidak duduk bersebelahan dengan ") + B + "."
+        : A + (c.v ? " berdiri tepat di depan atau tepat di belakang " : " tidak berdiri tepat di depan maupun tepat di belakang ") + B + ".";
+      case "next": return baris ? A + " duduk tepat di sebelah kanan " + B + "." : A + " berdiri tepat di belakang " + B + ".";
+      case "before": return opsi ? (baris ? A + " duduk di sebelah kiri " + B + "." : A + " berada di depan " + B + ".")
+        : baris ? A + " duduk di sebelah kiri " + B + ", tetapi belum tentu bersebelahan." : A + " berada di depan " + B + ", tetapi belum tentu tepat di depannya.";
+      case "gap": return "Ada tepat " + (c.d === 1 ? "satu" : "dua") + " orang di antara " + A + " dan " + B + ".";
+      case "betw": return A + (baris ? " duduk" : " berdiri") + " tepat di antara " + B + " dan " + C + ".";
+    }
+    return "";
+  }
+  function urutanTeks(at, jenis, nm) {
+    var x = at.map(function (i) { return nm[i]; }).join(", ");
+    return jenis === "baris" ? "kursi 1 sampai " + at.length + ": " + x : jenis === "antre" ? "dari depan: " + x : "searah jarum jam: " + x;
+  }
+  function analitis(R) {
+    for (var coba = 0; coba < 60; coba++) {
+      var jenis = R.pick(["baris", "baris", "antre", "bundar"]), n = jenis === "bundar" ? 6 : 5;
+      var nm = R.shuffle(ORANG).slice(0, n).sort(), P = semuaSusunan(n), at = R.pick(P), p = posOf(at), q;
+      if (jenis === "bundar") { var x = R.int(0, n - 1); q = { t: "opp", x: x, ans: at[(p[x] + 3) % 6] }; }
+      else if (R.chance(0.7)) { var k = R.int(0, n - 1); q = { t: "posk", k: k, ans: at[k] }; }
+      else q = { t: "benar" };
+      var jawab = function (s) {
+        if (q.t === "posk") return s[q.k];
+        var ps = posOf(s);
+        return s[(ps[q.x] + 3) % 6];
+      };
+      var tunggal = function (C) {
+        if (q.t === "benar") return C.length === 1;
+        for (var i = 1; i < C.length; i++) if (jawab(C[i]) !== jawab(C[0])) return false;
+        return C.length > 0;
+      };
+      var cand = R.shuffle(semuaPetunjuk(jenis, n).filter(function (c) {
+        if (!benarDi(c, p, n)) return false;
+        if (q.t === "posk" && c.t === "pos" && (c.k === q.k || c.a === q.ans)) return false;
+        if (q.t === "opp" && c.t === "opp") return false;
+        return true;
+      }));
+      var C = P, pilih = [], adaPos = false;
+      for (var i = 0; i < cand.length && !tunggal(C); i++) {
+        var c = cand[i];
+        if (c.t === "pos" && adaPos) continue;
+        var C2 = C.filter(function (s) { return benarDi(c, posOf(s), n); });
+        if (C2.length < C.length) { pilih.push(c); C = C2; if (c.t === "pos") adaPos = true; }
+      }
+      if (!tunggal(C)) continue;
+      R.shuffle(pilih.slice()).forEach(function (c) {
+        var sisa = pilih.filter(function (y) { return y !== c; });
+        var C3 = P.filter(function (s) { var ps = posOf(s); return sisa.every(function (y) { return benarDi(y, ps, n); }); });
+        if (tunggal(C3)) { pilih = sisa; C = C3; }
+      });
+      if (pilih.length < 3 || pilih.length > 6) continue;
+      var pembuka = jenis === "baris" ? "Lima orang, yaitu " + nm.join(", ") + ", duduk berjajar pada lima kursi bernomor 1 sampai 5 dari kiri ke kanan. Arah kanan berarti ke kursi bernomor lebih besar."
+        : jenis === "antre" ? "Lima orang, yaitu " + nm.join(", ") + ", mengantre di depan loket. Urutan pertama adalah yang paling depan."
+          : "Enam orang, yaitu " + nm.join(", ") + ", duduk mengelilingi meja bundar dengan jarak yang sama dan menghadap ke tengah meja.";
+      var badan = pilih.map(function (c) { return teksPetunjuk(c, jenis, nm); }).join("\n");
+      var opts, tanya, cekOpsi = null;
+      if (q.t === "benar") {
+        var kunci = pilih.map(function (c) { return JSON.stringify(c); });
+        var cs = semuaPetunjuk(jenis, n).filter(function (c) { return c.t === "pos" || c.t === "adj" || c.t === "before" || c.t === "next"; });
+        var tepat = R.shuffle(cs.filter(function (c) { return benarDi(c, p, n) && kunci.indexOf(JSON.stringify(c)) < 0 && !(c.t === "adj" && !c.v); }));
+        var salah = R.shuffle(cs.filter(function (c) { return !benarDi(c, p, n) && !(c.t === "adj" && !c.v); }));
+        if (!tepat.length || salah.length < 4) continue;
+        cekOpsi = [tepat[0]].concat(salah.slice(0, 4));
+        opts = cekOpsi.map(function (c) { return teksPetunjuk(c, jenis, nm, true).replace(/\.$/, ""); });
+        tanya = "Pernyataan yang pasti benar adalah ...";
+      } else if (q.t === "posk") {
+        opts = [nm[q.ans]].concat(nm.filter(function (_, i) { return i !== q.ans; }));
+        tanya = jenis === "baris" ? (q.k === 0 ? "Siapa yang duduk di kursi paling kiri?" : q.k === n - 1 ? "Siapa yang duduk di kursi paling kanan?" : "Siapa yang duduk di kursi nomor " + (q.k + 1) + "?")
+          : (q.k === 0 ? "Siapa yang berada di urutan paling depan?" : q.k === n - 1 ? "Siapa yang berada di urutan paling belakang?" : "Siapa yang berada di urutan ke-" + (q.k + 1) + " dari depan?");
+      } else {
+        opts = [nm[q.ans]].concat(R.shuffle(nm.filter(function (_, i) { return i !== q.ans && i !== q.x; })).slice(0, 4));
+        tanya = "Siapa yang duduk berhadapan dengan " + nm[q.x] + "?";
+      }
+      var contoh = C.slice(0, jenis === "bundar" ? 1 : 3).map(function (s) { return urutanTeks(s, jenis, nm); });
+      var expl = (jenis === "bundar"
+        ? "Salah satu susunan yang memenuhi semua syarat (" + contoh[0] + "). Susunan lain yang memenuhi hanyalah hasil memutar atau mencerminkan meja, sehingga "
+          + nm[q.x] + " selalu berhadapan dengan " + nm[q.ans] + "."
+        : (C.length === 1 ? "Hanya ada satu susunan yang memenuhi semua syarat (" + contoh[0] + ")."
+          : "Ada " + C.length + " susunan yang memenuhi semua syarat (" + contoh.join("; ") + (C.length > 3 ? "; dan lainnya" : "") + ").")
+          + (q.t === "posk" ? " Pada setiap susunan itu, " + (jenis === "baris" ? "kursi nomor " + (q.k + 1) : "urutan ke-" + (q.k + 1)) + " ditempati " + nm[q.ans] + "."
+            : " Jadi yang pasti benar: " + opts[0] + "."));
+      return {
+        text: pembuka + "\n" + badan + "\n" + tanya, opts: opts, expl: expl,
+        _cek: { jenis: "anl", tipe: jenis, n: n, petunjuk: pilih, q: q, opsi: cekOpsi }
+      };
+    }
+    return null;
+  }
+
   // ===================== pendaftaran =====================
   /* [fungsi, bobot, sangat sering keluar?] — "sangat" mengikuti pola yang dilaporkan di 3 laporan peserta atau lebih. */
   var JENIS = {
-    pilar: [[silaKasus, 4, 1], [silaButir, 1, 1], [lembaga, 4, 1], [sejarahPilar, 2, 1], [pasalKasus, 2, 0], [pasalBunyi, 1, 0], [pasalIsi, 1, 0]],
+    pilar: [[silaKasus, 4, 1], [silaButir, 1, 1], [lembaga, 4, 1], [sejarahPilar, 2, 1], [pasalKasus, 2, 1], [pasalPenerapan, 2, 1], [pasalBunyi, 1, 0], [pasalIsi, 1, 0]],
     nas: [[sejarahNas, 3, 1], [hari, 2, 0]],
     bind: [[baku, 1, 0]],
-    sil: [[silogisme, 1, 1]]
+    sil: [[silogisme, 1, 1]],
+    ana: [[analogi, 1, 1]],
+    anl: [[analitis, 1, 1]]
   };
   function unik(opts) {
     if (!opts || opts.length !== 5) return false;
@@ -339,6 +521,8 @@
     _kat: { model: katModel, teks: katTeks, S: S, bentuk: KAT_BENTUK, tema: KAT_TEMA },
     _prop: { model: propModel, teks: propTeks, bentuk: PROP_BENTUK, tema: PROP_TEMA },
     _fn: { silaKasus: silaKasus, silaButir: silaButir, lembaga: lembaga, pasalKasus: pasalKasus, pasalBunyi: pasalBunyi, pasalIsi: pasalIsi,
-      sejarahPilar: sejarahPilar, sejarahNas: sejarahNas, hari: hari, baku: baku, silKategoris: silKategoris, silProposisi: silProposisi }
+      pasalPenerapan: pasalPenerapan, sejarahPilar: sejarahPilar, sejarahNas: sejarahNas, hari: hari, baku: baku,
+      silKategoris: silKategoris, silProposisi: silProposisi, analogi: analogi, analitis: analitis },
+    _anl: { susunan: semuaSusunan, benar: benarDi, pos: posOf }
   };
 })();

@@ -22,12 +22,13 @@ navy + kuning amber; layar ujian dari buku panduan CAT resmi BKN), **Build** (ko
 - **TKP HOTS 2026**: 42 soal kasus panjang untuk keenam aspek TKP; centang "TKP HOTS 2026 saja" di menu Latihan.
 - **Fokus TWK + TKP**: kartu strategi skor (ambang batas dan target per subtes) dengan latihan TWK + TKP HOTS,
   TWK + TKP campuran, dan TIU tanpa hitungan berat (analogi, silogisme, analitis, deret, figural).
-- **Sangat sering keluar**: 163 soal bertanda khusus (TWK 62, TIU 40, TKP 61) (pola yang dilaporkan di 3 laporan peserta SKD 2024 atau lebih) dengan
+- **Sangat sering keluar**: 216 soal bertanda khusus (TWK 92, TIU 63, TKP 61) (pola yang dilaporkan di 3 laporan peserta SKD 2024 atau lebih) dengan
   tombol latihan ulang: campuran tanpa hitungan, TWK, TKP, TIU tanpa hitungan. Metode dan tabel frekuensinya di
   `docs/pola-soal-lintas-tahun.md`.
 - **Soal acak (selalu berbeda)**: TWK dibangkitkan dari tabel fakta `data/fakta.js` (45 butir Pancasila, 33 wewenang lembaga negara,
   45 pasal UUD, sejarah BPUPKI/PPKI dan pergerakan, hari nasional, kata baku) dan silogisme yang kesimpulannya dibuktikan otomatis
-  (`js/acak.js`). Sebagian soal tryout dan latihan juga diambil dari sini.
+  (`js/acak.js`), serta TIU tanpa hitungan: analogi kata (9 jenis hubungan) dan susunan duduk/antrean yang jawabannya diperiksa
+  ke semua susunan yang mungkin. Sebagian soal tryout dan latihan juga diambil dari sini.
 - **Kandidat formasi 2026**: diisi pemantau terjadwal begitu formasi resmi terbit (aturan di `docs/kriteria-pemindaian-otomatis.md`),
   lalu diurutkan aplikasi dengan matriks Pemda dan rumus dokumen riset.
 - **Hasil + analisis per topik** (TWK per materi, TIU Verbal/Numerik/Figural, TKP per aspek) dan **pembahasan** (disimpan untuk 3 tryout terakhir).

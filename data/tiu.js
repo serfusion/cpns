@@ -8,10 +8,10 @@
 
   // ===================== ANALOGI =====================
   SKD.add("tiu", [
-    { m: "ana", h: 1, q: "PADI : PETANI = ... : ...",
+    { m: "ana", h: 2, q: "PADI : PETANI = ... : ...",
       o: ["IKAN : NELAYAN", "BUKU : PEMBACA", "OBAT : PASIEN", "SEPATU : PEMAKAI", "JALAN : PENGEMUDI"],
       x: "Padi dihasilkan oleh petani, seperti ikan dihasilkan (ditangkap) oleh nelayan. Pilihan lain menunjukkan hubungan benda dengan penggunanya." },
-    { m: "ana", h: 1, q: "GURU : SEKOLAH : MURID = ... : ... : ...",
+    { m: "ana", h: 2, q: "GURU : SEKOLAH : MURID = ... : ... : ...",
       o: ["DOKTER : RUMAH SAKIT : PASIEN", "HAKIM : PENGADILAN : JAKSA", "PETANI : SAWAH : CANGKUL", "PILOT : PESAWAT : BANDARA", "PENJUAL : PEMBELI : PASAR"],
       x: "Polanya profesi : tempat bekerja : pihak yang dilayani. Guru bekerja di sekolah melayani murid; dokter bekerja di rumah sakit melayani pasien." }
   ]);
@@ -46,7 +46,7 @@
 
   // ===================== DERET ANGKA =====================
   SKD.add("tiu", [
-    { m: "der", h: 1, q: "Tentukan suku berikutnya dari deret:\n3, 7, 15, 31, 63, ...",
+    { m: "der", h: 2, q: "Tentukan suku berikutnya dari deret:\n3, 7, 15, 31, 63, ...",
       o: ["127", "126", "125", "95", "94"],
       x: "Setiap suku adalah suku sebelumnya dikali 2 lalu ditambah 1 (selisihnya 4, 8, 16, 32, lalu 64). 63 × 2 + 1 = 127." }
   ]);
@@ -61,10 +61,10 @@
 
   // ===================== SOAL CERITA =====================
   SKD.add("tiu", [
-    { m: "cer", h: 1, q: "Sebuah mobil menghabiskan 12 liter bensin untuk menempuh 150 km. Dengan pemakaian yang sama, berapa liter bensin yang dibutuhkan untuk menempuh 400 km?",
+    { m: "cer", h: 2, q: "Sebuah mobil menghabiskan 12 liter bensin untuk menempuh 150 km. Dengan pemakaian yang sama, berapa liter bensin yang dibutuhkan untuk menempuh 400 km?",
       o: ["32 liter", "30 liter", "34 liter", "36 liter", "28 liter"],
       x: "Perbandingan senilai: 12/150 = x/400, sehingga x = 12 × 400 ÷ 150 = 32 liter." },
-    { m: "cer", h: 1, q: "Sebuah proyek dapat diselesaikan oleh 12 pekerja dalam 30 hari. Setelah berjalan 10 hari, pekerjaan terhenti selama 4 hari. Agar proyek tetap selesai tepat waktu, berapa pekerja yang harus ditambahkan?",
+    { m: "cer", h: 2, q: "Sebuah proyek dapat diselesaikan oleh 12 pekerja dalam 30 hari. Setelah berjalan 10 hari, pekerjaan terhenti selama 4 hari. Agar proyek tetap selesai tepat waktu, berapa pekerja yang harus ditambahkan?",
       o: ["3 orang", "4 orang", "5 orang", "6 orang", "2 orang"],
       x: "Total pekerjaan 12 × 30 = 360 hari-orang. Selesai 12 × 10 = 120, sisa 240. Sisa waktu 30 − 10 − 4 = 16 hari, butuh 240 ÷ 16 = 15 pekerja. Tambahan 15 − 12 = 3 orang." },
     { m: "cer", h: 1, q: "Berdasarkan tabel penjualan berikut, bulan dengan pendapatan terbesar adalah ...",
@@ -75,31 +75,31 @@
 
   // ===================== TAMBAHAN: VERBAL =====================
   SKD.add("tiu", [
-    { m: "ana", h: 1, q: "DOKTER : STETOSKOP = ... : ...",
+    { m: "ana", h: 2, q: "DOKTER : STETOSKOP = ... : ...",
       o: ["FOTOGRAFER : KAMERA", "PENJAHIT : KAIN", "PETANI : SAWAH", "GURU : MURID", "PILOT : BANDARA"],
       x: "Stetoskop adalah alat kerja dokter, seperti kamera alat kerja fotografer. Kain adalah bahan, sawah tempat, murid pihak yang dilayani, bandara tempat." },
-    { m: "ana", h: 1, q: "API : PANAS = ... : ...",
+    { m: "ana", h: 2, q: "API : PANAS = ... : ...",
       o: ["ES : DINGIN", "LAMPU : LISTRIK", "MATAHARI : SIANG", "HUJAN : PAYUNG", "GARAM : LAUT"],
       x: "Panas adalah sifat api, dingin adalah sifat es." },
-    { m: "ana", h: 1, q: "KAKI : SEPATU = ... : ...",
+    { m: "ana", h: 2, q: "KAKI : SEPATU = ... : ...",
       o: ["TANGAN : SARUNG TANGAN", "TELINGA : MENDENGAR", "KEPALA : RAMBUT", "MULUT : GIGI", "MATA : MELIHAT"],
       x: "Sepatu adalah pelindung yang dikenakan pada kaki, sarung tangan dikenakan pada tangan. Rambut dan gigi adalah bagian tubuh, bukan benda yang dikenakan." },
-    { m: "ana", h: 1, q: "BOROS : HEMAT = ... : ...",
+    { m: "ana", h: 2, q: "BOROS : HEMAT = ... : ...",
       o: ["RAJIN : MALAS", "CERDAS : PINTAR", "TINGGI : JANGKUNG", "BESAR : RAKSASA", "CEPAT : KILAT"],
       x: "Boros dan hemat berlawanan makna (antonim). Pilihan lain bersinonim atau berupa tingkatan." },
-    { m: "ana", h: 1, q: "SENYUM : TERTAWA : TERBAHAK-BAHAK = ... : ... : ...",
+    { m: "ana", h: 2, q: "SENYUM : TERTAWA : TERBAHAK-BAHAK = ... : ... : ...",
       o: ["GERIMIS : HUJAN : BADAI", "PAGI : SIANG : MALAM", "MERAH : KUNING : HIJAU", "MAKAN : MINUM : TIDUR", "SEDIH : MENANGIS : AIR MATA"],
       x: "Polanya tingkatan intensitas dari lemah ke kuat. Gerimis, hujan, badai juga makin kuat. Pagi-siang-malam hanya urutan waktu." },
-    { m: "ana", h: 1, q: "PENULIS : PENA : BUKU = ... : ... : ...",
+    { m: "ana", h: 2, q: "PENULIS : PENA : BUKU = ... : ... : ...",
       o: ["PENJAHIT : JARUM : PAKAIAN", "PETANI : SAWAH : PADI", "KOKI : DAPUR : MASAKAN", "GURU : SEKOLAH : MURID", "NELAYAN : LAUT : IKAN"],
       x: "Polanya pelaku : alat : hasil karya. Sawah, dapur, sekolah, dan laut adalah tempat, bukan alat." },
-    { m: "ana", q: "MOBIL : BENSIN = ... : ...",
+    { m: "ana", h: 2, q: "MOBIL : BENSIN = ... : ...",
       o: ["LAMPU : LISTRIK", "KAPAL : LAUT", "SEPEDA : RODA", "PESAWAT : PILOT", "RUMAH : ATAP"],
       x: "Bensin adalah sumber energi mobil, listrik sumber energi lampu." },
-    { m: "ana", q: "KATAK : AMFIBI = ... : ...",
+    { m: "ana", h: 2, q: "KATAK : AMFIBI = ... : ...",
       o: ["ULAR : REPTIL", "PAUS : IKAN", "KELELAWAR : BURUNG", "AYAM : TELUR", "KUCING : TIKUS"],
       x: "Katak termasuk golongan amfibi, ular golongan reptil. Paus mamalia, bukan ikan; kelelawar mamalia, bukan burung." },
-    { m: "ana", h: 1, q: "BUKU : PERPUSTAKAAN = ... : ...",
+    { m: "ana", h: 2, q: "BUKU : PERPUSTAKAAN = ... : ...",
       o: ["LUKISAN : GALERI", "OBAT : APOTEKER", "KERTAS : PENSIL", "IKAN : NELAYAN", "SURAT : PERANGKO"],
       x: "Perpustakaan adalah tempat menyimpan dan memajang buku, galeri tempat menyimpan dan memajang lukisan." },
 
@@ -174,19 +174,19 @@
     { m: "hit", h: 1, q: "Jika a = 2 dan b = −3, nilai a² − 2ab + b² adalah ...", o: ["25", "1", "−1", "13", "5"],
       x: "a² − 2ab + b² = (a − b)² = (2 + 3)² = 25." },
 
-    { m: "der", h: 1, q: "Tentukan suku berikutnya dari deret:\n2, 3, 5, 8, 12, 17, ...", o: ["23", "22", "24", "25", "21"],
+    { m: "der", h: 2, q: "Tentukan suku berikutnya dari deret:\n2, 3, 5, 8, 12, 17, ...", o: ["23", "22", "24", "25", "21"],
       x: "Selisihnya +1, +2, +3, +4, +5, berikutnya +6: 17 + 6 = 23." },
-    { m: "der", h: 1, q: "Tentukan suku berikutnya dari deret:\n100, 95, 85, 70, 50, ...", o: ["25", "30", "20", "15", "35"],
+    { m: "der", h: 2, q: "Tentukan suku berikutnya dari deret:\n100, 95, 85, 70, 50, ...", o: ["25", "30", "20", "15", "35"],
       x: "Selisihnya −5, −10, −15, −20, berikutnya −25: 50 − 25 = 25." },
-    { m: "der", h: 1, q: "Tentukan huruf berikutnya dari deret:\nA, C, F, J, O, ...", o: ["U", "T", "V", "S", "W"],
+    { m: "der", h: 2, q: "Tentukan huruf berikutnya dari deret:\nA, C, F, J, O, ...", o: ["U", "T", "V", "S", "W"],
       x: "Urutan huruf 1, 3, 6, 10, 15 (selisih +2, +3, +4, +5). Berikutnya +6 = 21, yaitu U." },
-    { m: "der", h: 1, q: "Tentukan huruf berikutnya dari deret:\nB, D, G, K, ...", o: ["P", "O", "Q", "N", "R"],
+    { m: "der", h: 2, q: "Tentukan huruf berikutnya dari deret:\nB, D, G, K, ...", o: ["P", "O", "Q", "N", "R"],
       x: "Urutan huruf 2, 4, 7, 11 (selisih +2, +3, +4). Berikutnya +5 = 16, yaitu P." },
-    { m: "der", h: 1, q: "Tentukan suku berikutnya dari deret:\n2, 6, 3, 9, 6, 18, ...", o: ["15", "54", "21", "12", "16"],
+    { m: "der", h: 2, q: "Tentukan suku berikutnya dari deret:\n2, 6, 3, 9, 6, 18, ...", o: ["15", "54", "21", "12", "16"],
       x: "Polanya ×3, −3 berselang: 2×3=6, 6−3=3, 3×3=9, 9−3=6, 6×3=18, lalu 18−3 = 15." },
-    { m: "der", q: "Tentukan suku berikutnya dari deret:\n1, 1, 2, 6, 24, ...", o: ["120", "48", "96", "72", "100"],
+    { m: "der", h: 2, q: "Tentukan suku berikutnya dari deret:\n1, 1, 2, 6, 24, ...", o: ["120", "48", "96", "72", "100"],
       x: "Dikali 1, 2, 3, 4, lalu dikali 5: 24 × 5 = 120." },
-    { m: "der", q: "Tentukan suku berikutnya dari deret:\n81, 27, 9, 3, ...", o: ["1", "0", "1/3", "2", "1/9"],
+    { m: "der", h: 2, q: "Tentukan suku berikutnya dari deret:\n81, 27, 9, 3, ...", o: ["1", "0", "1/3", "2", "1/9"],
       x: "Setiap suku dibagi 3: 3 ÷ 3 = 1." },
 
     { m: "pk", h: 2, fix: 1, a: 1, q: "x = 0,6 × 0,6 dan y = 0,6. Maka ...", o: PK, x: "x = 0,36 dan y = 0,6, sehingga x < y." },
@@ -212,7 +212,7 @@
       x: "Kecepatan saling mendekat 70 + 50 = 120 km/jam. Waktu = 300 ÷ 120 = 2,5 jam." },
     { m: "cer", h: 1, q: "Andi dapat menyelesaikan sebuah pekerjaan dalam 6 hari, sedangkan Budi dalam 12 hari. Jika bekerja bersama, pekerjaan itu selesai dalam ...", o: ["4 hari", "3 hari", "5 hari", "6 hari", "9 hari"],
       x: "Per hari: 1/6 + 1/12 = 3/12 = 1/4 pekerjaan. Jadi selesai dalam 4 hari." },
-    { m: "cer", h: 1, q: "Sebuah pekerjaan selesai dalam 15 hari oleh 8 pekerja. Jika dikerjakan 10 pekerja dengan kemampuan sama, pekerjaan selesai dalam ...", o: ["12 hari", "10 hari", "13 hari", "14 hari", "9 hari"],
+    { m: "cer", h: 2, q: "Sebuah pekerjaan selesai dalam 15 hari oleh 8 pekerja. Jika dikerjakan 10 pekerja dengan kemampuan sama, pekerjaan selesai dalam ...", o: ["12 hari", "10 hari", "13 hari", "14 hari", "9 hari"],
       x: "Perbandingan berbalik nilai: 8 × 15 = 120 hari-orang, lalu 120 ÷ 10 = 12 hari." },
     { m: "cer", h: 1, q: "Usia ayah sekarang tiga kali usia anaknya. Sepuluh tahun lagi, usia ayah dua kali usia anaknya. Usia anak sekarang adalah ...", o: ["10 tahun", "8 tahun", "12 tahun", "15 tahun", "20 tahun"],
       x: "Misal usia anak a: 3a + 10 = 2(a + 10), sehingga a = 10." },
@@ -232,7 +232,7 @@
       x: "Turun 15 ton dari 150 ton: 15 ÷ 150 × 100% = 10%. Persentase dihitung dari nilai awal." },
     { m: "cer", h: 1, q: "Sebuah bak berkapasitas 1.200 liter diisi keran dengan debit 20 liter/menit, tetapi bak bocor 5 liter/menit. Bak kosong itu akan penuh dalam ...", o: ["1 jam 20 menit", "1 jam", "1 jam 30 menit", "48 menit", "1 jam 40 menit"],
       x: "Debit bersih 20 − 5 = 15 liter/menit. 1.200 ÷ 15 = 80 menit." },
-    { m: "cer", h: 1, q: "Sebuah motor menghabiskan 1 liter bensin untuk 45 km. Harga bensin Rp10.000 per liter. Biaya bensin untuk perjalanan pulang-pergi ke kota berjarak 135 km adalah ...", o: ["Rp60.000", "Rp30.000", "Rp54.000", "Rp66.000", "Rp45.000"],
+    { m: "cer", h: 2, q: "Sebuah motor menghabiskan 1 liter bensin untuk 45 km. Harga bensin Rp10.000 per liter. Biaya bensin untuk perjalanan pulang-pergi ke kota berjarak 135 km adalah ...", o: ["Rp60.000", "Rp30.000", "Rp54.000", "Rp66.000", "Rp45.000"],
       x: "Jarak total 270 km membutuhkan 270 ÷ 45 = 6 liter, biayanya 6 × 10.000 = 60.000." }
   ]);
 

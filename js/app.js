@@ -397,8 +397,13 @@
       pq.baru ? h("span", { class: "tag ok", title: "Set soal kasus bergaya HOTS dengan konteks 2024–2026" }, "HOTS 2026") : null,
       it.retry ? h("span", { class: "tag bad" }, "Ulangan") : null];
   }
+  /** Teks soal dengan _kata_ ditampilkan miring (soal "makna kata bercetak miring"). */
+  function rich(t) {
+    if (!t || t.indexOf("_") < 0) return t;
+    return String(t).split(/_([^_\n]+)_/).map(function (p, i) { return i % 2 ? h("em", null, p) : p; });
+  }
   function qBody(pq) {
-    return [pq.passage ? h("div", { class: "passage" }, pq.passage) : null, h("div", { class: "qtext" }, pq.text), tableView(pq.table), stemView(pq.stem)];
+    return [pq.passage ? h("div", { class: "passage" }, pq.passage) : null, h("div", { class: "qtext" }, rich(pq.text)), tableView(pq.table), stemView(pq.stem)];
   }
   function badge(pass) { return h("span", { class: "pill " + (pass ? "ok" : "bad") }, pass ? "Lolos passing grade" : "Belum lolos passing grade"); }
   /** Batang skor subtes dengan garis ambang batas. dark = di atas kartu biru tua. */
@@ -579,7 +584,7 @@
       h("div", { class: "cat-sub" }, m ? (m.group ? m.group + " · " : "") + m.name : ""),
       h("fieldset", { class: "cat-q" }, h("legend", null, "Soal No." + (s.cur + 1)),
         it.pq.passage ? h("div", { class: "passage" }, it.pq.passage) : null,
-        h("div", { class: "qtext" }, it.pq.text), tableView(it.pq.table), stemView(it.pq.stem), opts,
+        h("div", { class: "qtext" }, rich(it.pq.text)), tableView(it.pq.table), stemView(it.pq.stem), opts,
         rv ? h("div", { class: "cat-koreksi", id: "cat-koreksi", role: "status" }, feedbackView(it)) : null),
       h("div", { class: "cat-actions" },
         h("button", { class: "cat-btn", type: "button", id: "btn-next", onclick: catSave }, rv ? (s.cur < total - 1 ? "Lanjut ke soal berikutnya" : "Lanjut") : "Simpan dan Lanjutkan"),
@@ -794,7 +799,7 @@
       h("p", { class: "small muted" }, "Saat ujian: kerjakan soal TIU yang tidak butuh hitungan lebih dulu, tekan \"Lewatkan soal ini\" untuk soal hitungan panjang, lalu kembali bila waktu tersisa."));
   }
   // ---------- sangat sering keluar (boleh diulang) dan soal acak (selalu baru) ----------
-  var TIU_SANGAT = ["sil", "anl", "fig-seri"];
+  var TIU_SANGAT = ["ana", "sil", "anl", "fig-seri"];
   function idsOf(sec) { return CFG.materi.filter(function (m) { return m.sec === sec; }).map(function (m) { return m.id; }); }
   function pracBtn(id, label, o, primary) {
     return h("button", { class: "btn" + (primary ? " primary" : ""), type: "button", id: id, onclick: function () { startPractice(o); } }, label);
@@ -804,7 +809,7 @@
     var twk = idsOf("twk"), tkp = idsOf("tkp");
     return h("section", { class: "card stack" },
       h("h2", null, "Sangat sering keluar: boleh diulang-ulang"),
-      h("p", { class: "small" }, "Pola yang tercantum di kisi-kisi resmi dan dilaporkan peserta di tiga laporan atau lebih (SKD CPNS 2024). Isinya: penerapan sila, BPUPKI/PPKI dan sikap tokohnya, lembaga negara, organisasi pergerakan, netralitas ASN, nasionalisme di media sosial, gagasan utama, huruf miring, silogisme, susunan duduk, pola 9 kotak, menempatkan diri antara kesibukan dan pekerjaan, spionase, inovasi TIK dan rekan gaptek, serta penerapan BerAKHLAK."),
+      h("p", { class: "small" }, "Pola yang tercantum di kisi-kisi resmi dan dilaporkan peserta di tiga laporan atau lebih (SKD CPNS 2024). Isinya: penerapan sila dan isi pasal, BPUPKI/PPKI dan sikap tokohnya, peristiwa sesudah kemerdekaan, lembaga negara, organisasi pergerakan, netralitas ASN, nasionalisme di media sosial, inti kalimat, kata bercetak miring, simpulan bacaan, analogi, silogisme, susunan duduk dan antrean, pola 9 kotak, menempatkan diri antara kesibukan dan pekerjaan, spionase, inovasi TIK dan rekan gaptek, serta penerapan BerAKHLAK."),
       h("div", { class: "info3" },
         h("div", null, h("span", null, "TWK"), h("b", null, n(twk) + "+"), h("span", null, "soal + acak")),
         h("div", null, h("span", null, "TIU tanpa hitungan"), h("b", null, n(TIU_SANGAT) + "+"), h("span", null, "soal + acak")),
@@ -822,11 +827,14 @@
       h("h2", null, "Soal acak: selalu berbeda"),
       h("p", { class: "small" }, "Dibangkitkan setiap kali dari tabel fakta yang sudah diperiksa: 45 butir Pancasila, " + F.wewenang.length + " wewenang lembaga negara, " +
         F.pasal.length + " pasal UUD, sejarah BPUPKI, PPKI, proklamasi, dan pergerakan nasional, " + F.hari.length + " hari nasional, " + F.baku.length +
-        " pasang kata baku, serta silogisme yang kesimpulannya dibuktikan otomatis. Kebanyakan berbentuk kasus, seperti laporan peserta 2024."),
+        " pasang kata baku. TIU tanpa hitungan: analogi kata (" + F.analogi.length + " jenis hubungan), silogisme, serta susunan duduk dan antrean; kuncinya diperiksa otomatis ke semua kemungkinan. Kebanyakan berbentuk kasus, seperti laporan peserta 2024."),
       h("div", { class: "row wrap" },
         pracBtn("btn-acak-twk", "TWK acak (20 soal)", { materi: ["pilar", "nas", "bind"], n: 20, acak: true, title: "TWK acak" }, true),
         pracBtn("btn-acak-pilar", "Pancasila, UUD, lembaga (15 soal)", { materi: ["pilar"], n: 15, acak: true, title: "Pilar negara acak" }),
-        pracBtn("btn-acak-sil", "Silogisme acak (10 soal)", { materi: ["sil"], n: 10, acak: true, title: "Silogisme acak" })));
+        pracBtn("btn-acak-sil", "Silogisme acak (10 soal)", { materi: ["sil"], n: 10, acak: true, title: "Silogisme acak" }),
+        pracBtn("btn-acak-ana", "Analogi kata acak (10 soal)", { materi: ["ana"], n: 10, acak: true, title: "Analogi acak" }),
+        pracBtn("btn-acak-anl", "Susunan duduk dan antrean acak (10 soal)", { materi: ["anl"], n: 10, acak: true, title: "Analitis acak" }),
+        pracBtn("btn-acak-tiu", "TIU tanpa hitungan acak (20 soal)", { materi: ["ana", "sil", "anl"], n: 20, acak: true, title: "TIU tanpa hitungan acak" })));
   }
   function viewLatihan() {
     var st = ui.setup, mixed = st.sec === "mix";

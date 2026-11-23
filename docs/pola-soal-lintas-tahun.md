@@ -1,6 +1,6 @@
 # Pola soal SKD lintas tahun dan soal "sangat sering keluar"
 
-Disusun 23 November 2026 untuk aplikasi Latihan SKD CPNS (TKP diperbarui pada hari yang sama).\
+Disusun 23 November 2026 untuk aplikasi Latihan SKD CPNS (TKP, TWK, dan TIU diperbarui pada hari yang sama).\
 Fokus: memaksimalkan TWK, TKP, dan TIU tanpa hitungan.
 
 ## 1. Jawaban singkat: dari mana soal di aplikasi ini?
@@ -36,47 +36,55 @@ Aturan validasi:
 
 ## 3. Tabel frekuensi pola (SKD CPNS 2024)
 
-Kolom AJ = AyoJakarta (3 rangkuman), AI = ASN Institute, AN = Analitica.
+Yang dihitung adalah **sumber asli yang berbeda** (akun atau lembaga yang menulis laporannya sendiri), supaya satu laporan
+yang dikutip ulang di banyak situs tidak terhitung berkali-kali:
+S1 @studicpns.id (Instagram, 28 Okt 2024, khusus TKP), S2 @ujiancpns.id (TikTok, 25 Okt), S3 @kyygnsoo (X, 26 Okt),
+S4 @idcpns (Instagram, 27 Okt), S5 @imalagus (TikTok, hari ketujuh), S6 @widiadiantari (Instagram), S7 ASN Institute (18 Okt),
+S8 Analitica (16 Okt). Rangkuman S1–S6 dibaca dari kompilasi romisaputra.com. Rangkuman AyoJakarta (3 rangkuman) kemungkinan
+mengutip akun yang sama, jadi dipakai sebagai pembanding saja.
 
 ### TWK
 
-| Pola | AJ | AI | AN | Jumlah | Tingkat |
-|---|---|---|---|---|---|
-| BPUPKI/PPKI dan sikap/integritas tokohnya | 3 | 1 | 1 | 5 | Sangat sering |
-| Gagasan utama, isi, dan simpulan bacaan | 3 | 1 | 1 | 5 | Sangat sering |
-| Penerapan sila Pancasila dalam kasus | 3 | – | 1 | 4 | Sangat sering |
-| Lembaga negara (MA, MK, MPR, KY) | 3 | – | – | 3 | Sangat sering |
-| Organisasi pergerakan (Budi Utomo, Sarekat Dagang Islam) | 2 | – | 1 | 3 | Sangat sering |
-| Nasionalisme di media sosial, konten kreator | 2 | 1 | – | 3 | Sangat sering |
-| Huruf miring dalam narasi | 2 | – | 1 | 3 | Sangat sering |
-| Netralitas ASN (TWK dan TKP digabung) | 1 | 2 | – | 3 | Sangat sering |
-| Penerapan pasal UUD | 2 | – | – | 2 | Sering |
-| Inti kalimat | – | – | 1 | 1 | Sering |
+| Pola | Sumber | Jumlah | Tingkat |
+|---|---|---|---|
+| Penerapan nilai Pancasila dalam kasus | S2, S3, S4, S5, S6, S7, S8 | 7 | Sangat sering |
+| Penerapan isi pasal UUD dalam kehidupan | S2, S3, S4, S5, S6 | 5 | Sangat sering (naik) |
+| BPUPKI/PPKI dan sikap tokohnya (termasuk sikap Hatta di BPUPKI) | S2, S4, S6, S7, S8 | 5 | Sangat sering |
+| Simpulan, gagasan utama, inti paragraf | S3, S4, S5, S6, S8 | 5 | Sangat sering |
+| Lembaga negara (MA, MK, KY, kedudukan MPR) | S2, S3, S4, S6 | 4 | Sangat sering |
+| Sejarah organisasi pergerakan dan relevansinya kini | S2, S4, S6, S8 | 4 | Sangat sering |
+| Inti kalimat | S2, S4, S6, S8 | 4 | Sangat sering (naik) |
+| Kata bercetak miring (makna dan penulisannya) | S2, S4, S6, S8 | 4 | Sangat sering |
+| Netralitas ASN saat pilkada | S2, S6, S7 | 3 | Sangat sering |
+| Nasionalisme konten kreator | S2, S6, S7 | 3 | Sangat sering |
+| Peristiwa sekitar dan sesudah kemerdekaan (mis. Palagan Ambarawa) | S2, S4, S6 | 3 | Sangat sering (naik) |
+| Penerapan bela negara sehari-hari | S3, S5 | 2 | Sering |
+| Kalimat efektif, EYD, tanda baca | S3, S5 | 2 | Sering |
+| Kata baku, arti kata | S5 | 1 | Sering |
 
-Catatan Analitica: semua soal TWK 2024 bersifat **penalaran**, tidak ada hafalan murni; soalnya tidak sepanjang tryout pada
-umumnya, tetapi pilihan jawabannya mirip-mirip.
+Catatan peserta: TWK 2024 seluruhnya penalaran, tidak ada hafalan murni (S3, S6, S8); pilihannya mirip-mirip; banyak isu terkini.
 
 ### TIU
 
-| Pola | AJ | AI | AN | Jumlah | Tingkat | Hitungan? |
-|---|---|---|---|---|---|---|
-| Figural pola 9 kotak | 3 | – | 1 | 4 | Sangat sering | Tidak |
-| Silogisme, termasuk tiga premis | 3 | – | – | 3 | Sangat sering | Tidak |
-| Susunan duduk dan antrean (analitis) | 2 | – | 1 | 3 | Sangat sering | Tidak |
-| Analisis tabel | 3 | – | 1 | 4 | Sangat sering | Ringan |
-| Pecahan, desimal, persen (tanpa pangkat) | 2 | – | 1 | 3 | Sangat sering | Ya |
-| Hubungan x dan y | 2 | – | 1 | 3 | Sangat sering | Ya |
-| Deret, perbandingan senilai/berbalik nilai, kecepatan, jaring-jaring kubus | 2 | – | – | 2 | Sering | Sebagian |
-| Soal cerita | – | 1 | 1 | 2 | Sering | Ya |
-| Analogi | – | – | 1 | 1 | Sering | Tidak |
+| Pola | Sumber | Jumlah | Tingkat | Hitungan? |
+|---|---|---|---|---|
+| Silogisme (dua dan tiga premis) | S2, S3, S4, S5, S6 | 5 | Sangat sering | Tidak |
+| Figural pola 9 kotak | S2, S3, S5, S6, S8 | 5 | Sangat sering | Tidak |
+| Analogi kata | S2, S5, S6, S8 | 4 | Sangat sering (naik) | Tidak |
+| Susunan duduk, antrean, penalaran analitis | S2, S5, S6, S8 | 4 | Sangat sering | Tidak |
+| Jaring-jaring kubus | S2, S4 | 2 | Sering | Tidak |
+| Figural ketidaksamaan | S5 | 1 | Sering | Tidak |
+| Analisis tabel dan grafik | S2, S4, S5, S6, S8 | 5 | Sangat sering | Ringan |
+| Pecahan, desimal, persen, hitung cepat | S3, S4, S5, S6, S8 | 5 | Sangat sering | Ya |
+| Perbandingan senilai dan berbalik nilai | S2, S3, S5, S6 | 4 | Sangat sering (naik) | Ya |
+| Hubungan x dan y | S2, S4, S6, S8 | 4 | Sangat sering | Ya |
+| Deret angka | S2, S3, S5, S6 | 4 | Sangat sering (naik) | Ya |
+| Soal cerita (kecepatan, bensin, untung rugi, waktu libur, beras) | S2, S4, S5, S6, S7, S8 | 6 | Sering, kecuali perbandingan | Ya |
 
-### TKP (diperbarui: 8 sumber asli)
+Semua subtes TIU memang selalu ada di setiap paket, jadi untuk TIU tanda "sangat sering" terutama membantu memilih **jenis** soal.
+Untuk fokus tanpa hitungan: silogisme, pola 9 kotak, analogi kata, serta susunan duduk dan antrean. Keempatnya dilaporkan 4–5 sumber.
 
-Untuk TKP, yang dihitung adalah **sumber asli yang berbeda** (akun atau lembaga yang menulis laporannya sendiri), supaya satu
-laporan yang dikutip ulang di banyak situs tidak terhitung berkali-kali:
-S1 @studicpns.id (Instagram, 28 Okt 2024), S2 @ujiancpns.id (TikTok, 25 Okt), S3 @kyygnsoo (X, 26 Okt), S4 @idcpns (Instagram, 27 Okt),
-S5 @imalagus (TikTok, hari ketujuh), S6 @widiadiantari (Instagram), S7 ASN Institute (18 Okt), S8 Analitica (16 Okt).
-Rangkuman S1–S6 dibaca dari kompilasi romisaputra.com. Rangkuman AyoJakarta tidak dihitung lagi karena kemungkinan mengutip akun yang sama.
+### TKP
 
 | Situasi TKP | Sumber | Jumlah | Tingkat |
 |---|---|---|---|
@@ -99,15 +107,19 @@ mungkin keluar, tetapi tidak dihitung sebagai bukti baru.
 
 ## 4. Yang ditambahkan di aplikasi
 
-- **Tanda "Sangat sering keluar"** pada 163 soal bank: TWK 62, TIU 40 (silogisme, analitis, dan hitungan ringan), TKP 61.
-  TKP: 32 soal baru disusun ulang dari situasi yang dilaporkan peserta (bukan salinan soal asli), ditambah 29 soal lama yang
-  temanya ternyata dilaporkan berulang. Setiap pembahasan TKP baru menjelaskan mengapa pilihan bernilai 4 kalah dari nilai 5.
-  TWK: 4 soal baru (Agus Salim, Hatta, netralitas ASN di media sosial, hoaks SARA) dan 4 soal inti kalimat.
+- **Tanda "Sangat sering keluar"** pada 216 soal bank: TWK 92, TIU 63, TKP 61 (bank seluruhnya 425 soal).
+  - TKP: 32 soal baru disusun ulang dari situasi yang dilaporkan peserta (bukan salinan soal asli), ditambah 29 soal lama yang
+    temanya dilaporkan berulang. Pembahasan TKP baru menjelaskan mengapa pilihan bernilai 4 kalah dari nilai 5.
+  - TWK: 25 soal baru (penerapan isi pasal, inti kalimat, makna kata bercetak miring, sikap Hatta di BPUPKI, rapat Ikada,
+    simpulan dan gagasan utama bacaan, tokoh integritas, netralitas ASN, hoaks SARA), ditambah soal lama yang naik tingkat
+    (penerapan pasal, Palagan Ambarawa, PDRI, inti kalimat).
+  - TIU: semua soal analogi, silogisme, deret, dan perbandingan senilai/berbalik nilai.
 - **Menu Latihan, kartu "Sangat sering keluar: boleh diulang-ulang"**: campuran tanpa hitungan (30 soal), TWK, TKP, dan TIU
   tanpa hitungan. Soal yang sudah dikuasai muncul paling akhir. Ada juga centang "Sangat sering keluar saja" di pengaturan latihan.
 - **Soal acak (selalu berbeda)** dari tabel fakta yang sudah diperiksa: 45 butir Pancasila, 33 wewenang lembaga negara,
-  45 pasal UUD, 45 fakta sejarah, 16 hari nasional, 80 pasang kata baku, dan silogisme (12 tema kategoris dan 8 tema
-  jika-maka). Kebanyakan berbentuk kasus, sesuai catatan bahwa TWK 2024 berupa penalaran.
+  45 pasal UUD (termasuk soal "contoh penerapan pasal"), 45 fakta sejarah, 16 hari nasional, 80 pasang kata baku. TIU tanpa
+  hitungan: silogisme (12 tema kategoris dan 8 tema jika-maka), **analogi kata** (9 jenis hubungan, 85 pasangan), dan
+  **susunan duduk berjajar, antrean, dan meja bundar**. Kebanyakan berbentuk kasus, sesuai catatan bahwa TWK 2024 berupa penalaran.
 - Tryout dan latihan biasa juga mengambil sebagian soal pilar negara, nasionalisme, bahasa Indonesia, dan silogisme dari
   pembangkit ini, jadi isinya tidak selalu sama.
 - **Audio per bagian** (paling banyak 10 soal per berkas, sekitar 7 menit), hanya materi tanpa hitungan, dalam tiga album:
@@ -115,10 +127,15 @@ mungkin keluar, tetapi tidak dihitung sebagai bukti baru.
 
 ## 5. Bagaimana kebenarannya diuji
 
-- `scripts/validate.mjs` memeriksa seluruh bank (408 soal): lima pilihan, tidak ada pilihan kembar, kunci valid, pembahasan ada.
-- Setiap pembangkit dijalankan 1.500 kali dan diperiksa: lima pilihan berbeda, kunci tunggal, teks lengkap.
+- `scripts/validate.mjs` memeriksa seluruh bank (425 soal): lima pilihan, tidak ada pilihan kembar, kunci valid, pembahasan ada.
+- Setiap pembangkit (15 jenis) dijalankan 1.500 kali dan diperiksa: lima pilihan berbeda, kunci tunggal, teks lengkap.
 - **Silogisme dibuktikan**: setiap soal diperiksa terhadap semua kemungkinan himpunan (atau semua kombinasi benar-salah untuk
   bentuk jika-maka). Kunci harus selalu benar, dan pengecoh yang ternyata ikut benar dibuang. 3.000 soal acak lolos.
+- **Susunan duduk dan antrean dibuktikan**: setiap soal diperiksa terhadap semua susunan yang mungkin (120 untuk lima orang
+  berjajar atau mengantre, 720 untuk enam orang di meja bundar). Jawabannya harus sama di semua susunan yang memenuhi petunjuk.
+  600 soal acak lolos.
+- **Analogi**: sembilan jenis hubungan dibuat saling lepas; pengecoh tidak pernah diambil dari jenis hubungan yang sama (kecuali
+  pasangan yang urutannya dibalik, dan itu tidak dipakai untuk sinonim atau antonim). 3.000 soal acak lolos.
 - Tabel fakta: 45 butir Pancasila harus 7, 10, 7, 10, 11; pasal dan kata baku tidak boleh ganda; pengecoh yang bisa dianggap
   ikut benar dikecualikan (mis. Presiden tidak dijadikan pengecoh untuk pengajuan RUU pemekaran, karena Presiden juga berhak
   mengajukan RUU).
@@ -133,6 +150,7 @@ mungkin keluar, tetapi tidak dihitung sebagai bukti baru.
 ## 7. Saran pemakaian
 
 - Setiap hari: satu putaran **Campuran tanpa hitungan (30 soal)** dan satu bagian audio album 1.
+- Untuk TIU tanpa hitungan: **TIU tanpa hitungan acak (20 soal)** berisi analogi, silogisme, serta susunan duduk dan antrean.
 - Dua sampai tiga kali seminggu: **TWK acak (20 soal)** untuk variasi.
 - Seminggu sekali: tryout penuh 110 soal.
 - TIU: cukup amankan 16 benar dari 35. Kerjakan figural, silogisme, dan analitis lebih dulu; lewati hitungan panjang.

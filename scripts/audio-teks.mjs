@@ -36,6 +36,7 @@ const PK = { "x > y": "x lebih besar dari y", "x < y": "x lebih kecil dari y", "
 export function bersih(t) {
   let s = String(t);
   if (PK[s.trim()]) s = PK[s.trim()];
+  s = s.replace(/_([^_\n]+)_/g, "$1, kata yang dicetak miring,");
   s = s.replace(/Rp\s?(\d{1,3}(?:\.\d{3})+|\d+)/g, "$1 rupiah");
   s = s.replace(/\r?\n+/g, ". ").replace(/[“”"]/g, "").replace(/\s*\.\.\.\s*$/g, ".").replace(/\.\.\./g, ",").replace(/\.\s*\./g, ".");
   s = s.replace(/(\d)\.(?=\d{3}\b)/g, "$1").replace(/(\d)\.(?=\d{3}\b)/g, "$1");
