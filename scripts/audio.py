@@ -1,4 +1,4 @@
-"""Ubah naskah audio (keluaran scripts/audio-teks.mjs) menjadi MP3 per materi dengan Piper TTS.
+"""Ubah naskah audio (keluaran scripts/audio-teks.mjs) menjadi MP3 per bagian (paling banyak 10 soal) dengan Piper TTS.
 
 Pakai:  python scripts/audio.py naskah.json model.onnx folder-keluaran [awalan-berkas ...]
 Butuh:  pip install piper-tts==1.8.0, ffmpeg. Suara: id_ID-news_tts-medium (rhasspy/piper-voices).
@@ -42,10 +42,12 @@ def main():
         subprocess.run([
             "ffmpeg", "-y", "-loglevel", "error", "-i", wav_path, "-ac", "1", "-codec:a", "libmp3lame", "-b:a", "48k",
             "-metadata", "title=" + item["judul"], "-metadata", "album=" + item["album"],
-            "-metadata", "artist=Latihan SKD CPNS", "-metadata", "track=%d/%d" % (no, len(data)), out,
+            "-metadata", "artist=Latihan SKD CPNS", "-metadata", "album_artist=Latihan SKD CPNS",
+            "-metadata", "track=%d/%d" % (item.get("track", no), item.get("total", len(data))), out,
         ], check=True)
         os.unlink(wav_path)
-        print("%s  %d soal  %.1f menit" % (item["file"], item["jumlah"], len(audio) / sr / 60), flush=True)
+        satuan = "fakta" if item["file"].startswith("3-") else "soal"
+        print("%-62s %3d %s  %4.1f menit" % (item["file"], item["jumlah"], satuan, len(audio) / sr / 60), flush=True)
 
 
 if __name__ == "__main__":

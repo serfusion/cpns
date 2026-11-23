@@ -18,7 +18,7 @@
        Rincian per materi tidak dipublikasikan resmi; angka ini disusun dari laporan peserta. */
     materi: [
       {
-        id: "nas", sec: "twk", name: "Nasionalisme", quota: 6,
+        id: "nas", sec: "twk", name: "Nasionalisme", quota: 6, gen: 0.3,
         def: "Mewujudkan kepentingan nasional melalui cita-cita dan tujuan yang sama dengan tetap mempertahankan identitas nasional.",
         pola: [
           "Studi kasus penerapan nasionalisme sehari-hari: produk lokal, media sosial dan konten kreator, suporter, globalisasi budaya",
@@ -50,7 +50,7 @@
         ]
       },
       {
-        id: "pilar", sec: "twk", name: "Pilar Negara", quota: 7,
+        id: "pilar", sec: "twk", name: "Pilar Negara", quota: 7, gen: 0.35,
         def: "Membentuk karakter positif melalui pemahaman dan pengamalan nilai-nilai dalam Pancasila, UUD 1945, NKRI, dan Bhinneka Tunggal Ika.",
         pola: [
           "Kasus penerapan sila Pancasila (sila ke berapa) dan butir pengamalannya",
@@ -61,7 +61,7 @@
         , "BPUPKI (ketua, sidang I dan II), Panitia Sembilan, hasil sidang PPKI 18 Agustus 1945", "Wewenang MPR, BPK, DPD, KY; pemberhentian Presiden (Pasal 7B)"]
       },
       {
-        id: "bind", sec: "twk", name: "Bahasa Indonesia", quota: 5,
+        id: "bind", sec: "twk", name: "Bahasa Indonesia", quota: 5, gen: 0.2,
         def: "Mampu menggunakan bahasa Indonesia sebagai bahasa persatuan yang sangat penting kedudukannya pada masyarakat Indonesia.",
         pola: [
           "Ide pokok, simpulan, dan judul bacaan",
@@ -69,7 +69,7 @@
           "Kalimat efektif, kata baku, ejaan (huruf kapital, kata depan, tanda baca)",
           "Majas, jenis paragraf, fakta dan opini",
           "Kedudukan dan fungsi bahasa Indonesia"
-        , "Huruf miring dan tanda koma"]
+        , "Huruf miring dan tanda koma", "Inti kalimat (subjek, predikat, objek)"]
       },
 
       {
@@ -78,7 +78,7 @@
         pola: ["Analogi dua kata dan tiga kata", "Hubungan fungsi, sebab-akibat, bagian-keseluruhan, alat-profesi, tingkatan, tempat"]
       },
       {
-        id: "sil", sec: "tiu", name: "Silogisme", group: "Verbal", quota: 4,
+        id: "sil", sec: "tiu", name: "Silogisme", group: "Verbal", quota: 4, gen: 0.35,
         def: "Menarik kesimpulan dari dua pernyataan yang diberikan.",
         pola: ["Silogisme dua premis: semua, sebagian, tidak ada", "Modus ponens dan modus tollens (jika-maka)", "Memilih kesimpulan yang pasti benar, bukan yang mungkin benar", "Silogisme tiga premis: rantai semua–semua–sebagian dan rantai jika–maka"]
       },
@@ -165,19 +165,22 @@
       }
     ],
     riset: {
-      tanggal: "22 November 2026",
+      tanggal: "23 November 2026",
       status: [
-        "Formasi dan jadwal pendaftaran CPNS 2026 belum terbit per 20 November 2026; BKN menargetkan pendaftaran pada pekan keempat November. Jadwal SKD belum diumumkan.",
+        "Formasi CPNS 2026 belum terbit per 23 November 2026. Rencana pemerintah: pendaftaran mulai 27 November 2026, SKD dan SKB Januari–Maret 2027 (belum resmi).",
         "SKD sekolah kedinasan 2026 sudah berlangsung 22 September–7 Oktober 2026 dengan CAT BKN: 110 soal, 100 menit, ambang batas TWK 65, TIU 80, TKP 156 (KepmenPANRB 406/2026).",
         "Ambang batas SKD CPNS 2026 belum ditetapkan. Acuan terakhir untuk CPNS adalah KepmenPANRB 321/2024: TWK 65, TIU 80, TKP 166.",
-        "Soal CAT BKN rahasia dan diacak per peserta. Tidak ada cara sah mendapatkan soal yang akan keluar; tawaran \"bocoran\" adalah penipuan dan dapat menggugurkan peserta."
+        "Soal CAT BKN rahasia dan diacak per peserta. Tidak ada cara sah mendapatkan soal yang akan keluar; tawaran \"bocoran\" adalah penipuan dan dapat menggugurkan peserta. Semua soal di aplikasi ini disusun sendiri mengikuti kisi-kisi dan pola laporan peserta."
       ],
-      rumus: "Prioritas pola = tercantum di kisi-kisi resmi × jumlah rangkuman laporan peserta yang menyebutnya (0–3). Soal bertanda Sering keluar mengikuti pola dengan dua laporan atau lebih.",
+      rumus: "Tingkat pola. Sangat sering keluar: tercantum di kisi-kisi resmi dan dilaporkan di 3 laporan peserta atau lebih. Sering keluar: 1–2 laporan. Laporan dihitung per rangkuman hari ujian dan per sumber, karena soal CAT diacak per peserta: pola yang muncul di banyak hari dan banyak peserta berarti sering keluar.",
       temuan: [
-        "TWK HOTS: peserta SKD 2024 melaporkan soal TWK berbentuk kasus panjang dengan pilihan yang mirip, sehingga hafalan definisi saja tidak cukup. Set \"HOTS 2026\" (31 soal) menambahkan kasus serupa dengan konteks terkini: KUHP baru (berlaku 2 Januari 2026), putusan MK 2 Januari 2025, keamanan siber, deepfake, gratifikasi, pelindungan data pribadi, dan EYD Edisi V.",
-      "TWK, dilaporkan di 3 rangkuman peserta SKD CPNS 2024: penerapan sila (kasus diskriminasi, golput), nilai integritas termasuk tokoh BPUPKI dan peristiwa sejarah, BPUPKI/PPKI, lembaga negara (MA, MK, MPR, KY), gagasan utama paragraf. Di 2 rangkuman: penerapan pasal UUD, sejarah organisasi pergerakan, nasionalisme konten kreator, huruf miring.",
-        "TIU, di 3 rangkuman: silogisme (termasuk tiga premis), figural pola 9 kotak, analisis tabel. Di 2 rangkuman: deret angka, perbandingan senilai dan berbalik nilai, berhitung cepat, kecepatan, hubungan x dan y, jaring-jaring kubus, antrean dan susunan duduk.",
-        "TKP, di 3 rangkuman: prioritas antara kesibukan pribadi atau masyarakat dan tugas kantor. Di 2 rangkuman: sikap terhadap spionase dan penerapan BerAKHLAK. Di 1 rangkuman: perbedaan pilihan politik, konten kreator, pelatihan, perubahan penugasan, inovasi TIK.",
+        "Kisi-kisi resmi SKD 2021, 2023, 2024, dan kedinasan 2026 isinya sama: TWK (nasionalisme, integritas, bela negara, pilar negara, bahasa Indonesia), TIU (verbal, numerik, figural), TKP (enam aspek). Semua materi tetap keluar; yang berubah adalah bentuk soalnya.",
+        "Laporan peserta yang bisa diperiksa hanya ada untuk SKD CPNS 2024 (AyoJakarta 3 rangkuman, ASN Institute, Analitica) dan kedinasan 2026. Untuk 2021 dan 2023 yang beredar hanya kumpulan latihan, bukan laporan peserta, jadi tidak dihitung.",
+        "Sangat sering keluar, TWK: penerapan sila dalam kasus (4 laporan), BPUPKI/PPKI dan sikap tokohnya (5), lembaga negara MA, MK, MPR, KY (3), organisasi pergerakan seperti Budi Utomo dan Sarekat Dagang Islam (3), nasionalisme di media sosial dan konten kreator (3), netralitas ASN (3), gagasan utama dan simpulan bacaan (5), huruf miring (3).",
+        "Sangat sering keluar, TIU tanpa hitungan: silogisme termasuk tiga premis (3), figural 9 kotak (4), susunan duduk dan antrean (3). Dengan hitungan ringan: analisis tabel (4), pecahan, desimal, dan persen tanpa pangkat (3), hubungan x dan y (3).",
+        "Sangat sering keluar, TKP: menempatkan diri antara urusan pribadi atau masyarakat dan tugas kantor (4), sikap terhadap spionase dan kebocoran rahasia (3), netralitas dan isu SARA menjelang pemilu (3).",
+        "Analitica (FR 2024): semua soal TWK bersifat penalaran, tidak ada hafalan murni; soalnya tidak sepanjang tryout pada umumnya, tetapi pilihan jawabannya mirip-mirip. Karena itu soal acak TWK di aplikasi ini kebanyakan berbentuk kasus (sila, lembaga negara, pasal).",
+        "TWK HOTS: set \"HOTS 2026\" menambahkan kasus dengan konteks terkini: KUHP baru (berlaku 2 Januari 2026), putusan MK 2 Januari 2025, keamanan siber, deepfake, gratifikasi, pelindungan data pribadi, dan EYD Edisi V.",
         "SKD kedinasan 2026: peserta melaporkan TIU sebagai bagian paling menantang; belum ada rincian soal yang dapat diverifikasi."
       ],
       sumber: [
@@ -185,6 +188,9 @@
         { t: "Rangkuman FR SKD CPNS 2024, 28 Okt (AyoJakarta)", u: "https://www.ayojakarta.com/news/7613828932/lengkap-ini-rangkuman-fr-skd-cpns-2024-untuk-materi-twk-tiu-tkp-yang-dipastikan-keluar-saat-tes" },
         { t: "Rekap FR SKD CPNS 2024, 24 Okt (AyoJakarta)", u: "https://www.ayojakarta.com/news/0315783/catat-rekap-fr-skd-cpns-2024-lengkap-untuk-soal-tiu-twk-dan-tkp" },
         { t: "Laporan peserta SKD 2024 (ASN Institute)", u: "https://www.asninstitute.id/field-report-cpns-2024/" },
+        { t: "FR SKD CPNS 2024 (Analitica)", u: "https://blog.analitica.id/fr-skd-cpns-terbaru/" },
+        { t: "Kisi-kisi SKD CPNS 2021 dari BKN (detikFinance)", u: "https://finance.detik.com/cpns/d-5667396/ssst-ini-kisi-kisi-lengkap-skd-cpns-2021-dari-bkn" },
+        { t: "Isi soal TWK, TIU, dan TKP CPNS 2023 (detikFinance)", u: "https://finance.detik.com/cpns/d-6930994/ini-isi-soal-twk-tiu-dan-tkp-untuk-cpns-2023" },
         { t: "FR SKD Sekolah Kedinasan 2026: TIU jadi tantangan", u: "https://www.bimbelptk.com/blog/fr-skd-sekolah-kedinasan-2026--tiu-jadi-tantangan--cek-persiapan-sebelum-ujian" },
         { t: "Materi SKD Sekolah Kedinasan 2026 dan KepmenPANRB 406/2026", u: "https://www.bimbelptk.com/blog/resmi--bkn-ungkap-materi-skd-sekolah-kedinasan-2026--ini-rincian-twk--tiu--dan-tkp" },
         { t: "Passing grade SKD Sekolah Kedinasan 2026 (Kompas)", u: "https://money.kompas.com/read/2026/09/24/095752726/passing-grade-skd-sekolah-kedinasan-2026-cek-nilai-minimal-twk-tiu-dan-tkp" },

@@ -56,7 +56,7 @@
       var q = {
         id: hash(r.sec + "|" + (r.p || "") + "|" + r.q),
         sec: r.sec, m: r.m, q: r.q, o: r.o, a: r.a || 0, fix: !!r.fix,
-        x: r.x || "", p: r.p || null, tb: r.tb || null, hot: !!r.h, baru: !!r.b
+        x: r.x || "", p: r.p || null, tb: r.tb || null, hot: !!r.h, sangat: (r.h || 0) >= 2, baru: !!r.b
       };
       cache.push(q);
       byId[q.id] = q;
@@ -205,24 +205,38 @@
       return { t: q.o[oi], pts: pts };
     });
     return {
-      id: q.id, sec: q.sec, m: q.m, hot: q.hot, baru: q.baru, text: q.q, passage: q.p ? SKD.passages[q.p] || null : null,
+      id: q.id, sec: q.sec, m: q.m, hot: q.hot, sangat: q.sangat, baru: q.baru, text: q.q, passage: q.p ? SKD.passages[q.p] || null : null,
       table: q.tb, stem: null, opts: opts, best: best, expl: q.x
     };
   }
-  function generate(materi, R) {
+  /** Soal yang dibangkitkan otomatis. opt.sangat: hanya jenis yang sangat sering keluar. */
+  function generate(materi, R, opt) {
     R = R || RNG;
-    var order = R.shuffle([0, 1, 2, 3, 4]), best = 0, g, opts;
+    opt = opt || {};
+    var order = R.shuffle([0, 1, 2, 3, 4]), best = 0, g, opts, mt = materiById[materi];
     if (materi.indexOf("fig-") === 0) {
-      g = SKD.fig.generate(materi, R);
+      g = SKD.fig.generate(materi, R, !!opt.sangat);
       opts = order.map(function (oi, i) {
         if (oi === 0) best = i;
         var o = g.opts[oi];
         return typeof o === "string" ? { t: o, pts: oi === 0 ? 5 : 0 } : { fig: o, pts: oi === 0 ? 5 : 0 };
       });
       return {
-        id: null, gen: materi, sec: "tiu", m: materi, hot: true, text: g.text, passage: null, table: null,
+        id: null, gen: materi, sec: "tiu", m: materi, hot: true, sangat: g.layout === "matriks", text: g.text, passage: null, table: null,
         stem: g.figs.length ? { layout: g.layout, figs: g.figs } : null, opts: opts, best: best, expl: g.expl
       };
+    }
+    if (SKD.acak && SKD.acak.punya(materi)) {
+      g = SKD.acak.generate(materi, R, opt);
+      if (g) {
+        if (g.fix) order = [0, 1, 2, 3, 4];
+        var kunci = g.fix ? g.a : 0;
+        opts = order.map(function (oi, i) { if (oi === kunci) best = i; return { t: g.opts[oi], pts: oi === kunci ? 5 : 0 }; });
+        return {
+          id: null, gen: materi, acak: true, fix: !!g.fix, sec: mt ? mt.sec : "twk", m: materi, hot: true, sangat: !!g.sangat,
+          text: g.text, passage: null, table: null, stem: null, opts: opts, best: best, expl: g.expl
+        };
+      }
     }
     g = genDeret(R);
     opts = order.map(function (oi, i) { if (oi === 0) best = i; return { t: g.opts[oi], pts: oi === 0 ? 5 : 0 }; });
@@ -237,7 +251,14 @@
     if (needsReview(q.sec, st)) return 1;
     return st[2] < 2 ? 2 : 3;
   }
-  function lolos(q, opt) { return (!opt.hot || q.hot) && (!opt.baru || q.baru); }
+  function lolos(q, opt) { return (!opt.hot || q.hot) && (!opt.sangat || q.sangat) && (!opt.baru || q.baru); }
+  /** Apakah materi ini bisa diisi soal bangkitan untuk filter opt. */
+  function canGen(m, opt) {
+    if (!m.gen || opt.baru) return false;
+    if (!opt.sangat) return true;
+    if (m.id === "fig-seri") return true; // pola 9 kotak
+    return !!(SKD.acak && SKD.acak.bisa(m.id, opt));
+  }
   function pickBank(materi, n, R, stats, opt) {
     var pool = poolOf(materi).filter(function (q) { return lolos(q, opt) && !(opt.exclude && opt.exclude[q.id]); });
     var sh = R.shuffle(pool).map(function (q) { return { q: q, t: tierOf(q, stats) }; });
@@ -245,7 +266,8 @@
     return sh.slice(0, n).map(function (x) { return x.q; });
   }
   function capacity(m, opt) {
-    if (m.gen) return Infinity;
+    if (canGen(m, opt)) return Infinity;
+    if (opt.acak) return 0;
     return poolOf(m.id).filter(function (q) { return lolos(q, opt); }).length;
   }
   /** Bagi n soal ke beberapa materi sebanding kuotanya (metode D'Hondt), dibatasi stok soal. */
@@ -266,18 +288,18 @@
   }
   function itemsFor(m, n, R, stats, opt) {
     var out = [], nGen = 0, i;
-    if (m.gen) {
-      nGen = m.gen >= 1 ? n : Math.round(n * m.gen);
+    if (canGen(m, opt)) {
+      nGen = m.gen >= 1 || opt.acak ? n : Math.round(n * m.gen);
       var avail = poolOf(m.id).filter(function (q) { return lolos(q, opt); }).length;
       if (n - nGen > avail) nGen = n - avail;
     }
     pickBank(m.id, n - nGen, R, stats, opt).forEach(function (q) { out.push(present(q, R)); });
-    for (i = 0; i < nGen; i++) out.push(generate(m.id, R));
+    for (i = 0; i < nGen; i++) out.push(generate(m.id, R, opt));
     return out;
   }
   function wrap(pq) { return { pq: pq, chosen: null, pts: null, done: false, retry: false }; }
 
-  /** opts: { materi: [id], n, hot } */
+  /** opts: { materi: [id], n, hot, sangat, baru, acak } */
   function buildPractice(opts, stats, R) {
     R = R || RNG;
     var mats = opts.materi.map(function (id) { return materiById[id]; }).filter(Boolean);
@@ -327,6 +349,7 @@
     R = R || RNG;
     if (pq.id && byId[pq.id]) return present(byId[pq.id], R);
     var copy = JSON.parse(JSON.stringify(pq)), bestOpt = copy.opts[copy.best];
+    if (copy.fix) return copy;
     copy.opts = R.shuffle(copy.opts);
     copy.best = copy.opts.indexOf(bestOpt);
     return copy;
@@ -362,7 +385,7 @@
     section: function (id) { return sectionById[id]; },
     present: present, generate: generate, genDeret: genDeret, again: again,
     buildPractice: buildPractice, buildSimulation: buildSimulation, buildPackage: buildPackage, buildFromIds: buildFromIds,
-    simCount: simCount, allocate: allocate, needsReview: needsReview, score: score,
+    simCount: simCount, allocate: allocate, needsReview: needsReview, score: score, canGen: canGen, lolos: lolos,
     reset: function () { cache = null; }
   };
 })();

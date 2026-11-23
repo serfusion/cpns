@@ -9,7 +9,7 @@ const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const ctx = { window: {}, console };
 ctx.window.window = ctx.window;
 vm.createContext(ctx);
-for (const f of ["js/config.js", "data/twk.js", "data/tiu.js", "data/tkp.js", "js/figural.js", "js/engine.js"]) {
+for (const f of ["js/config.js", "data/twk.js", "data/tiu.js", "data/tkp.js", "data/fakta.js", "js/figural.js", "js/acak.js", "js/engine.js"]) {
   vm.runInContext(readFileSync(join(root, f), "utf8"), ctx, { filename: f });
 }
 const SKD = ctx.window.SKD;
@@ -79,6 +79,69 @@ for (const k of Object.keys(SKD.passages)) if (!usedPassages.has(k)) errors.push
   console.log("Jaring-jaring kubus: 11 bentuk x 8 posisi terlipat benar, 400 soal acak terperiksa.");
 }
 
+// ---------- uji tabel fakta dan pembangkit soal acak (js/acak.js) ----------
+{
+  const F = SKD.fakta, A = SKD.acak;
+  const butirN = F.butir.map((b) => b.length);
+  if (butirN.join(",") !== "7,10,7,10,11") errors.push(`butir Pancasila harus 7,10,7,10,11 (45), ada ${butirN.join(",")}`);
+  F.silaKasus.forEach((c, i) => {
+    if (!(c.s >= 1 && c.s <= 5) || !F.butir[c.s - 1] || !F.butir[c.s - 1][c.b]) errors.push(`silaKasus #${i + 1}: nomor sila/butir salah`);
+  });
+  for (const w of F.wewenang) {
+    if (!F.lembaga[w.l]) errors.push(`wewenang: lembaga ${w.l} tidak dikenal`);
+    (w.x || []).forEach((x) => { if (!F.lembaga[x]) errors.push(`wewenang ${w.w}: pengecualian ${x} tidak dikenal`); });
+    if (!/\.\.\.$/.test(w.k)) errors.push(`wewenang ${w.w}: soal kasus harus diakhiri "..."`);
+  }
+  const ps = new Set();
+  for (const e of F.pasal) {
+    if (ps.has(e.p)) errors.push(`pasal ganda: ${e.p}`);
+    ps.add(e.p);
+    if (!e.g || !e.t || !e.isi) errors.push(`pasal ${e.p}: data tidak lengkap`);
+  }
+  for (const e of F.pasal) (e.x || []).forEach((x) => { if (!ps.has(x)) errors.push(`pasal ${e.p}: pengecualian ${x} tidak ada`); });
+  const kata = new Map();
+  for (const [b, t] of F.baku) {
+    for (const w of [b, t]) { const k = w.toLowerCase(); if (kata.has(k)) errors.push(`kata baku ganda: ${w}`); kata.set(k, 1); }
+  }
+  const R = SKD.engine.rng(20261123), N = 1500;
+  let nSil = 0;
+  const cekSil = (g, tag) => {
+    const c = g._cek;
+    if (!c) return;
+    nSil++;
+    const md = c.jenis === "kat" ? A._kat.model(c.premis, c.istilah) : A._prop.model(c.premis);
+    if (!md.konsisten) errors.push(`${tag}: premis tidak konsisten`);
+    if (c.benar && !md.entail(c.benar)) errors.push(`${tag}: kunci tidak terbukti — ${g.text}`);
+    for (const s of c.opsi) if (md.entail(s)) errors.push(`${tag}: pengecoh ikut benar — ${g.text} | ${JSON.stringify(s)}`);
+  };
+  for (const [name, fn] of Object.entries(A._fn)) {
+    for (let i = 0; i < N; i++) {
+      const g = fn(R);
+      if (!g) continue;
+      const tag = `acak/${name}`;
+      if (!Array.isArray(g.opts) || g.opts.length !== 5) { errors.push(`${tag}: opsi harus 5 — ${g.text}`); break; }
+      if (new Set(g.opts.map((o) => String(o).toLowerCase())).size !== 5) { errors.push(`${tag}: opsi kembar — ${g.text} | ${g.opts.join(" / ")}`); break; }
+      if (g.opts.some((o) => !o || !String(o).trim())) { errors.push(`${tag}: opsi kosong`); break; }
+      if (g.fix && !(g.a >= 0 && g.a < 5)) { errors.push(`${tag}: kunci di luar rentang`); break; }
+      if (!g.text || !g.expl || /undefined|\{[a-zA-Z_]+\}/.test(g.text + g.expl + g.opts.join(" "))) { errors.push(`${tag}: teks tidak lengkap — ${g.text} | ${g.expl}`); break; }
+      cekSil(g, tag);
+    }
+  }
+  // lewat mesin: setiap materi bangkitan menghasilkan soal; filter "sangat sering" hanya memberi jenis sangat sering
+  for (const m of Object.keys(A._jenis)) {
+    for (const opt of [{}, { sangat: true }]) {
+      if (opt.sangat && !A.bisa(m, opt)) continue;
+      for (let i = 0; i < 300; i++) {
+        const pq = SKD.engine.generate(m, R, opt);
+        if (!pq || pq.m !== m || !pq.acak) { errors.push(`generate(${m}) gagal`); break; }
+        if (opt.sangat && !pq.sangat) { errors.push(`generate(${m}, sangat) memberi soal bukan sangat sering`); break; }
+        if (pq.opts.filter((o) => o.pts === 5).length !== 1 || pq.opts[pq.best].pts !== 5) { errors.push(`generate(${m}): kunci tidak tunggal`); break; }
+      }
+    }
+  }
+  console.log(`Soal acak: ${Object.keys(A._fn).length} pembangkit x ${N} soal terperiksa; ${nSil} silogisme dibuktikan (kunci terbukti, pengecoh tidak ada yang ikut benar).`);
+}
+
 let total = 0;
 for (const sec of SKD.config.sections) {
   const rows = SKD.config.materi.filter((m) => m.sec === sec.id);
@@ -88,8 +151,9 @@ for (const sec of SKD.config.sections) {
   for (const m of rows) {
     const n = count[m.id] || 0;
     const hot = SKD.bankRaw.filter((q) => q.m === m.id && q.h).length;
+    const sangat = SKD.bankRaw.filter((q) => q.m === m.id && q.h >= 2).length;
     const need = m.gen >= 1 ? 0 : m.quota;
-    console.log(`  ${m.id.padEnd(9)} ${String(n).padStart(3)}  (prioritas ${hot})${m.gen >= 1 ? "  otomatis" : n < need ? "  << kurang dari kuota satu paket" : ""}`);
+    console.log(`  ${m.id.padEnd(9)} ${String(n).padStart(3)}  (sering ${String(hot).padStart(2)}, sangat sering ${String(sangat).padStart(2)})${m.gen >= 1 ? "  otomatis" : m.gen ? "  + soal acak" : ""}${!m.gen && n < need ? "  << kurang dari kuota satu paket" : ""}`);
   }
 }
 console.log(`Total: ${total} soal`);

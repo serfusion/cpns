@@ -23,7 +23,7 @@ Daftar kerja dan status tiap checkpoint. Setiap butir yang dicentang sudah di-pu
 - [x] `scripts/build.mjs` — gabung jadi satu file HTML (bisa dibuka offline di HP)
 - [x] README.md
 
-## 2. Bank soal (saat ini 230 soal tulis tangan; bisa terus ditambah + soal figural dan deret yang dibangkitkan otomatis)
+## 2. Bank soal (saat ini 380 soal tulis tangan + soal figural, deret, TWK, dan silogisme yang dibangkitkan otomatis)
 
 TWK — `data/twk.js`
 - [x] Nasionalisme (20 soal)
@@ -115,3 +115,16 @@ disimpan di localStorage dengan kunci `skd.formasi.v1` (tidak ikut sinkron).
 - [x] Kartu Fokus TWK + TKP di menu Latihan; TIU tanpa hitungan berat
 - [x] Bagian Kandidat formasi 2026 + `docs/kriteria-pemindaian-otomatis.md`; pemantau terjadwal tiga kali sehari
 - [ ] Pemantau terjadwal: isi `kandidat2026` begitu formasi terbit, lalu matikan jadwal setelah pendaftaran ditutup
+
+## 7. Sangat sering keluar, soal acak, audio per bagian — 23 November 2026
+
+- [x] Riset lintas tahun: kisi-kisi 2021/2023/2024/kedinasan 2026 sama; laporan peserta yang bisa diperiksa hanya SKD 2024
+  (AyoJakarta 3 rangkuman, ASN Institute, Analitica) dan kedinasan 2026. Tabel frekuensi di `docs/pola-soal-lintas-tahun.md` (+ PDF).
+- [x] `h: 2` = sangat sering keluar (3+ laporan), `h: 1` = sering keluar. 118 soal bertanda `h: 2`; 16 soal baru (8 TKP, 4 TWK, 4 inti kalimat).
+- [x] `data/fakta.js` + `js/acak.js`: pembangkit TWK (kasus sila, butir Pancasila, wewenang lembaga, pasal UUD, sejarah, hari nasional,
+  kata baku) dan silogisme (kategoris dan jika-maka) yang dibuktikan dengan memeriksa semua model. `gen` di `js/config.js`:
+  nas 0.3, pilar 0.35, bind 0.2, sil 0.35. Filter mesin: `sangat`, `acak`.
+- [x] Menu Latihan: kartu "Sangat sering keluar" dan "Soal acak", centang "Sangat sering keluar saja"; label "Sangat sering keluar" dan "Soal acak" di soal.
+- [x] Audio: maksimal 10 soal per berkas, hanya materi tanpa hitungan, tiga album (sangat sering, per materi, fakta TWK).
+- [ ] Bila kisi-kisi CPNS 2026 terbit: cocokkan materi, perbarui `config.riset` dan tabel frekuensi bila ada laporan peserta baru.
+

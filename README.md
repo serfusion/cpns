@@ -22,6 +22,12 @@ navy + kuning amber; layar ujian dari buku panduan CAT resmi BKN), **Build** (ko
 - **TKP HOTS 2026**: 42 soal kasus panjang untuk keenam aspek TKP; centang "TKP HOTS 2026 saja" di menu Latihan.
 - **Fokus TWK + TKP**: kartu strategi skor (ambang batas dan target per subtes) dengan latihan TWK + TKP HOTS,
   TWK + TKP campuran, dan TIU tanpa hitungan berat (analogi, silogisme, analitis, deret, figural).
+- **Sangat sering keluar**: 118 soal bertanda khusus (pola yang dilaporkan di 3 laporan peserta SKD 2024 atau lebih) dengan
+  tombol latihan ulang: campuran tanpa hitungan, TWK, TKP, TIU tanpa hitungan. Metode dan tabel frekuensinya di
+  `docs/pola-soal-lintas-tahun.md`.
+- **Soal acak (selalu berbeda)**: TWK dibangkitkan dari tabel fakta `data/fakta.js` (45 butir Pancasila, 33 wewenang lembaga negara,
+  45 pasal UUD, sejarah BPUPKI/PPKI dan pergerakan, hari nasional, kata baku) dan silogisme yang kesimpulannya dibuktikan otomatis
+  (`js/acak.js`). Sebagian soal tryout dan latihan juga diambil dari sini.
 - **Kandidat formasi 2026**: diisi pemantau terjadwal begitu formasi resmi terbit (aturan di `docs/kriteria-pemindaian-otomatis.md`),
   lalu diurutkan aplikasi dengan matriks Pemda dan rumus dokumen riset.
 - **Hasil + analisis per topik** (TWK per materi, TIU Verbal/Numerik/Figural, TKP per aspek) dan **pembahasan** (disimpan untuk 3 tryout terakhir).
@@ -45,14 +51,19 @@ Membuat ulang PDF: `node scripts/dokumen-pdf.cjs docs/pemindaian-formasi-cpns-20
 
 ## Audio hafalan
 
-Semua soal tulis dibacakan: soal, lalu jawaban benar (TKP: jawaban terbaik dan yang harus dihindari), lalu pembahasan.
-Satu MP3 per materi, soal bertanda *Sering keluar* lebih dulu, total sekitar 2,5 jam. Dibuat otomatis oleh GitHub Actions
-(`.github/workflows/audio.yml`) setiap bank soal berubah, memakai Piper TTS dengan suara `id_ID-news_tts-medium`.
+Audio dipecah per bagian: setiap MP3 paling banyak 10 soal (sekitar 7 menit), jadi bila berhenti di tengah cukup lanjut dari
+bagian berikutnya. Hanya materi tanpa hitungan (TWK, TIU analogi dan silogisme, TKP). Setiap soal dibacakan, ada jeda untuk
+menjawab dalam hati, lalu jawaban benar (TKP: jawaban terbaik dan yang harus dihindari) dan pembahasan.
 
-Unduh di halaman **Releases**, rilis *Audio Hafalan SKD* terbaru: `audio-hafalan-skd.zip` atau per materi.
+Tiga album di setiap rilis *Audio Hafalan SKD*:
 
-Membuat sendiri: `node scripts/audio-teks.mjs > naskah.json` lalu `python scripts/audio.py naskah.json model.onnx audio`
-(butuh `pip install piper-tts==1.8.0` dan ffmpeg).
+- `audio-1-sangat-sering.zip`: soal sangat sering keluar, untuk diulang-ulang.
+- `audio-2-per-materi.zip`: semua soal per materi, dimulai dari yang paling sering keluar.
+- `audio-3-fakta-twk.zip`: pasal UUD, wewenang lembaga negara, 45 butir Pancasila, sejarah, hari nasional.
+
+Dibuat otomatis oleh GitHub Actions (`.github/workflows/audio.yml`) setiap bank soal berubah, memakai Piper TTS dengan suara
+`id_ID-news_tts-medium`. Membuat sendiri: `node scripts/audio-teks.mjs > naskah.json` lalu
+`python scripts/audio.py naskah.json model.onnx audio` (butuh `pip install piper-tts==1.8.0` dan ffmpeg).
 
 ## Unduh APK (Android)
 

@@ -66,7 +66,7 @@
 
   var ui = {
     route: "beranda", session: null, result: null, saved: null, prep: null,
-    setup: { sec: "twk", off: {}, n: 10, hot: false, baru: false },
+    setup: { sec: "twk", off: {}, n: 10, hot: false, sangat: false, baru: false },
     rvFilter: "salah", railOpen: null, tick: null, lastTick: 0, ticks: 0,
     pending: null, navPage: 0, navOn: true
   };
@@ -116,7 +116,7 @@
   }
   function startPractice(o) {
     guardNew(function () {
-      var items = E.buildPractice({ materi: o.materi, n: o.n, hot: o.hot, baru: o.baru }, S.qstats());
+      var items = E.buildPractice({ materi: o.materi, n: o.n, hot: o.hot, sangat: o.sangat, baru: o.baru, acak: o.acak }, S.qstats());
       if (!items.length) { toast("Belum ada soal untuk pilihan ini."); return; }
       begin({ kind: "latihan", scale: null, title: o.title, instant: true, requeue: S.settings().requeue, items: items, cur: 0, limit: 0, elapsed: 0 });
     });
@@ -391,7 +391,9 @@
   function qHeadTags(it) {
     var pq = it.pq, sec = E.section(pq.sec);
     return [h("span", { class: "tag accent" }, sec.short), h("span", { class: "tag" }, materiName(pq.m)),
-      pq.hot ? h("span", { class: "tag warn", title: "Pola soal yang sering dilaporkan keluar" }, "Sering keluar") : null,
+      pq.sangat ? h("span", { class: "tag hot", title: "Pola yang dilaporkan di 3 laporan peserta atau lebih" }, "Sangat sering keluar")
+        : pq.hot ? h("span", { class: "tag warn", title: "Pola soal yang sering dilaporkan keluar" }, "Sering keluar") : null,
+      pq.acak ? h("span", { class: "tag", title: "Dibangkitkan dari tabel fakta yang sudah diperiksa; berbeda setiap kali" }, "Soal acak") : null,
       pq.baru ? h("span", { class: "tag ok", title: "Set soal kasus bergaya HOTS dengan konteks 2024–2026" }, "HOTS 2026") : null,
       it.retry ? h("span", { class: "tag bad" }, "Ulangan") : null];
   }
@@ -476,7 +478,7 @@
           quickCard("ujian", "Tryout SKD", "110 soal · 100 menit · layar CAT", function () { go("tryout"); }),
           quickCard("latih", "Latihan per materi", "Koreksi langsung + pembahasan", function () { go("latihan"); }),
           quickCard("ulang", "Ulangi soal salah", review ? review + " soal menunggu" : "Belum ada", function () { go("ulang"); }),
-          quickCard("audio", "Audio hafalan", "Dengar soal + jawaban", null, "https://github.com/serfusion/cpns/releases?q=Audio+Hafalan"),
+          quickCard("audio", "Audio hafalan", "Per bagian, tanpa hitungan", null, "https://github.com/serfusion/cpns/releases?q=Audio+Hafalan"),
           quickCard("formasi", "Strategi formasi", "S-1 Ilmu Komunikasi", function () { go("formasi"); }),
           quickCard("peta", "Peta materi", "Pola yang sering keluar", function () { go("peta"); }))),
       h("p", { class: "fine" }, "Ambang batas mengikuti KepmenPANRB 321/2024 (TWK " + passOf("twk") + ", TIU " + passOf("tiu") + ", TKP " + passOf("tkp") + "). Ambang CPNS 2026 belum terbit per " + CFG.riset.tanggal + "; ubah di Pengaturan bila berbeda.")
@@ -791,14 +793,50 @@
           startPractice({ materi: lunak.map(function (m) { return m.id; }), n: 20, hot: false, title: "TIU tanpa hitungan berat" }); } }, "TIU tanpa hitungan berat (20 soal)")),
       h("p", { class: "small muted" }, "Saat ujian: kerjakan soal TIU yang tidak butuh hitungan lebih dulu, tekan \"Lewatkan soal ini\" untuk soal hitungan panjang, lalu kembali bila waktu tersisa."));
   }
+  // ---------- sangat sering keluar (boleh diulang) dan soal acak (selalu baru) ----------
+  var TIU_SANGAT = ["sil", "anl", "fig-seri"];
+  function idsOf(sec) { return CFG.materi.filter(function (m) { return m.sec === sec; }).map(function (m) { return m.id; }); }
+  function pracBtn(id, label, o, primary) {
+    return h("button", { class: "btn" + (primary ? " primary" : ""), type: "button", id: id, onclick: function () { startPractice(o); } }, label);
+  }
+  function seringCard() {
+    function n(list) { return list.reduce(function (a, id) { return a + E.poolOf(id).filter(function (q) { return q.sangat; }).length; }, 0); }
+    var twk = idsOf("twk"), tkp = idsOf("tkp");
+    return h("section", { class: "card stack" },
+      h("h2", null, "Sangat sering keluar: boleh diulang-ulang"),
+      h("p", { class: "small" }, "Pola yang tercantum di kisi-kisi resmi dan dilaporkan peserta di tiga laporan atau lebih (SKD CPNS 2024). Isinya: penerapan sila, BPUPKI/PPKI dan sikap tokohnya, lembaga negara, organisasi pergerakan, netralitas ASN, nasionalisme di media sosial, gagasan utama, huruf miring, silogisme, susunan duduk, pola 9 kotak, prioritas tugas kantor, dan spionase."),
+      h("div", { class: "info3" },
+        h("div", null, h("span", null, "TWK"), h("b", null, n(twk) + "+"), h("span", null, "soal + acak")),
+        h("div", null, h("span", null, "TIU tanpa hitungan"), h("b", null, n(TIU_SANGAT) + "+"), h("span", null, "soal + acak")),
+        h("div", null, h("span", null, "TKP"), h("b", null, String(n(tkp))), h("span", null, "soal"))),
+      h("div", { class: "row wrap" },
+        pracBtn("btn-sangat-mix", "Campuran tanpa hitungan (30 soal)", { materi: twk.concat(TIU_SANGAT).concat(tkp), n: 30, sangat: true, title: "Sangat sering keluar: campuran tanpa hitungan" }, true),
+        pracBtn("btn-sangat-twk", "TWK (20 soal)", { materi: twk, n: 20, sangat: true, title: "Sangat sering keluar: TWK" }),
+        pracBtn("btn-sangat-tkp", "TKP (" + Math.min(20, n(tkp)) + " soal)", { materi: tkp, n: 20, sangat: true, title: "Sangat sering keluar: TKP" }),
+        pracBtn("btn-sangat-tiu", "TIU tanpa hitungan (15 soal)", { materi: TIU_SANGAT, n: 15, sangat: true, title: "Sangat sering keluar: TIU tanpa hitungan" })),
+      h("p", { class: "small muted" }, "Soal yang sudah Anda kuasai muncul paling akhir, jadi setiap putaran mendahulukan yang belum dikuasai."));
+  }
+  function acakCard() {
+    var F = SKD.fakta;
+    return h("section", { class: "card stack" },
+      h("h2", null, "Soal acak: selalu berbeda"),
+      h("p", { class: "small" }, "Dibangkitkan setiap kali dari tabel fakta yang sudah diperiksa: 45 butir Pancasila, " + F.wewenang.length + " wewenang lembaga negara, " +
+        F.pasal.length + " pasal UUD, sejarah BPUPKI, PPKI, proklamasi, dan pergerakan nasional, " + F.hari.length + " hari nasional, " + F.baku.length +
+        " pasang kata baku, serta silogisme yang kesimpulannya dibuktikan otomatis. Kebanyakan berbentuk kasus, seperti laporan peserta 2024."),
+      h("div", { class: "row wrap" },
+        pracBtn("btn-acak-twk", "TWK acak (20 soal)", { materi: ["pilar", "nas", "bind"], n: 20, acak: true, title: "TWK acak" }, true),
+        pracBtn("btn-acak-pilar", "Pancasila, UUD, lembaga (15 soal)", { materi: ["pilar"], n: 15, acak: true, title: "Pilar negara acak" }),
+        pracBtn("btn-acak-sil", "Silogisme acak (10 soal)", { materi: ["sil"], n: 10, acak: true, title: "Silogisme acak" })));
+  }
   function viewLatihan() {
     var st = ui.setup, mixed = st.sec === "mix";
     var mats = CFG.materi.filter(function (m) { return mixed || m.sec === st.sec; });
     var chosen = mats.filter(function (m) { return mixed || !st.off[m.id]; });
-    var stock = 0, unlimited = false;
+    var stock = 0, unlimited = false, baruOn = !!st.baru && (st.sec === "twk" || st.sec === "tkp");
+    var filt = { hot: st.hot, sangat: st.sangat, baru: baruOn };
     chosen.forEach(function (m) {
-      if (m.gen) unlimited = true;
-      stock += E.poolOf(m.id).filter(function (q) { return (!st.hot || q.hot) && (!(st.baru && (st.sec === "twk" || st.sec === "tkp")) || q.baru); }).length;
+      if (E.canGen(m, filt)) unlimited = true;
+      stock += E.poolOf(m.id).filter(function (q) { return E.lolos(q, filt); }).length;
     });
     function seg(val, label) {
       return h("button", { type: "button", "aria-pressed": st.sec === val ? "true" : "false", onclick: function () { st.sec = val; render(); } }, label);
@@ -809,6 +847,8 @@
       h("div", { class: "page-head" }, h("h1", null, "Latihan per materi"), h("p", { class: "lede" }, "Setiap jawaban langsung dikoreksi: yang salah merah, jawaban benar hijau, lalu pembahasan muncul.")),
       resumeCard(),
       fokusCard(),
+      seringCard(),
+      acakCard(),
       h("section", { class: "card stack" },
         h("div", { class: "field" }, h("span", { class: "label" }, "Subtes"),
           h("div", { class: "seg", role: "group", "aria-label": "Subtes" }, seg("twk", "TWK"), seg("tiu", "TIU"), seg("tkp", "TKP"), seg("mix", "Campuran"))),
@@ -817,12 +857,14 @@
           : h("div", { class: "field" }, h("span", { class: "label" }, "Materi"),
             h("div", { class: "chips" }, mats.map(function (m) {
               return h("button", { class: "chip", type: "button", "aria-pressed": st.off[m.id] ? "false" : "true", onclick: function () { st.off[m.id] = !st.off[m.id]; render(); } },
-                m.name, h("span", { class: "n" }, m.gen >= 1 ? "∞" : E.poolOf(m.id).length));
+                m.name, h("span", { class: "n" }, m.gen >= 1 ? "∞" : E.poolOf(m.id).length + (m.gen ? "+" : "")));
             }))),
         h("div", { class: "field" }, h("span", { class: "label" }, "Jumlah soal"),
           h("div", { class: "seg", role: "group", "aria-label": "Jumlah soal" }, nBtn(10), nBtn(20), nBtn(30), nBtn(50))),
         h("label", { class: "check" }, h("input", { type: "checkbox", id: "opt-hot", checked: st.hot, onchange: function (e) { st.hot = e.target.checked; render(); } }),
-          h("span", null, h("b", null, "Soal prioritas saja. "), "Hanya pola soal yang paling sering dilaporkan keluar oleh peserta.")),
+          h("span", null, h("b", null, "Soal prioritas saja. "), "Hanya pola soal yang sering dilaporkan keluar oleh peserta.")),
+        h("label", { class: "check" }, h("input", { type: "checkbox", id: "opt-sangat", checked: !!st.sangat, onchange: function (e) { st.sangat = e.target.checked; render(); } }),
+          h("span", null, h("b", null, "Sangat sering keluar saja. "), "Pola yang dilaporkan di tiga laporan peserta atau lebih. Cocok untuk diulang-ulang.")),
         st.sec === "twk" || st.sec === "tkp" ? h("label", { class: "check" }, h("input", { type: "checkbox", id: "opt-baru", checked: !!st.baru, onchange: function (e) { st.baru = e.target.checked; render(); } }),
           h("span", null, h("b", null, (st.sec === "twk" ? "TWK" : "TKP") + " HOTS 2026 saja. "), st.sec === "twk"
             ? "Soal kasus panjang dengan pilihan mirip dan konteks terkini (KUHP baru, putusan MK, keamanan siber, deepfake, EYD V)."
@@ -832,9 +874,9 @@
         h("div", { class: "row" },
           h("button", {
             class: "btn primary lg", type: "button", id: "btn-start", disabled: !chosen.length,
-            onclick: function () { var baru = (st.sec === "twk" || st.sec === "tkp") && !!st.baru; startPractice({ materi: chosen.map(function (m) { return m.id; }), n: st.n, hot: st.hot, baru: baru, title: "Latihan " + secName + (baru ? " HOTS 2026" : "") + (st.hot ? " prioritas" : "") }); }
+            onclick: function () { startPractice({ materi: chosen.map(function (m) { return m.id; }), n: st.n, hot: st.hot, sangat: st.sangat, baru: baruOn, title: "Latihan " + secName + (baruOn ? " HOTS 2026" : "") + (st.sangat ? " sangat sering keluar" : st.hot ? " prioritas" : "") }); }
           }, "Mulai latihan"),
-          h("span", { class: "small muted" }, chosen.length ? "Tersedia " + stock + " soal bank" + (unlimited ? " + soal yang dibangkitkan otomatis." : ".") : "Pilih minimal satu materi."))),
+          h("span", { class: "small muted" }, chosen.length ? "Tersedia " + stock + " soal bank" + (unlimited ? " + soal acak yang dibangkitkan otomatis." : ".") : "Pilih minimal satu materi."))),
       h("section", { class: "card" }, h("h2", null, "Langsung per materi"),
         CFG.sections.map(function (sec) {
           var ms = CFG.materi.filter(function (m) { return m.sec === sec.id; });
@@ -950,7 +992,7 @@
               h("p", { class: "small muted" }, m.def),
               h("ul", null, m.pola.map(function (p) { return h("li", null, p); })),
               h("div", { class: "row between" },
-                h("span", { class: "small muted" }, m.gen >= 1 ? "Soal dibangkitkan otomatis" : E.poolOf(m.id).length + " soal di bank" + (m.gen ? " + soal otomatis" : "")),
+                h("span", { class: "small muted" }, m.gen >= 1 ? "Soal dibangkitkan otomatis" : E.poolOf(m.id).length + " soal di bank (" + E.poolOf(m.id).filter(function (q) { return q.sangat; }).length + " sangat sering keluar)" + (m.gen ? " + soal acak" : "")),
                 h("button", { class: "btn sm", type: "button", onclick: function () { startPractice({ materi: [m.id], n: 10, hot: false, title: "Latihan " + m.name }); } }, "Latih")));
           })));
       }),
