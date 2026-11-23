@@ -56,6 +56,12 @@ Jabatan yang **gugur** karena biasanya tidak menerima Ilmu Komunikasi: Pranata K
 Administrator Database Kependudukan, Statistisi, Pustakawan. Tetap masukkan bila lampiran resmi ternyata mencantumkan
 S-1 Ilmu Komunikasi.
 
+### Instansi yang dicek lebih dulu (tambahan 23 Nov 2026)
+
+Kemendikdasmen, Kemenkes (RS dr. Sitanala, KKP Soekarno-Hatta), Mahkamah Agung (PN/PA Tangerang), Kemenkeu (Bea Cukai Soekarno-Hatta),
+lalu Kemenag, Kemenhut, Imigrasi dan Pemasyarakatan, Kemendiktisaintek, BSSN. Jabatan tambahan yang dicek bila lampiran mencantumkan
+S-1 Ilmu Komunikasi: Pengawas Penyelenggaraan Urusan Pemerintahan Daerah (P2UPD/Inspektorat) dan Pengawas Koperasi.
+
 ## 5. Rumus (dihitung otomatis oleh aplikasi)
 
 **Rumus A, dokumen riset (100):** rasio pelamar per kursi 35, jumlah kursi 20, kecocokan tugas 20, lokasi 10,

@@ -277,7 +277,11 @@
         saran: "Jalur Jabodetabek bila dibuka, dengan rasio yang biasanya tinggi." },
       { nama: "Kemenhut dan Kemendikdasmen", kelas: "", sinyal: "Formasi prioritas: Polisi Hutan, Manggala Agni, guru Sekolah Terintegrasi dan Sekolah Unggul Garuda.",
         jejak: "Formasi prioritas itu butuh ijazah kehutanan, SMA, atau kependidikan.",
-        saran: "Tidak cocok, kecuali ternyata membuka Pranata Humas atau tenaga kependidikan nonguru." }
+        saran: "Tidak cocok, kecuali ternyata membuka Pranata Humas atau tenaga kependidikan nonguru." },
+      { nama: "Rencana 9 instansi (unggahan media sosial, 23 Nov 2026; belum resmi)", kelas: "accent",
+        sinyal: "Kemenkes 8.607, Kemendikdasmen 1.460, MA 4.430, Kemenkeu 1.915, Kemenag 60.000 (CPNS+PPPK), Imigrasi dan Pemasyarakatan 10.629 (usulan); Kemendiktisaintek, BSSN, Kemenhut belum dirilis. Kategori nasional: guru, dosen, kesehatan, kehutanan, audit internal, pengawasan koperasi, lain-lain pengganti pensiun.",
+        jejak: "Cocok untuk Ilmu Komunikasi biasanya hanya jabatan pendukung: Pranata Humas, Arsiparis, Pengembang Teknologi Pembelajaran, Perencana.",
+        saran: "Urutan cek: Kemendikdasmen (PTP, Humas), Kemenkes non-nakes di RS dr. Sitanala dan KKP Soekarno-Hatta, MA (PN/PA Tangerang), Kemenkeu (Humas, Bea Cukai Soekarno-Hatta). Audit internal (P2UPD) dan Pengawas Koperasi hanya bila lampiran menerima Ilmu Komunikasi. Kemenag, Imipas, Kemendiktisaintek, BSSN: kemungkinan kecil (butuh ijazah keagamaan/hukum/TI/S-2 atau tes fisik)." }
     ],
 
     // Peringkat target untuk profil: S-1 Ilmu Komunikasi, minat IT, tidak nyaman dengan pekerjaan lisan,
