@@ -804,7 +804,7 @@
     var twk = idsOf("twk"), tkp = idsOf("tkp");
     return h("section", { class: "card stack" },
       h("h2", null, "Sangat sering keluar: boleh diulang-ulang"),
-      h("p", { class: "small" }, "Pola yang tercantum di kisi-kisi resmi dan dilaporkan peserta di tiga laporan atau lebih (SKD CPNS 2024). Isinya: penerapan sila, BPUPKI/PPKI dan sikap tokohnya, lembaga negara, organisasi pergerakan, netralitas ASN, nasionalisme di media sosial, gagasan utama, huruf miring, silogisme, susunan duduk, pola 9 kotak, prioritas tugas kantor, dan spionase."),
+      h("p", { class: "small" }, "Pola yang tercantum di kisi-kisi resmi dan dilaporkan peserta di tiga laporan atau lebih (SKD CPNS 2024). Isinya: penerapan sila, BPUPKI/PPKI dan sikap tokohnya, lembaga negara, organisasi pergerakan, netralitas ASN, nasionalisme di media sosial, gagasan utama, huruf miring, silogisme, susunan duduk, pola 9 kotak, menempatkan diri antara kesibukan dan pekerjaan, spionase, inovasi TIK dan rekan gaptek, serta penerapan BerAKHLAK."),
       h("div", { class: "info3" },
         h("div", null, h("span", null, "TWK"), h("b", null, n(twk) + "+"), h("span", null, "soal + acak")),
         h("div", null, h("span", null, "TIU tanpa hitungan"), h("b", null, n(TIU_SANGAT) + "+"), h("span", null, "soal + acak")),

@@ -23,7 +23,7 @@ Daftar kerja dan status tiap checkpoint. Setiap butir yang dicentang sudah di-pu
 - [x] `scripts/build.mjs` — gabung jadi satu file HTML (bisa dibuka offline di HP)
 - [x] README.md
 
-## 2. Bank soal (saat ini 380 soal tulis tangan + soal figural, deret, TWK, dan silogisme yang dibangkitkan otomatis)
+## 2. Bank soal (saat ini 408 soal tulis tangan + soal figural, deret, TWK, dan silogisme yang dibangkitkan otomatis)
 
 TWK — `data/twk.js`
 - [x] Nasionalisme (20 soal)
@@ -127,4 +127,6 @@ disimpan di localStorage dengan kunci `skd.formasi.v1` (tidak ikut sinkron).
 - [x] Menu Latihan: kartu "Sangat sering keluar" dan "Soal acak", centang "Sangat sering keluar saja"; label "Sangat sering keluar" dan "Soal acak" di soal.
 - [x] Audio: maksimal 10 soal per berkas, hanya materi tanpa hitungan, tiga album (sangat sering, per materi, fakta TWK).
 - [ ] Bila kisi-kisi CPNS 2026 terbit: cocokkan materi, perbarui `config.riset` dan tabel frekuensi bila ada laporan peserta baru.
+- [x] TKP diperbarui: 8 sumber FR asli SKD 2024 (S1–S6 via romisaputra, ASN Institute, Analitica). 28 soal TKP baru (24 sangat sering,
+  4 sering) dan 21 soal lama dinaikkan; TKP sangat sering keluar sekarang 61. Laporan TKP 2023/kedinasan 2025/2026 tidak ditemukan.
 

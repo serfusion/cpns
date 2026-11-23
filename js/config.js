@@ -151,12 +151,12 @@
       {
         id: "tik", sec: "tkp", name: "Teknologi Informasi dan Komunikasi", quota: 7,
         def: "Memanfaatkan teknologi informasi secara efektif untuk meningkatkan kinerja.",
-        pola: ["Aplikasi dan sistem baru di kantor", "Keamanan data dan kerahasiaan", "Hoaks dan media sosial", "Inovasi digital", "Kecerdasan artifisial generatif dan pelindungan data pribadi"]
+        pola: ["Aplikasi dan sistem baru di kantor", "Keamanan data dan kerahasiaan", "Hoaks dan media sosial", "Inovasi digital", "Kecerdasan artifisial generatif dan pelindungan data pribadi", "Rekan gagap teknologi, gangguan sistem, dan serangan siber"]
       },
       {
         id: "pro", sec: "tkp", name: "Profesionalisme", quota: 8,
         def: "Melaksanakan tugas dan fungsi sesuai dengan tuntutan jabatan.",
-        pola: ["Prioritas dan tenggat", "Tanggung jawab atas kesalahan", "Menempatkan diri di antara tugas kantor dan urusan lain", "Belajar dan berinovasi", "Kerahasiaan dan spionase, judi daring, perubahan penugasan mendadak"]
+        pola: ["Prioritas dan tenggat", "Tanggung jawab atas kesalahan", "Menempatkan diri di antara tugas kantor dan urusan lain (kuliah, keluarga, organisasi, usaha sampingan)", "Belajar dan berinovasi", "Kerahasiaan dan spionase, judi daring, perubahan penugasan mendadak", "Penerapan nilai BerAKHLAK dan netralitas ASN saat pilkada"]
       },
       {
         id: "rad", sec: "tkp", name: "Anti Radikalisme", quota: 8,
@@ -178,7 +178,8 @@
         "Laporan peserta yang bisa diperiksa hanya ada untuk SKD CPNS 2024 (AyoJakarta 3 rangkuman, ASN Institute, Analitica) dan kedinasan 2026. Untuk 2021 dan 2023 yang beredar hanya kumpulan latihan, bukan laporan peserta, jadi tidak dihitung.",
         "Sangat sering keluar, TWK: penerapan sila dalam kasus (4 laporan), BPUPKI/PPKI dan sikap tokohnya (5), lembaga negara MA, MK, MPR, KY (3), organisasi pergerakan seperti Budi Utomo dan Sarekat Dagang Islam (3), nasionalisme di media sosial dan konten kreator (3), netralitas ASN (3), gagasan utama dan simpulan bacaan (5), huruf miring (3).",
         "Sangat sering keluar, TIU tanpa hitungan: silogisme termasuk tiga premis (3), figural 9 kotak (4), susunan duduk dan antrean (3). Dengan hitungan ringan: analisis tabel (4), pecahan, desimal, dan persen tanpa pangkat (3), hubungan x dan y (3).",
-        "Sangat sering keluar, TKP: menempatkan diri antara urusan pribadi atau masyarakat dan tugas kantor (4), sikap terhadap spionase dan kebocoran rahasia (3), netralitas dan isu SARA menjelang pemilu (3).",
+        "Sangat sering keluar, TKP (8 sumber peserta berbeda, SKD 2024): menempatkan diri antara kesibukan pribadi atau masyarakat dan pekerjaan (4), spionase dan kebocoran rahasia (4), inovasi dan masalah TIK termasuk rekan gagap teknologi (4), penerapan BerAKHLAK (3), netralitas dan isu SARA saat pilkada (3). Peserta melaporkan nilai 4 dan 5 paling sulit dibedakan.",
+        "TKP 2023, kedinasan 2025, dan kedinasan 2026: tidak ditemukan laporan yang bisa diperiksa. Materi bimbel 2025–2026 mengulang tema TKP 2024, jadi tema itu masih dianggap paling mungkin keluar, tetapi tidak dihitung sebagai bukti baru.",
         "Analitica (FR 2024): semua soal TWK bersifat penalaran, tidak ada hafalan murni; soalnya tidak sepanjang tryout pada umumnya, tetapi pilihan jawabannya mirip-mirip. Karena itu soal acak TWK di aplikasi ini kebanyakan berbentuk kasus (sila, lembaga negara, pasal).",
         "TWK HOTS: set \"HOTS 2026\" menambahkan kasus dengan konteks terkini: KUHP baru (berlaku 2 Januari 2026), putusan MK 2 Januari 2025, keamanan siber, deepfake, gratifikasi, pelindungan data pribadi, dan EYD Edisi V.",
         "SKD kedinasan 2026: peserta melaporkan TIU sebagai bagian paling menantang; belum ada rincian soal yang dapat diverifikasi."
@@ -189,6 +190,11 @@
         { t: "Rekap FR SKD CPNS 2024, 24 Okt (AyoJakarta)", u: "https://www.ayojakarta.com/news/0315783/catat-rekap-fr-skd-cpns-2024-lengkap-untuk-soal-tiu-twk-dan-tkp" },
         { t: "Laporan peserta SKD 2024 (ASN Institute)", u: "https://www.asninstitute.id/field-report-cpns-2024/" },
         { t: "FR SKD CPNS 2024 (Analitica)", u: "https://blog.analitica.id/fr-skd-cpns-terbaru/" },
+        { t: "FR SKD CPNS 2024 dari @ujiancpns.id (romisaputra)", u: "https://www.romisaputra.com/2024/10/rekap-fr-skd-cpns-2024-lengkap-untuk.html" },
+        { t: "FR SKD CPNS 2024 dari @idcpns (romisaputra)", u: "https://www.romisaputra.com/2024/10/catat-rangkuman-fr-skd-cpns-2024-cek.html" },
+        { t: "FR SKD CPNS 2024 dari @widiadiantari (romisaputra)", u: "https://www.romisaputra.com/2024/10/rangkuman-fr-skd-cpns-2024-sesuai.html" },
+        { t: "FR SKD CPNS 2024 hari ketujuh dari @imalagus (romisaputra)", u: "https://www.romisaputra.com/2024/10/rangkuman-fr-skd-cpns-2024-hari-ketujuh.html" },
+        { t: "FR SKD CPNS 2024 TKP dari @studicpns.id (romisaputra)", u: "https://www.romisaputra.com/2024/10/catat-rangkuman-fr-skd-cpns-2024-soal.html" },
         { t: "Kisi-kisi SKD CPNS 2021 dari BKN (detikFinance)", u: "https://finance.detik.com/cpns/d-5667396/ssst-ini-kisi-kisi-lengkap-skd-cpns-2021-dari-bkn" },
         { t: "Isi soal TWK, TIU, dan TKP CPNS 2023 (detikFinance)", u: "https://finance.detik.com/cpns/d-6930994/ini-isi-soal-twk-tiu-dan-tkp-untuk-cpns-2023" },
         { t: "FR SKD Sekolah Kedinasan 2026: TIU jadi tantangan", u: "https://www.bimbelptk.com/blog/fr-skd-sekolah-kedinasan-2026--tiu-jadi-tantangan--cek-persiapan-sebelum-ujian" },

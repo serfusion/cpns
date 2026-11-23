@@ -22,7 +22,7 @@ navy + kuning amber; layar ujian dari buku panduan CAT resmi BKN), **Build** (ko
 - **TKP HOTS 2026**: 42 soal kasus panjang untuk keenam aspek TKP; centang "TKP HOTS 2026 saja" di menu Latihan.
 - **Fokus TWK + TKP**: kartu strategi skor (ambang batas dan target per subtes) dengan latihan TWK + TKP HOTS,
   TWK + TKP campuran, dan TIU tanpa hitungan berat (analogi, silogisme, analitis, deret, figural).
-- **Sangat sering keluar**: 118 soal bertanda khusus (pola yang dilaporkan di 3 laporan peserta SKD 2024 atau lebih) dengan
+- **Sangat sering keluar**: 163 soal bertanda khusus (TWK 62, TIU 40, TKP 61) (pola yang dilaporkan di 3 laporan peserta SKD 2024 atau lebih) dengan
   tombol latihan ulang: campuran tanpa hitungan, TWK, TKP, TIU tanpa hitungan. Metode dan tabel frekuensinya di
   `docs/pola-soal-lintas-tahun.md`.
 - **Soal acak (selalu berbeda)**: TWK dibangkitkan dari tabel fakta `data/fakta.js` (45 butir Pancasila, 33 wewenang lembaga negara,

@@ -1,6 +1,6 @@
 # Pola soal SKD lintas tahun dan soal "sangat sering keluar"
 
-Disusun 23 November 2026 untuk aplikasi Latihan SKD CPNS.\
+Disusun 23 November 2026 untuk aplikasi Latihan SKD CPNS (TKP diperbarui pada hari yang sama).\
 Fokus: memaksimalkan TWK, TKP, dan TIU tanpa hitungan.
 
 ## 1. Jawaban singkat: dari mana soal di aplikasi ini?
@@ -70,22 +70,39 @@ umumnya, tetapi pilihan jawabannya mirip-mirip.
 | Soal cerita | – | 1 | 1 | 2 | Sering | Ya |
 | Analogi | – | – | 1 | 1 | Sering | Tidak |
 
-### TKP
+### TKP (diperbarui: 8 sumber asli)
 
-| Pola | AJ | AI | AN | Jumlah | Tingkat |
-|---|---|---|---|---|---|
-| Menempatkan diri antara urusan pribadi/masyarakat dan tugas kantor | 3 | – | 1 | 4 | Sangat sering |
-| Sikap terhadap spionase dan kebocoran rahasia | 2 | – | 1 | 3 | Sangat sering |
-| Netralitas dan isu SARA menjelang pemilu (digabung dengan TWK) | 1 | 1 | – | 3 | Sangat sering |
-| Penerapan BerAKHLAK | 2 | – | – | 2 | Sering |
-| Inovasi TIK di kantor, pegawai yang gagap teknologi | 1 | – | 1 | 2 | Sering |
-| Konten kreator, pelatihan, perubahan penugasan | 1 | – | – | 1 | Sering |
+Untuk TKP, yang dihitung adalah **sumber asli yang berbeda** (akun atau lembaga yang menulis laporannya sendiri), supaya satu
+laporan yang dikutip ulang di banyak situs tidak terhitung berkali-kali:
+S1 @studicpns.id (Instagram, 28 Okt 2024), S2 @ujiancpns.id (TikTok, 25 Okt), S3 @kyygnsoo (X, 26 Okt), S4 @idcpns (Instagram, 27 Okt),
+S5 @imalagus (TikTok, hari ketujuh), S6 @widiadiantari (Instagram), S7 ASN Institute (18 Okt), S8 Analitica (16 Okt).
+Rangkuman S1–S6 dibaca dari kompilasi romisaputra.com. Rangkuman AyoJakarta tidak dihitung lagi karena kemungkinan mengutip akun yang sama.
+
+| Situasi TKP | Sumber | Jumlah | Tingkat |
+|---|---|---|---|
+| Menempatkan diri antara kesibukan pribadi/masyarakat dan pekerjaan | S2, S4, S6, S8 | 4 | Sangat sering |
+| Sikap terhadap spionase dan kebocoran rahasia | S2, S4, S6, S8 | 4 | Sangat sering |
+| Inovasi dan masalah TIK: aplikasi baru, rekan gagap teknologi, gangguan sistem | S2, S5, S6, S8 | 4 | Sangat sering |
+| Penerapan nilai BerAKHLAK | S2, S4, S6 | 3 | Sangat sering |
+| Netralitas ASN dan isu SARA saat pilkada | S5, S6, S7 | 3 | Sangat sering |
+| Sikap terhadap pelanggaran rekan | S2 | 1 | Sering |
+| Sosial budaya: ritual adat atau agama yang berbeda, kerja bakti | S1 | 1 | Sering |
+
+Aspek anti radikalisme, profesionalisme, pelayanan publik, dan jejaring kerja juga disebut (S3, S5, S7, S8), tetapi keenam aspek TKP
+memang selalu diujikan. Catatan bentuk soal dari peserta: banyak soal panjang dengan isu terkini (S2, S6, S8), ada juga yang pilihannya
+singkat dan padat (S8); **nilai 4 dan 5 paling sulit dibedakan** (S2, S6); tidak semua jawaban terbaik berupa sikap yang "positif" (S3).
+
+**2023, kedinasan 2025, dan kedinasan 2026:** tidak ditemukan laporan TKP yang bisa diperiksa. Yang beredar hanya format dan ambang batas.
+Materi bimbel untuk 2025–2026 (mis. belajarbro, pejuangkedinasan) mengulang tema yang sama dengan 2024: netralitas pilkada, menempatkan
+diri antara kesibukan dan pekerjaan, inovasi dan gagap teknologi, spionase, BerAKHLAK. Itu menunjukkan tema ini masih dianggap paling
+mungkin keluar, tetapi tidak dihitung sebagai bukti baru.
 
 ## 4. Yang ditambahkan di aplikasi
 
-- **Tanda "Sangat sering keluar"** pada 118 soal bank: TWK 62, TIU 40 (silogisme, analitis, dan hitungan ringan), TKP 16.
-  Termasuk 12 soal baru: 8 TKP (urusan masyarakat vs tugas kantor, spionase, phishing, netralitas) dan 4 TWK (Agus Salim,
-  Hatta, netralitas ASN di media sosial, hoaks SARA). Ditambah 4 soal inti kalimat.
+- **Tanda "Sangat sering keluar"** pada 163 soal bank: TWK 62, TIU 40 (silogisme, analitis, dan hitungan ringan), TKP 61.
+  TKP: 32 soal baru disusun ulang dari situasi yang dilaporkan peserta (bukan salinan soal asli), ditambah 29 soal lama yang
+  temanya ternyata dilaporkan berulang. Setiap pembahasan TKP baru menjelaskan mengapa pilihan bernilai 4 kalah dari nilai 5.
+  TWK: 4 soal baru (Agus Salim, Hatta, netralitas ASN di media sosial, hoaks SARA) dan 4 soal inti kalimat.
 - **Menu Latihan, kartu "Sangat sering keluar: boleh diulang-ulang"**: campuran tanpa hitungan (30 soal), TWK, TKP, dan TIU
   tanpa hitungan. Soal yang sudah dikuasai muncul paling akhir. Ada juga centang "Sangat sering keluar saja" di pengaturan latihan.
 - **Soal acak (selalu berbeda)** dari tabel fakta yang sudah diperiksa: 45 butir Pancasila, 33 wewenang lembaga negara,
@@ -98,7 +115,7 @@ umumnya, tetapi pilihan jawabannya mirip-mirip.
 
 ## 5. Bagaimana kebenarannya diuji
 
-- `scripts/validate.mjs` memeriksa seluruh bank (380 soal): lima pilihan, tidak ada pilihan kembar, kunci valid, pembahasan ada.
+- `scripts/validate.mjs` memeriksa seluruh bank (408 soal): lima pilihan, tidak ada pilihan kembar, kunci valid, pembahasan ada.
 - Setiap pembangkit dijalankan 1.500 kali dan diperiksa: lima pilihan berbeda, kunci tunggal, teks lengkap.
 - **Silogisme dibuktikan**: setiap soal diperiksa terhadap semua kemungkinan himpunan (atau semua kombinasi benar-salah untuk
   bentuk jika-maka). Kunci harus selalu benar, dan pengecoh yang ternyata ikut benar dibuang. 3.000 soal acak lolos.
@@ -127,6 +144,14 @@ umumnya, tetapi pilihan jawabannya mirip-mirip.
 - AyoJakarta, rekap FR SKD CPNS 2024 (24 Okt): https://www.ayojakarta.com/news/0315783/catat-rekap-fr-skd-cpns-2024-lengkap-untuk-soal-tiu-twk-dan-tkp
 - ASN Institute, laporan peserta SKD 2024: https://www.asninstitute.id/field-report-cpns-2024/
 - Analitica, FR SKD CPNS 2024: https://blog.analitica.id/fr-skd-cpns-terbaru/
+- romisaputra.com, kompilasi FR SKD CPNS 2024 dari akun peserta:
+  https://www.romisaputra.com/2024/10/rekap-fr-skd-cpns-2024-lengkap-untuk.html (@ujiancpns.id),
+  https://www.romisaputra.com/2024/10/catat-rangkuman-fr-skd-cpns-2024-cek.html (@idcpns),
+  https://www.romisaputra.com/2024/10/rangkuman-fr-skd-cpns-2024-sesuai.html (@widiadiantari),
+  https://www.romisaputra.com/2024/10/rangkuman-fr-skd-cpns-2024-hari-ketujuh.html (@imalagus),
+  https://www.romisaputra.com/2024/10/catat-rangkuman-fr-skd-cpns-2024-dari.html (@kyygnsoo),
+  https://www.romisaputra.com/2024/10/catat-rangkuman-fr-skd-cpns-2024-soal.html (@studicpns.id)
+- belajarbro, kisi-kisi dan FR untuk 2026 (mengulang tema 2024): https://www.belajarbro.id/cpns/kisi-kisi
 - bimbelptk, FR SKD sekolah kedinasan 2026: https://www.bimbelptk.com/blog/fr-skd-sekolah-kedinasan-2026--tiu-jadi-tantangan--cek-persiapan-sebelum-ujian
 - KepmenPANRB 406/2026 (SKD sekolah kedinasan 2026): https://data-jdih.menpan.go.id/dokumen/2026kepmenpanrb406.pdf
 - detikFinance, kisi-kisi SKD CPNS 2021 dari BKN: https://finance.detik.com/cpns/d-5667396/ssst-ini-kisi-kisi-lengkap-skd-cpns-2021-dari-bkn
