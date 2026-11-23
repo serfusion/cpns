@@ -63,6 +63,12 @@ const TANPA_HITUNG = ["nas", "int", "bela", "pilar", "bind", "ana", "sil", "pel"
 const PER_BAGIAN = 10;
 const ALBUM = { 1: "SKD 1 Sangat Sering Keluar", 2: "SKD 2 Per Materi Tanpa Hitungan", 3: "SKD 3 Fakta TWK" };
 const slug = (t) => t.replace(/[^A-Za-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+/** Bagi rata menjadi bagian berisi paling banyak `maks` butir (11 soal menjadi 6 + 5, bukan 10 + 1). */
+function bagi(arr, maks) {
+  const nb = Math.ceil(arr.length / maks), base = Math.floor(arr.length / nb), sisa = arr.length % nb, out = [];
+  for (let b = 0, i = 0; b < nb; b++) { const n = base + (b < sisa ? 1 : 0); out.push(arr.slice(i, i + n)); i += n; }
+  return out;
+}
 const pad = (n, w = 2) => String(n).padStart(w, "0");
 
 function urut(qs) {
@@ -102,9 +108,10 @@ function tambah(album, file, judul, jumlah, segmen) {
 {
   const qs = [];
   for (const id of TANPA_HITUNG) urut(SKD.bankRaw.filter((q) => q.m === id && (q.h || 0) >= 2)).forEach((q) => qs.push(q));
-  const nb = Math.ceil(qs.length / PER_BAGIAN);
-  for (let b = 1; b <= nb; b++) {
-    const part = qs.slice((b - 1) * PER_BAGIAN, b * PER_BAGIAN), a = (b - 1) * PER_BAGIAN + 1, z = a + part.length - 1;
+  const parts = bagi(qs, PER_BAGIAN), nb = parts.length;
+  let a = 1;
+  for (let b = 1; b <= nb; b++, a += parts[b - 2].length) {
+    const part = parts[b - 1], z = a + part.length - 1;
     const seg = [{ t: bersih("Latihan S K D. Sangat sering keluar. Bagian " + b + " dari " + nb + ". Soal " + a + " sampai " + z + ". Setelah soal dibacakan ada jeda singkat: jawab dalam hati, lalu dengarkan jawabannya."), jeda: 1.2 }];
     const ctx = { bacaan: null };
     let materi = null;
@@ -124,9 +131,10 @@ function tambah(album, file, judul, jumlah, segmen) {
 TANPA_HITUNG.forEach((id, mi) => {
   const m = MATERI[id], sec = SEC[m.sec], qs = urut(SKD.bankRaw.filter((q) => q.m === id));
   if (!qs.length) return;
-  const nb = Math.ceil(qs.length / PER_BAGIAN);
-  for (let b = 1; b <= nb; b++) {
-    const part = qs.slice((b - 1) * PER_BAGIAN, b * PER_BAGIAN), a = (b - 1) * PER_BAGIAN + 1, z = a + part.length - 1;
+  const parts = bagi(qs, PER_BAGIAN), nb = parts.length;
+  let a = 1;
+  for (let b = 1; b <= nb; b++, a += parts[b - 2].length) {
+    const part = parts[b - 1], z = a + part.length - 1;
     const seg = [{ t: bersih("Latihan S K D. " + sec.name + ". Materi " + m.name + ". Bagian " + b + " dari " + nb + ". Soal " + a + " sampai " + z + "."), jeda: 1.2 }];
     const ctx = { bacaan: null };
     part.forEach((q, k) => bacakanSoal(seg, q, a + k, ctx));
@@ -152,8 +160,7 @@ TANPA_HITUNG.forEach((id, mi) => {
       const sila = (i) => ["Sila " + URUT[i] + ", " + F.sila[i] + ". Ada " + F.butir[i].length + " butir."].concat(F.butir[i].map((b, k) => "Butir " + (k + 1) + ". " + b));
       bagian = [sila(0).concat(sila(1)), sila(2).concat(sila(3)), sila(4)];
     } else {
-      bagian = [];
-      for (let i = 0; i < t.isi.length; i += t.per) bagian.push(t.isi.slice(i, i + t.per));
+      bagian = bagi(t.isi, t.per);
     }
     bagian.forEach((isi, bi) => {
       const b = bi + 1, nb = bagian.length;
