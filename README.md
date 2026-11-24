@@ -47,7 +47,13 @@ skor sementara per jabatan, instansi yang dipantau, dan kalkulator skor per form
 Bagian **Prioritas Pemda** mengikuti dokumen strategi Pemda pengguna (Prioritas 1 jabatan/unit baru, 2 Kota Tangerang, 3 daerah sepi pesaing),
 dan kalkulator juga menghitung matriks Pemda (pendidikan 25, jumlah formasi 20, jabatan/unit baru 20, persaingan 15, mekanisme 10, kesiapan SKB 10).
 
-Dokumen lengkapnya: `docs/pemindaian-formasi-cpns-2026.md` dan `docs/prioritas-formasi-pemda-2026.md`; versi PDF keduanya ikut terlampir di setiap rilis APK.
+Sejak 23 November 2026 MenPANRB memastikan formasi CPNS 2026–2027 hanya dari instansi pusat (pemda tidak membuka). Bagian
+**Fokus pendidikan 2026** di menu Formasi mengurutkan sasaran sesuai pengalaman data akademik/PDDikti: tenaga kependidikan
+Sekolah Nasional Terintegrasi (Kemendikdasmen), LLDIKTI/PTN/SMA Unggul Garuda (Kemendiktisaintek), pendidikan Kemenag, lalu
+jabatan pelatihan di instansi pusat. Formasi bidang pendidikan mendapat nilai tugas dan kesiapan SKB tertinggi di kedua rumus.
+
+Dokumen lengkapnya: `docs/pemindaian-formasi-cpns-2026.md`, `docs/prioritas-formasi-pemda-2026.md`, dan
+`docs/strategi-formasi-pendidikan-2026.md`; versi PDF-nya ikut terlampir di setiap rilis APK.
 Membuat ulang PDF: `node scripts/dokumen-pdf.cjs docs/pemindaian-formasi-cpns-2026.md` (butuh pandoc dan Playwright).
 
 ## Audio hafalan

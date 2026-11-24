@@ -5343,11 +5343,12 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
   var SKD = (window.SKD = window.SKD || {});
 
   SKD.formasi = {
-    tanggal: "23 November 2026",
+    tanggal: "24 November 2026",
     jurusan: "S-1 Ilmu Komunikasi",
     dokumen: "https://github.com/serfusion/cpns/releases?q=APK",
 
     status: [
+      "23 November 2026, MenPANRB di rapat kerja Komisi II DPR: seluruh formasi CPNS 2026–2027 berasal dari instansi pusat, TIDAK ADA formasi pemda, karena difokuskan pada program hasil terbaik cepat Presiden dan belanja pegawai pemda masih melebihi batas UU HKPD. Jadi target realistis adalah kementerian/lembaga beserta kantor dan UPT-nya di daerah.",
       "23 November 2026 (rapat KemenPANRB dengan Komisi II DPR): kebutuhan ASN 2026 ditetapkan 167.113 orang, antara lain guru Sekolah Terintegrasi dan Sekolah Unggul Garuda, dosen, tenaga kesehatan, kehutanan, audit internal, dan pengawas koperasi. Panselnas dibentuk dengan Keppres 7/2026; formasi rinci ditetapkan lewat rapat pleno Panselnas.",
       "Jadwal rencana: pendaftaran dibuka sekitar 27 November 2026 (perkiraan KemenPANRB, diumumkan Panselnas pekan ini), seleksi administrasi pekan pertama Desember, SKD dan SKB Januari–Maret 2027. Belum ada pengumuman resmi bahwa seleksi tanpa wawancara; metode SKB ditentukan tiap instansi.",
       "Rincian formasi CPNS 2026 belum terbit. Minggu 22 November malam, halaman Daftar Formasi SSCASN hanya memuat seleksi Sekolah Rakyat 2026 (PPPK guru, 258 formasi) dan situs BKN belum memuat pengumuman CPNS 2026. Situs pihak ketiga yang menampilkan \"formasi 2026\" menyalin data dari SSCASN ke server mereka sendiri, jadi selalu cocokkan dengan SSCASN. Kepala BKN menargetkan pekan keempat November (23–29 November) karena masih menunggu penetapan formasi dari KemenPANRB.",
@@ -5509,9 +5510,57 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
     // Prioritas dari dokumen "Strategi Memilih Formasi CPNS di Pemda" (pengguna, 22 Nov 2026):
     // P1 jabatan/unit baru atau rekrutmen pertama, P2 Kota Tangerang, P3 daerah sepi pesaing.
     // Matriks Pemda: pendidikan 25, jumlah formasi 20, jabatan/unit baru 20, persaingan 15, mekanisme 10, kesiapan SKB 10.
+    // Fokus bidang pendidikan (24 Nov 2026): pemda tidak membuka formasi, pengalaman pemilik di data akademik/PDDikti.
+    pendidikan: {
+      tanggal: "24 November 2026",
+      ringkas: "Pengalaman Anda mengelola data akademik dan pelaporan PDDikti, membangun portal layanan akademik dan ujian berbasis komputer, paling bernilai di instansi pendidikan pusat. Guru (butuh PPG) dan dosen (butuh S-2) tidak bisa dilamar dengan S-1 Ilmu Komunikasi, jadi sasarannya formasi tenaga kependidikan dan jabatan pendukung.",
+      hitung: "Persentase lulus pasti baru bisa dihitung setelah jumlah pelamar per formasi tampil di SSCASN. Begitu angka itu diisi, aplikasi menghitung posisi yang harus Anda capai (masuk berapa persen teratas). Sebelum itu, peluang di bawah adalah perkiraan dari jumlah kursi, lokasi, dan data 2024.",
+      target: [
+        { no: "1", nama: "Kemendikdasmen: tenaga kependidikan Sekolah Nasional Terintegrasi", kelas: "ok", label: "Tinggi", peluang: "Tinggi bila menerima Ilmu Komunikasi",
+          isi: "306 formasi CPNS tenaga kependidikan (dari 1.460; 1.154 sisanya guru lulusan PPG). Sekolah baru program Presiden, jenjang SMP dan SMA. Jabatan dan kualifikasi mengikuti surat Mendikdasmen dan baru terlihat di lampiran.",
+          lokasi: "17 SNT beroperasi 2026: Kab. Bogor (terdekat), Kab. Cianjur, Kab. Gowa, Kab. Bone Bolango, Kota Tidore Kepulauan, IKN, Kab. Banyumas, Kab. Jepara, Kota Subulussalam, Kota Tarakan, Kab. Donggala, Kab. Bolaang Mongondow, Kab. Minahasa Utara, Kab. Kupang, Kab. Buton Tengah, Kab. Tebo, Kab. Tanjung Jabung Timur. Dibangun 2026 antara lain di Kab. Pandeglang (Banten).",
+          cocok: "Data sekolah dan sistem akademik, ujian berbasis komputer, situs dan media sekolah. Cari Arsiparis, Pranata Humas, Pengembang Teknologi Pembelajaran, atau jabatan data/TI yang mencantumkan S-1 Ilmu Komunikasi.",
+          alasan: "Program baru (rekrutmen pertama), sebagian besar lokasi di luar Jawa sehingga pelamar tersebar. Kursi per sekolah kecil." },
+        { no: "2", nama: "Kemendiktisaintek: tenaga kependidikan (LLDIKTI, PTN, Sekolah Garuda)", kelas: "ok", label: "Sedang–tinggi", peluang: "Sedang di Jabodetabek, tinggi di PTN luar Jawa",
+          isi: "Formasi belum dirilis per 24 November. Rencana besar Kemendiktisaintek adalah dosen (S-2/S-3), tetapi tenaga kependidikan PTN, LLDIKTI, dan SMA Unggul Garuda juga di bawah kementerian ini.",
+          lokasi: "LLDIKTI Wilayah III (DKI Jakarta) dan IV (Jawa Barat–Banten), Ditjen Dikti di Jakarta, PTN di Banten dan Jabodetabek (mis. Universitas Sultan Ageng Tirtayasa, Serang).",
+          cocok: "Paling sesuai pengalaman: LLDIKTI dan PTN mengelola data PDDikti, akreditasi, dan pelaporan perguruan tinggi setiap semester. Cari Arsiparis, Pranata Humas, Pengembang Teknologi Pembelajaran, Perencana, Analis Kebijakan bila mencantumkan S-1 Ilmu Komunikasi.",
+          alasan: "2024 (Kemendikbudristek): Arsiparis 9 kursi menerima Ilmu Komunikasi (Untirta 2), PTP 25 kursi. Kursi sedikit, tetapi pengalaman PDDikti memperkuat SKB dan wawancara bila ada." },
+        { no: "3", nama: "Kemenag: pendidikan (PTKIN dan madrasah)", kelas: "accent", label: "Sedang", peluang: "Sedang",
+          isi: "Formasi Kemenag 2026 belum diumumkan resmi (beredar 60.000 CPNS dan PPPK, sebagian besar guru madrasah). Di 2024 Kemenag adalah penyedia kursi terbanyak untuk S-1 Ilmu Komunikasi.",
+          lokasi: "UIN Syarif Hidayatullah (Tangerang Selatan), UIN Sultan Maulana Hasanuddin (Serang), Kanwil dan madrasah negeri.",
+          cocok: "Pranata Humas dan Pengembang Teknologi Pembelajaran di PTKIN; pengelolaan data akademik serupa PDDikti (PTKIN juga melapor ke PDDikti).",
+          alasan: "2024: Pranata Humas 410 kursi dan PTP 72 kursi menerima Ilmu Komunikasi. Humas ramai pelamar; PTP lebih sepi." },
+        { no: "4", nama: "Jabatan pendidikan dan pelatihan di instansi pusat lain", kelas: "accent", label: "Sedang", peluang: "Sedang",
+          isi: "Pengembang Teknologi Pembelajaran di pusat pelatihan (Mahkamah Agung, LAN, Kemenkes, Kementan, Kemensetneg) dan Arsiparis di instansi pendidikan.",
+          lokasi: "Kebanyakan Jakarta dan Jabodetabek.",
+          cocok: "Membuat kelas daring, video, LMS, dan ujian berbasis komputer, sesuai portofolio Anda.",
+          alasan: "2024: MA 6 kursi PTP menerima Ilmu Komunikasi (18 peserta SKB, rasio 3 : 1 di tahap akhir)." }
+      ],
+      tidakCocok: [
+        "Guru (termasuk 1.154 guru SNT): wajib lulus PPG dan berijazah kependidikan sesuai mata pelajaran.",
+        "Dosen Kemendiktisaintek: minimal S-2.",
+        "Guru madrasah Kemenag: butuh ijazah kependidikan atau keagamaan dan sertifikat pendidik."
+      ],
+      cek: [
+        "Nama prodi persis \"S-1 ILMU KOMUNIKASI\" di kolom kualifikasi (Communication Science di ijazah = Ilmu Komunikasi; cek penulisan di ijazah).",
+        "Lokasi penempatan dan jumlah kursi per formasi; SNT di luar Jawa biasanya lebih sepi.",
+        "Metode SKB (CAT saja atau ada wawancara/praktik) dan syarat tambahan (akreditasi, IPK minimal, usia maksimal 35 tahun).",
+        "Begitu jumlah pelamar tampil di SSCASN, isi di kalkulator untuk melihat persentase yang harus dicapai."
+      ],
+      sumber: [
+        { t: "CNBC Indonesia: CPNS 2026 tidak ada formasi untuk pemda (23 Nov 2026)", u: "https://www.cnbcindonesia.com/news/20261123123625-4-787562/pengumuman-cpns-2026-tidak-ada-formasi-untuk-pemda" },
+        { t: "Kompas TV: Kemendikdasmen buka 1.460 formasi CPNS guru dan tendik SNT", u: "https://www.kompas.tv/info-publik/702646/kemendikdasmen-buka-1-460-formasi-cpns-guru-dan-tendik-sekolah-nasional-terintegrasi-2026" },
+        { t: "Kompas: 17 Sekolah Nasional Terintegrasi mulai beroperasi 2026, ini lokasinya", u: "https://www.kompas.com/edu/read/2026/07/20/141601171/17-sekolah-nasional-terintegrasi-mulai-beroperasi-2026-ini-lokasinya" },
+        { t: "Kemenag belum membuka formasi CPNS 2026 (rangkuman per 20 Nov)", u: "https://jadiasn.id/cpns-kemenag-2026-kapan-dibuka/" },
+        { t: "Kemendiktisaintek: rencana rekrutmen dosen (S-2/S-3)", u: "https://www.kalderanews.com/2026/01/rekrutmen-cpns-2026-formasi-dosen-kemendiktisaintek-siapkan-47-ribu-lowongan/" }
+      ]
+    },
+
     pemda: {
       tanggal: "22 November 2026",
       status: [
+        "PEMBARUAN 23 November 2026: MenPANRB memastikan CPNS 2026–2027 tidak membuka formasi pemda. Bagian ini disimpan sebagai catatan; prioritas lokasi kini berarti kantor dan UPT instansi pusat di Kota Tangerang/Jabodetabek (P2) dan di daerah sepi pesaing (P3).",
         "Kuota CPNS daerah 2026 belum diputuskan. Sejumlah pemda sudah mengusulkan (Kota Jambi 322 formasi, Bangka Belitung 120, OKI, Lubuk Linggau, Musi Rawas), tetapi belum ada yang disetujui secara terbuka.",
         "Kota Tangerang: Wakil Wali Kota menyatakan (9 November 2026) pemkot belum menerima pembagian kuota dari BKN dan menunggu pusat.",
         "Kota Tangerang Selatan: BKPSDM menyebut (23 September 2026) sepertinya tidak ada rekrutmen CPNS tahun ini dan berharap ada pada 2027.",
@@ -5787,7 +5836,7 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
       baru: (BARU[k.baru] || BARU.tidak)[1],
       persaingan: skala(a.rasio, [5, 10, 20, 50]),
       mekanisme: (MEKAN[k.mek] || MEKAN.belum)[1],
-      skb: j && j.skor ? j.skor.tugas / 5 + 1 : 3 // tugas 20/15/10/5/0 -> 5/4/3/2/1
+      skb: k.bidang === "pendidikan" ? 5 : j && j.skor ? j.skor.tugas / 5 + 1 : 3 // tugas 20/15/10/5/0 -> 5/4/3/2/1; bidang pendidikan = 5
     };
     var total = 0;
     for (var key in BOBOT) total += (s[key] / 5) * BOBOT[key];
@@ -5854,7 +5903,9 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
     var rasio = n / kursi, lev = rasio <= 10 ? "rendah" : rasio <= 30 ? "sedang" : "tinggi";
     var posisi = n <= skb ? "Cukup lulus ambang batas untuk ikut SKB" : "Masuk " + fmt(skb) + " besar dari " + fmt(n) + " (" + fmt((skb / n) * 100, skb / n < 0.1 ? 1 : 0) + "% teratas)";
     var j = jabById(k.jab), sy = SYARAT[k.syarat] || SYARAT.catatan;
-    var parts = { rasio: skorRasio(rasio), kursi: skorKursi(kursi), tugas: j && j.skor ? j.skor.tugas : 10, lokasi: skorLokasi(k.lok, pref || "jabo-nasional"), syarat: sy[1] };
+    // Bidang pendidikan: pengalaman pemilik mengelola data akademik dan PDDikti membuat tugas paling cocok (20).
+    var tugas = k.bidang === "pendidikan" ? 20 : j && j.skor ? j.skor.tugas : 10;
+    var parts = { rasio: skorRasio(rasio), kursi: skorKursi(kursi), tugas: tugas, lokasi: skorLokasi(k.lok, pref || "jabo-nasional"), syarat: sy[1] };
     var gugur = k.syarat === "gugur", total = gugur ? 0 : parts.rasio + parts.kursi + parts.tugas + parts.lokasi + parts.syarat;
     var res = { kursi: kursi, n: n, skb: skb, rasio: rasio, lev: lev, posisi: posisi, parts: parts, total: total, kat: kategori(total, gugur) };
     res.pemda = matriks(k, res, j);
@@ -5867,7 +5918,8 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
   var PRI = { P1: 1, P2: 2, P3: 3 };
   function skorKandidat(c, pref) {
     var k = { kursi: Math.max(1, Number(c.kursi) || 1), pelamar: c.pelamar == null ? 0 : Number(c.pelamar) || 0, jab: c.jab || "",
-      lok: c.jabo ? "jabo" : "luar", syarat: SYARAT[c.syarat] ? c.syarat : "catatan", baru: BARU[c.baru] ? c.baru : "tidak", mek: MEKAN[c.mek] ? c.mek : "belum" };
+      lok: c.jabo ? "jabo" : "luar", syarat: SYARAT[c.syarat] ? c.syarat : "catatan", baru: BARU[c.baru] ? c.baru : "tidak", mek: MEKAN[c.mek] ? c.mek : "belum",
+      bidang: c.bidang === "pendidikan" ? "pendidikan" : "" };
     var a = analisis(k, pref);
     if (c.pelamar != null && isFinite(Number(c.pelamar))) return { a: a.total, b: a.pemda.total, kat: a.kat, tanpaRasio: false, an: a };
     var p = a.parts, gugur = k.syarat === "gugur";
@@ -5951,10 +6003,31 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
       f.elements.syarat.value = SYARAT[c.syarat] ? c.syarat : "catatan";
       f.elements.baru.value = BARU[c.baru] ? c.baru : "tidak";
       f.elements.mek.value = MEKAN[c.mek] ? c.mek : "belum";
+      f.elements.bidang.value = c.bidang === "pendidikan" ? "pendidikan" : "";
       scrollTo("fm-kalk");
       f.elements.pelamar.focus();
       ctx.toast(c.pelamar == null ? "Data terisi. Isi jumlah pelamar (perkiraan boleh), lalu tekan Tambah." : "Data terisi. Tekan Tambah.");
     }
+    // ---------- fokus pendidikan (pemda tidak membuka formasi) ----------
+    var E = D.pendidikan;
+    var pendidikanSec = E ? h("section", { class: "stack", "aria-labelledby": "fm-didik" },
+      h("h2", { id: "fm-didik" }, "Fokus pendidikan 2026: paling cocok untuk Anda"),
+      h("p", { class: "small" }, E.ringkas),
+      h("p", { class: "note info" }, E.hitung),
+      h("div", { class: "fm-tiers" }, E.target.map(function (t) {
+        return h("article", { class: "panel fm-tier " + t.kelas },
+          h("div", { class: "row between" }, h("h3", null, t.no + ". " + t.nama), h("span", { class: "tag " + t.kelas }, t.label)),
+          h("p", { class: "small" }, h("b", null, "Peluang: "), t.peluang),
+          h("p", { class: "small" }, t.isi),
+          h("p", { class: "small" }, h("b", null, "Lokasi: "), t.lokasi),
+          h("p", { class: "small" }, h("b", null, "Yang cocok: "), t.cocok),
+          h("p", { class: "small muted" }, h("b", null, "Dasar perkiraan: "), t.alasan));
+      })),
+      h("div", { class: "panel" }, h("h3", null, "Tidak bisa dilamar dengan S-1 Ilmu Komunikasi"),
+        h("ul", { class: "plain-list small" }, E.tidakCocok.map(function (t) { return h("li", null, t); }))),
+      h("div", { class: "panel" }, h("h3", null, "Yang dicek begitu lampiran terbit"),
+        h("ul", { class: "plain-list small" }, E.cek.map(function (t) { return h("li", null, t); })),
+        h("ul", { class: "plain-list small" }, E.sumber.map(function (x) { return h("li", null, h("a", { href: x.u, target: "_blank", rel: "noopener" }, x.t)); })))) : null;
     var K = D.kandidat2026 || { list: [] }, kList = urutKandidat(K.list || [], P.lokasi);
     var kandidat = h("section", { class: "panel", "aria-labelledby": "fm-kandidat" },
       h("div", { class: "row between" }, h("h2", { id: "fm-kandidat" }, "Kandidat formasi 2026"),
@@ -5968,7 +6041,8 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
             h("div", { class: "row between" }, h("span", { class: "nm" }, c.nama), h("span", { class: "tag " + sk.kat[0] + " fm-skor" }, sk.b + "/100")),
             h("span", { class: "small" }, [c.instansi, c.lokasi].filter(Boolean).join(" · ")),
             h("div", { class: "row" },
-              c.prioritas ? h("span", { class: "tag accent" }, c.prioritas === "P1" ? "P1 jabatan/unit baru" : c.prioritas === "P2" ? "P2 Kota Tangerang/Jabodetabek" : "P3 daerah sepi") : null,
+              c.bidang === "pendidikan" ? h("span", { class: "tag ok" }, "Bidang pendidikan") : null,
+              c.prioritas ? h("span", { class: "tag accent" }, c.prioritas === "P1" ? "P1 jabatan/unit baru" : c.prioritas === "P2" ? "P2 kantor pusat di Kota Tangerang/Jabodetabek" : "P3 daerah sepi") : null,
               h("span", { class: "tag " + sk.kat[0] }, sk.kat[1]),
               sk.tanpaRasio ? h("span", { class: "tag" }, "tanpa rasio") : null,
               j && j.lisan === "tinggi" ? h("span", { class: "tag bad" }, "banyak bicara") : null),
@@ -5978,7 +6052,7 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
             h("div", { class: "row" },
               c.url ? h("a", { class: "btn sm", href: c.url, target: "_blank", rel: "noopener" }, "Pengumuman resmi") : null,
               h("button", { class: "btn sm ghost", type: "button", onclick: function () { isiKalkulator(c); } }, "Masukkan ke kalkulator"))));
-      })) : h("p", { class: "note info" }, "Belum ada kandidat. Begitu formasi resmi terbit, pemantau otomatis mengisi daftar ini lalu aplikasi mengurutkannya: Matriks Pemda lebih dulu, lalu rumus dokumen riset, lalu prioritas P1 jabatan/unit baru, P2 Kota Tangerang, P3 daerah sepi. Jabatan yang banyak bicara dan formasi yang tidak menerima S-1 Ilmu Komunikasi tidak dimasukkan."),
+      })) : h("p", { class: "note info" }, "Belum ada kandidat. Begitu formasi resmi terbit (pendaftaran mulai 27 November), pemantau otomatis mengisi daftar ini lalu aplikasi mengurutkannya: Matriks Pemda lebih dulu, lalu rumus dokumen riset, lalu prioritas. Formasi bidang pendidikan mendapat nilai tugas dan kesiapan SKB tertinggi karena sesuai pengalaman Anda. Pemda tidak membuka formasi 2026–2027. Jabatan yang banyak bicara dan formasi yang tidak menerima S-1 Ilmu Komunikasi tidak dimasukkan."),
       (K.sumber || []).length ? h("ul", { class: "plain-list small" }, K.sumber.map(function (x) { return h("li", null, h("a", { href: x.u, target: "_blank", rel: "noopener" }, x.t)); })) : null);
 
     // ---------- skor sementara (rumus dokumen riset, tanpa rasio) ----------
@@ -6106,7 +6180,8 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
       S.kandidat.push({
         id: String(Date.now()), nama: nama.slice(0, 160), kursi: kursi, pelamar: pel, sejenis: numOr(f.elements.sejenis.value, 0),
         jab: f.elements.jab.value, lok: f.elements.lok.value === "jabo" ? "jabo" : "luar", syarat: SYARAT[f.elements.syarat.value] ? f.elements.syarat.value : "catatan",
-        baru: BARU[f.elements.baru.value] ? f.elements.baru.value : "tidak", mek: MEKAN[f.elements.mek.value] ? f.elements.mek.value : "belum"
+        baru: BARU[f.elements.baru.value] ? f.elements.baru.value : "tidak", mek: MEKAN[f.elements.mek.value] ? f.elements.mek.value : "belum",
+        bidang: f.elements.bidang.value === "pendidikan" ? "pendidikan" : ""
       });
       save();
       ctx.rerender();
@@ -6135,6 +6210,8 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
           h("select", { class: "input wide", name: "baru" }, ["tidak", "indikasi", "resmi"].map(function (v) { return h("option", { value: v }, BARU[v][0]); }))),
         h("label", { class: "field sel" }, h("span", { class: "label" }, "Tahapan seleksi"),
           h("select", { class: "input wide", name: "mek" }, ["belum", "cat", "jelas"].map(function (v) { return h("option", { value: v }, MEKAN[v][0]); }))),
+        h("label", { class: "field sel" }, h("span", { class: "label" }, "Bidang"),
+          h("select", { class: "input wide", name: "bidang" }, [h("option", { value: "" }, "Umum"), h("option", { value: "pendidikan" }, "Pendidikan (sesuai pengalaman data akademik)")])),
         h("button", { class: "btn primary", type: "submit" }, "Tambah")),
       rows.length ? h("div", { class: "field" }, h("span", { class: "label" }, "Urutkan dengan"),
         h("div", { class: "seg", role: "group", "aria-label": "Urutkan dengan" }, [["pemda", "Matriks Pemda"], ["dok", "Rumus dokumen riset"]].map(function (o) {
@@ -6188,14 +6265,15 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
 
     return [
       h("div", { class: "stack" }, h("h1", null, "Strategi formasi CPNS 2026"),
-        h("p", { class: "lede" }, "Pemindaian untuk lulusan " + D.jurusan + " dengan rumus dokumen riset Anda: jabatan yang benar-benar menerima jurusan ini, skor sementara, instansi yang dipantau, dan kalkulator. Rincian formasi 2026 belum terbit per " + D.tanggal + "; begitu terbit, pindai di SSCASN lalu masukkan kandidat ke kalkulator."),
+        h("p", { class: "lede" }, "Pemindaian untuk lulusan " + D.jurusan + " dengan rumus dokumen riset Anda, difokuskan ke bidang pendidikan sesuai pengalaman Anda. Formasi 2026–2027 hanya dari instansi pusat (pemda tidak membuka). Rincian formasi belum terbit per " + D.tanggal + "; pendaftaran direncanakan mulai 27 November."),
         h("div", { class: "row" }, h("a", { class: "btn primary", href: "https://sscasn.bkn.go.id/daftar-formasi/", target: "_blank", rel: "noopener" }, "Daftar formasi SSCASN"),
           h("button", { class: "btn", type: "button", onclick: function () { scrollTo("fm-kalk"); } }, "Ke kalkulator"),
+          D.pendidikan ? h("button", { class: "btn", type: "button", onclick: function () { scrollTo("fm-didik"); } }, "Fokus pendidikan") : null,
           PD ? h("button", { class: "btn", type: "button", onclick: function () { scrollTo("fm-pemda"); } }, "Prioritas Pemda") : null,
           D.dokumen ? h("a", { class: "btn", href: D.dokumen, target: "_blank", rel: "noopener" }, "Dokumen PDF") : null)),
       h("section", { class: "panel", "aria-labelledby": "fm-status" }, h("h2", { id: "fm-status" }, "Status per " + D.tanggal), h("ul", { class: "plain-list" }, D.status.map(function (t) { return h("li", null, t); }))),
       h("div", { class: "tiles" }, D.angka.map(function (a) { return h("div", { class: "tile" }, h("span", { class: "v" }, a.v), h("span", { class: "l" }, a.l), h("span", { class: "d" }, a.d)); })),
-      kandidat, pemda, profil, skor, target, pantau, jabatan, validasi, aturan, kalk, langkah, lain, sumber
+      pendidikanSec, kandidat, pemda, profil, skor, target, pantau, jabatan, validasi, aturan, kalk, langkah, lain, sumber
     ];
   };
 })();

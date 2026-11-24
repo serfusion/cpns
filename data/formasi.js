@@ -7,11 +7,12 @@
   var SKD = (window.SKD = window.SKD || {});
 
   SKD.formasi = {
-    tanggal: "23 November 2026",
+    tanggal: "24 November 2026",
     jurusan: "S-1 Ilmu Komunikasi",
     dokumen: "https://github.com/serfusion/cpns/releases?q=APK",
 
     status: [
+      "23 November 2026, MenPANRB di rapat kerja Komisi II DPR: seluruh formasi CPNS 2026–2027 berasal dari instansi pusat, TIDAK ADA formasi pemda, karena difokuskan pada program hasil terbaik cepat Presiden dan belanja pegawai pemda masih melebihi batas UU HKPD. Jadi target realistis adalah kementerian/lembaga beserta kantor dan UPT-nya di daerah.",
       "23 November 2026 (rapat KemenPANRB dengan Komisi II DPR): kebutuhan ASN 2026 ditetapkan 167.113 orang, antara lain guru Sekolah Terintegrasi dan Sekolah Unggul Garuda, dosen, tenaga kesehatan, kehutanan, audit internal, dan pengawas koperasi. Panselnas dibentuk dengan Keppres 7/2026; formasi rinci ditetapkan lewat rapat pleno Panselnas.",
       "Jadwal rencana: pendaftaran dibuka sekitar 27 November 2026 (perkiraan KemenPANRB, diumumkan Panselnas pekan ini), seleksi administrasi pekan pertama Desember, SKD dan SKB Januari–Maret 2027. Belum ada pengumuman resmi bahwa seleksi tanpa wawancara; metode SKB ditentukan tiap instansi.",
       "Rincian formasi CPNS 2026 belum terbit. Minggu 22 November malam, halaman Daftar Formasi SSCASN hanya memuat seleksi Sekolah Rakyat 2026 (PPPK guru, 258 formasi) dan situs BKN belum memuat pengumuman CPNS 2026. Situs pihak ketiga yang menampilkan \"formasi 2026\" menyalin data dari SSCASN ke server mereka sendiri, jadi selalu cocokkan dengan SSCASN. Kepala BKN menargetkan pekan keempat November (23–29 November) karena masih menunggu penetapan formasi dari KemenPANRB.",
@@ -173,9 +174,57 @@
     // Prioritas dari dokumen "Strategi Memilih Formasi CPNS di Pemda" (pengguna, 22 Nov 2026):
     // P1 jabatan/unit baru atau rekrutmen pertama, P2 Kota Tangerang, P3 daerah sepi pesaing.
     // Matriks Pemda: pendidikan 25, jumlah formasi 20, jabatan/unit baru 20, persaingan 15, mekanisme 10, kesiapan SKB 10.
+    // Fokus bidang pendidikan (24 Nov 2026): pemda tidak membuka formasi, pengalaman pemilik di data akademik/PDDikti.
+    pendidikan: {
+      tanggal: "24 November 2026",
+      ringkas: "Pengalaman Anda mengelola data akademik dan pelaporan PDDikti, membangun portal layanan akademik dan ujian berbasis komputer, paling bernilai di instansi pendidikan pusat. Guru (butuh PPG) dan dosen (butuh S-2) tidak bisa dilamar dengan S-1 Ilmu Komunikasi, jadi sasarannya formasi tenaga kependidikan dan jabatan pendukung.",
+      hitung: "Persentase lulus pasti baru bisa dihitung setelah jumlah pelamar per formasi tampil di SSCASN. Begitu angka itu diisi, aplikasi menghitung posisi yang harus Anda capai (masuk berapa persen teratas). Sebelum itu, peluang di bawah adalah perkiraan dari jumlah kursi, lokasi, dan data 2024.",
+      target: [
+        { no: "1", nama: "Kemendikdasmen: tenaga kependidikan Sekolah Nasional Terintegrasi", kelas: "ok", label: "Tinggi", peluang: "Tinggi bila menerima Ilmu Komunikasi",
+          isi: "306 formasi CPNS tenaga kependidikan (dari 1.460; 1.154 sisanya guru lulusan PPG). Sekolah baru program Presiden, jenjang SMP dan SMA. Jabatan dan kualifikasi mengikuti surat Mendikdasmen dan baru terlihat di lampiran.",
+          lokasi: "17 SNT beroperasi 2026: Kab. Bogor (terdekat), Kab. Cianjur, Kab. Gowa, Kab. Bone Bolango, Kota Tidore Kepulauan, IKN, Kab. Banyumas, Kab. Jepara, Kota Subulussalam, Kota Tarakan, Kab. Donggala, Kab. Bolaang Mongondow, Kab. Minahasa Utara, Kab. Kupang, Kab. Buton Tengah, Kab. Tebo, Kab. Tanjung Jabung Timur. Dibangun 2026 antara lain di Kab. Pandeglang (Banten).",
+          cocok: "Data sekolah dan sistem akademik, ujian berbasis komputer, situs dan media sekolah. Cari Arsiparis, Pranata Humas, Pengembang Teknologi Pembelajaran, atau jabatan data/TI yang mencantumkan S-1 Ilmu Komunikasi.",
+          alasan: "Program baru (rekrutmen pertama), sebagian besar lokasi di luar Jawa sehingga pelamar tersebar. Kursi per sekolah kecil." },
+        { no: "2", nama: "Kemendiktisaintek: tenaga kependidikan (LLDIKTI, PTN, Sekolah Garuda)", kelas: "ok", label: "Sedang–tinggi", peluang: "Sedang di Jabodetabek, tinggi di PTN luar Jawa",
+          isi: "Formasi belum dirilis per 24 November. Rencana besar Kemendiktisaintek adalah dosen (S-2/S-3), tetapi tenaga kependidikan PTN, LLDIKTI, dan SMA Unggul Garuda juga di bawah kementerian ini.",
+          lokasi: "LLDIKTI Wilayah III (DKI Jakarta) dan IV (Jawa Barat–Banten), Ditjen Dikti di Jakarta, PTN di Banten dan Jabodetabek (mis. Universitas Sultan Ageng Tirtayasa, Serang).",
+          cocok: "Paling sesuai pengalaman: LLDIKTI dan PTN mengelola data PDDikti, akreditasi, dan pelaporan perguruan tinggi setiap semester. Cari Arsiparis, Pranata Humas, Pengembang Teknologi Pembelajaran, Perencana, Analis Kebijakan bila mencantumkan S-1 Ilmu Komunikasi.",
+          alasan: "2024 (Kemendikbudristek): Arsiparis 9 kursi menerima Ilmu Komunikasi (Untirta 2), PTP 25 kursi. Kursi sedikit, tetapi pengalaman PDDikti memperkuat SKB dan wawancara bila ada." },
+        { no: "3", nama: "Kemenag: pendidikan (PTKIN dan madrasah)", kelas: "accent", label: "Sedang", peluang: "Sedang",
+          isi: "Formasi Kemenag 2026 belum diumumkan resmi (beredar 60.000 CPNS dan PPPK, sebagian besar guru madrasah). Di 2024 Kemenag adalah penyedia kursi terbanyak untuk S-1 Ilmu Komunikasi.",
+          lokasi: "UIN Syarif Hidayatullah (Tangerang Selatan), UIN Sultan Maulana Hasanuddin (Serang), Kanwil dan madrasah negeri.",
+          cocok: "Pranata Humas dan Pengembang Teknologi Pembelajaran di PTKIN; pengelolaan data akademik serupa PDDikti (PTKIN juga melapor ke PDDikti).",
+          alasan: "2024: Pranata Humas 410 kursi dan PTP 72 kursi menerima Ilmu Komunikasi. Humas ramai pelamar; PTP lebih sepi." },
+        { no: "4", nama: "Jabatan pendidikan dan pelatihan di instansi pusat lain", kelas: "accent", label: "Sedang", peluang: "Sedang",
+          isi: "Pengembang Teknologi Pembelajaran di pusat pelatihan (Mahkamah Agung, LAN, Kemenkes, Kementan, Kemensetneg) dan Arsiparis di instansi pendidikan.",
+          lokasi: "Kebanyakan Jakarta dan Jabodetabek.",
+          cocok: "Membuat kelas daring, video, LMS, dan ujian berbasis komputer, sesuai portofolio Anda.",
+          alasan: "2024: MA 6 kursi PTP menerima Ilmu Komunikasi (18 peserta SKB, rasio 3 : 1 di tahap akhir)." }
+      ],
+      tidakCocok: [
+        "Guru (termasuk 1.154 guru SNT): wajib lulus PPG dan berijazah kependidikan sesuai mata pelajaran.",
+        "Dosen Kemendiktisaintek: minimal S-2.",
+        "Guru madrasah Kemenag: butuh ijazah kependidikan atau keagamaan dan sertifikat pendidik."
+      ],
+      cek: [
+        "Nama prodi persis \"S-1 ILMU KOMUNIKASI\" di kolom kualifikasi (Communication Science di ijazah = Ilmu Komunikasi; cek penulisan di ijazah).",
+        "Lokasi penempatan dan jumlah kursi per formasi; SNT di luar Jawa biasanya lebih sepi.",
+        "Metode SKB (CAT saja atau ada wawancara/praktik) dan syarat tambahan (akreditasi, IPK minimal, usia maksimal 35 tahun).",
+        "Begitu jumlah pelamar tampil di SSCASN, isi di kalkulator untuk melihat persentase yang harus dicapai."
+      ],
+      sumber: [
+        { t: "CNBC Indonesia: CPNS 2026 tidak ada formasi untuk pemda (23 Nov 2026)", u: "https://www.cnbcindonesia.com/news/20261123123625-4-787562/pengumuman-cpns-2026-tidak-ada-formasi-untuk-pemda" },
+        { t: "Kompas TV: Kemendikdasmen buka 1.460 formasi CPNS guru dan tendik SNT", u: "https://www.kompas.tv/info-publik/702646/kemendikdasmen-buka-1-460-formasi-cpns-guru-dan-tendik-sekolah-nasional-terintegrasi-2026" },
+        { t: "Kompas: 17 Sekolah Nasional Terintegrasi mulai beroperasi 2026, ini lokasinya", u: "https://www.kompas.com/edu/read/2026/07/20/141601171/17-sekolah-nasional-terintegrasi-mulai-beroperasi-2026-ini-lokasinya" },
+        { t: "Kemenag belum membuka formasi CPNS 2026 (rangkuman per 20 Nov)", u: "https://jadiasn.id/cpns-kemenag-2026-kapan-dibuka/" },
+        { t: "Kemendiktisaintek: rencana rekrutmen dosen (S-2/S-3)", u: "https://www.kalderanews.com/2026/01/rekrutmen-cpns-2026-formasi-dosen-kemendiktisaintek-siapkan-47-ribu-lowongan/" }
+      ]
+    },
+
     pemda: {
       tanggal: "22 November 2026",
       status: [
+        "PEMBARUAN 23 November 2026: MenPANRB memastikan CPNS 2026–2027 tidak membuka formasi pemda. Bagian ini disimpan sebagai catatan; prioritas lokasi kini berarti kantor dan UPT instansi pusat di Kota Tangerang/Jabodetabek (P2) dan di daerah sepi pesaing (P3).",
         "Kuota CPNS daerah 2026 belum diputuskan. Sejumlah pemda sudah mengusulkan (Kota Jambi 322 formasi, Bangka Belitung 120, OKI, Lubuk Linggau, Musi Rawas), tetapi belum ada yang disetujui secara terbuka.",
         "Kota Tangerang: Wakil Wali Kota menyatakan (9 November 2026) pemkot belum menerima pembagian kuota dari BKN dan menunggu pusat.",
         "Kota Tangerang Selatan: BKPSDM menyebut (23 September 2026) sepertinya tidak ada rekrutmen CPNS tahun ini dan berharap ada pada 2027.",

@@ -13,6 +13,9 @@ semua keputusan yang sudah disepakati di percakapan. Rumus skornya sama dengan y
 - **Tidak nyaman dengan pekerjaan yang banyak bicara.** Jabatan yang tugas intinya bicara di depan orang
   dikeluarkan: Penata Keprotokolan, Fasilitator Pemerintahan, Penggerak Swadaya Masyarakat, Penyuluh Sosial,
   Penata Kelola PPPA, Instruktur, Edukator, penyiar, reporter, pengantar kerja.
+- Pengalaman kerja: sejak 2023 mengelola data akademik dan pelaporan PDDikti di perguruan tinggi, membangun portal layanan
+  akademik, ujian berbasis komputer, situs jurnal OJS, SQL. Karena itu **bidang pendidikan** (Kemendikdasmen, Kemendiktisaintek,
+  pendidikan Kemenag) adalah bidang paling cocok; isi `bidang: "pendidikan"` untuk formasi di bidang ini.
 - Lokasi: prioritas Kota Tangerang dan Jabodetabek; bersedia nasional bila peluang jauh lebih besar.
 - Prioritas: peluang lolos paling besar, bukan instansi populer.
 - Data pribadi (nama, IPK, usia, akreditasi) tidak disimpan di repo. Syarat itu ditandai "cek" agar dicek pemilik.
@@ -25,13 +28,27 @@ semua keputusan yang sudah disepakati di percakapan. Rumus skornya sama dengan y
 4. Bukan formasi khusus yang tidak bisa diikuti pemilik (mis. khusus Orang Asli Papua, khusus disabilitas,
    khusus putra/putri daerah tertentu). Formasi cumlaude ditandai "cek akreditasi".
 
-## 3. Urutan prioritas (dokumen Pemda)
+## 3. Urutan prioritas
+
+**Pembaruan 23–24 November 2026.** MenPANRB memastikan formasi CPNS 2026–2027 seluruhnya dari instansi pusat; **pemda tidak
+membuka formasi**. Pindai instansi pusat beserta kantor wilayah dan UPT-nya. Urutan cek:
+
+- **E1 Kemendikdasmen**: 306 formasi tenaga kependidikan Sekolah Nasional Terintegrasi (17 lokasi 2026, antara lain Kab. Bogor;
+  dibangun 2026 antara lain di Kab. Pandeglang). Abaikan 1.154 formasi guru (butuh PPG).
+- **E2 Kemendiktisaintek**: tenaga kependidikan LLDIKTI Wilayah III dan IV, Ditjen Dikti, PTN di Banten/Jabodetabek (mis. Untirta),
+  SMA Unggul Garuda. Abaikan formasi dosen (butuh S-2).
+- **E3 Kemenag bidang pendidikan**: PTKIN (UIN Syarif Hidayatullah, UIN SMH Banten) dan madrasah; abaikan guru madrasah.
+- Lalu P1–P3 di bawah untuk instansi pusat lain.
+
+Isi `bidang: "pendidikan"` untuk kandidat E1–E3 (aplikasi memberi nilai tugas 20 dan kesiapan SKB 5).
+
+### Prioritas lama (dokumen Pemda), kini untuk instansi pusat
 
 - **P1 Jabatan atau unit baru, rekrutmen pertama.** Bukti resmi: instansi yang dibentuk sejak Oktober 2024
   (mis. Kementerian Kebudayaan, Kementerian HAM, Kementerian Ekonomi Kreatif, Kementerian UMKM,
   Kementerian Transmigrasi, Kementerian Haji dan Umrah, Badan Gizi Nasional, kemenko baru), unit baru menurut SOTK,
   atau jabatan yang tidak ada di formasi 2024 instansi itu. Isian `baru`: `resmi` / `indikasi` / `tidak`.
-- **P2 Kota Tangerang.** Pemkot Tangerang, serta kantor instansi pusat di Kota Tangerang
+- **P2 Kota Tangerang.** Kantor instansi pusat di Kota Tangerang (Pemkot tidak membuka formasi 2026–2027)
   (Pengadilan Negeri dan Pengadilan Agama Tangerang, RS dr. Sitanala, kekarantinaan kesehatan Bandara
   Soekarno-Hatta, Bea Cukai Soekarno-Hatta, KPP di Tangerang, BPS Kota Tangerang, dan lainnya).
   Lalu Jabodetabek lainnya (`jabo: true`).
@@ -89,7 +106,7 @@ kandidat2026: {
   list: [
     { nama: "Arsiparis Ahli Pertama", instansi: "Kementerian Kebudayaan", lokasi: "Museum X, Jakarta",
       jab: "arsip", kursi: 3, pelamar: null, jabo: true, syarat: "aman", baru: "resmi", mek: "belum",
-      prioritas: "P1", pendidikan: "S-1 ILMU KOMUNIKASI, S-1 KEARSIPAN, ...", url: "https://...",
+      prioritas: "P1", bidang: "pendidikan", pendidikan: "S-1 ILMU KOMUNIKASI, S-1 KEARSIPAN, ...", url: "https://...",
       catatan: "Formasi umum; cek akreditasi minimal B" }
   ]
 }
@@ -97,6 +114,7 @@ kandidat2026: {
 
 - `syarat`: `aman` bila semua syarat umum tampak terpenuhi; `catatan` bila ada hal yang perlu dicek (IPK, akreditasi,
   sertifikat bahasa, wawancara); jangan masukkan formasi yang gugur.
+- `bidang`: `"pendidikan"` untuk formasi Kemendikdasmen, Kemendiktisaintek, PTN/LLDIKTI, dan pendidikan Kemenag; selain itu kosongkan.
 - `pelamar`: angka resmi bila ada (jumlah pelamar atau yang memenuhi syarat per formasi), selain itu `null`.
 - `url`: tautan pengumuman atau lampiran resmi yang menjadi bukti S-1 Ilmu Komunikasi diterima.
 

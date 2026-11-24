@@ -132,4 +132,6 @@ disimpan di localStorage dengan kunci `skd.formasi.v1` (tidak ikut sinkron).
 - [x] TWK dan TIU dihitung ulang dari 7 sumber asli. TWK: 17 soal baru (penerapan pasal, inti kalimat, kata bercetak miring dengan
   penanda `_kata_`, Hatta di BPUPKI, rapat Ikada, bacaan) dan soal lama naik tingkat. TIU: pembangkit analogi (`fakta.analogi`) dan
   analitis (baris, antrean, meja bundar; diperiksa ke semua permutasi); analogi, deret, dan perbandingan naik tingkat.
+- [x] 24 Nov 2026: pemda tidak membuka formasi 2026–2027 (MenPANRB). Fokus pendidikan: `pendidikan` di `data/formasi.js`, bagian
+  "Fokus pendidikan 2026" di menu Formasi, kolom `bidang` di kalkulator dan kandidat (tugas 20, SKB 5), urutan E1–E3 di kriteria pemindaian.
 
