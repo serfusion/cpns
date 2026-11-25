@@ -276,7 +276,7 @@
     kandidat2026: {
       tanggal: "25 November 2026",
       status: "menunggu",
-      jadwal: "tiga kali sehari, sekitar pukul 07.42, 12.42, dan 17.42 WIB",
+      jadwal: "sekali sehari, sekitar pukul 12.42 WIB",
       catatan: "Jumlah formasi CPNS 2026 sudah diumumkan (154.052, 25 November); rincian per jabatan dan lokasi tampil di SSCASN mulai 27 November. Pemantau memeriksa SSCASN dan pengumuman resmi; formasi yang mencantumkan S-1 Ilmu Komunikasi akan diurutkan di sini dengan kedua rumus dokumen Anda.",
       sumber: [],
       list: []
