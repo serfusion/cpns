@@ -1289,4 +1289,40 @@
         "jumlah peserta kelas tari di semua sanggar meningkat"],
       x: "Gagasan utama ada di kalimat terakhir (paragraf induktif): media sosial ternyata dapat menjadi sarana pelestarian budaya. Pilihan lain hanya rincian, berlawanan dengan isi, atau berlebihan (semua sanggar)." }
   ]);
+
+  // ===================== KISI-KISI 2026: Bahasa Indonesia untuk memahami, mengevaluasi, dan merefleksi informasi =====================
+  SKD.add("twk", [
+    { m: "bind", h: 1, b: 1,
+      q: "Bacalah paragraf berikut. \"Pemerintah kota meresmikan 12 taman baca di kelurahan pada Oktober 2026. Menurut data dinas, jumlah pengunjung taman baca mencapai 3.000 orang pada bulan pertama. Taman baca itu adalah cara terbaik untuk menumbuhkan minat baca anak.\" Kalimat yang berisi opini adalah ...",
+      o: ["Taman baca itu adalah cara terbaik untuk menumbuhkan minat baca anak.",
+        "Pemerintah kota meresmikan 12 taman baca di kelurahan pada Oktober 2026.",
+        "Menurut data dinas, jumlah pengunjung taman baca mencapai 3.000 orang pada bulan pertama.",
+        "Taman baca diresmikan oleh pemerintah kota.",
+        "Jumlah pengunjung taman baca dicatat oleh dinas."],
+      x: "Opini berisi penilaian yang tidak dapat dibuktikan secara pasti (\"cara terbaik\"). Kalimat lain memuat fakta yang dapat diperiksa: waktu, jumlah, dan sumber data." },
+    { m: "bind", h: 1, b: 1,
+      q: "Sebuah pesan berantai menyatakan bahwa air kelapa yang dicampur garam dapat menyembuhkan demam berdarah dalam satu hari. Pesan itu tidak mencantumkan sumber, tetapi disebut berasal dari \"seorang dokter terkenal\". Sikap yang paling tepat dalam mengevaluasi informasi tersebut adalah ...",
+      o: ["meragukannya sampai ada sumber jelas yang dapat diperiksa, misalnya keterangan resmi lembaga kesehatan",
+        "mempercayainya karena disebut berasal dari dokter",
+        "menyebarkannya agar orang lain dapat mencoba",
+        "mempercayainya karena bahan yang disebutkan alami",
+        "menolak semua informasi kesehatan dari media sosial"],
+      x: "Informasi yang kuat menyebut sumber yang jelas dan dapat diverifikasi. Sebutan \"seorang dokter terkenal\" tanpa nama dan bukti tidak cukup. Menolak semua informasi juga keliru; yang tepat adalah memeriksa sumbernya." },
+    { m: "bind", h: 1, b: 1,
+      q: "Bacalah paragraf berikut. \"Setiap tahun, ribuan dokumen penting warga rusak karena disimpan di tempat lembap. Padahal, kini warga dapat menyimpan salinan digital dokumen kependudukan di aplikasi resmi pemerintah secara gratis. Unduh aplikasinya dan simpan dokumen Anda hari ini juga.\" Tujuan penulis paragraf tersebut adalah ...",
+      o: ["mengajak warga menyimpan salinan digital dokumen kependudukan",
+        "menjelaskan cara kerja aplikasi pemerintah secara rinci",
+        "mengkritik warga yang menyimpan dokumen di tempat lembap",
+        "melaporkan jumlah dokumen yang rusak setiap tahun",
+        "membandingkan aplikasi pemerintah dengan aplikasi swasta"],
+      x: "Kalimat terakhir berupa ajakan (\"Unduh ... simpan ... hari ini juga\"), dan kalimat sebelumnya menjadi alasannya. Paragraf ini bersifat persuasif." },
+    { m: "bind", h: 1, b: 1,
+      q: "Bacalah informasi berikut. \"Mulai Januari, permohonan izin usaha mikro cukup melampirkan KTP dan foto lokasi usaha, tanpa surat keterangan domisili dari kelurahan.\" Seorang pedagang yang belum memiliki surat keterangan domisili ingin mengurus izin usaha mikro pada bulan Februari. Simpulan yang paling tepat adalah ...",
+      o: ["ia dapat mengajukan izin dengan KTP dan foto lokasi usaha tanpa menunggu surat domisili",
+        "ia harus mengurus surat domisili lebih dulu ke kelurahan",
+        "ia tidak dapat mengajukan izin karena belum memiliki surat domisili",
+        "ia harus menunggu sampai aturan itu berlaku tahun depan",
+        "ia cukup melampirkan surat domisili tanpa KTP"],
+      x: "Aturan berlaku mulai Januari dan tidak lagi mensyaratkan surat domisili, sehingga pada Februari pedagang itu cukup melampirkan KTP dan foto lokasi usaha." }
+  ]);
 })();

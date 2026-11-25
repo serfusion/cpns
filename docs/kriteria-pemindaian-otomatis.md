@@ -30,14 +30,19 @@ semua keputusan yang sudah disepakati di percakapan. Rumus skornya sama dengan y
 
 ## 3. Urutan prioritas
 
-**Pembaruan 23–24 November 2026.** MenPANRB memastikan formasi CPNS 2026–2027 seluruhnya dari instansi pusat; **pemda tidak
-membuka formasi**. Pindai instansi pusat beserta kantor wilayah dan UPT-nya. Urutan cek:
+**Pembaruan 23–25 November 2026.** MenPANRB memastikan formasi CPNS 2026–2027 seluruhnya dari instansi pusat; **pemda tidak
+membuka formasi**. Formasi resmi 25 November: 154.052 (PHTC dan Program Prioritas Presiden 118.208, sektor prioritas lainnya
+35.844). Kelompok yang relevan: tenaga dosen dan teknis kependidikan tinggi 26.614 (ambil tenaga teknis saja), guru dan tenaga
+kependidikan 3.621 (ambil tenaga kependidikan saja), statistik dan data pembangunan 7.285. Pendaftaran SSCASN 27 November sampai
+awal Desember. Pindai instansi pusat beserta kantor wilayah dan UPT-nya. Urutan cek:
 
 - **E1 Kemendikdasmen**: 306 formasi tenaga kependidikan Sekolah Nasional Terintegrasi (17 lokasi 2026, antara lain Kab. Bogor;
   dibangun 2026 antara lain di Kab. Pandeglang). Abaikan 1.154 formasi guru (butuh PPG).
-- **E2 Kemendiktisaintek**: tenaga kependidikan LLDIKTI Wilayah III dan IV, Ditjen Dikti, PTN di Banten/Jabodetabek (mis. Untirta),
-  SMA Unggul Garuda. Abaikan formasi dosen (butuh S-2).
+- **E2 Tenaga teknis kependidikan tinggi (kelompok 26.614)**: PTN, LLDIKTI Wilayah III dan IV, Ditjen Dikti, PTN di
+  Banten/Jabodetabek (mis. Untirta), SMA Unggul Garuda. Abaikan formasi dosen (butuh S-2).
 - **E3 Kemenag bidang pendidikan**: PTKIN (UIN Syarif Hidayatullah, UIN SMH Banten) dan madrasah; abaikan guru madrasah.
+- **E4 Statistik dan data pembangunan (kelompok 7.285, terutama BPS)**: hanya Pranata Humas atau jabatan diseminasi data yang
+  mencantumkan S-1 Ilmu Komunikasi; Statistisi dan Pranata Komputer biasanya gugur. Kosongkan `bidang`.
 - Lalu P1–P3 di bawah untuk instansi pusat lain.
 
 Isi `bidang: "pendidikan"` untuk kandidat E1–E3 (aplikasi memberi nilai tugas 20 dan kesiapan SKB 5).
@@ -86,7 +91,8 @@ syarat dan risiko 15. Kategori: 75+ Sangat layak diteliti, 60–74 Layak, di baw
 
 **Rumus B, matriks Pemda (100):** tiap kriteria 1–5, nilai = jumlah (skor ÷ 5 × bobot): pendidikan 25,
 jumlah formasi 20 (lebih dari 5 kursi = 5), jabatan/unit baru 20, persaingan 15, mekanisme seleksi 10 (SKB CAT saja = 5,
-tes non-CAT dengan aturan jelas = 3, belum jelas = 1), kesiapan SKB 10.
+tes non-CAT dengan aturan jelas = 3, belum jelas = 1), kesiapan SKB 10. KepmenPANRB 674/2026 menetapkan SKB dengan CAT BKN
+(90 menit, 100 soal; 80 soal bila dominan hitungan), jadi isi `mek: "cat"` kecuali pengumuman instansi menyebut tes lain.
 
 Bila jumlah pelamar belum tersedia, aplikasi menghitung kedua rumus **tanpa komponen persaingan** lalu menskalakannya ke 100,
 dan menandainya "tanpa rasio" (sesuai prinsip dokumen riset: jangan memperkirakan angka pelamar).
@@ -99,13 +105,13 @@ Di `data/formasi.js`, properti `kandidat2026`:
 
 ```js
 kandidat2026: {
-  tanggal: "24 November 2026",          // tanggal pemindaian
+  tanggal: "27 November 2026",          // tanggal pemindaian
   status: "terbit",                     // "menunggu" | "terbit" | "ditutup"
   catatan: "Ringkasan singkat sumber dan cakupan pemindaian",
   sumber: [{ t: "Pengumuman CPNS Instansi X 2026", u: "https://..." }],
   list: [
     { nama: "Arsiparis Ahli Pertama", instansi: "Kementerian Kebudayaan", lokasi: "Museum X, Jakarta",
-      jab: "arsip", kursi: 3, pelamar: null, jabo: true, syarat: "aman", baru: "resmi", mek: "belum",
+      jab: "arsip", kursi: 3, pelamar: null, jabo: true, syarat: "aman", baru: "resmi", mek: "cat",
       prioritas: "P1", bidang: "pendidikan", pendidikan: "S-1 ILMU KOMUNIKASI, S-1 KEARSIPAN, ...", url: "https://...",
       catatan: "Formasi umum; cek akreditasi minimal B" }
   ]

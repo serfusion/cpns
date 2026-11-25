@@ -256,7 +256,7 @@
   function canGen(m, opt) {
     if (!m.gen || opt.baru) return false;
     if (!opt.sangat) return true;
-    if (m.id === "fig-seri" || m.id === "der") return true; // pola 9 kotak; deret angka (4 laporan)
+    if (m.id === "fig-mat" || m.id === "der") return true; // penalaran matriks (pola 9 kotak); deret angka (4 laporan)
     return !!(SKD.acak && SKD.acak.bisa(m.id, opt));
   }
   function pickBank(materi, n, R, stats, opt) {

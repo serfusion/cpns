@@ -464,7 +464,8 @@
   }
 
   var GEN = {
-    "fig-seri": [seriRot, seriRing, seriCount, seriPoly, matriks, matriks],
+    "fig-seri": [seriRot, seriRing, seriCount, seriPoly],
+    "fig-mat": [matriks],
     "fig-ana": [anaGlyph, anaGlyph, anaNest, anaPoly],
     "fig-beda": [bedaMirror, bedaRule, bedaRule],
     "fig-kubus": [kubus]
@@ -476,7 +477,7 @@
     describe: describe,
     /** Bangkitkan satu soal figural. Jawaban benar selalu opts[0]. */
     generate: function (materi, R, sangat) {
-      var list = sangat && materi === "fig-seri" ? [matriks] : GEN[materi];
+      var list = GEN[materi];
       for (var tries = 0; tries < 20; tries++) {
         var out = R.pick(list)(R), seen = {}, ok = out.opts.length === 5;
         for (var i = 0; ok && i < out.opts.length; i++) {

@@ -1,5 +1,5 @@
 // Susun naskah audio "mode hafalan": soal -> jeda berpikir -> jawaban benar -> pembahasan.
-// Hanya materi tanpa hitungan (TWK, TIU analogi dan silogisme, TKP). Setiap berkas berisi paling banyak 10 soal,
+// Hanya materi tanpa hitungan (TWK, TIU silogisme dan penalaran induktif, TKP). Setiap berkas berisi paling banyak 10 soal,
 // jadi bila berhenti di tengah, lanjutkan dari bagian berikutnya tanpa mengulang dari awal.
 // Tiga album: 1 Sangat Sering Keluar (boleh diulang-ulang), 2 Per Materi, 3 Fakta TWK (pasal, lembaga, butir Pancasila, sejarah).
 // Jalankan: node scripts/audio-teks.mjs > naskah.json
@@ -60,7 +60,7 @@ function tabel(tb) {
 const SEC = Object.fromEntries(SKD.config.sections.map((s) => [s.id, s]));
 const MATERI = Object.fromEntries(SKD.config.materi.map((m) => [m.id, m]));
 // Materi tanpa hitungan. Analitis tidak dibacakan karena susunan duduk dan tabel sulit diikuti lewat suara.
-const TANPA_HITUNG = ["nas", "int", "bela", "pilar", "bind", "ana", "sil", "pel", "jej", "sos", "tik", "pro", "rad"];
+const TANPA_HITUNG = ["nas", "int", "bela", "pilar", "bind", "ind", "sil", "pel", "jej", "sos", "tik", "pro", "rad"];
 const PER_BAGIAN = 10;
 const ALBUM = { 1: "SKD 1 Sangat Sering Keluar", 2: "SKD 2 Per Materi Tanpa Hitungan", 3: "SKD 3 Fakta TWK" };
 const slug = (t) => t.replace(/[^A-Za-z0-9]+/g, "-").replace(/^-+|-+$/g, "");

@@ -6,7 +6,8 @@
 
   SKD.config = {
     appName: "Latihan SKD CPNS",
-    // Acuan: KepmenPANRB 321/2024 (seleksi CPNS terakhir). Aturan khusus CPNS 2026
+    // Acuan: KepmenPANRB 674/2026 (ditetapkan 20 November 2026) tentang mekanisme seleksi PNS dan nilai ambang batas SKD
+    // tahun anggaran 2026. Sebelumnya KepmenPANRB 321/2024. Aturan khusus CPNS 2026
     // belum terbit saat aplikasi ini dibuat (16 Nov 2026) — ubah di menu Pengaturan bila berbeda.
     exam: { minutes: 100 },
     sections: [
@@ -19,7 +20,7 @@
     materi: [
       {
         id: "nas", sec: "twk", name: "Nasionalisme", quota: 6, gen: 0.3,
-        def: "Mewujudkan kepentingan nasional melalui cita-cita dan tujuan yang sama dengan tetap mempertahankan identitas nasional.",
+        def: "Memahami, menghayati, dan mengaktualisasikan nilai nasionalisme melalui sikap cinta tanah air, kesadaran berbangsa dan bernegara, penghargaan terhadap keberagaman, serta komitmen menjaga persatuan dan kesatuan bangsa dengan tetap mempertahankan identitas nasional.",
         pola: [
           "Studi kasus penerapan nasionalisme sehari-hari: produk lokal, media sosial dan konten kreator, suporter, globalisasi budaya",
           "Nasionalisme sempit dan luas; chauvinisme, primordialisme, etnosentrisme, separatisme",
@@ -30,7 +31,7 @@
       },
       {
         id: "int", sec: "twk", name: "Integritas", quota: 6,
-        def: "Menjunjung tinggi kejujuran, ketangguhan, komitmen, dan konsistensi sebagai satu kesatuan sikap untuk mencapai tujuan nasional.",
+        def: "Memahami dan menerapkan nilai integritas, yaitu keselarasan pikiran, perkataan, sikap, dan tindakan berdasarkan kejujuran, tanggung jawab, konsistensi, keteguhan moral, serta komitmen terhadap kepentingan bangsa dan negara.",
         pola: [
           "Sembilan nilai antikorupsi (jujur, disiplin, tanggung jawab, adil, berani, peduli, kerja keras, sederhana, mandiri) pada kasus dan kisah tokoh",
           "Gratifikasi, suap, konflik kepentingan, LHKPN",
@@ -40,7 +41,7 @@
       },
       {
         id: "bela", sec: "twk", name: "Bela Negara", quota: 6,
-        def: "Berperan aktif dalam mempertahankan eksistensi bangsa dan negara.",
+        def: "Memahami dan mengaktualisasikan nilai dasar bela negara: cinta tanah air, sadar berbangsa dan bernegara, setia kepada Pancasila, rela berkorban, serta kemampuan awal bela negara sesuai peran dan tanggung jawab, untuk menjaga kedaulatan, keutuhan wilayah, dan keselamatan bangsa.",
         pola: [
           "Pasal 27 ayat (3) dan Pasal 30 UUD 1945, UU 3/2002, UU 23/2019",
           "Nilai dasar bela negara dan contoh perilakunya",
@@ -50,8 +51,8 @@
         ]
       },
       {
-        id: "pilar", sec: "twk", name: "Pilar Negara", quota: 7, gen: 0.35,
-        def: "Membentuk karakter positif melalui pemahaman dan pengamalan nilai-nilai dalam Pancasila, UUD 1945, NKRI, dan Bhinneka Tunggal Ika.",
+        id: "pilar", sec: "twk", name: "Empat Konsensus Kebangsaan", quota: 7, gen: 0.35,
+        def: "Memahami, menganalisis, dan menerapkan nilai empat konsensus kebangsaan: Pancasila sebagai dasar dan ideologi negara, UUD 1945 sebagai hukum dasar tertulis, NKRI sebagai bentuk negara, dan Bhinneka Tunggal Ika sebagai semboyan negara.",
         pola: [
           "Kasus penerapan sila Pancasila (sila ke berapa) dan butir pengamalannya",
           "Sejarah perumusan Pancasila: BPUPKI, Panitia Sembilan, Piagam Jakarta, PPKI",
@@ -62,29 +63,34 @@
       },
       {
         id: "bind", sec: "twk", name: "Bahasa Indonesia", quota: 5, gen: 0.2,
-        def: "Mampu menggunakan bahasa Indonesia sebagai bahasa persatuan yang sangat penting kedudukannya pada masyarakat Indonesia.",
+        def: "Pengetahuan kebahasaan dan kemampuan berbahasa Indonesia dengan baik dan/atau benar untuk memahami, menggunakan, mengevaluasi, dan merefleksi informasi dalam kehidupan bermasyarakat, berbangsa, dan bernegara.",
         pola: [
           "Ide pokok, simpulan, dan judul bacaan",
           "Makna kata atau istilah dalam konteks",
           "Kalimat efektif, kata baku, ejaan (huruf kapital, kata depan, tanda baca)",
           "Majas, jenis paragraf, fakta dan opini",
           "Kedudukan dan fungsi bahasa Indonesia"
-        , "Huruf miring dan tanda koma", "Inti kalimat (subjek, predikat, objek)"]
+        , "Huruf miring dan tanda koma", "Inti kalimat (subjek, predikat, objek)", "Mengevaluasi informasi: fakta atau opini, sumber yang dapat dipercaya, tujuan penulis (kisi-kisi 2026)", "Merefleksi informasi: menerapkan isi aturan atau bacaan pada situasi nyata (kisi-kisi 2026)"]
       },
 
       {
-        id: "ana", sec: "tiu", name: "Analogi", group: "Verbal", quota: 3, gen: 0.35,
+        id: "ana", sec: "tiu", name: "Analogi Kata (kisi-kisi 2024)", group: "Verbal", quota: 0, gen: 0.35, lama: true,
         def: "Bernalar melalui perbandingan dua konsep kata yang memiliki hubungan tertentu, lalu memakai hubungan itu pada situasi lain.",
         pola: ["Analogi dua kata dan tiga kata", "Hubungan fungsi, sebab-akibat, bagian-keseluruhan, alat-profesi, tingkatan, tempat"]
       },
       {
         id: "sil", sec: "tiu", name: "Silogisme", group: "Verbal", quota: 4, gen: 0.35,
-        def: "Menarik kesimpulan dari dua pernyataan yang diberikan.",
+        def: "Bernalar deduktif dengan menghubungkan premis-premis untuk menarik satu kesimpulan logis yang pasti benar, tanpa menambahkan asumsi di luar informasi yang diberikan.",
         pola: ["Silogisme dua premis: semua, sebagian, tidak ada", "Modus ponens dan modus tollens (jika-maka)", "Memilih kesimpulan yang pasti benar, bukan yang mungkin benar", "Silogisme tiga premis: rantai semua–semua–sebagian dan rantai jika–maka"]
       },
       {
+        id: "ind", sec: "tiu", name: "Penalaran Induktif", group: "Verbal", quota: 3, baru2026: true,
+        def: "Mengidentifikasi pola hubungan, tren, atau prinsip umum dari serangkaian informasi yang terpisah untuk merumuskan generalisasi, penjelasan, atau perkiraan yang paling berpeluang benar (materi baru 2026).",
+        pola: ["Generalisasi dari beberapa pengamatan, termasuk pengecualian", "Penjelasan yang paling mungkin untuk sebuah perubahan", "Perkiraan dari tren atau pola berulang", "Hubungan belum tentu sebab-akibat; sampel yang tidak mewakili; generalisasi tergesa-gesa"]
+      },
+      {
         id: "anl", sec: "tiu", name: "Analitis", group: "Verbal", quota: 4, gen: 0.3,
-        def: "Menganalisis informasi yang diberikan dan menarik kesimpulan.",
+        def: "Mengurai informasi yang kompleks, memetakan hubungan antarvariabel, serta menyusun atau mengevaluasi kombinasi keputusan yang valid berdasarkan seperangkat syarat dan batasan.",
         pola: ["Urutan dan posisi duduk", "Penjadwalan dan pengelompokan bersyarat", "Menarik kesimpulan dari tabel", "Susunan duduk melingkar dan antrean", "Analisis tabel: rasio, persentase kenaikan, pecahan"]
       },
       {
@@ -99,8 +105,8 @@
       },
       {
         id: "pk", sec: "tiu", name: "Perbandingan Kuantitatif", group: "Numerik", quota: 4,
-        def: "Menarik kesimpulan berdasarkan dua data kuantitatif.",
-        pola: ["Membandingkan x dan y dari pecahan, persen, akar, dan pangkat", "Kasus yang hubungannya tidak dapat ditentukan"]
+        def: "Menarik kesimpulan berdasarkan dua atau tiga data kuantitatif.",
+        pola: ["Membandingkan x dan y dari pecahan, persen, akar, dan pangkat", "Membandingkan tiga data x, y, dan z (kisi-kisi 2026)", "Kasus yang hubungannya tidak dapat ditentukan"]
       },
       {
         id: "cer", sec: "tiu", name: "Soal Cerita", group: "Numerik", quota: 7,
@@ -114,53 +120,58 @@
       },
       {
         id: "fig-ana", sec: "tiu", name: "Analogi Gambar", group: "Figural", quota: 2, gen: 1,
-        def: "Bernalar melalui perbandingan dua gambar yang memiliki hubungan tertentu, lalu memakai hubungan itu pada gambar lain.",
+        def: "Bernalar melalui perbandingan dua gambar yang memiliki hubungan tertentu, lalu memakai konsep hubungan itu pada situasi lain.",
         pola: ["Rotasi dan pencerminan", "Perubahan arsiran", "Pertukaran bentuk luar dan dalam"]
       },
       {
-        id: "fig-beda", sec: "tiu", name: "Ketidaksamaan Gambar", group: "Figural", quota: 1, gen: 1,
+        id: "fig-beda", sec: "tiu", name: "Ketidaksamaan Gambar (kisi-kisi 2024)", group: "Figural", quota: 0, gen: 1, lama: true,
         def: "Melihat perbedaan beberapa gambar.",
         pola: ["Satu gambar hasil cermin di antara gambar hasil putaran", "Aturan jumlah elemen yang dilanggar satu gambar"]
       },
       {
-        id: "fig-seri", sec: "tiu", name: "Serial Gambar", group: "Figural", quota: 2, gen: 1,
+        id: "fig-seri", sec: "tiu", name: "Serial Gambar", group: "Figural", quota: 1, gen: 1,
         def: "Melihat pola hubungan dalam bentuk gambar.",
-        pola: ["Rotasi bertahap", "Pergeseran posisi", "Penambahan elemen", "Pola 9 kotak (3×3)"]
+        pola: ["Rotasi bertahap", "Pergeseran posisi", "Penambahan elemen"]
+      },
+      {
+        id: "fig-mat", sec: "tiu", name: "Penalaran Matriks", group: "Figural", quota: 2, gen: 1, baru2026: true,
+        def: "Memahami pola melalui berbagai perspektif dan menentukan perspektif yang menyelesaikan permasalahan (materi baru 2026). Di aplikasi berupa matriks 3×3, dikenal peserta sebagai pola 9 kotak, yang dibaca per baris, kolom, putaran, dan jumlah.",
+        pola: ["Pola 9 kotak (3×3): setiap baris dan kolom memuat semua bentuk dan jumlah", "Jumlah bertambah ke kanan dan ke bawah", "Putaran berbeda arah baris dan kolom"]
       },
       {
         id: "fig-kubus", sec: "tiu", name: "Jaring-jaring Kubus", group: "Figural", quota: 1, gen: 1,
-        def: "Membayangkan jaring-jaring yang dirakit menjadi kubus: sisi mana yang berhadapan dan mana yang bersebelahan.",
+        def: "Membayangkan jaring-jaring yang dirakit menjadi kubus: sisi mana yang berhadapan dan mana yang bersebelahan. Tidak disebut tersendiri di kisi-kisi; dilaporkan peserta 2024 muncul di bagian figural.",
         pola: ["Sisi yang berhadapan dengan sisi tertentu", "Sisi yang menjadi tutup bila sisi tertentu menjadi alas", "Pasangan sisi yang saling berhadapan"]
       },
 
       {
         id: "pel", sec: "tkp", name: "Pelayanan Publik", quota: 8,
-        def: "Menampilkan keramahtamahan dalam bekerja yang efektif agar bisa memenuhi kebutuhan dan kepuasan orang lain sesuai tugas dan wewenang.",
+        def: "Memberikan pelayanan terbaik kepada publik sesuai tugas melalui sikap ramah, respons yang cekatan, pelayanan tanpa pamrih, dan upaya memperbaiki kualitas layanan secara berkesinambungan.",
         pola: ["Menangani keluhan dan antrean", "Melayani tuntas di luar kebiasaan tanpa melanggar aturan", "Menolak imbalan", "Layanan bagi lansia dan penyandang disabilitas"]
       },
       {
         id: "jej", sec: "tkp", name: "Jejaring Kerja", quota: 7,
-        def: "Membangun dan membina hubungan, bekerja sama, berbagi informasi, dan berkolaborasi dengan orang lain secara efektif.",
+        def: "Membangun dan memelihara kolaborasi internal dan eksternal yang mendorong peran aktif berbagai pihak untuk mencapai tujuan organisasi.",
         pola: ["Kerja sama lintas unit dan instansi", "Berbagi informasi dan pengetahuan", "Konflik dalam tim", "Membangun relasi baru"]
       },
       {
         id: "sos", sec: "tkp", name: "Sosial Budaya", quota: 7,
-        def: "Beradaptasi dan bekerja secara efektif dalam masyarakat majemuk (beragam agama, suku, budaya, dan sebagainya).",
+        def: "Membangun hubungan sosial yang positif dengan menghargai keragaman latar belakang sosial budaya untuk mewujudkan komunitas yang harmonis dan terintegrasi.",
         pola: ["Keberagaman suku dan agama di kantor", "Adaptasi di tempat tugas baru", "Empati dan menghargai adat setempat"]
       },
       {
-        id: "tik", sec: "tkp", name: "Teknologi Informasi dan Komunikasi", quota: 7,
-        def: "Memanfaatkan teknologi informasi secara efektif untuk meningkatkan kinerja.",
+        id: "tik", sec: "tkp", name: "Adaptasi Teknologi Informasi dan Komunikasi", quota: 7,
+        def: "Menyesuaikan diri terhadap perkembangan dan perubahan teknologi informasi dan komunikasi: menerima dan memanfaatkan TIK secara bijak untuk mempermudah tugas, dengan tetap mematuhi prinsip etis.",
         pola: ["Aplikasi dan sistem baru di kantor", "Keamanan data dan kerahasiaan", "Hoaks dan media sosial", "Inovasi digital", "Kecerdasan artifisial generatif dan pelindungan data pribadi", "Rekan gagap teknologi, gangguan sistem, dan serangan siber"]
       },
       {
         id: "pro", sec: "tkp", name: "Profesionalisme", quota: 8,
-        def: "Melaksanakan tugas dan fungsi sesuai dengan tuntutan jabatan.",
+        def: "Menampilkan keahlian di bidangnya, mengedepankan akuntabilitas dan integritas, serta menunjukkan komitmen dalam bekerja dan berkontribusi pada organisasi.",
         pola: ["Prioritas dan tenggat", "Tanggung jawab atas kesalahan", "Menempatkan diri di antara tugas kantor dan urusan lain (kuliah, keluarga, organisasi, usaha sampingan)", "Belajar dan berinovasi", "Kerahasiaan dan spionase, judi daring, perubahan penugasan mendadak", "Penerapan nilai BerAKHLAK dan netralitas ASN saat pilkada"]
       },
       {
         id: "rad", sec: "tkp", name: "Anti Radikalisme", quota: 8,
-        def: "Menjunjung tinggi dan bertindak sesuai nilai-nilai untuk tidak mengikuti atau menganut paham radikalisme (toleransi, antikekerasan, dan sebagainya).",
+        def: "Berpikir dan bertindak bijak, menolak kekerasan dan pemaksaan kehendak atas keyakinan pribadi (agama, politik, aliran), serta menerima perbedaan ideologi yang tidak bertentangan dengan ideologi bangsa.",
         pola: ["Ajakan kelompok intoleran", "Konten radikal dan isu SARA di media sosial", "Netralitas dan persatuan", "Melapor lewat jalur resmi"]
       }
     ],
@@ -169,7 +180,8 @@
       status: [
         "Formasi CPNS 2026 belum terbit per 23 November 2026. Rencana pemerintah: pendaftaran mulai 27 November 2026, SKD dan SKB Januari–Maret 2027 (belum resmi).",
         "SKD sekolah kedinasan 2026 sudah berlangsung 22 September–7 Oktober 2026 dengan CAT BKN: 110 soal, 100 menit, ambang batas TWK 65, TIU 80, TKP 156 (KepmenPANRB 406/2026).",
-        "Ambang batas SKD CPNS 2026 belum ditetapkan. Acuan terakhir untuk CPNS adalah KepmenPANRB 321/2024: TWK 65, TIU 80, TKP 166.",
+        "Ambang batas SKD CPNS 2026 sudah ditetapkan dalam KepmenPANRB 674/2026 (20 November 2026): kebutuhan umum TWK 65, TIU 80, TKP 166 (sama dengan 2024). Cumlaude dan diaspora: kumulatif minimal 311 dengan TIU minimal 85; penyandang disabilitas dan putra/putri Papua: kumulatif minimal 286 dengan TIU minimal 60.",
+        "Kisi-kisi SKD 2026 (KepmenPANRB 674/2026): TIU verbal kini silogisme, penalaran induktif, dan analitis (analogi kata tidak lagi tercantum); TIU figural kini serial, analogi gambar, dan penalaran matriks (ketidaksamaan tidak lagi tercantum); perbandingan kuantitatif bisa memakai dua atau tiga data. SKB memakai CAT BKN: 90 menit, 100 soal untuk jabatan yang materinya tidak dominan hitungan. Nilai SKD 2024 boleh dipakai bila memenuhi syarat.",
         "Soal CAT BKN rahasia dan diacak per peserta. Tidak ada cara sah mendapatkan soal yang akan keluar; tawaran \"bocoran\" adalah penipuan dan dapat menggugurkan peserta. Semua soal di aplikasi ini disusun sendiri mengikuti kisi-kisi dan pola laporan peserta."
       ],
       rumus: "Tingkat pola. Sangat sering keluar: tercantum di kisi-kisi resmi dan dilaporkan di 3 laporan peserta atau lebih. Sering keluar: 1–2 laporan. Laporan dihitung per rangkuman hari ujian dan per sumber, karena soal CAT diacak per peserta: pola yang muncul di banyak hari dan banyak peserta berarti sering keluar.",

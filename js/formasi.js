@@ -43,7 +43,7 @@
   }
   // ---------- matriks dokumen strategi Pemda ----------
   var BARU = { resmi: ["Ada bukti resmi (SOTK, unit baru)", 5], indikasi: ["Ada indikasi, belum resmi", 3], tidak: ["Tidak ada atau belum dicek", 1] };
-  var MEKAN = { cat: ["SKB CAT saja", 5], jelas: ["Ada tes non-CAT, aturan jelas", 3], belum: ["Belum jelas", 1] };
+  var MEKAN = { cat: ["SKB CAT saja (aturan 2026)", 5], jelas: ["Ada tes non-CAT, aturan jelas", 3], belum: ["Belum jelas", 1] };
   var BOBOT = { pendidikan: 25, jumlah: 20, baru: 20, persaingan: 15, mekanisme: 10, skb: 10 };
   function skala(v, batas) { for (var i = 0; i < batas.length; i++) if (v <= batas[i]) return 5 - i; return 1; }
   /** Skor 1–5 per kriteria dan nilai akhir 0–100 (aturan gugur: pendidikan tidak cocok). */
@@ -54,7 +54,7 @@
       jumlah: a.kursi > 5 ? 5 : a.kursi >= 4 ? 4 : a.kursi,
       baru: (BARU[k.baru] || BARU.tidak)[1],
       persaingan: skala(a.rasio, [5, 10, 20, 50]),
-      mekanisme: (MEKAN[k.mek] || MEKAN.belum)[1],
+      mekanisme: (MEKAN[k.mek] || MEKAN.cat)[1],
       skb: k.bidang === "pendidikan" ? 5 : j && j.skor ? j.skor.tugas / 5 + 1 : 3 // tugas 20/15/10/5/0 -> 5/4/3/2/1; bidang pendidikan = 5
     };
     var total = 0;
@@ -89,7 +89,7 @@
           lok: k.lok === "jabo" ? "jabo" : "luar",
           syarat: SYARAT[k.syarat] ? k.syarat : "catatan",
           baru: BARU[k.baru] ? k.baru : "tidak",
-          mek: MEKAN[k.mek] ? k.mek : "belum"
+          mek: MEKAN[k.mek] ? k.mek : "cat"
         };
       });
     }
@@ -137,7 +137,7 @@
   var PRI = { P1: 1, P2: 2, P3: 3 };
   function skorKandidat(c, pref) {
     var k = { kursi: Math.max(1, Number(c.kursi) || 1), pelamar: c.pelamar == null ? 0 : Number(c.pelamar) || 0, jab: c.jab || "",
-      lok: c.jabo ? "jabo" : "luar", syarat: SYARAT[c.syarat] ? c.syarat : "catatan", baru: BARU[c.baru] ? c.baru : "tidak", mek: MEKAN[c.mek] ? c.mek : "belum",
+      lok: c.jabo ? "jabo" : "luar", syarat: SYARAT[c.syarat] ? c.syarat : "catatan", baru: BARU[c.baru] ? c.baru : "tidak", mek: MEKAN[c.mek] ? c.mek : "cat",
       bidang: c.bidang === "pendidikan" ? "pendidikan" : "" };
     var a = analisis(k, pref);
     if (c.pelamar != null && isFinite(Number(c.pelamar))) return { a: a.total, b: a.pemda.total, kat: a.kat, tanpaRasio: false, an: a };
@@ -221,7 +221,7 @@
       f.elements.lok.value = c.jabo ? "jabo" : "luar";
       f.elements.syarat.value = SYARAT[c.syarat] ? c.syarat : "catatan";
       f.elements.baru.value = BARU[c.baru] ? c.baru : "tidak";
-      f.elements.mek.value = MEKAN[c.mek] ? c.mek : "belum";
+      f.elements.mek.value = MEKAN[c.mek] ? c.mek : "cat";
       f.elements.bidang.value = c.bidang === "pendidikan" ? "pendidikan" : "";
       scrollTo("fm-kalk");
       f.elements.pelamar.focus();
@@ -399,7 +399,7 @@
       S.kandidat.push({
         id: String(Date.now()), nama: nama.slice(0, 160), kursi: kursi, pelamar: pel, sejenis: numOr(f.elements.sejenis.value, 0),
         jab: f.elements.jab.value, lok: f.elements.lok.value === "jabo" ? "jabo" : "luar", syarat: SYARAT[f.elements.syarat.value] ? f.elements.syarat.value : "catatan",
-        baru: BARU[f.elements.baru.value] ? f.elements.baru.value : "tidak", mek: MEKAN[f.elements.mek.value] ? f.elements.mek.value : "belum",
+        baru: BARU[f.elements.baru.value] ? f.elements.baru.value : "tidak", mek: MEKAN[f.elements.mek.value] ? f.elements.mek.value : "cat",
         bidang: f.elements.bidang.value === "pendidikan" ? "pendidikan" : ""
       });
       save();
@@ -428,7 +428,7 @@
         h("label", { class: "field sel" }, h("span", { class: "label" }, "Jabatan/unit baru"),
           h("select", { class: "input wide", name: "baru" }, ["tidak", "indikasi", "resmi"].map(function (v) { return h("option", { value: v }, BARU[v][0]); }))),
         h("label", { class: "field sel" }, h("span", { class: "label" }, "Tahapan seleksi"),
-          h("select", { class: "input wide", name: "mek" }, ["belum", "cat", "jelas"].map(function (v) { return h("option", { value: v }, MEKAN[v][0]); }))),
+          h("select", { class: "input wide", name: "mek" }, ["cat", "jelas", "belum"].map(function (v) { return h("option", { value: v }, MEKAN[v][0]); }))),
         h("label", { class: "field sel" }, h("span", { class: "label" }, "Bidang"),
           h("select", { class: "input wide", name: "bidang" }, [h("option", { value: "" }, "Umum"), h("option", { value: "pendidikan" }, "Pendidikan (sesuai pengalaman data akademik)")])),
         h("button", { class: "btn primary", type: "submit" }, "Tambah")),

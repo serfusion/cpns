@@ -489,7 +489,7 @@
     nas: [[sejarahNas, 3, 1], [hari, 2, 0]],
     bind: [[baku, 1, 0]],
     sil: [[silogisme, 1, 1]],
-    ana: [[analogi, 1, 1]],
+    ana: [[analogi, 1, 0]], // analogi kata tidak lagi tercantum di kisi-kisi 2026
     anl: [[analitis, 1, 1]]
   };
   function unik(opts) {

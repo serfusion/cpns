@@ -1,6 +1,6 @@
 # Pola soal SKD lintas tahun dan soal "sangat sering keluar"
 
-Disusun 23 November 2026 untuk aplikasi Latihan SKD CPNS (TKP, TWK, dan TIU diperbarui pada hari yang sama).\
+Disusun 23 November 2026 untuk aplikasi Latihan SKD CPNS; diperbarui 25 November 2026 mengikuti kisi-kisi SKD 2026 (KepmenPANRB 674/2026).\
 Fokus: memaksimalkan TWK, TKP, dan TIU tanpa hitungan.
 
 ## 1. Jawaban singkat: dari mana soal di aplikasi ini?
@@ -9,12 +9,33 @@ Fokus: memaksimalkan TWK, TKP, dan TIU tanpa hitungan.
   dipublikasikan. Tidak ada jalur sah untuk mendapatkan soal yang akan keluar; tawaran "bocoran" adalah penipuan dan dapat
   menggugurkan peserta.
 - Soal disusun dari tiga dasar yang bisa diperiksa:
-  1. **Kisi-kisi resmi** SKD (KemenPANRB/BKN). Isinya sama sejak CPNS 2021 sampai sekolah kedinasan 2026.
+  1. **Kisi-kisi resmi** SKD (KemenPANRB/BKN). Isinya sama sejak CPNS 2021 sampai sekolah kedinasan 2026; CPNS 2026 memakai
+     kisi-kisi baru KepmenPANRB 674/2026 (lihat bagian berikut).
   2. **Laporan peserta (field report/FR) SKD CPNS 2024** dari beberapa sumber berbeda.
   3. **Fakta resmi**: UUD NRI 1945 hasil perubahan, TAP MPR No. I/MPR/2003 (45 butir Pancasila), KBBI, dan fakta sejarah
      yang sama di semua buku pelajaran.
 - Yang disebut "soal terbaru 2023–2026" di aplikasi adalah soal yang mengikuti **pola** dan **konteks** terbaru (KUHP baru
   2026, putusan MK 2025, EYD Edisi V, keamanan siber, netralitas ASN), bukan soal yang pernah keluar.
+
+## Perubahan kisi-kisi SKD 2026 (KepmenPANRB 674/2026)
+
+KepmenPANRB 674/2026 ditetapkan 20 November 2026 (dokumen resmi di JDIH KemenPANRB). Jumlah soal tetap 110 dalam 100 menit
+(TWK 30, TIU 35, TKP 45), bobot sama, ambang kebutuhan umum tetap 65/80/166. Yang berubah:
+
+| Subtes | Kisi-kisi 2024 | Kisi-kisi 2026 | Yang dilakukan di aplikasi |
+|---|---|---|---|
+| TWK | Nasionalisme, integritas, bela negara, pilar negara, bahasa Indonesia | Nasionalisme, integritas, bela negara, **empat konsensus kebangsaan**, bahasa Indonesia untuk memahami, menggunakan, **mengevaluasi, dan merefleksi** informasi | Nama materi dan definisi mengikuti teks resmi; 4 soal baru menilai informasi (fakta/opini, sumber yang meragukan, tujuan penulis, menerapkan aturan) |
+| TIU verbal | Analogi, silogisme, analitis | Silogisme, **penalaran induktif**, analitis | Materi baru Penalaran Induktif (16 soal: generalisasi, penjelasan paling mungkin, perkiraan dari tren, sampel bias, hubungan bukan sebab-akibat). Analogi kata tidak lagi masuk tryout, tetap ada di menu Latihan |
+| TIU numerik | Berhitung, deret, perbandingan kuantitatif, soal cerita | Sama; perbandingan kuantitatif kini **dua atau tiga data** | 4 soal perbandingan tiga data (x, y, z) |
+| TIU figural | Analogi, ketidaksamaan, serial | Serial, analogi, **penalaran matriks** | Pola 9 kotak menjadi materi tersendiri (Penalaran Matriks, 2 soal per tryout); ketidaksamaan tidak lagi masuk tryout |
+| TKP | Pelayanan publik, jejaring kerja, sosial budaya, TIK, profesionalisme, antiradikalisme | Sama, aspek TIK menjadi **adaptasi terhadap perkembangan TIK** | Nama materi dan definisi mengikuti teks resmi |
+
+Aturan lain yang ikut dipakai: jalur cumlaude dan diaspora memakai nilai kumulatif minimal 311 dengan TIU minimal 85; penyandang
+disabilitas dan putra/putri Papua kumulatif minimal 286 dengan TIU minimal 60. SKB memakai CAT BKN (90 menit, 100 soal, atau
+80 soal bila dominan hitungan). Nilai SKD 2024 boleh dipakai bila NIK dan jenjang pendidikan sama dan memenuhi ambang 2026.
+
+Belum ada laporan peserta untuk materi baru 2026, jadi soal penalaran induktif disusun dari definisi resmi. Karena pasti
+diujikan, soal itu dimasukkan ke set "sangat sering keluar".
 
 ## 2. Apa yang sudah diperiksa
 
@@ -69,11 +90,12 @@ Catatan peserta: TWK 2024 seluruhnya penalaran, tidak ada hafalan murni (S3, S6,
 | Pola | Sumber | Jumlah | Tingkat | Hitungan? |
 |---|---|---|---|---|
 | Silogisme (dua dan tiga premis) | S2, S3, S4, S5, S6 | 5 | Sangat sering | Tidak |
-| Figural pola 9 kotak | S2, S3, S5, S6, S8 | 5 | Sangat sering | Tidak |
-| Analogi kata | S2, S5, S6, S8 | 4 | Sangat sering (naik) | Tidak |
+| Figural pola 9 kotak (= penalaran matriks di kisi-kisi 2026) | S2, S3, S5, S6, S8 | 5 | Sangat sering | Tidak |
+| Analogi kata (tidak lagi di kisi-kisi 2026) | S2, S5, S6, S8 | 4 | Sering 2024, turun untuk 2026 | Tidak |
 | Susunan duduk, antrean, penalaran analitis | S2, S5, S6, S8 | 4 | Sangat sering | Tidak |
 | Jaring-jaring kubus | S2, S4 | 2 | Sering | Tidak |
-| Figural ketidaksamaan | S5 | 1 | Sering | Tidak |
+| Figural ketidaksamaan (tidak lagi di kisi-kisi 2026) | S5 | 1 | Sering 2024, turun untuk 2026 | Tidak |
+| Penalaran induktif (baru di kisi-kisi 2026) | belum ada laporan | – | Pasti diujikan | Tidak |
 | Analisis tabel dan grafik | S2, S4, S5, S6, S8 | 5 | Sangat sering | Ringan |
 | Pecahan, desimal, persen, hitung cepat | S3, S4, S5, S6, S8 | 5 | Sangat sering | Ya |
 | Perbandingan senilai dan berbalik nilai | S2, S3, S5, S6 | 4 | Sangat sering (naik) | Ya |
@@ -82,7 +104,8 @@ Catatan peserta: TWK 2024 seluruhnya penalaran, tidak ada hafalan murni (S3, S6,
 | Soal cerita (kecepatan, bensin, untung rugi, waktu libur, beras) | S2, S4, S5, S6, S7, S8 | 6 | Sering, kecuali perbandingan | Ya |
 
 Semua subtes TIU memang selalu ada di setiap paket, jadi untuk TIU tanda "sangat sering" terutama membantu memilih **jenis** soal.
-Untuk fokus tanpa hitungan: silogisme, pola 9 kotak, analogi kata, serta susunan duduk dan antrean. Keempatnya dilaporkan 4–5 sumber.
+Untuk fokus tanpa hitungan 2026: silogisme, pola 9 kotak (penalaran matriks), serta susunan duduk dan antrean (dilaporkan 4–5
+sumber), ditambah penalaran induktif yang baru masuk kisi-kisi. Analogi kata tidak lagi tercantum, jadi dikeluarkan dari set sangat sering.
 
 ### TKP
 
@@ -107,18 +130,21 @@ mungkin keluar, tetapi tidak dihitung sebagai bukti baru.
 
 ## 4. Yang ditambahkan di aplikasi
 
-- **Tanda "Sangat sering keluar"** pada 216 soal bank: TWK 92, TIU 63, TKP 61 (bank seluruhnya 425 soal).
+- **Penyesuaian kisi-kisi 2026** (25 November): 16 soal penalaran induktif, 4 soal perbandingan kuantitatif tiga data, 4 soal
+  bahasa Indonesia tentang menilai informasi, dan penalaran matriks sebagai materi tersendiri. Bank seluruhnya 449 soal.
+- **Tanda "Sangat sering keluar"** pada soal bank (TWK, TIU, TKP); jumlah per materi tampil di menu Peta materi.
   - TKP: 32 soal baru disusun ulang dari situasi yang dilaporkan peserta (bukan salinan soal asli), ditambah 29 soal lama yang
     temanya dilaporkan berulang. Pembahasan TKP baru menjelaskan mengapa pilihan bernilai 4 kalah dari nilai 5.
   - TWK: 25 soal baru (penerapan isi pasal, inti kalimat, makna kata bercetak miring, sikap Hatta di BPUPKI, rapat Ikada,
     simpulan dan gagasan utama bacaan, tokoh integritas, netralitas ASN, hoaks SARA), ditambah soal lama yang naik tingkat
     (penerapan pasal, Palagan Ambarawa, PDRI, inti kalimat).
-  - TIU: semua soal analogi, silogisme, deret, dan perbandingan senilai/berbalik nilai.
+  - TIU: silogisme, penalaran induktif, deret, dan perbandingan senilai/berbalik nilai. Analogi kata dikeluarkan dari set ini
+    karena tidak lagi tercantum di kisi-kisi 2026.
 - **Menu Latihan, kartu "Sangat sering keluar: boleh diulang-ulang"**: campuran tanpa hitungan (30 soal), TWK, TKP, dan TIU
   tanpa hitungan. Soal yang sudah dikuasai muncul paling akhir. Ada juga centang "Sangat sering keluar saja" di pengaturan latihan.
 - **Soal acak (selalu berbeda)** dari tabel fakta yang sudah diperiksa: 45 butir Pancasila, 33 wewenang lembaga negara,
   45 pasal UUD (termasuk soal "contoh penerapan pasal"), 45 fakta sejarah, 16 hari nasional, 80 pasang kata baku. TIU tanpa
-  hitungan: silogisme (12 tema kategoris dan 8 tema jika-maka), **analogi kata** (9 jenis hubungan, 85 pasangan), dan
+  hitungan: silogisme (12 tema kategoris dan 8 tema jika-maka), **analogi kata** (9 jenis hubungan, 85 pasangan; kisi-kisi 2024, kini hanya di menu Latihan), dan
   **susunan duduk berjajar, antrean, dan meja bundar**. Kebanyakan berbentuk kasus, sesuai catatan bahwa TWK 2024 berupa penalaran.
 - Tryout dan latihan biasa juga mengambil sebagian soal pilar negara, nasionalisme, bahasa Indonesia, dan silogisme dari
   pembangkit ini, jadi isinya tidak selalu sama.
@@ -127,7 +153,7 @@ mungkin keluar, tetapi tidak dihitung sebagai bukti baru.
 
 ## 5. Bagaimana kebenarannya diuji
 
-- `scripts/validate.mjs` memeriksa seluruh bank (425 soal): lima pilihan, tidak ada pilihan kembar, kunci valid, pembahasan ada.
+- `scripts/validate.mjs` memeriksa seluruh bank (449 soal): lima pilihan, tidak ada pilihan kembar, kunci valid, pembahasan ada.
 - Setiap pembangkit (15 jenis) dijalankan 1.500 kali dan diperiksa: lima pilihan berbeda, kunci tunggal, teks lengkap.
 - **Silogisme dibuktikan**: setiap soal diperiksa terhadap semua kemungkinan himpunan (atau semua kombinasi benar-salah untuk
   bentuk jika-maka). Kunci harus selalu benar, dan pengecoh yang ternyata ikut benar dibuang. 3.000 soal acak lolos.
@@ -145,17 +171,21 @@ mungkin keluar, tetapi tidak dihitung sebagai bukti baru.
 - Tidak ada yang bisa menjamin soal tertentu keluar pada SKD 2026/2027. Yang bisa diandalkan: materi kisi-kisi (stabil sejak
   2021) dan bentuk soal yang paling sering dilaporkan.
 - Laporan peserta adalah ingatan, jadi detailnya bisa keliru. Karena itu yang dipakai adalah pola, bukan teks soal.
-- Bila kisi-kisi CPNS 2026 terbit dengan perubahan, peta ini diperbarui.
+- Kisi-kisi CPNS 2026 sudah terbit (KepmenPANRB 674/2026) dan peta ini sudah disesuaikan. Laporan peserta untuk materi baru
+  (penalaran induktif) baru ada setelah SKD 2026 berlangsung.
 
 ## 7. Saran pemakaian
 
 - Setiap hari: satu putaran **Campuran tanpa hitungan (30 soal)** dan satu bagian audio album 1.
-- Untuk TIU tanpa hitungan: **TIU tanpa hitungan acak (20 soal)** berisi analogi, silogisme, serta susunan duduk dan antrean.
+- Untuk TIU tanpa hitungan: **TIU tanpa hitungan acak (20 soal)** berisi silogisme, susunan duduk dan antrean, serta penalaran
+  matriks; penalaran induktif ada di set **Sangat sering keluar: TIU tanpa hitungan**.
 - Dua sampai tiga kali seminggu: **TWK acak (20 soal)** untuk variasi.
 - Seminggu sekali: tryout penuh 110 soal.
 - TIU: cukup amankan 16 benar dari 35. Kerjakan figural, silogisme, dan analitis lebih dulu; lewati hitungan panjang.
 
 ## Sumber
+
+- KepmenPANRB 674/2026 tentang mekanisme seleksi dan nilai ambang batas SKD tahun anggaran 2026: https://data-jdih.menpan.go.id/dokumen/2026kepmenpanrb674.pdf
 
 - AyoJakarta, rangkuman FR SKD CPNS 2024 (16–25 Okt): https://www.ayojakarta.com/news/7613818100/terbaru-dan-lengkap-rangkuman-fr-skd-cpns-2024-sejak-hari-pertama-hingga-kemarin-twk-tiu-tkp-pasti-keluar
 - AyoJakarta, rangkuman FR SKD CPNS 2024 (28 Okt): https://www.ayojakarta.com/news/7613828932/lengkap-ini-rangkuman-fr-skd-cpns-2024-untuk-materi-twk-tiu-tkp-yang-dipastikan-keluar-saat-tes

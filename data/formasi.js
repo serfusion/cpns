@@ -7,27 +7,24 @@
   var SKD = (window.SKD = window.SKD || {});
 
   SKD.formasi = {
-    tanggal: "24 November 2026",
+    tanggal: "25 November 2026",
     jurusan: "S-1 Ilmu Komunikasi",
     dokumen: "https://github.com/serfusion/cpns/releases?q=APK",
 
     status: [
-      "23 November 2026, MenPANRB di rapat kerja Komisi II DPR: seluruh formasi CPNS 2026–2027 berasal dari instansi pusat, TIDAK ADA formasi pemda, karena difokuskan pada program hasil terbaik cepat Presiden dan belanja pegawai pemda masih melebihi batas UU HKPD. Jadi target realistis adalah kementerian/lembaga beserta kantor dan UPT-nya di daerah.",
-      "23 November 2026 (rapat KemenPANRB dengan Komisi II DPR): kebutuhan ASN 2026 ditetapkan 167.113 orang, antara lain guru Sekolah Terintegrasi dan Sekolah Unggul Garuda, dosen, tenaga kesehatan, kehutanan, audit internal, dan pengawas koperasi. Panselnas dibentuk dengan Keppres 7/2026; formasi rinci ditetapkan lewat rapat pleno Panselnas.",
-      "Jadwal rencana: pendaftaran dibuka sekitar 27 November 2026 (perkiraan KemenPANRB, diumumkan Panselnas pekan ini), seleksi administrasi pekan pertama Desember, SKD dan SKB Januari–Maret 2027. Belum ada pengumuman resmi bahwa seleksi tanpa wawancara; metode SKB ditentukan tiap instansi.",
-      "Rincian formasi CPNS 2026 belum terbit. Minggu 22 November malam, halaman Daftar Formasi SSCASN hanya memuat seleksi Sekolah Rakyat 2026 (PPPK guru, 258 formasi) dan situs BKN belum memuat pengumuman CPNS 2026. Situs pihak ketiga yang menampilkan \"formasi 2026\" menyalin data dari SSCASN ke server mereka sendiri, jadi selalu cocokkan dengan SSCASN. Kepala BKN menargetkan pekan keempat November (23–29 November) karena masih menunggu penetapan formasi dari KemenPANRB.",
-      "Rekrutmen diumumkan 6 November 2026 (Siaran Pers KemenPANRB No. 378/HUMAS-MENPANRB/2026). Akun SSCASN dibuka sejak 14 November; membuat akun belum berarti mendaftar formasi.",
-      "Jumlah: sekitar 150 ribu menurut MenPANRB (masih dihitung ulang) dan 158 ribu menurut Dirjen Anggaran Kemenkeu (APBN KiTa, 13 November), terutama untuk mengganti PNS pensiun. Seleksi bisa berlanjut sampai semester I 2027.",
-      "Formasi prioritas: Polisi Hutan, Manggala Agni, Guru Sekolah Terintegrasi, dan Guru Sekolah Unggul Garuda. Keempatnya bukan untuk S-1 Ilmu Komunikasi.",
-      "Sudah menyebut angka: Mahkamah Agung 2.830 CPNS + 1.600 calon hakim (salah satu dari 14 K/L prioritas Presiden untuk tambahan pegawai, pengumuman akhir November) dan Kemenkeu 1.915 formasi umum untuk SMA/SMK, D-III, dan S-1. Kemenkes menyatakan segera membuka, belum dengan angka.",
-      "Formasi pemerintah daerah belum diputuskan resmi. Pemkot Tangerang belum menerima kuota (9 November), BKPSDM Tangsel memperkirakan tidak ada CPNS tahun ini, dan usulan sejumlah daerah (mis. Kota Jambi 322 formasi) belum disetujui pusat.",
-      "PPPK penuh waktu boleh ikut seleksi CPNS mulai 2027 (kesepakatan pemerintah dan DPR, 6 November 2026), jadi pesaing di formasi daerah bisa bertambah tahun depan.",
-      "Seperti 2024, satu pelamar diperkirakan hanya boleh memilih satu formasi, dan seluruh tahapan gratis."
+      "25 November 2026, konferensi pers Panselnas: formasi CPNS 2026 resmi 154.052, seluruhnya instansi pusat. Program Hasil Terbaik Cepat (PHTC) dan Program Prioritas Presiden 118.208: kehutanan 70.000; tenaga dosen dan teknis kependidikan tinggi 26.614; tenaga kesehatan 13.362; guru dan tenaga kependidikan 3.621; audit internal pemerintah 2.007; pelayanan pemenuhan gizi 1.618; pengawasan koperasi 986. Sektor prioritas nasional lainnya 35.844: hukum, HAM, peradilan, dan pemasyarakatan 19.016; statistik dan data pembangunan 7.285; swasembada pangan dan ekonomi biru 4.496; penerimaan dan pengawasan keuangan 2.867; pembangunan generasi unggul nasional 1.395; keamanan, siber, dan diplomasi 785.",
+      "Pendaftaran di SSCASN mulai 27 November sampai awal Desember 2026; rincian jabatan, kualifikasi, dan lokasi per instansi tampil di sana. Dokumen disederhanakan: surat lamaran dan surat pernyataan digabung jadi satu unggahan, dan cukup transkrip nilai (ijazah tidak diunggah). BKN memperkirakan sekitar 3 juta pelamar (±20 per formasi); SKD sekitar 20 hari, SKB sekitar 7 hari.",
+      "KepmenPANRB 674/2026 (ditetapkan 20 November): ambang SKD kebutuhan umum tetap TWK 65, TIU 80, TKP 166. SKB memakai CAT BKN, 90 menit, 100 soal (80 soal bila materinya dominan hitungan); aturan ini tidak menyebut wawancara atau praktik kerja. Nilai SKD 2024 boleh dipakai bila NIK dan jenjang pendidikan sama dan memenuhi ambang 2026, tetapi pemakainya tidak ikut SKD 2026.",
+      "Tidak ada formasi pemda 2026–2027 (MenPANRB di Komisi II DPR, 23 November): belanja pegawai pemda masih melebihi batas UU HKPD. Sasaran realistis adalah kementerian/lembaga beserta kantor dan UPT-nya, termasuk yang berkantor di Kota Tangerang dan Jabodetabek.",
+      "Pegawai PPPK yang sudah memiliki NIP, termasuk PPPK paruh waktu, boleh ikut mendaftar CPNS 2026 sesuai persyaratan (Panselnas, 25 November), jadi pesaing bisa bertambah.",
+      "Situs pihak ketiga yang menampilkan \"formasi 2026\" menyalin data dari SSCASN ke server mereka sendiri; selalu cocokkan dengan SSCASN. Akun SSCASN dibuka sejak 14 November; membuat akun belum berarti mendaftar formasi.",
+      "Yang sudah menyebut angka sebelum 25 November: Mahkamah Agung 2.830 CPNS + 1.600 calon hakim (masuk kelompok hukum dan peradilan) dan Kemenkeu 1.915 formasi umum (masuk kelompok penerimaan dan pengawasan keuangan).",
+      "Seperti 2024, satu pelamar hanya boleh memilih satu formasi, dan seluruh tahapan gratis."
     ],
 
     angka: [
-      { v: "≈16", l: "pelamar per kursi, nasional 2024", d: "3.963.832 pelamar untuk 250.407 formasi" },
-      { v: "158 rb", l: "perkiraan formasi CPNS 2026", d: "Kemenkeu, 13 Nov; MenPANRB ±150 ribu (belum final)" },
+      { v: "≈20", l: "perkiraan pelamar per formasi 2026", d: "BKN: ±3 juta pelamar; 2024: ≈16 per kursi" },
+      { v: "154.052", l: "formasi CPNS 2026 resmi", d: "Panselnas, 25 Nov; semuanya instansi pusat" },
       { v: "895", l: "formasi Pranata Humas 2024 yang mencantumkan S-1 Ilmu Komunikasi", d: "terbanyak; olahan data BKN 2024" },
       { v: "12%", l: "peserta SKD Kemenag 2024 yang lolos ke SKB", d: "37.849 dari 313.078 peserta" }
     ],
@@ -174,22 +171,22 @@
     // Prioritas dari dokumen "Strategi Memilih Formasi CPNS di Pemda" (pengguna, 22 Nov 2026):
     // P1 jabatan/unit baru atau rekrutmen pertama, P2 Kota Tangerang, P3 daerah sepi pesaing.
     // Matriks Pemda: pendidikan 25, jumlah formasi 20, jabatan/unit baru 20, persaingan 15, mekanisme 10, kesiapan SKB 10.
-    // Fokus bidang pendidikan (24 Nov 2026): pemda tidak membuka formasi, pengalaman pemilik di data akademik/PDDikti.
+    // Fokus bidang pendidikan (diperbarui 25 Nov 2026): pemda tidak membuka formasi, pengalaman pemilik di data akademik/PDDikti.
     pendidikan: {
-      tanggal: "24 November 2026",
-      ringkas: "Pengalaman Anda mengelola data akademik dan pelaporan PDDikti, membangun portal layanan akademik dan ujian berbasis komputer, paling bernilai di instansi pendidikan pusat. Guru (butuh PPG) dan dosen (butuh S-2) tidak bisa dilamar dengan S-1 Ilmu Komunikasi, jadi sasarannya formasi tenaga kependidikan dan jabatan pendukung.",
+      tanggal: "25 November 2026",
+      ringkas: "Pengalaman Anda mengelola data akademik dan pelaporan PDDikti, membangun portal layanan akademik dan ujian berbasis komputer, paling bernilai di instansi pendidikan pusat. Formasi resmi 25 November: tenaga dosen dan teknis kependidikan tinggi 26.614, guru dan tenaga kependidikan 3.621. Guru (butuh PPG) dan dosen (butuh S-2) tidak bisa dilamar dengan S-1 Ilmu Komunikasi, jadi pintu Anda adalah bagian tenaga (teknis) kependidikan, dan hanya bila lampiran formasinya mencantumkan S-1 Ilmu Komunikasi.",
       hitung: "Persentase lulus pasti baru bisa dihitung setelah jumlah pelamar per formasi tampil di SSCASN. Begitu angka itu diisi, aplikasi menghitung posisi yang harus Anda capai (masuk berapa persen teratas). Sebelum itu, peluang di bawah adalah perkiraan dari jumlah kursi, lokasi, dan data 2024.",
       target: [
         { no: "1", nama: "Kemendikdasmen: tenaga kependidikan Sekolah Nasional Terintegrasi", kelas: "ok", label: "Tinggi", peluang: "Tinggi bila menerima Ilmu Komunikasi",
-          isi: "306 formasi CPNS tenaga kependidikan (dari 1.460; 1.154 sisanya guru lulusan PPG). Sekolah baru program Presiden, jenjang SMP dan SMA. Jabatan dan kualifikasi mengikuti surat Mendikdasmen dan baru terlihat di lampiran.",
+          isi: "306 formasi CPNS tenaga kependidikan (dari 1.460; 1.154 sisanya guru lulusan PPG), bagian dari kelompok guru dan tenaga kependidikan 3.621 formasi (25 Nov). Sekolah baru program Presiden, jenjang SMP dan SMA. Jabatan dan kualifikasi baru terlihat di lampiran SSCASN.",
           lokasi: "17 SNT beroperasi 2026: Kab. Bogor (terdekat), Kab. Cianjur, Kab. Gowa, Kab. Bone Bolango, Kota Tidore Kepulauan, IKN, Kab. Banyumas, Kab. Jepara, Kota Subulussalam, Kota Tarakan, Kab. Donggala, Kab. Bolaang Mongondow, Kab. Minahasa Utara, Kab. Kupang, Kab. Buton Tengah, Kab. Tebo, Kab. Tanjung Jabung Timur. Dibangun 2026 antara lain di Kab. Pandeglang (Banten).",
           cocok: "Data sekolah dan sistem akademik, ujian berbasis komputer, situs dan media sekolah. Cari Arsiparis, Pranata Humas, Pengembang Teknologi Pembelajaran, atau jabatan data/TI yang mencantumkan S-1 Ilmu Komunikasi.",
           alasan: "Program baru (rekrutmen pertama), sebagian besar lokasi di luar Jawa sehingga pelamar tersebar. Kursi per sekolah kecil." },
-        { no: "2", nama: "Kemendiktisaintek: tenaga kependidikan (LLDIKTI, PTN, Sekolah Garuda)", kelas: "ok", label: "Sedang–tinggi", peluang: "Sedang di Jabodetabek, tinggi di PTN luar Jawa",
-          isi: "Formasi belum dirilis per 24 November. Rencana besar Kemendiktisaintek adalah dosen (S-2/S-3), tetapi tenaga kependidikan PTN, LLDIKTI, dan SMA Unggul Garuda juga di bawah kementerian ini.",
+        { no: "2", nama: "Tenaga teknis kependidikan tinggi (PTN, LLDIKTI, Kemendiktisaintek)", kelas: "ok", label: "Sedang–tinggi", peluang: "Sedang di Jabodetabek, tinggi di PTN luar Jawa",
+          isi: "Kelompok \"tenaga dosen dan teknis kependidikan tinggi\" 26.614 formasi (25 Nov), kelompok terbesar kedua. Pembagian dosen dan tenaga teknis belum diumumkan; rencana awal kementerian didominasi dosen (S-2/S-3), jadi bagian yang terbuka untuk S-1 kemungkinan jauh lebih kecil dari 26.614. Tenaga teknis kependidikan tinggi antara lain Arsiparis, Pranata Humas, Pengembang Teknologi Pembelajaran, Pustakawan, Pranata Komputer, dan pengelola data akademik; hanya yang mencantumkan S-1 Ilmu Komunikasi yang bisa dilamar.",
           lokasi: "LLDIKTI Wilayah III (DKI Jakarta) dan IV (Jawa Barat–Banten), Ditjen Dikti di Jakarta, PTN di Banten dan Jabodetabek (mis. Universitas Sultan Ageng Tirtayasa, Serang).",
           cocok: "Paling sesuai pengalaman: LLDIKTI dan PTN mengelola data PDDikti, akreditasi, dan pelaporan perguruan tinggi setiap semester. Cari Arsiparis, Pranata Humas, Pengembang Teknologi Pembelajaran, Perencana, Analis Kebijakan bila mencantumkan S-1 Ilmu Komunikasi.",
-          alasan: "2024 (Kemendikbudristek): Arsiparis 9 kursi menerima Ilmu Komunikasi (Untirta 2), PTP 25 kursi. Kursi sedikit, tetapi pengalaman PDDikti memperkuat SKB dan wawancara bila ada." },
+          alasan: "2024 (Kemendikbudristek): Arsiparis 9 kursi menerima Ilmu Komunikasi (Untirta 2), PTP 25 kursi. Pengalaman PDDikti paling relevan di sini. SKB 2026 berupa CAT (KepmenPANRB 674/2026), jadi siapkan materi jabatan yang dilamar." },
         { no: "3", nama: "Kemenag: pendidikan (PTKIN dan madrasah)", kelas: "accent", label: "Sedang", peluang: "Sedang",
           isi: "Formasi Kemenag 2026 belum diumumkan resmi (beredar 60.000 CPNS dan PPPK, sebagian besar guru madrasah). Di 2024 Kemenag adalah penyedia kursi terbanyak untuk S-1 Ilmu Komunikasi.",
           lokasi: "UIN Syarif Hidayatullah (Tangerang Selatan), UIN Sultan Maulana Hasanuddin (Serang), Kanwil dan madrasah negeri.",
@@ -199,20 +196,29 @@
           isi: "Pengembang Teknologi Pembelajaran di pusat pelatihan (Mahkamah Agung, LAN, Kemenkes, Kementan, Kemensetneg) dan Arsiparis di instansi pendidikan.",
           lokasi: "Kebanyakan Jakarta dan Jabodetabek.",
           cocok: "Membuat kelas daring, video, LMS, dan ujian berbasis komputer, sesuai portofolio Anda.",
-          alasan: "2024: MA 6 kursi PTP menerima Ilmu Komunikasi (18 peserta SKB, rasio 3 : 1 di tahap akhir)." }
+          alasan: "2024: MA 6 kursi PTP menerima Ilmu Komunikasi (18 peserta SKB, rasio 3 : 1 di tahap akhir)." },
+        { no: "5", nama: "Di luar pendidikan: statistik dan data pembangunan", kelas: "accent", label: "Cek lampiran", peluang: "Tergantung jabatan",
+          isi: "7.285 formasi (25 Nov), terutama BPS. Statistisi dan Pranata Komputer biasanya meminta ijazah statistik, matematika, atau komputer; S-1 Ilmu Komunikasi hanya cocok bila ada Pranata Humas atau jabatan diseminasi data.",
+          lokasi: "BPS provinsi dan kabupaten/kota di seluruh Indonesia, termasuk Banten.",
+          cocok: "Pengalaman validasi dan pelaporan data PDDikti relevan dengan pengolahan dan penyebaran data statistik.",
+          alasan: "2024: BPS membuka Pranata Humas di 26 formasi yang menerima S-1 Ilmu Komunikasi. Cek dulu apakah jabatan itu muncul lagi." }
       ],
       tidakCocok: [
         "Guru (termasuk 1.154 guru SNT): wajib lulus PPG dan berijazah kependidikan sesuai mata pelajaran.",
-        "Dosen Kemendiktisaintek: minimal S-2.",
+        "Dosen (bagian dosen dari kelompok 26.614): minimal S-2.",
         "Guru madrasah Kemenag: butuh ijazah kependidikan atau keagamaan dan sertifikat pendidik."
       ],
       cek: [
         "Nama prodi persis \"S-1 ILMU KOMUNIKASI\" di kolom kualifikasi (Communication Science di ijazah = Ilmu Komunikasi; cek penulisan di ijazah).",
         "Lokasi penempatan dan jumlah kursi per formasi; SNT di luar Jawa biasanya lebih sepi.",
         "Metode SKB (CAT saja atau ada wawancara/praktik) dan syarat tambahan (akreditasi, IPK minimal, usia maksimal 35 tahun).",
-        "Begitu jumlah pelamar tampil di SSCASN, isi di kalkulator untuk melihat persentase yang harus dicapai."
+        "Begitu jumlah pelamar tampil di SSCASN, isi di kalkulator untuk melihat persentase yang harus dicapai.",
+        "Dokumen 2026: satu unggahan surat lamaran yang sudah memuat surat pernyataan, dan transkrip nilai (ijazah tidak diunggah). Pendaftaran 27 November sampai awal Desember; jangan menunggu hari terakhir."
       ],
       sumber: [
+        { t: "ANTARA: pemerintah resmi buka 154.052 formasi CPNS 2026 (25 Nov 2026)", u: "https://megapolitan.antaranews.com/berita/564887/pemerintah-resmi-buka-pendaftaran-seleksi-cpns-2026-dengan-154052-formasi" },
+        { t: "Medcom: 3.621 guru dan tendik serta 26.614 dosen dan tenaga teknis kependidikan tinggi (25 Nov 2026)", u: "https://www.medcom.id/pendidikan/news-pendidikan/nbw5AJ3K-cpns-2026-buka-30-235-formasi-guru-dan-dosen-fresh-graduate-boleh-daftar" },
+        { t: "KepmenPANRB 674/2026: mekanisme seleksi dan nilai ambang batas (JDIH KemenPANRB)", u: "https://data-jdih.menpan.go.id/dokumen/2026kepmenpanrb674.pdf" },
         { t: "CNBC Indonesia: CPNS 2026 tidak ada formasi untuk pemda (23 Nov 2026)", u: "https://www.cnbcindonesia.com/news/20261123123625-4-787562/pengumuman-cpns-2026-tidak-ada-formasi-untuk-pemda" },
         { t: "Kompas TV: Kemendikdasmen buka 1.460 formasi CPNS guru dan tendik SNT", u: "https://www.kompas.tv/info-publik/702646/kemendikdasmen-buka-1-460-formasi-cpns-guru-dan-tendik-sekolah-nasional-terintegrasi-2026" },
         { t: "Kompas: 17 Sekolah Nasional Terintegrasi mulai beroperasi 2026, ini lokasinya", u: "https://www.kompas.com/edu/read/2026/07/20/141601171/17-sekolah-nasional-terintegrasi-mulai-beroperasi-2026-ini-lokasinya" },
@@ -268,10 +274,10 @@
     // Diisi otomatis oleh sesi pemantau terjadwal begitu formasi CPNS 2026 terbit
     // (aturan: docs/kriteria-pemindaian-otomatis.md). Skor dan peringkat dihitung aplikasi.
     kandidat2026: {
-      tanggal: "22 November 2026",
+      tanggal: "25 November 2026",
       status: "menunggu",
       jadwal: "tiga kali sehari, sekitar pukul 07.42, 12.42, dan 17.42 WIB",
-      catatan: "Formasi CPNS 2026 belum terbit. Pemantau memeriksa SSCASN dan pengumuman resmi; begitu terbit, formasi yang mencantumkan S-1 Ilmu Komunikasi diurutkan di sini dengan kedua rumus dokumen Anda.",
+      catatan: "Jumlah formasi CPNS 2026 sudah diumumkan (154.052, 25 November); rincian per jabatan dan lokasi tampil di SSCASN mulai 27 November. Pemantau memeriksa SSCASN dan pengumuman resmi; formasi yang mencantumkan S-1 Ilmu Komunikasi akan diurutkan di sini dengan kedua rumus dokumen Anda.",
       sumber: [],
       list: []
     },
@@ -309,26 +315,29 @@
 
     // Instansi yang dipantau untuk 2026: sinyal 2026 x jejak formasi Ilmu Komunikasi 2024.
     pantau: [
-      { nama: "Mahkamah Agung", kelas: "ok", sinyal: "2.830 CPNS + 1.600 calon hakim, pengumuman akhir November; termasuk 14 K/L prioritas tambahan pegawai.",
+      { nama: "Mahkamah Agung", kelas: "ok", sinyal: "2.830 CPNS + 1.600 calon hakim; masuk kelompok hukum, HAM, peradilan, dan pemasyarakatan 19.016 formasi (25 Nov).",
         jejak: "2024: Pengembang Teknologi Pembelajaran 6 kursi dan Penata Keprotokolan 46 kursi menerima S-1 Ilmu Komunikasi; Arsiparis khusus kearsipan.",
-        saran: "Prioritas pantau. Cek Pengembang Teknologi Pembelajaran dan Pranata Humas; penempatan pengadilan di seluruh Indonesia. SKB 2024 memakai 3 metode, jadi cek apakah ada wawancara." },
-      { nama: "Kementerian Kesehatan", kelas: "accent", sinyal: "Menyatakan segera membuka (casn.kemkes.go.id); jumlah belum diumumkan.",
+        saran: "Prioritas pantau. Cek Pengembang Teknologi Pembelajaran dan Pranata Humas; penempatan pengadilan di seluruh Indonesia. SKB 2024 memakai 3 metode; aturan 2026 menyebut SKB dengan CAT BKN, tetap baca pengumuman MA." },
+      { nama: "Kementerian Kesehatan", kelas: "accent", sinyal: "Kelompok tenaga kesehatan 13.362 formasi (25 Nov); jabatan non-nakes belum terlihat.",
         jejak: "2024: Pranata Humas 89 kursi di 57 formasi, banyak di UPT daerah (balai kekarantinaan, rumah sakit vertikal).",
         saran: "Pantau Pranata Humas di UPT daerah." },
-      { nama: "Kementerian Keuangan", kelas: "warn", sinyal: "1.915 formasi umum (SMA/SMK, D-III, S-1) di semua unit eselon I.",
+      { nama: "Kementerian Keuangan", kelas: "warn", sinyal: "1.915 formasi umum (SMA/SMK, D-III, S-1); masuk kelompok penerimaan dan pengawasan keuangan 2.867 (25 Nov).",
         jejak: "2024: 1.066 kursi, terbanyak penyusun materi hukum, Fasilitator Pemerintahan, Pengelola Keprotokolan (D-III), dan TI; S-1 Ilmu Komunikasi tidak tampak di 10 jurusan teratasnya.",
         saran: "Tetap cek, tetapi peluang untuk Ilmu Komunikasi kecil dan instansinya sangat ramai." },
       { nama: "Instansi dengan jejak Ilmu Komunikasi terbesar 2024 (belum ada kabar 2026)", kelas: "accent", sinyal: "Belum menyebut formasi 2026.",
         jejak: "Komdigi (Pranata Humas, Arsiparis 81 formasi, Pranata Siaran RRI/TVRI), Kementerian PU (Pranata Humas 340 formasi di balai daerah, Arsiparis 240), Kemenag (Pranata Humas 90 formasi, Pengembang Teknologi Pembelajaran 19), PTN (Pranata Humas, Arsiparis), Bawaslu (Pranata Humas 19 kursi di Sekretariat Jenderal), BPS (Pranata Humas 26 formasi).",
         saran: "Begitu SSCASN terbit, cek instansi ini lebih dulu." },
-      { nama: "Pemerintah daerah Jabodetabek dan Banten", kelas: "warn", sinyal: "Belum ada keputusan resmi formasi daerah; BKD DKI menunggu juklak dan juknis.",
+      { nama: "BPS (statistik dan data pembangunan)", kelas: "accent", sinyal: "Kelompok statistik dan data pembangunan 7.285 formasi (25 Nov).",
+        jejak: "2024: BPS membuka Pranata Humas di 26 formasi yang menerima S-1 Ilmu Komunikasi; Statistisi dan Pranata Komputer meminta ijazah statistik atau komputer.",
+        saran: "Cek Pranata Humas dan jabatan diseminasi data di BPS provinsi dan kabupaten/kota." },
+      { nama: "Pemerintah daerah Jabodetabek dan Banten", kelas: "", sinyal: "Tidak membuka formasi 2026–2027 (MenPANRB, 23 Nov; formasi resmi 25 Nov seluruhnya instansi pusat).",
         jejak: "Pemprov DKI 2024: Pranata Humas 28 formasi dan Pengembang Teknologi Pembelajaran 17 formasi.",
-        saran: "Jalur Jabodetabek bila dibuka, dengan rasio yang biasanya tinggi." },
+        saran: "Lewati tahun ini. Kantor dan UPT instansi pusat di Kota Tangerang tetap bisa dicari." },
       { nama: "Kemenhut dan Kemendikdasmen", kelas: "", sinyal: "Formasi prioritas: Polisi Hutan, Manggala Agni, guru Sekolah Terintegrasi dan Sekolah Unggul Garuda.",
         jejak: "Formasi prioritas itu butuh ijazah kehutanan, SMA, atau kependidikan.",
         saran: "Tidak cocok, kecuali ternyata membuka Pranata Humas atau tenaga kependidikan nonguru." },
       { nama: "Rencana 9 instansi (unggahan media sosial, 23 Nov 2026; belum resmi)", kelas: "accent",
-        sinyal: "Kemenkes 8.607, Kemendikdasmen 1.460, MA 4.430, Kemenkeu 1.915, Kemenag 60.000 (CPNS+PPPK), Imigrasi dan Pemasyarakatan 10.629 (usulan); Kemendiktisaintek, BSSN, Kemenhut belum dirilis. Kategori nasional: guru, dosen, kesehatan, kehutanan, audit internal, pengawasan koperasi, lain-lain pengganti pensiun.",
+        sinyal: "Kemenkes 8.607, Kemendikdasmen 1.460, MA 4.430, Kemenkeu 1.915, Kemenag 60.000 (CPNS+PPPK), Imigrasi dan Pemasyarakatan 10.629 (usulan). Angka resmi 25 Nov per kelompok, bukan per instansi: lihat Status di atas.",
         jejak: "Cocok untuk Ilmu Komunikasi biasanya hanya jabatan pendukung: Pranata Humas, Arsiparis, Pengembang Teknologi Pembelajaran, Perencana.",
         saran: "Urutan cek: Kemendikdasmen (PTP, Humas), Kemenkes non-nakes di RS dr. Sitanala dan KKP Soekarno-Hatta, MA (PN/PA Tangerang), Kemenkeu (Humas, Bea Cukai Soekarno-Hatta). Audit internal (P2UPD) dan Pengawas Koperasi hanya bila lampiran menerima Ilmu Komunikasi. Kemenag, Imipas, Kemendiktisaintek, BSSN: kemungkinan kecil (butuh ijazah keagamaan/hukum/TI/S-2 atau tes fisik)." }
     ],
@@ -372,21 +381,21 @@
     aturan: [
       { t: "Saring syarat wajib", d: "S-1 ILMU KOMUNIKASI tertulis persis di kualifikasi pendidikan (S-1 Hubungan Masyarakat atau Komunikasi Massa adalah prodi lain); IPK, akreditasi pada tahun kelulusan, usia (umumnya 18–35 tahun saat melamar), dan syarat tambahan seperti sertifikat bahasa Inggris terpenuhi." },
       { t: "Kerja belakang layar", d: "Utamakan jabatan yang hasil kerjanya arsip, data, dokumen, atau media (Arsiparis, Pengembang Teknologi Pembelajaran, Perencana). Lewati jabatan yang tugas intinya bicara di depan orang." },
-      { t: "Cek metode SKB", d: "SKB berbasis CAT tidak menuntut bicara. Wawancara menambah komponen lisan, jadi baca metode SKB di pengumuman instansi sebelum memilih. Bawaslu 2024 memakai SKB CAT saja; Mahkamah Agung 2024 memakai 3 metode." },
+      { t: "Cek metode SKB", d: "KepmenPANRB 674/2026: SKB memakai CAT BKN (90 menit, 100 soal; 80 soal bila materinya dominan hitungan) dan tidak menyebut wawancara atau praktik kerja. Tetap baca pengumuman instansi; pada 2024 Mahkamah Agung memakai 3 metode, Bawaslu CAT saja." },
       { t: "Lokasi yang sepi", d: "Kantor pusat dan kota besar paling ramai. Unit di daerah, balai, dan PTN luar Jawa biasanya jauh lebih sepi." },
       { t: "Daftar jurusan yang sempit", d: "Makin sedikit jurusan yang diterima, makin sedikit pesaing. Hindari formasi semua jurusan." },
-      { t: "Jabatan sama di banyak lokasi", d: "Pada CPNS 2024, kursi kosong bisa diisi peserta yang lulus ambang batas dengan nilai tertinggi dari jabatan, kualifikasi pendidikan, dan jenis formasi yang sama dalam satu instansi (optimalisasi). Aturan 2026 menunggu keputusan MenPANRB." },
+      { t: "Jabatan sama di banyak lokasi", d: "Pada CPNS 2024, kursi kosong bisa diisi peserta yang lulus ambang batas dengan nilai tertinggi dari jabatan, kualifikasi pendidikan, dan jenis formasi yang sama dalam satu instansi (optimalisasi). KepmenPANRB 674/2026 bagian H juga mengatur pengisian kursi kosong dari jabatan dan kualifikasi yang sama di lokasi lain, berdasarkan peringkat terbaik." },
       { t: "Kunci pilihan sebelum mengakhiri pendaftaran", d: "Satu pelamar satu formasi dan pilihan tidak bisa diganti setelah pendaftaran diakhiri. Pilih formasi dengan beberapa kursi bila bisa, dan jangan menunggu hari terakhir." }
     ],
 
     langkah: [
       { id: "akun", t: "Buat akun SSCASN (sudah dibuka sejak 14 November)." },
-      { id: "dok", t: "Siapkan pindaian ijazah dan transkrip asli, KTP, pas foto, dan swafoto sesuai ketentuan." },
+      { id: "dok", t: "Siapkan pindaian transkrip nilai asli (2026 cukup transkrip, ijazah tidak diunggah), satu dokumen surat lamaran yang sudah memuat surat pernyataan, KTP, pas foto, dan swafoto sesuai pengumuman instansi." },
       { id: "akr", t: "Unduh bukti akreditasi prodi dan perguruan tinggi yang berlaku pada tanggal kelulusan di ijazah (BAN-PT atau kampus)." },
       { id: "toefl", t: "Siapkan sertifikat bahasa Inggris. Kominfo 2024 mewajibkan sertifikat yang berlaku paling lama 2 tahun." },
-      { id: "pindai", t: "Saat formasi terbit: di SSCASN pilih jenjang S-1 dan program studi Ilmu Komunikasi, catat semua formasi yang muncul, lalu cek instansi pantau lebih dulu." },
+      { id: "pindai", t: "Mulai 27 November: di SSCASN pilih jenjang S-1 dan program studi Ilmu Komunikasi, catat semua formasi yang muncul, lalu cek instansi pantau lebih dulu." },
       { id: "kalk", t: "Masukkan 5–10 kandidat ke kalkulator: skornya memakai rumus dokumen riset Anda (rasio 35, kursi 20, tugas 20, lokasi 10, syarat 15)." },
-      { id: "daftar", t: "Pilih satu formasi, unggah dokumen, dan akhiri pendaftaran beberapa hari sebelum penutupan." },
+      { id: "daftar", t: "Pilih satu formasi, unggah dokumen, dan akhiri pendaftaran beberapa hari sebelum penutupan (awal Desember)." },
       { id: "ms", t: "Setelah hasil seleksi administrasi: cek jumlah pesaing yang memenuhi syarat di formasi Anda dan perbarui kalkulator." },
       { id: "skd", t: "Latih SKD sampai simulasi penuh konsisten di atas ambang batas tiap subtes, dengan target total 400 atau lebih." }
     ],
@@ -402,6 +411,10 @@
     ],
 
     sumber: [
+      { t: "Pemerintah resmi buka 154.052 formasi CPNS 2026 (ANTARA, 25 Nov 2026)", u: "https://megapolitan.antaranews.com/berita/564887/pemerintah-resmi-buka-pendaftaran-seleksi-cpns-2026-dengan-154052-formasi" },
+      { t: "Rincian 154.052 formasi dan dokumen yang disederhanakan (detikJabar, 25 Nov 2026)", u: "https://www.detik.com/jabar/jabar-gaskeun/d-8769285/resmi-panselnas-umumkan-154-052-formasi-cpns-2026-ini-rincian-lengkapnya" },
+      { t: "Perkiraan 3 juta pelamar dan jadwal (Liputan6, 25 Nov 2026)", u: "https://www.liputan6.com/bisnis/read/8342249/rincian-formasi-cpns-2026-ada-kuota-154052-orang" },
+      { t: "KepmenPANRB 674/2026 tentang mekanisme seleksi dan nilai ambang batas (JDIH KemenPANRB)", u: "https://data-jdih.menpan.go.id/dokumen/2026kepmenpanrb674.pdf" },
       { t: "BKN targetkan pengumuman 23–29 November, 158 ribu formasi (Radar Kudus, 17 Nov 2026)", u: "https://radarkudus.jawapos.com/nasional/2611170062/kapan-pendaftaran-cpns-2026-dimulai-bkn-targetkan-pengumuman-23-29-november" },
       { t: "Kemenkeu, Kemenkes, dan MA umumkan CPNS 2026 (detikJabar, 18 Nov 2026)", u: "https://www.detik.com/jabar/berita/d-8758794/3-instansi-umumkan-buka-lowongan-di-cpns-2026-simak-kuota-dan-cara-daftarnya" },
       { t: "MA akan rekrut 4 ribuan CPNS dan calon hakim (MARINews)", u: "https://marinews.mahkamahagung.go.id/berita/ma-akan-rekrut-4-ribuan-cpns-dan-cakim-bersiaplah-0b4h" },

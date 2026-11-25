@@ -486,7 +486,7 @@
           quickCard("audio", "Audio hafalan", "Per bagian, tanpa hitungan", null, "https://github.com/serfusion/cpns/releases?q=Audio+Hafalan"),
           quickCard("formasi", "Strategi formasi", "S-1 Ilmu Komunikasi", function () { go("formasi"); }),
           quickCard("peta", "Peta materi", "Pola yang sering keluar", function () { go("peta"); }))),
-      h("p", { class: "fine" }, "Ambang batas mengikuti KepmenPANRB 321/2024 (TWK " + passOf("twk") + ", TIU " + passOf("tiu") + ", TKP " + passOf("tkp") + "). Ambang CPNS 2026 belum terbit per " + CFG.riset.tanggal + "; ubah di Pengaturan bila berbeda.")
+      h("p", { class: "fine" }, "Ambang batas mengikuti KepmenPANRB 674/2026 untuk kebutuhan umum (TWK " + passOf("twk") + ", TIU " + passOf("tiu") + ", TKP " + passOf("tkp") + "), sama dengan 2024. Lulusan cumlaude dan diaspora memakai nilai kumulatif minimal 311 dengan TIU minimal 85.")
     ];
   }
 
@@ -766,7 +766,7 @@
 
   // ---------- latihan ----------
   // ---------- fokus TWK + TKP (TIU cukup aman lewat soal tanpa hitungan berat) ----------
-  var TIU_LUNAK = ["ana", "sil", "anl", "der", "fig-ana", "fig-beda", "fig-seri", "fig-kubus"];
+  var TIU_LUNAK = ["sil", "ind", "anl", "der", "fig-ana", "fig-seri", "fig-mat", "fig-kubus"];
   var TARGET = { twk: 110, tiu: 85, tkp: 200 };
   function fokusCard() {
     var ids = function (sec) { return CFG.materi.filter(function (m) { return m.sec === sec; }).map(function (m) { return m.id; }); };
@@ -788,7 +788,7 @@
     return h("section", { class: "card stack fokus" },
       h("h2", null, "Fokus Anda: kuatkan TWK dan TKP"),
       h("p", { class: "small" }, "Ambang batas TIU " + passOf("tiu") + " berarti cukup " + Math.ceil(passOf("tiu") / 5) + " benar dari " + tiuSec.count + " soal. Sebanyak " + nLunak +
-        " soal TIU tidak butuh hitungan berat (analogi, silogisme, analitis, deret, dan figural), jadi amankan TIU dari soal-soal itu dan kejar skor dari TWK dan TKP."),
+        " soal TIU tidak butuh hitungan berat (silogisme, penalaran induktif, analitis, deret, dan figural), jadi amankan TIU dari soal-soal itu dan kejar skor dari TWK dan TKP."),
       h("div", { class: "info3" }, cell("twk"), cell("tiu"), cell("tkp")),
       h("p", { class: "small muted" }, last ? "Angka di atas dari tryout terakhir (" + last.p + ")." + (lunakAcc != null ? " Ketepatan soal TIU tanpa hitungan berat: " + lunakAcc + "%." : "") : "Kerjakan satu tryout untuk melihat posisi Anda terhadap target."),
       h("div", { class: "row wrap" },
@@ -801,7 +801,7 @@
       h("p", { class: "small muted" }, "Saat ujian: kerjakan soal TIU yang tidak butuh hitungan lebih dulu, tekan \"Lewatkan soal ini\" untuk soal hitungan panjang, lalu kembali bila waktu tersisa."));
   }
   // ---------- sangat sering keluar (boleh diulang) dan soal acak (selalu baru) ----------
-  var TIU_SANGAT = ["ana", "sil", "anl", "fig-seri"];
+  var TIU_SANGAT = ["sil", "ind", "anl", "fig-mat"];
   function idsOf(sec) { return CFG.materi.filter(function (m) { return m.sec === sec; }).map(function (m) { return m.id; }); }
   function pracBtn(id, label, o, primary) {
     return h("button", { class: "btn" + (primary ? " primary" : ""), type: "button", id: id, onclick: function () { startPractice(o); } }, label);
@@ -811,7 +811,7 @@
     var twk = idsOf("twk"), tkp = idsOf("tkp");
     return h("section", { class: "card stack" },
       h("h2", null, "Sangat sering keluar: boleh diulang-ulang"),
-      h("p", { class: "small" }, "Pola yang tercantum di kisi-kisi resmi dan dilaporkan peserta di tiga laporan atau lebih (SKD CPNS 2024). Isinya: penerapan sila dan isi pasal, BPUPKI/PPKI dan sikap tokohnya, peristiwa sesudah kemerdekaan, lembaga negara, organisasi pergerakan, netralitas ASN, nasionalisme di media sosial, inti kalimat, kata bercetak miring, simpulan bacaan, analogi, silogisme, susunan duduk dan antrean, pola 9 kotak, menempatkan diri antara kesibukan dan pekerjaan, spionase, inovasi TIK dan rekan gaptek, serta penerapan BerAKHLAK."),
+      h("p", { class: "small" }, "Pola yang tercantum di kisi-kisi 2026 (KepmenPANRB 674/2026) dan dilaporkan peserta di tiga laporan atau lebih (SKD CPNS 2024). Isinya: penerapan sila dan isi pasal, BPUPKI/PPKI dan sikap tokohnya, peristiwa sesudah kemerdekaan, lembaga negara, organisasi pergerakan, netralitas ASN, nasionalisme di media sosial, inti kalimat, kata bercetak miring, simpulan bacaan, silogisme, susunan duduk dan antrean, pola 9 kotak (penalaran matriks), menempatkan diri antara kesibukan dan pekerjaan, spionase, inovasi TIK dan rekan gaptek, serta penerapan BerAKHLAK. Ditambah penalaran induktif, materi baru 2026 yang pasti diujikan. Analogi kata tidak lagi masuk kisi-kisi 2026, jadi dikeluarkan dari set ini."),
       h("div", { class: "info3" },
         h("div", null, h("span", null, "TWK"), h("b", null, n(twk) + "+"), h("span", null, "soal + acak")),
         h("div", null, h("span", null, "TIU tanpa hitungan"), h("b", null, n(TIU_SANGAT) + "+"), h("span", null, "soal + acak")),
@@ -829,14 +829,14 @@
       h("h2", null, "Soal acak: selalu berbeda"),
       h("p", { class: "small" }, "Dibangkitkan setiap kali dari tabel fakta yang sudah diperiksa: 45 butir Pancasila, " + F.wewenang.length + " wewenang lembaga negara, " +
         F.pasal.length + " pasal UUD, sejarah BPUPKI, PPKI, proklamasi, dan pergerakan nasional, " + F.hari.length + " hari nasional, " + F.baku.length +
-        " pasang kata baku. TIU tanpa hitungan: analogi kata (" + F.analogi.length + " jenis hubungan), silogisme, serta susunan duduk dan antrean; kuncinya diperiksa otomatis ke semua kemungkinan. Kebanyakan berbentuk kasus, seperti laporan peserta 2024."),
+        " pasang kata baku. TIU tanpa hitungan: silogisme, susunan duduk dan antrean, serta penalaran matriks (pola 9 kotak); kuncinya diperiksa otomatis ke semua kemungkinan. Kebanyakan berbentuk kasus, seperti laporan peserta 2024. Analogi kata acak (kisi-kisi 2024) masih ada di menu Latihan."),
       h("div", { class: "row wrap" },
         pracBtn("btn-acak-twk", "TWK acak (20 soal)", { materi: ["pilar", "nas", "bind"], n: 20, acak: true, title: "TWK acak" }, true),
         pracBtn("btn-acak-pilar", "Pancasila, UUD, lembaga (15 soal)", { materi: ["pilar"], n: 15, acak: true, title: "Pilar negara acak" }),
         pracBtn("btn-acak-sil", "Silogisme acak (10 soal)", { materi: ["sil"], n: 10, acak: true, title: "Silogisme acak" }),
-        pracBtn("btn-acak-ana", "Analogi kata acak (10 soal)", { materi: ["ana"], n: 10, acak: true, title: "Analogi acak" }),
+        pracBtn("btn-acak-mat", "Penalaran matriks acak (10 soal)", { materi: ["fig-mat"], n: 10, acak: true, title: "Penalaran matriks acak" }),
         pracBtn("btn-acak-anl", "Susunan duduk dan antrean acak (10 soal)", { materi: ["anl"], n: 10, acak: true, title: "Analitis acak" }),
-        pracBtn("btn-acak-tiu", "TIU tanpa hitungan acak (20 soal)", { materi: ["ana", "sil", "anl"], n: 20, acak: true, title: "TIU tanpa hitungan acak" })));
+        pracBtn("btn-acak-tiu", "TIU tanpa hitungan acak (20 soal)", { materi: ["sil", "anl", "fig-mat"], n: 20, acak: true, title: "TIU tanpa hitungan acak" })));
   }
   function viewLatihan() {
     var st = ui.setup, mixed = st.sec === "mix";
@@ -998,7 +998,7 @@
         return h("section", { class: "stack" }, h("h2", null, sec.short + " · " + sec.name),
           h("div", { class: "peta-grid" }, CFG.materi.filter(function (m) { return m.sec === sec.id; }).map(function (m) {
             return h("article", { class: "peta-card" },
-              h("div", { class: "row between" }, h("h3", null, m.name), h("span", { class: "tag" }, "±" + m.quota + " soal")),
+              h("div", { class: "row between" }, h("h3", null, m.name), h("span", { class: "tag" }, m.lama ? "latihan tambahan" : (m.baru2026 ? "baru 2026 · ±" : "±") + m.quota + " soal")),
               h("p", { class: "small muted" }, m.def),
               h("ul", null, m.pola.map(function (p) { return h("li", null, p); })),
               h("div", { class: "row between" },
@@ -1027,7 +1027,7 @@
           h("input", { class: "input wide", id: "set-nama", maxlength: 40, value: set.nama || "", placeholder: "Nama Anda", onchange: function (e) { S.setNama(e.target.value); toast("Nama disimpan."); render(); } })),
         h("p", { class: "small muted" }, "Nomor peserta latihan: ", h("b", null, S.nomorPeserta()), ". Hanya tiruan untuk membiasakan layar ujian.")),
       h("section", { class: "card stack" }, h("h2", null, "Ambang batas"),
-        h("p", { class: "small muted" }, "Bawaan mengikuti KepmenPANRB 321/2024. Ubah bila keputusan untuk CPNS 2026 menetapkan angka lain."),
+        h("p", { class: "small muted" }, "Bawaan mengikuti KepmenPANRB 674/2026 untuk kebutuhan umum: TWK 65, TIU 80, TKP 166. Jalur cumlaude dan diaspora memakai nilai kumulatif minimal 311 (TIU minimal 85); penyandang disabilitas dan putra/putri Papua kumulatif minimal 286 (TIU minimal 60)."),
         h("div", { class: "row" }, CFG.sections.map(function (s) {
           return h("label", { class: "field" }, h("span", { class: "label" }, s.short + " (maks " + s.max + ")"),
             h("input", {

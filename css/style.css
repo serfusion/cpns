@@ -293,6 +293,12 @@ body.in-quiz .topbar { display: none; }
 .opt-k { flex: none; width: 30px; height: 30px; border-radius: 50%; border: 1.5px solid var(--line); display: grid; place-items: center; font-weight: 800; font-size: 0.85rem; color: var(--muted); }
 .opt-t { flex: 1 1 auto; min-width: 0; padding-top: 3px; white-space: pre-line; }
 .opt-tag { flex: none; align-self: center; }
+/* Layar sempit: label koreksi pindah ke baris di bawah teks agar pilihan panjang tidak terjepit. */
+@media (max-width: 560px) {
+  .opts:not(.figs) .opt { flex-wrap: wrap; row-gap: 6px; }
+  .opts:not(.figs) .opt-t { flex: 1 1 0; }
+  .opts:not(.figs) .opt-tag { flex: 1 0 100%; padding-left: 42px; }
+}
 .opt.is-picked { border-color: var(--navy-2); background: var(--accent-soft); }
 .opt.is-picked .opt-k { background: var(--navy); border-color: var(--navy); color: #fff; }
 .opt.is-right { border-color: var(--ok); background: var(--ok-soft); border-width: 2px; }

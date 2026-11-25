@@ -303,6 +303,12 @@ body.in-quiz .topbar { display: none; }
 .opt-k { flex: none; width: 30px; height: 30px; border-radius: 50%; border: 1.5px solid var(--line); display: grid; place-items: center; font-weight: 800; font-size: 0.85rem; color: var(--muted); }
 .opt-t { flex: 1 1 auto; min-width: 0; padding-top: 3px; white-space: pre-line; }
 .opt-tag { flex: none; align-self: center; }
+/* Layar sempit: label koreksi pindah ke baris di bawah teks agar pilihan panjang tidak terjepit. */
+@media (max-width: 560px) {
+  .opts:not(.figs) .opt { flex-wrap: wrap; row-gap: 6px; }
+  .opts:not(.figs) .opt-t { flex: 1 1 0; }
+  .opts:not(.figs) .opt-tag { flex: 1 0 100%; padding-left: 42px; }
+}
 .opt.is-picked { border-color: var(--navy-2); background: var(--accent-soft); }
 .opt.is-picked .opt-k { background: var(--navy); border-color: var(--navy); color: #fff; }
 .opt.is-right { border-color: var(--ok); background: var(--ok-soft); border-width: 2px; }
@@ -582,7 +588,8 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
 
   SKD.config = {
     appName: "Latihan SKD CPNS",
-    // Acuan: KepmenPANRB 321/2024 (seleksi CPNS terakhir). Aturan khusus CPNS 2026
+    // Acuan: KepmenPANRB 674/2026 (ditetapkan 20 November 2026) tentang mekanisme seleksi PNS dan nilai ambang batas SKD
+    // tahun anggaran 2026. Sebelumnya KepmenPANRB 321/2024. Aturan khusus CPNS 2026
     // belum terbit saat aplikasi ini dibuat (16 Nov 2026) — ubah di menu Pengaturan bila berbeda.
     exam: { minutes: 100 },
     sections: [
@@ -595,7 +602,7 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
     materi: [
       {
         id: "nas", sec: "twk", name: "Nasionalisme", quota: 6, gen: 0.3,
-        def: "Mewujudkan kepentingan nasional melalui cita-cita dan tujuan yang sama dengan tetap mempertahankan identitas nasional.",
+        def: "Memahami, menghayati, dan mengaktualisasikan nilai nasionalisme melalui sikap cinta tanah air, kesadaran berbangsa dan bernegara, penghargaan terhadap keberagaman, serta komitmen menjaga persatuan dan kesatuan bangsa dengan tetap mempertahankan identitas nasional.",
         pola: [
           "Studi kasus penerapan nasionalisme sehari-hari: produk lokal, media sosial dan konten kreator, suporter, globalisasi budaya",
           "Nasionalisme sempit dan luas; chauvinisme, primordialisme, etnosentrisme, separatisme",
@@ -606,7 +613,7 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
       },
       {
         id: "int", sec: "twk", name: "Integritas", quota: 6,
-        def: "Menjunjung tinggi kejujuran, ketangguhan, komitmen, dan konsistensi sebagai satu kesatuan sikap untuk mencapai tujuan nasional.",
+        def: "Memahami dan menerapkan nilai integritas, yaitu keselarasan pikiran, perkataan, sikap, dan tindakan berdasarkan kejujuran, tanggung jawab, konsistensi, keteguhan moral, serta komitmen terhadap kepentingan bangsa dan negara.",
         pola: [
           "Sembilan nilai antikorupsi (jujur, disiplin, tanggung jawab, adil, berani, peduli, kerja keras, sederhana, mandiri) pada kasus dan kisah tokoh",
           "Gratifikasi, suap, konflik kepentingan, LHKPN",
@@ -616,7 +623,7 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
       },
       {
         id: "bela", sec: "twk", name: "Bela Negara", quota: 6,
-        def: "Berperan aktif dalam mempertahankan eksistensi bangsa dan negara.",
+        def: "Memahami dan mengaktualisasikan nilai dasar bela negara: cinta tanah air, sadar berbangsa dan bernegara, setia kepada Pancasila, rela berkorban, serta kemampuan awal bela negara sesuai peran dan tanggung jawab, untuk menjaga kedaulatan, keutuhan wilayah, dan keselamatan bangsa.",
         pola: [
           "Pasal 27 ayat (3) dan Pasal 30 UUD 1945, UU 3/2002, UU 23/2019",
           "Nilai dasar bela negara dan contoh perilakunya",
@@ -626,8 +633,8 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
         ]
       },
       {
-        id: "pilar", sec: "twk", name: "Pilar Negara", quota: 7, gen: 0.35,
-        def: "Membentuk karakter positif melalui pemahaman dan pengamalan nilai-nilai dalam Pancasila, UUD 1945, NKRI, dan Bhinneka Tunggal Ika.",
+        id: "pilar", sec: "twk", name: "Empat Konsensus Kebangsaan", quota: 7, gen: 0.35,
+        def: "Memahami, menganalisis, dan menerapkan nilai empat konsensus kebangsaan: Pancasila sebagai dasar dan ideologi negara, UUD 1945 sebagai hukum dasar tertulis, NKRI sebagai bentuk negara, dan Bhinneka Tunggal Ika sebagai semboyan negara.",
         pola: [
           "Kasus penerapan sila Pancasila (sila ke berapa) dan butir pengamalannya",
           "Sejarah perumusan Pancasila: BPUPKI, Panitia Sembilan, Piagam Jakarta, PPKI",
@@ -638,29 +645,34 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
       },
       {
         id: "bind", sec: "twk", name: "Bahasa Indonesia", quota: 5, gen: 0.2,
-        def: "Mampu menggunakan bahasa Indonesia sebagai bahasa persatuan yang sangat penting kedudukannya pada masyarakat Indonesia.",
+        def: "Pengetahuan kebahasaan dan kemampuan berbahasa Indonesia dengan baik dan/atau benar untuk memahami, menggunakan, mengevaluasi, dan merefleksi informasi dalam kehidupan bermasyarakat, berbangsa, dan bernegara.",
         pola: [
           "Ide pokok, simpulan, dan judul bacaan",
           "Makna kata atau istilah dalam konteks",
           "Kalimat efektif, kata baku, ejaan (huruf kapital, kata depan, tanda baca)",
           "Majas, jenis paragraf, fakta dan opini",
           "Kedudukan dan fungsi bahasa Indonesia"
-        , "Huruf miring dan tanda koma", "Inti kalimat (subjek, predikat, objek)"]
+        , "Huruf miring dan tanda koma", "Inti kalimat (subjek, predikat, objek)", "Mengevaluasi informasi: fakta atau opini, sumber yang dapat dipercaya, tujuan penulis (kisi-kisi 2026)", "Merefleksi informasi: menerapkan isi aturan atau bacaan pada situasi nyata (kisi-kisi 2026)"]
       },
 
       {
-        id: "ana", sec: "tiu", name: "Analogi", group: "Verbal", quota: 3, gen: 0.35,
+        id: "ana", sec: "tiu", name: "Analogi Kata (kisi-kisi 2024)", group: "Verbal", quota: 0, gen: 0.35, lama: true,
         def: "Bernalar melalui perbandingan dua konsep kata yang memiliki hubungan tertentu, lalu memakai hubungan itu pada situasi lain.",
         pola: ["Analogi dua kata dan tiga kata", "Hubungan fungsi, sebab-akibat, bagian-keseluruhan, alat-profesi, tingkatan, tempat"]
       },
       {
         id: "sil", sec: "tiu", name: "Silogisme", group: "Verbal", quota: 4, gen: 0.35,
-        def: "Menarik kesimpulan dari dua pernyataan yang diberikan.",
+        def: "Bernalar deduktif dengan menghubungkan premis-premis untuk menarik satu kesimpulan logis yang pasti benar, tanpa menambahkan asumsi di luar informasi yang diberikan.",
         pola: ["Silogisme dua premis: semua, sebagian, tidak ada", "Modus ponens dan modus tollens (jika-maka)", "Memilih kesimpulan yang pasti benar, bukan yang mungkin benar", "Silogisme tiga premis: rantai semua–semua–sebagian dan rantai jika–maka"]
       },
       {
+        id: "ind", sec: "tiu", name: "Penalaran Induktif", group: "Verbal", quota: 3, baru2026: true,
+        def: "Mengidentifikasi pola hubungan, tren, atau prinsip umum dari serangkaian informasi yang terpisah untuk merumuskan generalisasi, penjelasan, atau perkiraan yang paling berpeluang benar (materi baru 2026).",
+        pola: ["Generalisasi dari beberapa pengamatan, termasuk pengecualian", "Penjelasan yang paling mungkin untuk sebuah perubahan", "Perkiraan dari tren atau pola berulang", "Hubungan belum tentu sebab-akibat; sampel yang tidak mewakili; generalisasi tergesa-gesa"]
+      },
+      {
         id: "anl", sec: "tiu", name: "Analitis", group: "Verbal", quota: 4, gen: 0.3,
-        def: "Menganalisis informasi yang diberikan dan menarik kesimpulan.",
+        def: "Mengurai informasi yang kompleks, memetakan hubungan antarvariabel, serta menyusun atau mengevaluasi kombinasi keputusan yang valid berdasarkan seperangkat syarat dan batasan.",
         pola: ["Urutan dan posisi duduk", "Penjadwalan dan pengelompokan bersyarat", "Menarik kesimpulan dari tabel", "Susunan duduk melingkar dan antrean", "Analisis tabel: rasio, persentase kenaikan, pecahan"]
       },
       {
@@ -675,8 +687,8 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
       },
       {
         id: "pk", sec: "tiu", name: "Perbandingan Kuantitatif", group: "Numerik", quota: 4,
-        def: "Menarik kesimpulan berdasarkan dua data kuantitatif.",
-        pola: ["Membandingkan x dan y dari pecahan, persen, akar, dan pangkat", "Kasus yang hubungannya tidak dapat ditentukan"]
+        def: "Menarik kesimpulan berdasarkan dua atau tiga data kuantitatif.",
+        pola: ["Membandingkan x dan y dari pecahan, persen, akar, dan pangkat", "Membandingkan tiga data x, y, dan z (kisi-kisi 2026)", "Kasus yang hubungannya tidak dapat ditentukan"]
       },
       {
         id: "cer", sec: "tiu", name: "Soal Cerita", group: "Numerik", quota: 7,
@@ -690,53 +702,58 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
       },
       {
         id: "fig-ana", sec: "tiu", name: "Analogi Gambar", group: "Figural", quota: 2, gen: 1,
-        def: "Bernalar melalui perbandingan dua gambar yang memiliki hubungan tertentu, lalu memakai hubungan itu pada gambar lain.",
+        def: "Bernalar melalui perbandingan dua gambar yang memiliki hubungan tertentu, lalu memakai konsep hubungan itu pada situasi lain.",
         pola: ["Rotasi dan pencerminan", "Perubahan arsiran", "Pertukaran bentuk luar dan dalam"]
       },
       {
-        id: "fig-beda", sec: "tiu", name: "Ketidaksamaan Gambar", group: "Figural", quota: 1, gen: 1,
+        id: "fig-beda", sec: "tiu", name: "Ketidaksamaan Gambar (kisi-kisi 2024)", group: "Figural", quota: 0, gen: 1, lama: true,
         def: "Melihat perbedaan beberapa gambar.",
         pola: ["Satu gambar hasil cermin di antara gambar hasil putaran", "Aturan jumlah elemen yang dilanggar satu gambar"]
       },
       {
-        id: "fig-seri", sec: "tiu", name: "Serial Gambar", group: "Figural", quota: 2, gen: 1,
+        id: "fig-seri", sec: "tiu", name: "Serial Gambar", group: "Figural", quota: 1, gen: 1,
         def: "Melihat pola hubungan dalam bentuk gambar.",
-        pola: ["Rotasi bertahap", "Pergeseran posisi", "Penambahan elemen", "Pola 9 kotak (3×3)"]
+        pola: ["Rotasi bertahap", "Pergeseran posisi", "Penambahan elemen"]
+      },
+      {
+        id: "fig-mat", sec: "tiu", name: "Penalaran Matriks", group: "Figural", quota: 2, gen: 1, baru2026: true,
+        def: "Memahami pola melalui berbagai perspektif dan menentukan perspektif yang menyelesaikan permasalahan (materi baru 2026). Di aplikasi berupa matriks 3×3, dikenal peserta sebagai pola 9 kotak, yang dibaca per baris, kolom, putaran, dan jumlah.",
+        pola: ["Pola 9 kotak (3×3): setiap baris dan kolom memuat semua bentuk dan jumlah", "Jumlah bertambah ke kanan dan ke bawah", "Putaran berbeda arah baris dan kolom"]
       },
       {
         id: "fig-kubus", sec: "tiu", name: "Jaring-jaring Kubus", group: "Figural", quota: 1, gen: 1,
-        def: "Membayangkan jaring-jaring yang dirakit menjadi kubus: sisi mana yang berhadapan dan mana yang bersebelahan.",
+        def: "Membayangkan jaring-jaring yang dirakit menjadi kubus: sisi mana yang berhadapan dan mana yang bersebelahan. Tidak disebut tersendiri di kisi-kisi; dilaporkan peserta 2024 muncul di bagian figural.",
         pola: ["Sisi yang berhadapan dengan sisi tertentu", "Sisi yang menjadi tutup bila sisi tertentu menjadi alas", "Pasangan sisi yang saling berhadapan"]
       },
 
       {
         id: "pel", sec: "tkp", name: "Pelayanan Publik", quota: 8,
-        def: "Menampilkan keramahtamahan dalam bekerja yang efektif agar bisa memenuhi kebutuhan dan kepuasan orang lain sesuai tugas dan wewenang.",
+        def: "Memberikan pelayanan terbaik kepada publik sesuai tugas melalui sikap ramah, respons yang cekatan, pelayanan tanpa pamrih, dan upaya memperbaiki kualitas layanan secara berkesinambungan.",
         pola: ["Menangani keluhan dan antrean", "Melayani tuntas di luar kebiasaan tanpa melanggar aturan", "Menolak imbalan", "Layanan bagi lansia dan penyandang disabilitas"]
       },
       {
         id: "jej", sec: "tkp", name: "Jejaring Kerja", quota: 7,
-        def: "Membangun dan membina hubungan, bekerja sama, berbagi informasi, dan berkolaborasi dengan orang lain secara efektif.",
+        def: "Membangun dan memelihara kolaborasi internal dan eksternal yang mendorong peran aktif berbagai pihak untuk mencapai tujuan organisasi.",
         pola: ["Kerja sama lintas unit dan instansi", "Berbagi informasi dan pengetahuan", "Konflik dalam tim", "Membangun relasi baru"]
       },
       {
         id: "sos", sec: "tkp", name: "Sosial Budaya", quota: 7,
-        def: "Beradaptasi dan bekerja secara efektif dalam masyarakat majemuk (beragam agama, suku, budaya, dan sebagainya).",
+        def: "Membangun hubungan sosial yang positif dengan menghargai keragaman latar belakang sosial budaya untuk mewujudkan komunitas yang harmonis dan terintegrasi.",
         pola: ["Keberagaman suku dan agama di kantor", "Adaptasi di tempat tugas baru", "Empati dan menghargai adat setempat"]
       },
       {
-        id: "tik", sec: "tkp", name: "Teknologi Informasi dan Komunikasi", quota: 7,
-        def: "Memanfaatkan teknologi informasi secara efektif untuk meningkatkan kinerja.",
+        id: "tik", sec: "tkp", name: "Adaptasi Teknologi Informasi dan Komunikasi", quota: 7,
+        def: "Menyesuaikan diri terhadap perkembangan dan perubahan teknologi informasi dan komunikasi: menerima dan memanfaatkan TIK secara bijak untuk mempermudah tugas, dengan tetap mematuhi prinsip etis.",
         pola: ["Aplikasi dan sistem baru di kantor", "Keamanan data dan kerahasiaan", "Hoaks dan media sosial", "Inovasi digital", "Kecerdasan artifisial generatif dan pelindungan data pribadi", "Rekan gagap teknologi, gangguan sistem, dan serangan siber"]
       },
       {
         id: "pro", sec: "tkp", name: "Profesionalisme", quota: 8,
-        def: "Melaksanakan tugas dan fungsi sesuai dengan tuntutan jabatan.",
+        def: "Menampilkan keahlian di bidangnya, mengedepankan akuntabilitas dan integritas, serta menunjukkan komitmen dalam bekerja dan berkontribusi pada organisasi.",
         pola: ["Prioritas dan tenggat", "Tanggung jawab atas kesalahan", "Menempatkan diri di antara tugas kantor dan urusan lain (kuliah, keluarga, organisasi, usaha sampingan)", "Belajar dan berinovasi", "Kerahasiaan dan spionase, judi daring, perubahan penugasan mendadak", "Penerapan nilai BerAKHLAK dan netralitas ASN saat pilkada"]
       },
       {
         id: "rad", sec: "tkp", name: "Anti Radikalisme", quota: 8,
-        def: "Menjunjung tinggi dan bertindak sesuai nilai-nilai untuk tidak mengikuti atau menganut paham radikalisme (toleransi, antikekerasan, dan sebagainya).",
+        def: "Berpikir dan bertindak bijak, menolak kekerasan dan pemaksaan kehendak atas keyakinan pribadi (agama, politik, aliran), serta menerima perbedaan ideologi yang tidak bertentangan dengan ideologi bangsa.",
         pola: ["Ajakan kelompok intoleran", "Konten radikal dan isu SARA di media sosial", "Netralitas dan persatuan", "Melapor lewat jalur resmi"]
       }
     ],
@@ -745,7 +762,8 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
       status: [
         "Formasi CPNS 2026 belum terbit per 23 November 2026. Rencana pemerintah: pendaftaran mulai 27 November 2026, SKD dan SKB Januari–Maret 2027 (belum resmi).",
         "SKD sekolah kedinasan 2026 sudah berlangsung 22 September–7 Oktober 2026 dengan CAT BKN: 110 soal, 100 menit, ambang batas TWK 65, TIU 80, TKP 156 (KepmenPANRB 406/2026).",
-        "Ambang batas SKD CPNS 2026 belum ditetapkan. Acuan terakhir untuk CPNS adalah KepmenPANRB 321/2024: TWK 65, TIU 80, TKP 166.",
+        "Ambang batas SKD CPNS 2026 sudah ditetapkan dalam KepmenPANRB 674/2026 (20 November 2026): kebutuhan umum TWK 65, TIU 80, TKP 166 (sama dengan 2024). Cumlaude dan diaspora: kumulatif minimal 311 dengan TIU minimal 85; penyandang disabilitas dan putra/putri Papua: kumulatif minimal 286 dengan TIU minimal 60.",
+        "Kisi-kisi SKD 2026 (KepmenPANRB 674/2026): TIU verbal kini silogisme, penalaran induktif, dan analitis (analogi kata tidak lagi tercantum); TIU figural kini serial, analogi gambar, dan penalaran matriks (ketidaksamaan tidak lagi tercantum); perbandingan kuantitatif bisa memakai dua atau tiga data. SKB memakai CAT BKN: 90 menit, 100 soal untuk jabatan yang materinya tidak dominan hitungan. Nilai SKD 2024 boleh dipakai bila memenuhi syarat.",
         "Soal CAT BKN rahasia dan diacak per peserta. Tidak ada cara sah mendapatkan soal yang akan keluar; tawaran \"bocoran\" adalah penipuan dan dapat menggugurkan peserta. Semua soal di aplikasi ini disusun sendiri mengikuti kisi-kisi dan pola laporan peserta."
       ],
       rumus: "Tingkat pola. Sangat sering keluar: tercantum di kisi-kisi resmi dan dilaporkan di 3 laporan peserta atau lebih. Sering keluar: 1–2 laporan. Laporan dihitung per rangkuman hari ujian dan per sumber, karena soal CAT diacak per peserta: pola yang muncul di banyak hari dan banyak peserta berarti sering keluar.",
@@ -2092,6 +2110,42 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
         "jumlah peserta kelas tari di semua sanggar meningkat"],
       x: "Gagasan utama ada di kalimat terakhir (paragraf induktif): media sosial ternyata dapat menjadi sarana pelestarian budaya. Pilihan lain hanya rincian, berlawanan dengan isi, atau berlebihan (semua sanggar)." }
   ]);
+
+  // ===================== KISI-KISI 2026: Bahasa Indonesia untuk memahami, mengevaluasi, dan merefleksi informasi =====================
+  SKD.add("twk", [
+    { m: "bind", h: 1, b: 1,
+      q: "Bacalah paragraf berikut. \"Pemerintah kota meresmikan 12 taman baca di kelurahan pada Oktober 2026. Menurut data dinas, jumlah pengunjung taman baca mencapai 3.000 orang pada bulan pertama. Taman baca itu adalah cara terbaik untuk menumbuhkan minat baca anak.\" Kalimat yang berisi opini adalah ...",
+      o: ["Taman baca itu adalah cara terbaik untuk menumbuhkan minat baca anak.",
+        "Pemerintah kota meresmikan 12 taman baca di kelurahan pada Oktober 2026.",
+        "Menurut data dinas, jumlah pengunjung taman baca mencapai 3.000 orang pada bulan pertama.",
+        "Taman baca diresmikan oleh pemerintah kota.",
+        "Jumlah pengunjung taman baca dicatat oleh dinas."],
+      x: "Opini berisi penilaian yang tidak dapat dibuktikan secara pasti (\"cara terbaik\"). Kalimat lain memuat fakta yang dapat diperiksa: waktu, jumlah, dan sumber data." },
+    { m: "bind", h: 1, b: 1,
+      q: "Sebuah pesan berantai menyatakan bahwa air kelapa yang dicampur garam dapat menyembuhkan demam berdarah dalam satu hari. Pesan itu tidak mencantumkan sumber, tetapi disebut berasal dari \"seorang dokter terkenal\". Sikap yang paling tepat dalam mengevaluasi informasi tersebut adalah ...",
+      o: ["meragukannya sampai ada sumber jelas yang dapat diperiksa, misalnya keterangan resmi lembaga kesehatan",
+        "mempercayainya karena disebut berasal dari dokter",
+        "menyebarkannya agar orang lain dapat mencoba",
+        "mempercayainya karena bahan yang disebutkan alami",
+        "menolak semua informasi kesehatan dari media sosial"],
+      x: "Informasi yang kuat menyebut sumber yang jelas dan dapat diverifikasi. Sebutan \"seorang dokter terkenal\" tanpa nama dan bukti tidak cukup. Menolak semua informasi juga keliru; yang tepat adalah memeriksa sumbernya." },
+    { m: "bind", h: 1, b: 1,
+      q: "Bacalah paragraf berikut. \"Setiap tahun, ribuan dokumen penting warga rusak karena disimpan di tempat lembap. Padahal, kini warga dapat menyimpan salinan digital dokumen kependudukan di aplikasi resmi pemerintah secara gratis. Unduh aplikasinya dan simpan dokumen Anda hari ini juga.\" Tujuan penulis paragraf tersebut adalah ...",
+      o: ["mengajak warga menyimpan salinan digital dokumen kependudukan",
+        "menjelaskan cara kerja aplikasi pemerintah secara rinci",
+        "mengkritik warga yang menyimpan dokumen di tempat lembap",
+        "melaporkan jumlah dokumen yang rusak setiap tahun",
+        "membandingkan aplikasi pemerintah dengan aplikasi swasta"],
+      x: "Kalimat terakhir berupa ajakan (\"Unduh ... simpan ... hari ini juga\"), dan kalimat sebelumnya menjadi alasannya. Paragraf ini bersifat persuasif." },
+    { m: "bind", h: 1, b: 1,
+      q: "Bacalah informasi berikut. \"Mulai Januari, permohonan izin usaha mikro cukup melampirkan KTP dan foto lokasi usaha, tanpa surat keterangan domisili dari kelurahan.\" Seorang pedagang yang belum memiliki surat keterangan domisili ingin mengurus izin usaha mikro pada bulan Februari. Simpulan yang paling tepat adalah ...",
+      o: ["ia dapat mengajukan izin dengan KTP dan foto lokasi usaha tanpa menunggu surat domisili",
+        "ia harus mengurus surat domisili lebih dulu ke kelurahan",
+        "ia tidak dapat mengajukan izin karena belum memiliki surat domisili",
+        "ia harus menunggu sampai aturan itu berlaku tahun depan",
+        "ia cukup melampirkan surat domisili tanpa KTP"],
+      x: "Aturan berlaku mulai Januari dan tidak lagi mensyaratkan surat domisili, sehingga pada Februari pedagang itu cukup melampirkan KTP dan foto lokasi usaha." }
+  ]);
 })();
 
 </script>
@@ -2106,10 +2160,10 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
 
   // ===================== ANALOGI =====================
   SKD.add("tiu", [
-    { m: "ana", h: 2, q: "PADI : PETANI = ... : ...",
+    { m: "ana", q: "PADI : PETANI = ... : ...",
       o: ["IKAN : NELAYAN", "BUKU : PEMBACA", "OBAT : PASIEN", "SEPATU : PEMAKAI", "JALAN : PENGEMUDI"],
       x: "Padi dihasilkan oleh petani, seperti ikan dihasilkan (ditangkap) oleh nelayan. Pilihan lain menunjukkan hubungan benda dengan penggunanya." },
-    { m: "ana", h: 2, q: "GURU : SEKOLAH : MURID = ... : ... : ...",
+    { m: "ana", q: "GURU : SEKOLAH : MURID = ... : ... : ...",
       o: ["DOKTER : RUMAH SAKIT : PASIEN", "HAKIM : PENGADILAN : JAKSA", "PETANI : SAWAH : CANGKUL", "PILOT : PESAWAT : BANDARA", "PENJUAL : PEMBELI : PASAR"],
       x: "Polanya profesi : tempat bekerja : pihak yang dilayani. Guru bekerja di sekolah melayani murid; dokter bekerja di rumah sakit melayani pasien." }
   ]);
@@ -2173,31 +2227,31 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
 
   // ===================== TAMBAHAN: VERBAL =====================
   SKD.add("tiu", [
-    { m: "ana", h: 2, q: "DOKTER : STETOSKOP = ... : ...",
+    { m: "ana", q: "DOKTER : STETOSKOP = ... : ...",
       o: ["FOTOGRAFER : KAMERA", "PENJAHIT : KAIN", "PETANI : SAWAH", "GURU : MURID", "PILOT : BANDARA"],
       x: "Stetoskop adalah alat kerja dokter, seperti kamera alat kerja fotografer. Kain adalah bahan, sawah tempat, murid pihak yang dilayani, bandara tempat." },
-    { m: "ana", h: 2, q: "API : PANAS = ... : ...",
+    { m: "ana", q: "API : PANAS = ... : ...",
       o: ["ES : DINGIN", "LAMPU : LISTRIK", "MATAHARI : SIANG", "HUJAN : PAYUNG", "GARAM : LAUT"],
       x: "Panas adalah sifat api, dingin adalah sifat es." },
-    { m: "ana", h: 2, q: "KAKI : SEPATU = ... : ...",
+    { m: "ana", q: "KAKI : SEPATU = ... : ...",
       o: ["TANGAN : SARUNG TANGAN", "TELINGA : MENDENGAR", "KEPALA : RAMBUT", "MULUT : GIGI", "MATA : MELIHAT"],
       x: "Sepatu adalah pelindung yang dikenakan pada kaki, sarung tangan dikenakan pada tangan. Rambut dan gigi adalah bagian tubuh, bukan benda yang dikenakan." },
-    { m: "ana", h: 2, q: "BOROS : HEMAT = ... : ...",
+    { m: "ana", q: "BOROS : HEMAT = ... : ...",
       o: ["RAJIN : MALAS", "CERDAS : PINTAR", "TINGGI : JANGKUNG", "BESAR : RAKSASA", "CEPAT : KILAT"],
       x: "Boros dan hemat berlawanan makna (antonim). Pilihan lain bersinonim atau berupa tingkatan." },
-    { m: "ana", h: 2, q: "SENYUM : TERTAWA : TERBAHAK-BAHAK = ... : ... : ...",
+    { m: "ana", q: "SENYUM : TERTAWA : TERBAHAK-BAHAK = ... : ... : ...",
       o: ["GERIMIS : HUJAN : BADAI", "PAGI : SIANG : MALAM", "MERAH : KUNING : HIJAU", "MAKAN : MINUM : TIDUR", "SEDIH : MENANGIS : AIR MATA"],
       x: "Polanya tingkatan intensitas dari lemah ke kuat. Gerimis, hujan, badai juga makin kuat. Pagi-siang-malam hanya urutan waktu." },
-    { m: "ana", h: 2, q: "PENULIS : PENA : BUKU = ... : ... : ...",
+    { m: "ana", q: "PENULIS : PENA : BUKU = ... : ... : ...",
       o: ["PENJAHIT : JARUM : PAKAIAN", "PETANI : SAWAH : PADI", "KOKI : DAPUR : MASAKAN", "GURU : SEKOLAH : MURID", "NELAYAN : LAUT : IKAN"],
       x: "Polanya pelaku : alat : hasil karya. Sawah, dapur, sekolah, dan laut adalah tempat, bukan alat." },
-    { m: "ana", h: 2, q: "MOBIL : BENSIN = ... : ...",
+    { m: "ana", q: "MOBIL : BENSIN = ... : ...",
       o: ["LAMPU : LISTRIK", "KAPAL : LAUT", "SEPEDA : RODA", "PESAWAT : PILOT", "RUMAH : ATAP"],
       x: "Bensin adalah sumber energi mobil, listrik sumber energi lampu." },
-    { m: "ana", h: 2, q: "KATAK : AMFIBI = ... : ...",
+    { m: "ana", q: "KATAK : AMFIBI = ... : ...",
       o: ["ULAR : REPTIL", "PAUS : IKAN", "KELELAWAR : BURUNG", "AYAM : TELUR", "KUCING : TIKUS"],
       x: "Katak termasuk golongan amfibi, ular golongan reptil. Paus mamalia, bukan ikan; kelelawar mamalia, bukan burung." },
-    { m: "ana", h: 2, q: "BUKU : PERPUSTAKAAN = ... : ...",
+    { m: "ana", q: "BUKU : PERPUSTAKAAN = ... : ...",
       o: ["LUKISAN : GALERI", "OBAT : APOTEKER", "KERTAS : PENSIL", "IKAN : NELAYAN", "SURAT : PERANGKO"],
       x: "Perpustakaan adalah tempat menyimpan dan memajang buku, galeri tempat menyimpan dan memajang lukisan." },
 
@@ -2376,6 +2430,156 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
     { m: "anl", h: 2, q: "Lima orang P, Q, R, S, dan T mengantre di loket. T berada paling depan. P berada di depan Q, tetapi di belakang R. S berada tepat di belakang Q.\nSiapa yang berada di urutan ketiga?",
       o: ["P", "Q", "R", "S", "T"],
       x: "Urutan dari depan: T, R, P, Q, S. Urutan ketiga adalah P." }
+  ]);
+
+  // ===================== KISI-KISI 2026 (KepmenPANRB 674/2026) =====================
+  // Penalaran induktif: materi verbal baru 2026. Mengidentifikasi pola, tren, atau prinsip umum dari informasi terpisah untuk
+  // merumuskan generalisasi, penjelasan, atau perkiraan yang paling berpeluang benar. Pasti diujikan, jadi masuk set sangat sering.
+  SKD.add("tiu", [
+    { m: "ind", h: 2, b: 1,
+      q: "Dalam lima tahun terakhir, sepuluh kecamatan di sebuah kabupaten menerapkan layanan administrasi kependudukan secara daring. Di delapan kecamatan, rata-rata waktu pengurusan dokumen turun lebih dari separuh. Dua kecamatan lainnya memiliki jaringan internet yang sering terputus, dan waktu pengurusannya hampir tidak berubah. Simpulan yang paling berpeluang benar adalah ...",
+      o: ["layanan daring cenderung mempercepat pengurusan dokumen bila jaringan internetnya memadai",
+        "layanan daring pasti mempercepat pengurusan dokumen di semua kecamatan",
+        "jaringan internet tidak berpengaruh terhadap lama pengurusan dokumen",
+        "layanan tatap muka selalu lebih cepat daripada layanan daring",
+        "kecamatan dengan jaringan lemah sebaiknya menghapus layanan daring"],
+      x: "Delapan dari sepuluh kecamatan menjadi lebih cepat, sedangkan dua yang tidak berubah sama-sama bermasalah jaringan. Generalisasi terkuat menyertakan syaratnya (jaringan memadai). \"Pasti di semua kecamatan\" melampaui data; pilihan lain bertentangan dengan data atau berupa saran, bukan simpulan." },
+    { m: "ind", h: 2, b: 1,
+      q: "Sejak sebuah taman kota dilengkapi lampu terang dan kamera pengawas, laporan pencurian sepeda di sekitarnya turun drastis. Pada periode yang sama, jumlah patroli polisi dan jumlah pengunjung taman tidak berubah. Penjelasan yang paling mungkin untuk penurunan itu adalah ...",
+      o: ["penerangan dan kamera pengawas membuat calon pelaku enggan beraksi",
+        "pengunjung taman berkurang sehingga sepeda yang diparkir lebih sedikit",
+        "polisi menambah patroli di sekitar taman",
+        "warga berhenti melaporkan pencurian karena tidak percaya kepada polisi",
+        "harga sepeda turun sehingga tidak menarik untuk dicuri"],
+      x: "Perubahan yang terjadi bersamaan dengan penurunan adalah lampu dan kamera. Patroli dan jumlah pengunjung disebut tetap, jadi dua penjelasan itu gugur; penjelasan lain tidak didukung informasi apa pun." },
+    { m: "ind", h: 2, b: 1,
+      q: "Data perpustakaan daerah menunjukkan peminjaman buku cetak turun setiap tahun selama empat tahun terakhir, sedangkan peminjaman buku elektronik naik setiap tahun. Jumlah anggota perpustakaan relatif tetap. Jika kecenderungan ini berlanjut, perkiraan yang paling berpeluang benar untuk tahun depan adalah ...",
+      o: ["peminjaman buku elektronik kembali naik, sementara peminjaman buku cetak kembali turun",
+        "jumlah anggota perpustakaan akan turun tajam",
+        "peminjaman buku cetak akan naik melampaui buku elektronik",
+        "perpustakaan akan berhenti meminjamkan buku cetak",
+        "peminjaman kedua jenis buku akan sama besar"],
+      x: "Perkiraan induktif yang paling kuat melanjutkan pola yang konsisten (cetak turun, elektronik naik). Pilihan lain bertentangan dengan pola, tidak didukung data (anggota relatif tetap), atau terlalu jauh (berhenti meminjamkan)." },
+    { m: "ind", h: 2, b: 1,
+      q: "Hasil survei di sebuah kantor: pegawai yang rutin mengikuti pelatihan daring rata-rata memiliki nilai kinerja lebih tinggi daripada pegawai yang jarang mengikutinya. Pegawai yang rutin ikut pelatihan juga umumnya sudah lebih lama bekerja. Simpulan yang paling tepat adalah ...",
+      o: ["ada hubungan antara keikutsertaan pelatihan dan nilai kinerja, tetapi belum dapat dipastikan pelatihan yang menjadi penyebabnya",
+        "pelatihan daring pasti meningkatkan nilai kinerja setiap pegawai",
+        "masa kerja tidak berhubungan dengan nilai kinerja",
+        "pegawai baru tidak perlu mengikuti pelatihan daring",
+        "nilai kinerja yang tinggi menyebabkan pegawai malas ikut pelatihan"],
+      x: "Data menunjukkan hubungan, tetapi ada faktor lain yang ikut berbeda (masa kerja), sehingga sebab-akibatnya belum pasti. Menyimpulkan penyebab hanya dari hubungan adalah kekeliruan umum dalam penalaran induktif." },
+    { m: "ind", h: 2, b: 1,
+      q: "Untuk mengetahui kepuasan warga terhadap layanan sebuah kantor, petugas membagikan kuesioner hanya kepada warga yang datang pada hari Senin pagi. Hasilnya, 95% responden puas. Penilaian yang paling tepat terhadap simpulan \"95% warga puas terhadap layanan kantor\" adalah ...",
+      o: ["simpulan itu lemah karena respondennya belum mewakili seluruh pengguna layanan",
+        "simpulan itu kuat karena persentasenya sangat tinggi",
+        "simpulan itu kuat karena kuesioner dibagikan secara langsung",
+        "simpulan itu salah karena warga yang datang Senin pagi pasti tidak puas",
+        "simpulan itu tidak dapat dinilai tanpa mengetahui nama responden"],
+      x: "Generalisasi induktif hanya kuat bila sampelnya mewakili. Responden pada satu waktu tertentu belum tentu mewakili warga yang datang di hari dan jam lain. Persentase yang tinggi tidak memperbaiki sampel yang bias." },
+    { m: "ind", h: 2, b: 1,
+      q: "Di sebuah desa, hasil panen petani yang memakai benih padi varietas baru lebih tinggi daripada petani yang memakai benih lama. Namun, di desa tetangga yang sering kekeringan, hasil panen kedua kelompok hampir sama. Penjelasan yang paling mungkin adalah ...",
+      o: ["keunggulan benih varietas baru membutuhkan ketersediaan air yang cukup",
+        "benih varietas baru tidak pernah lebih unggul daripada benih lama",
+        "petani di desa tetangga tidak pandai bertani",
+        "kekeringan membuat semua benih menghasilkan panen lebih tinggi",
+        "hasil panen hanya ditentukan oleh luas sawah"],
+      x: "Keunggulan benih baru muncul di desa yang airnya cukup dan hilang di desa yang kekeringan, sehingga penjelasan terkuat adalah keunggulannya bergantung pada air. Pilihan lain bertentangan dengan data atau menuduh tanpa dasar." },
+    { m: "ind", h: 2, b: 1,
+      q: "Pengamatan di lima sekolah menunjukkan siswa yang sarapan sebelum berangkat lebih jarang mengantuk di kelas pagi. Kelima sekolah itu berada di daerah yang berbeda-beda: kota, desa, pesisir, pegunungan, dan perbatasan. Simpulan yang paling berpeluang benar adalah ...",
+      o: ["sarapan cenderung membantu siswa tetap segar di kelas pagi di berbagai jenis daerah",
+        "siswa di daerah pegunungan tidak pernah mengantuk",
+        "hanya siswa di kota yang mendapat manfaat dari sarapan",
+        "rasa kantuk di kelas pagi disebabkan oleh cara guru mengajar",
+        "siswa yang tidak sarapan pasti nilainya lebih rendah"],
+      x: "Pola yang sama muncul di lima daerah yang berbeda karakternya, sehingga generalisasinya kuat dan berlaku luas. Pilihan lain melampaui data (pasti nilainya lebih rendah), membatasi tanpa dasar, atau tidak didukung pengamatan." },
+    { m: "ind", h: 2, b: 1,
+      q: "Selama tiga tahun berturut-turut, pengajuan izin keramaian di sebuah kota melonjak setiap bulan Juni dan Desember, bertepatan dengan libur sekolah dan akhir tahun, lalu kembali normal pada bulan berikutnya. Petugas ingin menyiapkan tenaga tambahan. Perkiraan yang paling berpeluang benar adalah ...",
+      o: ["lonjakan pengajuan izin akan kembali terjadi pada Juni dan Desember tahun depan",
+        "pengajuan izin akan melonjak setiap bulan sepanjang tahun depan",
+        "pengajuan izin tidak akan pernah melonjak lagi",
+        "lonjakan akan berpindah ke bulan Maret",
+        "jumlah pengajuan izin tidak berkaitan dengan musim libur"],
+      x: "Pola berulang selama tiga tahun pada bulan yang sama, dengan penyebab yang juga berulang (libur sekolah dan akhir tahun), menjadi dasar perkiraan terkuat." },
+    { m: "ind", h: 2, b: 1,
+      q: "Setelah sebuah aplikasi layanan diperbarui, jumlah pengaduan yang masuk melalui aplikasi naik dua kali lipat. Pembaruan itu memindahkan tombol pengaduan ke halaman depan; sebelumnya tombol itu tersembunyi di dalam menu. Penjelasan yang paling mungkin untuk kenaikan pengaduan adalah ...",
+      o: ["warga kini lebih mudah menemukan fitur pengaduan sehingga lebih banyak yang menyampaikan keluhan",
+        "kualitas layanan pasti menurun drastis setelah pembaruan",
+        "warga yang mengadu adalah orang-orang yang sama setiap hari",
+        "aplikasi menghitung setiap pengaduan dua kali",
+        "jumlah pengguna aplikasi berkurang setengahnya"],
+      x: "Perubahan yang diketahui adalah tombol pengaduan dipindah ke halaman depan, sehingga penjelasan paling masuk akal adalah fitur itu lebih mudah ditemukan. Kenaikan pengaduan tidak otomatis berarti layanan memburuk." },
+    { m: "ind", h: 2, b: 1,
+      q: "Seorang peneliti mengamati bahwa di 20 desa yang memiliki bank sampah, kebersihan selokan dinilai baik. Kemudian ditemukan dua desa yang juga memiliki bank sampah, tetapi selokannya kotor karena tidak ada jadwal kerja bakti. Pernyataan yang paling tepat adalah ...",
+      o: ["bank sampah membantu kebersihan, tetapi tidak cukup tanpa kegiatan pendukung seperti kerja bakti",
+        "bank sampah sama sekali tidak berhubungan dengan kebersihan selokan",
+        "semua desa yang memiliki bank sampah pasti selokannya bersih",
+        "kerja bakti tidak diperlukan bila desa memiliki bank sampah",
+        "kedua desa itu harus menutup bank sampahnya"],
+      x: "Temuan pengecualian membatasi generalisasi, bukan membatalkannya seluruhnya. Simpulan terkuat memasukkan syarat tambahan yang ditunjukkan pengecualian itu." },
+    { m: "ind", h: 2, b: 1,
+      q: "Informasi dari beberapa kota: (1) kota yang memiliki transportasi umum terintegrasi mengalami penurunan kemacetan; (2) kota yang hanya menambah jalan baru kembali macet dalam dua tahun; (3) kota yang membatasi parkir di pusat kota mengalami kenaikan penumpang transportasi umum. Prinsip umum yang paling didukung oleh informasi tersebut adalah ...",
+      o: ["kemacetan lebih efektif dikurangi dengan mendorong orang beralih ke transportasi umum daripada hanya menambah jalan",
+        "menambah jalan baru adalah cara terbaik mengurangi kemacetan",
+        "pembatasan parkir selalu merugikan pedagang di pusat kota",
+        "kemacetan tidak dapat dikurangi dengan kebijakan apa pun",
+        "transportasi umum hanya cocok untuk kota kecil"],
+      x: "Ketiga informasi menunjuk pola yang sama: kebijakan yang mendorong perpindahan ke transportasi umum menurunkan kemacetan, sedangkan menambah jalan hanya bertahan sebentar. Pilihan lain bertentangan dengan informasi atau tidak dibahas." },
+    { m: "ind", h: 2, b: 1,
+      q: "Di sebuah kantor, setiap kali sistem kepegawaian diperbarui tanpa pelatihan, kesalahan input data naik pada bulan pertama, lalu turun setelah pegawai terbiasa. Bulan depan sistem itu akan diperbarui lagi dan belum ada rencana pelatihan. Perkiraan yang paling mungkin adalah ...",
+      o: ["kesalahan input data akan naik pada bulan pertama setelah pembaruan, lalu berangsur turun",
+        "tidak akan ada kesalahan input data sama sekali",
+        "kesalahan input data akan terus naik tanpa henti",
+        "pegawai akan menolak menggunakan sistem baru",
+        "kesalahan input data akan turun sejak hari pertama pembaruan"],
+      x: "Pola yang berulang setiap pembaruan tanpa pelatihan adalah naik lalu turun. Karena kondisinya sama (tanpa pelatihan), perkiraan terkuat mengikuti pola itu." },
+    { m: "ind", h: 2, b: 1,
+      q: "Tiga fakta tentang sebuah UMKM: penjualan di toko daringnya naik tajam sejak tiga bulan lalu; tiga bulan lalu pemiliknya mulai mengunggah video proses produksi di media sosial; harga dan jumlah jenis produknya tidak berubah. Penjelasan yang paling mungkin untuk kenaikan penjualan adalah ...",
+      o: ["video proses produksi di media sosial menarik lebih banyak pembeli",
+        "harga produk diturunkan sehingga lebih murah",
+        "UMKM itu menambah banyak jenis produk baru",
+        "pesaing UMKM itu menaikkan harga dua kali lipat",
+        "penjualan naik karena kebetulan semata"],
+      x: "Satu-satunya perubahan yang diketahui dan waktunya sama dengan kenaikan penjualan adalah unggahan video. Harga dan jenis produk disebut tetap, dan informasi tentang pesaing tidak ada." },
+    { m: "ind", h: 2, b: 1,
+      q: "Dua pegawai baru lulusan sebuah universitas melakukan kesalahan saat mengoperasikan aplikasi keuangan. Seorang atasan lalu menyimpulkan bahwa semua lulusan universitas itu tidak cakap mengoperasikan aplikasi. Penilaian yang paling tepat terhadap simpulan atasan tersebut adalah ...",
+      o: ["simpulan itu tergesa-gesa karena hanya didasarkan pada dua kasus",
+        "simpulan itu kuat karena kesalahannya terjadi dua kali",
+        "simpulan itu kuat karena atasan lebih berpengalaman",
+        "simpulan itu benar karena aplikasi keuangan memang sulit",
+        "simpulan itu benar bila kedua pegawai berasal dari jurusan yang sama"],
+      x: "Dua kasus tidak cukup untuk menggeneralisasi seluruh lulusan sebuah universitas (generalisasi tergesa-gesa). Kesalahan itu juga bisa disebabkan hal lain, misalnya belum mendapat pelatihan." },
+    { m: "ind", h: 2, b: 1,
+      q: "Sebuah dinas ingin mengetahui apakah program pelatihan keterampilan digital meningkatkan peluang kerja pesertanya. Data yang paling kuat untuk mendukung simpulan tersebut adalah ...",
+      o: ["perbandingan tingkat keterserapan kerja antara peserta dan kelompok sebanding yang tidak mengikuti pelatihan",
+        "testimoni tiga peserta yang langsung diterima bekerja",
+        "jumlah pendaftar pelatihan setiap tahun",
+        "penilaian instruktur bahwa materi pelatihannya menarik",
+        "foto kegiatan pelatihan yang diunggah di media sosial"],
+      x: "Untuk menyimpulkan pengaruh, perlu pembanding yang sebanding. Testimoni segelintir orang, jumlah pendaftar, penilaian instruktur, atau foto kegiatan tidak menunjukkan perbedaan hasil antara yang ikut dan yang tidak." },
+    { m: "ind", h: 2, b: 1,
+      q: "Laporan dari tiga provinsi: di provinsi A, desa yang BUMDes-nya aktif mencatat kenaikan pendapatan asli desa; di provinsi B, desa yang BUMDes-nya tidak aktif tidak mengalami kenaikan; di provinsi C, desa yang menghidupkan kembali BUMDes-nya mulai mencatat kenaikan pendapatan. Generalisasi yang paling berpeluang benar adalah ...",
+      o: ["BUMDes yang aktif berkaitan dengan naiknya pendapatan asli desa",
+        "semua desa di provinsi A lebih kaya daripada desa di provinsi B",
+        "BUMDes tidak berpengaruh terhadap pendapatan desa",
+        "pendapatan desa hanya naik di provinsi C",
+        "pendapatan asli desa pasti naik dua kali lipat setelah BUMDes dibentuk"],
+      x: "Laporan dari tiga tempat berbeda menunjukkan pola yang sama: kenaikan pendapatan muncul saat BUMDes aktif dan tidak muncul saat tidak aktif. Pilihan lain membandingkan hal yang tidak diukur, bertentangan, atau melebih-lebihkan." }
+  ]);
+
+  // Perbandingan kuantitatif dengan tiga data (KepmenPANRB 674/2026: "dua atau tiga data kuantitatif").
+  SKD.add("tiu", [
+    { m: "pk", h: 1, b: 1, q: "Diketahui x = 25% dari 80, y = 3/4 dari 24, dan z = 0,2 × 100. Hubungan yang benar adalah ...",
+      o: ["x = z > y", "x > y > z", "x = y = z", "y > x = z", "z > x > y"],
+      x: "x = 0,25 × 80 = 20; y = 3/4 × 24 = 18; z = 0,2 × 100 = 20. Jadi x = z > y." },
+    { m: "pk", h: 1, b: 1, q: "Diketahui x = √49 + 2, y = 3², dan z = 10 − 1. Hubungan yang benar adalah ...",
+      o: ["x = y = z", "x > y = z", "x = y > z", "x < y < z", "z > x = y"],
+      x: "x = 7 + 2 = 9; y = 9; z = 9. Ketiganya sama." },
+    { m: "pk", h: 1, b: 1, q: "x adalah harga barang Rp50.000 setelah diskon 20%, y adalah harga barang Rp45.000 setelah diskon 10%, dan z = Rp40.500. Hubungan yang benar adalah ...",
+      o: ["y = z > x", "x > y = z", "x = y = z", "x > y > z", "z > y > x"],
+      x: "x = 80% × 50.000 = 40.000; y = 90% × 45.000 = 40.500; z = 40.500. Jadi y = z > x." },
+    { m: "pk", h: 1, b: 1, q: "Diketahui x = 1/2 + 1/3, y = 5/6, dan z = 0,8. Hubungan yang benar adalah ...",
+      o: ["x = y > z", "x = y < z", "x > y > z", "z > x > y", "x = y = z"],
+      x: "x = 3/6 + 2/6 = 5/6; y = 5/6 ≈ 0,833; z = 0,8. Jadi x = y > z." }
   ]);
 })();
 
@@ -4143,7 +4347,8 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
   }
 
   var GEN = {
-    "fig-seri": [seriRot, seriRing, seriCount, seriPoly, matriks, matriks],
+    "fig-seri": [seriRot, seriRing, seriCount, seriPoly],
+    "fig-mat": [matriks],
     "fig-ana": [anaGlyph, anaGlyph, anaNest, anaPoly],
     "fig-beda": [bedaMirror, bedaRule, bedaRule],
     "fig-kubus": [kubus]
@@ -4155,7 +4360,7 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
     describe: describe,
     /** Bangkitkan satu soal figural. Jawaban benar selalu opts[0]. */
     generate: function (materi, R, sangat) {
-      var list = sangat && materi === "fig-seri" ? [matriks] : GEN[materi];
+      var list = GEN[materi];
       for (var tries = 0; tries < 20; tries++) {
         var out = R.pick(list)(R), seen = {}, ok = out.opts.length === 5;
         for (var i = 0; ok && i < out.opts.length; i++) {
@@ -4667,7 +4872,7 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
     nas: [[sejarahNas, 3, 1], [hari, 2, 0]],
     bind: [[baku, 1, 0]],
     sil: [[silogisme, 1, 1]],
-    ana: [[analogi, 1, 1]],
+    ana: [[analogi, 1, 0]], // analogi kata tidak lagi tercantum di kisi-kisi 2026
     anl: [[analitis, 1, 1]]
   };
   function unik(opts) {
@@ -4965,7 +5170,7 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
   function canGen(m, opt) {
     if (!m.gen || opt.baru) return false;
     if (!opt.sangat) return true;
-    if (m.id === "fig-seri" || m.id === "der") return true; // pola 9 kotak; deret angka (4 laporan)
+    if (m.id === "fig-mat" || m.id === "der") return true; // penalaran matriks (pola 9 kotak); deret angka (4 laporan)
     return !!(SKD.acak && SKD.acak.bisa(m.id, opt));
   }
   function pickBank(materi, n, R, stats, opt) {
@@ -5343,27 +5548,24 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
   var SKD = (window.SKD = window.SKD || {});
 
   SKD.formasi = {
-    tanggal: "24 November 2026",
+    tanggal: "25 November 2026",
     jurusan: "S-1 Ilmu Komunikasi",
     dokumen: "https://github.com/serfusion/cpns/releases?q=APK",
 
     status: [
-      "23 November 2026, MenPANRB di rapat kerja Komisi II DPR: seluruh formasi CPNS 2026–2027 berasal dari instansi pusat, TIDAK ADA formasi pemda, karena difokuskan pada program hasil terbaik cepat Presiden dan belanja pegawai pemda masih melebihi batas UU HKPD. Jadi target realistis adalah kementerian/lembaga beserta kantor dan UPT-nya di daerah.",
-      "23 November 2026 (rapat KemenPANRB dengan Komisi II DPR): kebutuhan ASN 2026 ditetapkan 167.113 orang, antara lain guru Sekolah Terintegrasi dan Sekolah Unggul Garuda, dosen, tenaga kesehatan, kehutanan, audit internal, dan pengawas koperasi. Panselnas dibentuk dengan Keppres 7/2026; formasi rinci ditetapkan lewat rapat pleno Panselnas.",
-      "Jadwal rencana: pendaftaran dibuka sekitar 27 November 2026 (perkiraan KemenPANRB, diumumkan Panselnas pekan ini), seleksi administrasi pekan pertama Desember, SKD dan SKB Januari–Maret 2027. Belum ada pengumuman resmi bahwa seleksi tanpa wawancara; metode SKB ditentukan tiap instansi.",
-      "Rincian formasi CPNS 2026 belum terbit. Minggu 22 November malam, halaman Daftar Formasi SSCASN hanya memuat seleksi Sekolah Rakyat 2026 (PPPK guru, 258 formasi) dan situs BKN belum memuat pengumuman CPNS 2026. Situs pihak ketiga yang menampilkan \"formasi 2026\" menyalin data dari SSCASN ke server mereka sendiri, jadi selalu cocokkan dengan SSCASN. Kepala BKN menargetkan pekan keempat November (23–29 November) karena masih menunggu penetapan formasi dari KemenPANRB.",
-      "Rekrutmen diumumkan 6 November 2026 (Siaran Pers KemenPANRB No. 378/HUMAS-MENPANRB/2026). Akun SSCASN dibuka sejak 14 November; membuat akun belum berarti mendaftar formasi.",
-      "Jumlah: sekitar 150 ribu menurut MenPANRB (masih dihitung ulang) dan 158 ribu menurut Dirjen Anggaran Kemenkeu (APBN KiTa, 13 November), terutama untuk mengganti PNS pensiun. Seleksi bisa berlanjut sampai semester I 2027.",
-      "Formasi prioritas: Polisi Hutan, Manggala Agni, Guru Sekolah Terintegrasi, dan Guru Sekolah Unggul Garuda. Keempatnya bukan untuk S-1 Ilmu Komunikasi.",
-      "Sudah menyebut angka: Mahkamah Agung 2.830 CPNS + 1.600 calon hakim (salah satu dari 14 K/L prioritas Presiden untuk tambahan pegawai, pengumuman akhir November) dan Kemenkeu 1.915 formasi umum untuk SMA/SMK, D-III, dan S-1. Kemenkes menyatakan segera membuka, belum dengan angka.",
-      "Formasi pemerintah daerah belum diputuskan resmi. Pemkot Tangerang belum menerima kuota (9 November), BKPSDM Tangsel memperkirakan tidak ada CPNS tahun ini, dan usulan sejumlah daerah (mis. Kota Jambi 322 formasi) belum disetujui pusat.",
-      "PPPK penuh waktu boleh ikut seleksi CPNS mulai 2027 (kesepakatan pemerintah dan DPR, 6 November 2026), jadi pesaing di formasi daerah bisa bertambah tahun depan.",
-      "Seperti 2024, satu pelamar diperkirakan hanya boleh memilih satu formasi, dan seluruh tahapan gratis."
+      "25 November 2026, konferensi pers Panselnas: formasi CPNS 2026 resmi 154.052, seluruhnya instansi pusat. Program Hasil Terbaik Cepat (PHTC) dan Program Prioritas Presiden 118.208: kehutanan 70.000; tenaga dosen dan teknis kependidikan tinggi 26.614; tenaga kesehatan 13.362; guru dan tenaga kependidikan 3.621; audit internal pemerintah 2.007; pelayanan pemenuhan gizi 1.618; pengawasan koperasi 986. Sektor prioritas nasional lainnya 35.844: hukum, HAM, peradilan, dan pemasyarakatan 19.016; statistik dan data pembangunan 7.285; swasembada pangan dan ekonomi biru 4.496; penerimaan dan pengawasan keuangan 2.867; pembangunan generasi unggul nasional 1.395; keamanan, siber, dan diplomasi 785.",
+      "Pendaftaran di SSCASN mulai 27 November sampai awal Desember 2026; rincian jabatan, kualifikasi, dan lokasi per instansi tampil di sana. Dokumen disederhanakan: surat lamaran dan surat pernyataan digabung jadi satu unggahan, dan cukup transkrip nilai (ijazah tidak diunggah). BKN memperkirakan sekitar 3 juta pelamar (±20 per formasi); SKD sekitar 20 hari, SKB sekitar 7 hari.",
+      "KepmenPANRB 674/2026 (ditetapkan 20 November): ambang SKD kebutuhan umum tetap TWK 65, TIU 80, TKP 166. SKB memakai CAT BKN, 90 menit, 100 soal (80 soal bila materinya dominan hitungan); aturan ini tidak menyebut wawancara atau praktik kerja. Nilai SKD 2024 boleh dipakai bila NIK dan jenjang pendidikan sama dan memenuhi ambang 2026, tetapi pemakainya tidak ikut SKD 2026.",
+      "Tidak ada formasi pemda 2026–2027 (MenPANRB di Komisi II DPR, 23 November): belanja pegawai pemda masih melebihi batas UU HKPD. Sasaran realistis adalah kementerian/lembaga beserta kantor dan UPT-nya, termasuk yang berkantor di Kota Tangerang dan Jabodetabek.",
+      "Pegawai PPPK yang sudah memiliki NIP, termasuk PPPK paruh waktu, boleh ikut mendaftar CPNS 2026 sesuai persyaratan (Panselnas, 25 November), jadi pesaing bisa bertambah.",
+      "Situs pihak ketiga yang menampilkan \"formasi 2026\" menyalin data dari SSCASN ke server mereka sendiri; selalu cocokkan dengan SSCASN. Akun SSCASN dibuka sejak 14 November; membuat akun belum berarti mendaftar formasi.",
+      "Yang sudah menyebut angka sebelum 25 November: Mahkamah Agung 2.830 CPNS + 1.600 calon hakim (masuk kelompok hukum dan peradilan) dan Kemenkeu 1.915 formasi umum (masuk kelompok penerimaan dan pengawasan keuangan).",
+      "Seperti 2024, satu pelamar hanya boleh memilih satu formasi, dan seluruh tahapan gratis."
     ],
 
     angka: [
-      { v: "≈16", l: "pelamar per kursi, nasional 2024", d: "3.963.832 pelamar untuk 250.407 formasi" },
-      { v: "158 rb", l: "perkiraan formasi CPNS 2026", d: "Kemenkeu, 13 Nov; MenPANRB ±150 ribu (belum final)" },
+      { v: "≈20", l: "perkiraan pelamar per formasi 2026", d: "BKN: ±3 juta pelamar; 2024: ≈16 per kursi" },
+      { v: "154.052", l: "formasi CPNS 2026 resmi", d: "Panselnas, 25 Nov; semuanya instansi pusat" },
       { v: "895", l: "formasi Pranata Humas 2024 yang mencantumkan S-1 Ilmu Komunikasi", d: "terbanyak; olahan data BKN 2024" },
       { v: "12%", l: "peserta SKD Kemenag 2024 yang lolos ke SKB", d: "37.849 dari 313.078 peserta" }
     ],
@@ -5510,22 +5712,22 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
     // Prioritas dari dokumen "Strategi Memilih Formasi CPNS di Pemda" (pengguna, 22 Nov 2026):
     // P1 jabatan/unit baru atau rekrutmen pertama, P2 Kota Tangerang, P3 daerah sepi pesaing.
     // Matriks Pemda: pendidikan 25, jumlah formasi 20, jabatan/unit baru 20, persaingan 15, mekanisme 10, kesiapan SKB 10.
-    // Fokus bidang pendidikan (24 Nov 2026): pemda tidak membuka formasi, pengalaman pemilik di data akademik/PDDikti.
+    // Fokus bidang pendidikan (diperbarui 25 Nov 2026): pemda tidak membuka formasi, pengalaman pemilik di data akademik/PDDikti.
     pendidikan: {
-      tanggal: "24 November 2026",
-      ringkas: "Pengalaman Anda mengelola data akademik dan pelaporan PDDikti, membangun portal layanan akademik dan ujian berbasis komputer, paling bernilai di instansi pendidikan pusat. Guru (butuh PPG) dan dosen (butuh S-2) tidak bisa dilamar dengan S-1 Ilmu Komunikasi, jadi sasarannya formasi tenaga kependidikan dan jabatan pendukung.",
+      tanggal: "25 November 2026",
+      ringkas: "Pengalaman Anda mengelola data akademik dan pelaporan PDDikti, membangun portal layanan akademik dan ujian berbasis komputer, paling bernilai di instansi pendidikan pusat. Formasi resmi 25 November: tenaga dosen dan teknis kependidikan tinggi 26.614, guru dan tenaga kependidikan 3.621. Guru (butuh PPG) dan dosen (butuh S-2) tidak bisa dilamar dengan S-1 Ilmu Komunikasi, jadi pintu Anda adalah bagian tenaga (teknis) kependidikan, dan hanya bila lampiran formasinya mencantumkan S-1 Ilmu Komunikasi.",
       hitung: "Persentase lulus pasti baru bisa dihitung setelah jumlah pelamar per formasi tampil di SSCASN. Begitu angka itu diisi, aplikasi menghitung posisi yang harus Anda capai (masuk berapa persen teratas). Sebelum itu, peluang di bawah adalah perkiraan dari jumlah kursi, lokasi, dan data 2024.",
       target: [
         { no: "1", nama: "Kemendikdasmen: tenaga kependidikan Sekolah Nasional Terintegrasi", kelas: "ok", label: "Tinggi", peluang: "Tinggi bila menerima Ilmu Komunikasi",
-          isi: "306 formasi CPNS tenaga kependidikan (dari 1.460; 1.154 sisanya guru lulusan PPG). Sekolah baru program Presiden, jenjang SMP dan SMA. Jabatan dan kualifikasi mengikuti surat Mendikdasmen dan baru terlihat di lampiran.",
+          isi: "306 formasi CPNS tenaga kependidikan (dari 1.460; 1.154 sisanya guru lulusan PPG), bagian dari kelompok guru dan tenaga kependidikan 3.621 formasi (25 Nov). Sekolah baru program Presiden, jenjang SMP dan SMA. Jabatan dan kualifikasi baru terlihat di lampiran SSCASN.",
           lokasi: "17 SNT beroperasi 2026: Kab. Bogor (terdekat), Kab. Cianjur, Kab. Gowa, Kab. Bone Bolango, Kota Tidore Kepulauan, IKN, Kab. Banyumas, Kab. Jepara, Kota Subulussalam, Kota Tarakan, Kab. Donggala, Kab. Bolaang Mongondow, Kab. Minahasa Utara, Kab. Kupang, Kab. Buton Tengah, Kab. Tebo, Kab. Tanjung Jabung Timur. Dibangun 2026 antara lain di Kab. Pandeglang (Banten).",
           cocok: "Data sekolah dan sistem akademik, ujian berbasis komputer, situs dan media sekolah. Cari Arsiparis, Pranata Humas, Pengembang Teknologi Pembelajaran, atau jabatan data/TI yang mencantumkan S-1 Ilmu Komunikasi.",
           alasan: "Program baru (rekrutmen pertama), sebagian besar lokasi di luar Jawa sehingga pelamar tersebar. Kursi per sekolah kecil." },
-        { no: "2", nama: "Kemendiktisaintek: tenaga kependidikan (LLDIKTI, PTN, Sekolah Garuda)", kelas: "ok", label: "Sedang–tinggi", peluang: "Sedang di Jabodetabek, tinggi di PTN luar Jawa",
-          isi: "Formasi belum dirilis per 24 November. Rencana besar Kemendiktisaintek adalah dosen (S-2/S-3), tetapi tenaga kependidikan PTN, LLDIKTI, dan SMA Unggul Garuda juga di bawah kementerian ini.",
+        { no: "2", nama: "Tenaga teknis kependidikan tinggi (PTN, LLDIKTI, Kemendiktisaintek)", kelas: "ok", label: "Sedang–tinggi", peluang: "Sedang di Jabodetabek, tinggi di PTN luar Jawa",
+          isi: "Kelompok \"tenaga dosen dan teknis kependidikan tinggi\" 26.614 formasi (25 Nov), kelompok terbesar kedua. Pembagian dosen dan tenaga teknis belum diumumkan; rencana awal kementerian didominasi dosen (S-2/S-3), jadi bagian yang terbuka untuk S-1 kemungkinan jauh lebih kecil dari 26.614. Tenaga teknis kependidikan tinggi antara lain Arsiparis, Pranata Humas, Pengembang Teknologi Pembelajaran, Pustakawan, Pranata Komputer, dan pengelola data akademik; hanya yang mencantumkan S-1 Ilmu Komunikasi yang bisa dilamar.",
           lokasi: "LLDIKTI Wilayah III (DKI Jakarta) dan IV (Jawa Barat–Banten), Ditjen Dikti di Jakarta, PTN di Banten dan Jabodetabek (mis. Universitas Sultan Ageng Tirtayasa, Serang).",
           cocok: "Paling sesuai pengalaman: LLDIKTI dan PTN mengelola data PDDikti, akreditasi, dan pelaporan perguruan tinggi setiap semester. Cari Arsiparis, Pranata Humas, Pengembang Teknologi Pembelajaran, Perencana, Analis Kebijakan bila mencantumkan S-1 Ilmu Komunikasi.",
-          alasan: "2024 (Kemendikbudristek): Arsiparis 9 kursi menerima Ilmu Komunikasi (Untirta 2), PTP 25 kursi. Kursi sedikit, tetapi pengalaman PDDikti memperkuat SKB dan wawancara bila ada." },
+          alasan: "2024 (Kemendikbudristek): Arsiparis 9 kursi menerima Ilmu Komunikasi (Untirta 2), PTP 25 kursi. Pengalaman PDDikti paling relevan di sini. SKB 2026 berupa CAT (KepmenPANRB 674/2026), jadi siapkan materi jabatan yang dilamar." },
         { no: "3", nama: "Kemenag: pendidikan (PTKIN dan madrasah)", kelas: "accent", label: "Sedang", peluang: "Sedang",
           isi: "Formasi Kemenag 2026 belum diumumkan resmi (beredar 60.000 CPNS dan PPPK, sebagian besar guru madrasah). Di 2024 Kemenag adalah penyedia kursi terbanyak untuk S-1 Ilmu Komunikasi.",
           lokasi: "UIN Syarif Hidayatullah (Tangerang Selatan), UIN Sultan Maulana Hasanuddin (Serang), Kanwil dan madrasah negeri.",
@@ -5535,20 +5737,29 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
           isi: "Pengembang Teknologi Pembelajaran di pusat pelatihan (Mahkamah Agung, LAN, Kemenkes, Kementan, Kemensetneg) dan Arsiparis di instansi pendidikan.",
           lokasi: "Kebanyakan Jakarta dan Jabodetabek.",
           cocok: "Membuat kelas daring, video, LMS, dan ujian berbasis komputer, sesuai portofolio Anda.",
-          alasan: "2024: MA 6 kursi PTP menerima Ilmu Komunikasi (18 peserta SKB, rasio 3 : 1 di tahap akhir)." }
+          alasan: "2024: MA 6 kursi PTP menerima Ilmu Komunikasi (18 peserta SKB, rasio 3 : 1 di tahap akhir)." },
+        { no: "5", nama: "Di luar pendidikan: statistik dan data pembangunan", kelas: "accent", label: "Cek lampiran", peluang: "Tergantung jabatan",
+          isi: "7.285 formasi (25 Nov), terutama BPS. Statistisi dan Pranata Komputer biasanya meminta ijazah statistik, matematika, atau komputer; S-1 Ilmu Komunikasi hanya cocok bila ada Pranata Humas atau jabatan diseminasi data.",
+          lokasi: "BPS provinsi dan kabupaten/kota di seluruh Indonesia, termasuk Banten.",
+          cocok: "Pengalaman validasi dan pelaporan data PDDikti relevan dengan pengolahan dan penyebaran data statistik.",
+          alasan: "2024: BPS membuka Pranata Humas di 26 formasi yang menerima S-1 Ilmu Komunikasi. Cek dulu apakah jabatan itu muncul lagi." }
       ],
       tidakCocok: [
         "Guru (termasuk 1.154 guru SNT): wajib lulus PPG dan berijazah kependidikan sesuai mata pelajaran.",
-        "Dosen Kemendiktisaintek: minimal S-2.",
+        "Dosen (bagian dosen dari kelompok 26.614): minimal S-2.",
         "Guru madrasah Kemenag: butuh ijazah kependidikan atau keagamaan dan sertifikat pendidik."
       ],
       cek: [
         "Nama prodi persis \"S-1 ILMU KOMUNIKASI\" di kolom kualifikasi (Communication Science di ijazah = Ilmu Komunikasi; cek penulisan di ijazah).",
         "Lokasi penempatan dan jumlah kursi per formasi; SNT di luar Jawa biasanya lebih sepi.",
         "Metode SKB (CAT saja atau ada wawancara/praktik) dan syarat tambahan (akreditasi, IPK minimal, usia maksimal 35 tahun).",
-        "Begitu jumlah pelamar tampil di SSCASN, isi di kalkulator untuk melihat persentase yang harus dicapai."
+        "Begitu jumlah pelamar tampil di SSCASN, isi di kalkulator untuk melihat persentase yang harus dicapai.",
+        "Dokumen 2026: satu unggahan surat lamaran yang sudah memuat surat pernyataan, dan transkrip nilai (ijazah tidak diunggah). Pendaftaran 27 November sampai awal Desember; jangan menunggu hari terakhir."
       ],
       sumber: [
+        { t: "ANTARA: pemerintah resmi buka 154.052 formasi CPNS 2026 (25 Nov 2026)", u: "https://megapolitan.antaranews.com/berita/564887/pemerintah-resmi-buka-pendaftaran-seleksi-cpns-2026-dengan-154052-formasi" },
+        { t: "Medcom: 3.621 guru dan tendik serta 26.614 dosen dan tenaga teknis kependidikan tinggi (25 Nov 2026)", u: "https://www.medcom.id/pendidikan/news-pendidikan/nbw5AJ3K-cpns-2026-buka-30-235-formasi-guru-dan-dosen-fresh-graduate-boleh-daftar" },
+        { t: "KepmenPANRB 674/2026: mekanisme seleksi dan nilai ambang batas (JDIH KemenPANRB)", u: "https://data-jdih.menpan.go.id/dokumen/2026kepmenpanrb674.pdf" },
         { t: "CNBC Indonesia: CPNS 2026 tidak ada formasi untuk pemda (23 Nov 2026)", u: "https://www.cnbcindonesia.com/news/20261123123625-4-787562/pengumuman-cpns-2026-tidak-ada-formasi-untuk-pemda" },
         { t: "Kompas TV: Kemendikdasmen buka 1.460 formasi CPNS guru dan tendik SNT", u: "https://www.kompas.tv/info-publik/702646/kemendikdasmen-buka-1-460-formasi-cpns-guru-dan-tendik-sekolah-nasional-terintegrasi-2026" },
         { t: "Kompas: 17 Sekolah Nasional Terintegrasi mulai beroperasi 2026, ini lokasinya", u: "https://www.kompas.com/edu/read/2026/07/20/141601171/17-sekolah-nasional-terintegrasi-mulai-beroperasi-2026-ini-lokasinya" },
@@ -5604,10 +5815,10 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
     // Diisi otomatis oleh sesi pemantau terjadwal begitu formasi CPNS 2026 terbit
     // (aturan: docs/kriteria-pemindaian-otomatis.md). Skor dan peringkat dihitung aplikasi.
     kandidat2026: {
-      tanggal: "22 November 2026",
+      tanggal: "25 November 2026",
       status: "menunggu",
       jadwal: "tiga kali sehari, sekitar pukul 07.42, 12.42, dan 17.42 WIB",
-      catatan: "Formasi CPNS 2026 belum terbit. Pemantau memeriksa SSCASN dan pengumuman resmi; begitu terbit, formasi yang mencantumkan S-1 Ilmu Komunikasi diurutkan di sini dengan kedua rumus dokumen Anda.",
+      catatan: "Jumlah formasi CPNS 2026 sudah diumumkan (154.052, 25 November); rincian per jabatan dan lokasi tampil di SSCASN mulai 27 November. Pemantau memeriksa SSCASN dan pengumuman resmi; formasi yang mencantumkan S-1 Ilmu Komunikasi akan diurutkan di sini dengan kedua rumus dokumen Anda.",
       sumber: [],
       list: []
     },
@@ -5645,26 +5856,29 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
 
     // Instansi yang dipantau untuk 2026: sinyal 2026 x jejak formasi Ilmu Komunikasi 2024.
     pantau: [
-      { nama: "Mahkamah Agung", kelas: "ok", sinyal: "2.830 CPNS + 1.600 calon hakim, pengumuman akhir November; termasuk 14 K/L prioritas tambahan pegawai.",
+      { nama: "Mahkamah Agung", kelas: "ok", sinyal: "2.830 CPNS + 1.600 calon hakim; masuk kelompok hukum, HAM, peradilan, dan pemasyarakatan 19.016 formasi (25 Nov).",
         jejak: "2024: Pengembang Teknologi Pembelajaran 6 kursi dan Penata Keprotokolan 46 kursi menerima S-1 Ilmu Komunikasi; Arsiparis khusus kearsipan.",
-        saran: "Prioritas pantau. Cek Pengembang Teknologi Pembelajaran dan Pranata Humas; penempatan pengadilan di seluruh Indonesia. SKB 2024 memakai 3 metode, jadi cek apakah ada wawancara." },
-      { nama: "Kementerian Kesehatan", kelas: "accent", sinyal: "Menyatakan segera membuka (casn.kemkes.go.id); jumlah belum diumumkan.",
+        saran: "Prioritas pantau. Cek Pengembang Teknologi Pembelajaran dan Pranata Humas; penempatan pengadilan di seluruh Indonesia. SKB 2024 memakai 3 metode; aturan 2026 menyebut SKB dengan CAT BKN, tetap baca pengumuman MA." },
+      { nama: "Kementerian Kesehatan", kelas: "accent", sinyal: "Kelompok tenaga kesehatan 13.362 formasi (25 Nov); jabatan non-nakes belum terlihat.",
         jejak: "2024: Pranata Humas 89 kursi di 57 formasi, banyak di UPT daerah (balai kekarantinaan, rumah sakit vertikal).",
         saran: "Pantau Pranata Humas di UPT daerah." },
-      { nama: "Kementerian Keuangan", kelas: "warn", sinyal: "1.915 formasi umum (SMA/SMK, D-III, S-1) di semua unit eselon I.",
+      { nama: "Kementerian Keuangan", kelas: "warn", sinyal: "1.915 formasi umum (SMA/SMK, D-III, S-1); masuk kelompok penerimaan dan pengawasan keuangan 2.867 (25 Nov).",
         jejak: "2024: 1.066 kursi, terbanyak penyusun materi hukum, Fasilitator Pemerintahan, Pengelola Keprotokolan (D-III), dan TI; S-1 Ilmu Komunikasi tidak tampak di 10 jurusan teratasnya.",
         saran: "Tetap cek, tetapi peluang untuk Ilmu Komunikasi kecil dan instansinya sangat ramai." },
       { nama: "Instansi dengan jejak Ilmu Komunikasi terbesar 2024 (belum ada kabar 2026)", kelas: "accent", sinyal: "Belum menyebut formasi 2026.",
         jejak: "Komdigi (Pranata Humas, Arsiparis 81 formasi, Pranata Siaran RRI/TVRI), Kementerian PU (Pranata Humas 340 formasi di balai daerah, Arsiparis 240), Kemenag (Pranata Humas 90 formasi, Pengembang Teknologi Pembelajaran 19), PTN (Pranata Humas, Arsiparis), Bawaslu (Pranata Humas 19 kursi di Sekretariat Jenderal), BPS (Pranata Humas 26 formasi).",
         saran: "Begitu SSCASN terbit, cek instansi ini lebih dulu." },
-      { nama: "Pemerintah daerah Jabodetabek dan Banten", kelas: "warn", sinyal: "Belum ada keputusan resmi formasi daerah; BKD DKI menunggu juklak dan juknis.",
+      { nama: "BPS (statistik dan data pembangunan)", kelas: "accent", sinyal: "Kelompok statistik dan data pembangunan 7.285 formasi (25 Nov).",
+        jejak: "2024: BPS membuka Pranata Humas di 26 formasi yang menerima S-1 Ilmu Komunikasi; Statistisi dan Pranata Komputer meminta ijazah statistik atau komputer.",
+        saran: "Cek Pranata Humas dan jabatan diseminasi data di BPS provinsi dan kabupaten/kota." },
+      { nama: "Pemerintah daerah Jabodetabek dan Banten", kelas: "", sinyal: "Tidak membuka formasi 2026–2027 (MenPANRB, 23 Nov; formasi resmi 25 Nov seluruhnya instansi pusat).",
         jejak: "Pemprov DKI 2024: Pranata Humas 28 formasi dan Pengembang Teknologi Pembelajaran 17 formasi.",
-        saran: "Jalur Jabodetabek bila dibuka, dengan rasio yang biasanya tinggi." },
+        saran: "Lewati tahun ini. Kantor dan UPT instansi pusat di Kota Tangerang tetap bisa dicari." },
       { nama: "Kemenhut dan Kemendikdasmen", kelas: "", sinyal: "Formasi prioritas: Polisi Hutan, Manggala Agni, guru Sekolah Terintegrasi dan Sekolah Unggul Garuda.",
         jejak: "Formasi prioritas itu butuh ijazah kehutanan, SMA, atau kependidikan.",
         saran: "Tidak cocok, kecuali ternyata membuka Pranata Humas atau tenaga kependidikan nonguru." },
       { nama: "Rencana 9 instansi (unggahan media sosial, 23 Nov 2026; belum resmi)", kelas: "accent",
-        sinyal: "Kemenkes 8.607, Kemendikdasmen 1.460, MA 4.430, Kemenkeu 1.915, Kemenag 60.000 (CPNS+PPPK), Imigrasi dan Pemasyarakatan 10.629 (usulan); Kemendiktisaintek, BSSN, Kemenhut belum dirilis. Kategori nasional: guru, dosen, kesehatan, kehutanan, audit internal, pengawasan koperasi, lain-lain pengganti pensiun.",
+        sinyal: "Kemenkes 8.607, Kemendikdasmen 1.460, MA 4.430, Kemenkeu 1.915, Kemenag 60.000 (CPNS+PPPK), Imigrasi dan Pemasyarakatan 10.629 (usulan). Angka resmi 25 Nov per kelompok, bukan per instansi: lihat Status di atas.",
         jejak: "Cocok untuk Ilmu Komunikasi biasanya hanya jabatan pendukung: Pranata Humas, Arsiparis, Pengembang Teknologi Pembelajaran, Perencana.",
         saran: "Urutan cek: Kemendikdasmen (PTP, Humas), Kemenkes non-nakes di RS dr. Sitanala dan KKP Soekarno-Hatta, MA (PN/PA Tangerang), Kemenkeu (Humas, Bea Cukai Soekarno-Hatta). Audit internal (P2UPD) dan Pengawas Koperasi hanya bila lampiran menerima Ilmu Komunikasi. Kemenag, Imipas, Kemendiktisaintek, BSSN: kemungkinan kecil (butuh ijazah keagamaan/hukum/TI/S-2 atau tes fisik)." }
     ],
@@ -5708,21 +5922,21 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
     aturan: [
       { t: "Saring syarat wajib", d: "S-1 ILMU KOMUNIKASI tertulis persis di kualifikasi pendidikan (S-1 Hubungan Masyarakat atau Komunikasi Massa adalah prodi lain); IPK, akreditasi pada tahun kelulusan, usia (umumnya 18–35 tahun saat melamar), dan syarat tambahan seperti sertifikat bahasa Inggris terpenuhi." },
       { t: "Kerja belakang layar", d: "Utamakan jabatan yang hasil kerjanya arsip, data, dokumen, atau media (Arsiparis, Pengembang Teknologi Pembelajaran, Perencana). Lewati jabatan yang tugas intinya bicara di depan orang." },
-      { t: "Cek metode SKB", d: "SKB berbasis CAT tidak menuntut bicara. Wawancara menambah komponen lisan, jadi baca metode SKB di pengumuman instansi sebelum memilih. Bawaslu 2024 memakai SKB CAT saja; Mahkamah Agung 2024 memakai 3 metode." },
+      { t: "Cek metode SKB", d: "KepmenPANRB 674/2026: SKB memakai CAT BKN (90 menit, 100 soal; 80 soal bila materinya dominan hitungan) dan tidak menyebut wawancara atau praktik kerja. Tetap baca pengumuman instansi; pada 2024 Mahkamah Agung memakai 3 metode, Bawaslu CAT saja." },
       { t: "Lokasi yang sepi", d: "Kantor pusat dan kota besar paling ramai. Unit di daerah, balai, dan PTN luar Jawa biasanya jauh lebih sepi." },
       { t: "Daftar jurusan yang sempit", d: "Makin sedikit jurusan yang diterima, makin sedikit pesaing. Hindari formasi semua jurusan." },
-      { t: "Jabatan sama di banyak lokasi", d: "Pada CPNS 2024, kursi kosong bisa diisi peserta yang lulus ambang batas dengan nilai tertinggi dari jabatan, kualifikasi pendidikan, dan jenis formasi yang sama dalam satu instansi (optimalisasi). Aturan 2026 menunggu keputusan MenPANRB." },
+      { t: "Jabatan sama di banyak lokasi", d: "Pada CPNS 2024, kursi kosong bisa diisi peserta yang lulus ambang batas dengan nilai tertinggi dari jabatan, kualifikasi pendidikan, dan jenis formasi yang sama dalam satu instansi (optimalisasi). KepmenPANRB 674/2026 bagian H juga mengatur pengisian kursi kosong dari jabatan dan kualifikasi yang sama di lokasi lain, berdasarkan peringkat terbaik." },
       { t: "Kunci pilihan sebelum mengakhiri pendaftaran", d: "Satu pelamar satu formasi dan pilihan tidak bisa diganti setelah pendaftaran diakhiri. Pilih formasi dengan beberapa kursi bila bisa, dan jangan menunggu hari terakhir." }
     ],
 
     langkah: [
       { id: "akun", t: "Buat akun SSCASN (sudah dibuka sejak 14 November)." },
-      { id: "dok", t: "Siapkan pindaian ijazah dan transkrip asli, KTP, pas foto, dan swafoto sesuai ketentuan." },
+      { id: "dok", t: "Siapkan pindaian transkrip nilai asli (2026 cukup transkrip, ijazah tidak diunggah), satu dokumen surat lamaran yang sudah memuat surat pernyataan, KTP, pas foto, dan swafoto sesuai pengumuman instansi." },
       { id: "akr", t: "Unduh bukti akreditasi prodi dan perguruan tinggi yang berlaku pada tanggal kelulusan di ijazah (BAN-PT atau kampus)." },
       { id: "toefl", t: "Siapkan sertifikat bahasa Inggris. Kominfo 2024 mewajibkan sertifikat yang berlaku paling lama 2 tahun." },
-      { id: "pindai", t: "Saat formasi terbit: di SSCASN pilih jenjang S-1 dan program studi Ilmu Komunikasi, catat semua formasi yang muncul, lalu cek instansi pantau lebih dulu." },
+      { id: "pindai", t: "Mulai 27 November: di SSCASN pilih jenjang S-1 dan program studi Ilmu Komunikasi, catat semua formasi yang muncul, lalu cek instansi pantau lebih dulu." },
       { id: "kalk", t: "Masukkan 5–10 kandidat ke kalkulator: skornya memakai rumus dokumen riset Anda (rasio 35, kursi 20, tugas 20, lokasi 10, syarat 15)." },
-      { id: "daftar", t: "Pilih satu formasi, unggah dokumen, dan akhiri pendaftaran beberapa hari sebelum penutupan." },
+      { id: "daftar", t: "Pilih satu formasi, unggah dokumen, dan akhiri pendaftaran beberapa hari sebelum penutupan (awal Desember)." },
       { id: "ms", t: "Setelah hasil seleksi administrasi: cek jumlah pesaing yang memenuhi syarat di formasi Anda dan perbarui kalkulator." },
       { id: "skd", t: "Latih SKD sampai simulasi penuh konsisten di atas ambang batas tiap subtes, dengan target total 400 atau lebih." }
     ],
@@ -5738,6 +5952,10 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
     ],
 
     sumber: [
+      { t: "Pemerintah resmi buka 154.052 formasi CPNS 2026 (ANTARA, 25 Nov 2026)", u: "https://megapolitan.antaranews.com/berita/564887/pemerintah-resmi-buka-pendaftaran-seleksi-cpns-2026-dengan-154052-formasi" },
+      { t: "Rincian 154.052 formasi dan dokumen yang disederhanakan (detikJabar, 25 Nov 2026)", u: "https://www.detik.com/jabar/jabar-gaskeun/d-8769285/resmi-panselnas-umumkan-154-052-formasi-cpns-2026-ini-rincian-lengkapnya" },
+      { t: "Perkiraan 3 juta pelamar dan jadwal (Liputan6, 25 Nov 2026)", u: "https://www.liputan6.com/bisnis/read/8342249/rincian-formasi-cpns-2026-ada-kuota-154052-orang" },
+      { t: "KepmenPANRB 674/2026 tentang mekanisme seleksi dan nilai ambang batas (JDIH KemenPANRB)", u: "https://data-jdih.menpan.go.id/dokumen/2026kepmenpanrb674.pdf" },
       { t: "BKN targetkan pengumuman 23–29 November, 158 ribu formasi (Radar Kudus, 17 Nov 2026)", u: "https://radarkudus.jawapos.com/nasional/2611170062/kapan-pendaftaran-cpns-2026-dimulai-bkn-targetkan-pengumuman-23-29-november" },
       { t: "Kemenkeu, Kemenkes, dan MA umumkan CPNS 2026 (detikJabar, 18 Nov 2026)", u: "https://www.detik.com/jabar/berita/d-8758794/3-instansi-umumkan-buka-lowongan-di-cpns-2026-simak-kuota-dan-cara-daftarnya" },
       { t: "MA akan rekrut 4 ribuan CPNS dan calon hakim (MARINews)", u: "https://marinews.mahkamahagung.go.id/berita/ma-akan-rekrut-4-ribuan-cpns-dan-cakim-bersiaplah-0b4h" },
@@ -5824,7 +6042,7 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
   }
   // ---------- matriks dokumen strategi Pemda ----------
   var BARU = { resmi: ["Ada bukti resmi (SOTK, unit baru)", 5], indikasi: ["Ada indikasi, belum resmi", 3], tidak: ["Tidak ada atau belum dicek", 1] };
-  var MEKAN = { cat: ["SKB CAT saja", 5], jelas: ["Ada tes non-CAT, aturan jelas", 3], belum: ["Belum jelas", 1] };
+  var MEKAN = { cat: ["SKB CAT saja (aturan 2026)", 5], jelas: ["Ada tes non-CAT, aturan jelas", 3], belum: ["Belum jelas", 1] };
   var BOBOT = { pendidikan: 25, jumlah: 20, baru: 20, persaingan: 15, mekanisme: 10, skb: 10 };
   function skala(v, batas) { for (var i = 0; i < batas.length; i++) if (v <= batas[i]) return 5 - i; return 1; }
   /** Skor 1–5 per kriteria dan nilai akhir 0–100 (aturan gugur: pendidikan tidak cocok). */
@@ -5835,7 +6053,7 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
       jumlah: a.kursi > 5 ? 5 : a.kursi >= 4 ? 4 : a.kursi,
       baru: (BARU[k.baru] || BARU.tidak)[1],
       persaingan: skala(a.rasio, [5, 10, 20, 50]),
-      mekanisme: (MEKAN[k.mek] || MEKAN.belum)[1],
+      mekanisme: (MEKAN[k.mek] || MEKAN.cat)[1],
       skb: k.bidang === "pendidikan" ? 5 : j && j.skor ? j.skor.tugas / 5 + 1 : 3 // tugas 20/15/10/5/0 -> 5/4/3/2/1; bidang pendidikan = 5
     };
     var total = 0;
@@ -5870,7 +6088,7 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
           lok: k.lok === "jabo" ? "jabo" : "luar",
           syarat: SYARAT[k.syarat] ? k.syarat : "catatan",
           baru: BARU[k.baru] ? k.baru : "tidak",
-          mek: MEKAN[k.mek] ? k.mek : "belum"
+          mek: MEKAN[k.mek] ? k.mek : "cat"
         };
       });
     }
@@ -5918,7 +6136,7 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
   var PRI = { P1: 1, P2: 2, P3: 3 };
   function skorKandidat(c, pref) {
     var k = { kursi: Math.max(1, Number(c.kursi) || 1), pelamar: c.pelamar == null ? 0 : Number(c.pelamar) || 0, jab: c.jab || "",
-      lok: c.jabo ? "jabo" : "luar", syarat: SYARAT[c.syarat] ? c.syarat : "catatan", baru: BARU[c.baru] ? c.baru : "tidak", mek: MEKAN[c.mek] ? c.mek : "belum",
+      lok: c.jabo ? "jabo" : "luar", syarat: SYARAT[c.syarat] ? c.syarat : "catatan", baru: BARU[c.baru] ? c.baru : "tidak", mek: MEKAN[c.mek] ? c.mek : "cat",
       bidang: c.bidang === "pendidikan" ? "pendidikan" : "" };
     var a = analisis(k, pref);
     if (c.pelamar != null && isFinite(Number(c.pelamar))) return { a: a.total, b: a.pemda.total, kat: a.kat, tanpaRasio: false, an: a };
@@ -6002,7 +6220,7 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
       f.elements.lok.value = c.jabo ? "jabo" : "luar";
       f.elements.syarat.value = SYARAT[c.syarat] ? c.syarat : "catatan";
       f.elements.baru.value = BARU[c.baru] ? c.baru : "tidak";
-      f.elements.mek.value = MEKAN[c.mek] ? c.mek : "belum";
+      f.elements.mek.value = MEKAN[c.mek] ? c.mek : "cat";
       f.elements.bidang.value = c.bidang === "pendidikan" ? "pendidikan" : "";
       scrollTo("fm-kalk");
       f.elements.pelamar.focus();
@@ -6180,7 +6398,7 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
       S.kandidat.push({
         id: String(Date.now()), nama: nama.slice(0, 160), kursi: kursi, pelamar: pel, sejenis: numOr(f.elements.sejenis.value, 0),
         jab: f.elements.jab.value, lok: f.elements.lok.value === "jabo" ? "jabo" : "luar", syarat: SYARAT[f.elements.syarat.value] ? f.elements.syarat.value : "catatan",
-        baru: BARU[f.elements.baru.value] ? f.elements.baru.value : "tidak", mek: MEKAN[f.elements.mek.value] ? f.elements.mek.value : "belum",
+        baru: BARU[f.elements.baru.value] ? f.elements.baru.value : "tidak", mek: MEKAN[f.elements.mek.value] ? f.elements.mek.value : "cat",
         bidang: f.elements.bidang.value === "pendidikan" ? "pendidikan" : ""
       });
       save();
@@ -6209,7 +6427,7 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
         h("label", { class: "field sel" }, h("span", { class: "label" }, "Jabatan/unit baru"),
           h("select", { class: "input wide", name: "baru" }, ["tidak", "indikasi", "resmi"].map(function (v) { return h("option", { value: v }, BARU[v][0]); }))),
         h("label", { class: "field sel" }, h("span", { class: "label" }, "Tahapan seleksi"),
-          h("select", { class: "input wide", name: "mek" }, ["belum", "cat", "jelas"].map(function (v) { return h("option", { value: v }, MEKAN[v][0]); }))),
+          h("select", { class: "input wide", name: "mek" }, ["cat", "jelas", "belum"].map(function (v) { return h("option", { value: v }, MEKAN[v][0]); }))),
         h("label", { class: "field sel" }, h("span", { class: "label" }, "Bidang"),
           h("select", { class: "input wide", name: "bidang" }, [h("option", { value: "" }, "Umum"), h("option", { value: "pendidikan" }, "Pendidikan (sesuai pengalaman data akademik)")])),
         h("button", { class: "btn primary", type: "submit" }, "Tambah")),
@@ -6866,7 +7084,7 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
           quickCard("audio", "Audio hafalan", "Per bagian, tanpa hitungan", null, "https://github.com/serfusion/cpns/releases?q=Audio+Hafalan"),
           quickCard("formasi", "Strategi formasi", "S-1 Ilmu Komunikasi", function () { go("formasi"); }),
           quickCard("peta", "Peta materi", "Pola yang sering keluar", function () { go("peta"); }))),
-      h("p", { class: "fine" }, "Ambang batas mengikuti KepmenPANRB 321/2024 (TWK " + passOf("twk") + ", TIU " + passOf("tiu") + ", TKP " + passOf("tkp") + "). Ambang CPNS 2026 belum terbit per " + CFG.riset.tanggal + "; ubah di Pengaturan bila berbeda.")
+      h("p", { class: "fine" }, "Ambang batas mengikuti KepmenPANRB 674/2026 untuk kebutuhan umum (TWK " + passOf("twk") + ", TIU " + passOf("tiu") + ", TKP " + passOf("tkp") + "), sama dengan 2024. Lulusan cumlaude dan diaspora memakai nilai kumulatif minimal 311 dengan TIU minimal 85.")
     ];
   }
 
@@ -7146,7 +7364,7 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
 
   // ---------- latihan ----------
   // ---------- fokus TWK + TKP (TIU cukup aman lewat soal tanpa hitungan berat) ----------
-  var TIU_LUNAK = ["ana", "sil", "anl", "der", "fig-ana", "fig-beda", "fig-seri", "fig-kubus"];
+  var TIU_LUNAK = ["sil", "ind", "anl", "der", "fig-ana", "fig-seri", "fig-mat", "fig-kubus"];
   var TARGET = { twk: 110, tiu: 85, tkp: 200 };
   function fokusCard() {
     var ids = function (sec) { return CFG.materi.filter(function (m) { return m.sec === sec; }).map(function (m) { return m.id; }); };
@@ -7168,7 +7386,7 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
     return h("section", { class: "card stack fokus" },
       h("h2", null, "Fokus Anda: kuatkan TWK dan TKP"),
       h("p", { class: "small" }, "Ambang batas TIU " + passOf("tiu") + " berarti cukup " + Math.ceil(passOf("tiu") / 5) + " benar dari " + tiuSec.count + " soal. Sebanyak " + nLunak +
-        " soal TIU tidak butuh hitungan berat (analogi, silogisme, analitis, deret, dan figural), jadi amankan TIU dari soal-soal itu dan kejar skor dari TWK dan TKP."),
+        " soal TIU tidak butuh hitungan berat (silogisme, penalaran induktif, analitis, deret, dan figural), jadi amankan TIU dari soal-soal itu dan kejar skor dari TWK dan TKP."),
       h("div", { class: "info3" }, cell("twk"), cell("tiu"), cell("tkp")),
       h("p", { class: "small muted" }, last ? "Angka di atas dari tryout terakhir (" + last.p + ")." + (lunakAcc != null ? " Ketepatan soal TIU tanpa hitungan berat: " + lunakAcc + "%." : "") : "Kerjakan satu tryout untuk melihat posisi Anda terhadap target."),
       h("div", { class: "row wrap" },
@@ -7181,7 +7399,7 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
       h("p", { class: "small muted" }, "Saat ujian: kerjakan soal TIU yang tidak butuh hitungan lebih dulu, tekan \"Lewatkan soal ini\" untuk soal hitungan panjang, lalu kembali bila waktu tersisa."));
   }
   // ---------- sangat sering keluar (boleh diulang) dan soal acak (selalu baru) ----------
-  var TIU_SANGAT = ["ana", "sil", "anl", "fig-seri"];
+  var TIU_SANGAT = ["sil", "ind", "anl", "fig-mat"];
   function idsOf(sec) { return CFG.materi.filter(function (m) { return m.sec === sec; }).map(function (m) { return m.id; }); }
   function pracBtn(id, label, o, primary) {
     return h("button", { class: "btn" + (primary ? " primary" : ""), type: "button", id: id, onclick: function () { startPractice(o); } }, label);
@@ -7191,7 +7409,7 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
     var twk = idsOf("twk"), tkp = idsOf("tkp");
     return h("section", { class: "card stack" },
       h("h2", null, "Sangat sering keluar: boleh diulang-ulang"),
-      h("p", { class: "small" }, "Pola yang tercantum di kisi-kisi resmi dan dilaporkan peserta di tiga laporan atau lebih (SKD CPNS 2024). Isinya: penerapan sila dan isi pasal, BPUPKI/PPKI dan sikap tokohnya, peristiwa sesudah kemerdekaan, lembaga negara, organisasi pergerakan, netralitas ASN, nasionalisme di media sosial, inti kalimat, kata bercetak miring, simpulan bacaan, analogi, silogisme, susunan duduk dan antrean, pola 9 kotak, menempatkan diri antara kesibukan dan pekerjaan, spionase, inovasi TIK dan rekan gaptek, serta penerapan BerAKHLAK."),
+      h("p", { class: "small" }, "Pola yang tercantum di kisi-kisi 2026 (KepmenPANRB 674/2026) dan dilaporkan peserta di tiga laporan atau lebih (SKD CPNS 2024). Isinya: penerapan sila dan isi pasal, BPUPKI/PPKI dan sikap tokohnya, peristiwa sesudah kemerdekaan, lembaga negara, organisasi pergerakan, netralitas ASN, nasionalisme di media sosial, inti kalimat, kata bercetak miring, simpulan bacaan, silogisme, susunan duduk dan antrean, pola 9 kotak (penalaran matriks), menempatkan diri antara kesibukan dan pekerjaan, spionase, inovasi TIK dan rekan gaptek, serta penerapan BerAKHLAK. Ditambah penalaran induktif, materi baru 2026 yang pasti diujikan. Analogi kata tidak lagi masuk kisi-kisi 2026, jadi dikeluarkan dari set ini."),
       h("div", { class: "info3" },
         h("div", null, h("span", null, "TWK"), h("b", null, n(twk) + "+"), h("span", null, "soal + acak")),
         h("div", null, h("span", null, "TIU tanpa hitungan"), h("b", null, n(TIU_SANGAT) + "+"), h("span", null, "soal + acak")),
@@ -7209,14 +7427,14 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
       h("h2", null, "Soal acak: selalu berbeda"),
       h("p", { class: "small" }, "Dibangkitkan setiap kali dari tabel fakta yang sudah diperiksa: 45 butir Pancasila, " + F.wewenang.length + " wewenang lembaga negara, " +
         F.pasal.length + " pasal UUD, sejarah BPUPKI, PPKI, proklamasi, dan pergerakan nasional, " + F.hari.length + " hari nasional, " + F.baku.length +
-        " pasang kata baku. TIU tanpa hitungan: analogi kata (" + F.analogi.length + " jenis hubungan), silogisme, serta susunan duduk dan antrean; kuncinya diperiksa otomatis ke semua kemungkinan. Kebanyakan berbentuk kasus, seperti laporan peserta 2024."),
+        " pasang kata baku. TIU tanpa hitungan: silogisme, susunan duduk dan antrean, serta penalaran matriks (pola 9 kotak); kuncinya diperiksa otomatis ke semua kemungkinan. Kebanyakan berbentuk kasus, seperti laporan peserta 2024. Analogi kata acak (kisi-kisi 2024) masih ada di menu Latihan."),
       h("div", { class: "row wrap" },
         pracBtn("btn-acak-twk", "TWK acak (20 soal)", { materi: ["pilar", "nas", "bind"], n: 20, acak: true, title: "TWK acak" }, true),
         pracBtn("btn-acak-pilar", "Pancasila, UUD, lembaga (15 soal)", { materi: ["pilar"], n: 15, acak: true, title: "Pilar negara acak" }),
         pracBtn("btn-acak-sil", "Silogisme acak (10 soal)", { materi: ["sil"], n: 10, acak: true, title: "Silogisme acak" }),
-        pracBtn("btn-acak-ana", "Analogi kata acak (10 soal)", { materi: ["ana"], n: 10, acak: true, title: "Analogi acak" }),
+        pracBtn("btn-acak-mat", "Penalaran matriks acak (10 soal)", { materi: ["fig-mat"], n: 10, acak: true, title: "Penalaran matriks acak" }),
         pracBtn("btn-acak-anl", "Susunan duduk dan antrean acak (10 soal)", { materi: ["anl"], n: 10, acak: true, title: "Analitis acak" }),
-        pracBtn("btn-acak-tiu", "TIU tanpa hitungan acak (20 soal)", { materi: ["ana", "sil", "anl"], n: 20, acak: true, title: "TIU tanpa hitungan acak" })));
+        pracBtn("btn-acak-tiu", "TIU tanpa hitungan acak (20 soal)", { materi: ["sil", "anl", "fig-mat"], n: 20, acak: true, title: "TIU tanpa hitungan acak" })));
   }
   function viewLatihan() {
     var st = ui.setup, mixed = st.sec === "mix";
@@ -7378,7 +7596,7 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
         return h("section", { class: "stack" }, h("h2", null, sec.short + " · " + sec.name),
           h("div", { class: "peta-grid" }, CFG.materi.filter(function (m) { return m.sec === sec.id; }).map(function (m) {
             return h("article", { class: "peta-card" },
-              h("div", { class: "row between" }, h("h3", null, m.name), h("span", { class: "tag" }, "±" + m.quota + " soal")),
+              h("div", { class: "row between" }, h("h3", null, m.name), h("span", { class: "tag" }, m.lama ? "latihan tambahan" : (m.baru2026 ? "baru 2026 · ±" : "±") + m.quota + " soal")),
               h("p", { class: "small muted" }, m.def),
               h("ul", null, m.pola.map(function (p) { return h("li", null, p); })),
               h("div", { class: "row between" },
@@ -7407,7 +7625,7 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
           h("input", { class: "input wide", id: "set-nama", maxlength: 40, value: set.nama || "", placeholder: "Nama Anda", onchange: function (e) { S.setNama(e.target.value); toast("Nama disimpan."); render(); } })),
         h("p", { class: "small muted" }, "Nomor peserta latihan: ", h("b", null, S.nomorPeserta()), ". Hanya tiruan untuk membiasakan layar ujian.")),
       h("section", { class: "card stack" }, h("h2", null, "Ambang batas"),
-        h("p", { class: "small muted" }, "Bawaan mengikuti KepmenPANRB 321/2024. Ubah bila keputusan untuk CPNS 2026 menetapkan angka lain."),
+        h("p", { class: "small muted" }, "Bawaan mengikuti KepmenPANRB 674/2026 untuk kebutuhan umum: TWK 65, TIU 80, TKP 166. Jalur cumlaude dan diaspora memakai nilai kumulatif minimal 311 (TIU minimal 85); penyandang disabilitas dan putra/putri Papua kumulatif minimal 286 (TIU minimal 60)."),
         h("div", { class: "row" }, CFG.sections.map(function (s) {
           return h("label", { class: "field" }, h("span", { class: "label" }, s.short + " (maks " + s.max + ")"),
             h("input", {
