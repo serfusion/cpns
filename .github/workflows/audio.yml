@@ -41,7 +41,7 @@ jobs:
           {
             echo "Audio hafalan per bagian: setiap berkas paling banyak 10 soal (sekitar 7 menit). Bila berhenti di tengah, lain kali lanjutkan dari bagian berikutnya; tidak perlu mengulang dari awal."
             echo ""
-            echo "Hanya materi tanpa hitungan: TWK, TIU analogi dan silogisme, serta TKP. Setiap soal dibacakan, ada jeda untuk menjawab dalam hati, lalu jawaban dan pembahasannya."
+            echo "Hanya materi tanpa hitungan: TWK, TIU silogisme dan penalaran induktif (kisi-kisi 2026), serta TKP. Setiap soal dibacakan, ada jeda untuk menjawab dalam hati, lalu jawaban dan pembahasannya."
             echo ""
             echo "- **audio-1-sangat-sering.zip**: pola yang dilaporkan di 3 laporan peserta atau lebih. Boleh diulang-ulang."
             echo "- **audio-2-per-materi.zip**: semua soal per materi, dimulai dari yang paling sering keluar."
