@@ -541,7 +541,9 @@
           h("ul", null,
             h("li", null, "Pilih satu jawaban, lalu tekan Simpan dan Lanjutkan. Jawaban yang hanya diklik tanpa disimpan tidak terhitung."),
             h("li", null, "Kotak nomor merah berarti belum dijawab, hijau berarti sudah, beserta huruf jawaban Anda."),
-            h("li", null, "Lewatkan soal ini untuk pindah tanpa menjawab. Tombol Selesai Ujian aktif setelah semua soal dijawab.")))),
+            h("li", null, "Lewatkan soal ini untuk pindah tanpa menjawab. Tombol Selesai Ujian aktif setelah semua soal dijawab."),
+            h("li", null, "Penilaian: TWK dan TIU benar 5, salah atau kosong 0; TKP bernilai 1 sampai 5, kosong 0. Tidak ada pengurangan nilai untuk jawaban salah, jadi jangan biarkan satu soal pun kosong."),
+            h("li", null, "Nilai langsung muncul setelah selesai, sama seperti simulasi resmi di cat.bkn.go.id.")))),
       catFoot());
   }
   function catBanner() {
