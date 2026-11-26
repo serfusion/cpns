@@ -56,7 +56,7 @@
       var q = {
         id: hash(r.sec + "|" + (r.p || "") + "|" + r.q),
         sec: r.sec, m: r.m, q: r.q, o: r.o, a: r.a || 0, fix: !!r.fix,
-        x: r.x || "", p: r.p || null, tb: r.tb || null, hot: !!r.h, sangat: (r.h || 0) >= 2, baru: !!r.b
+        x: r.x || "", p: r.p || null, tb: r.tb || null, hot: !!r.h, sangat: (r.h || 0) >= 2, baru: !!r.b, k26: !!r.k26
       };
       cache.push(q);
       byId[q.id] = q;
@@ -251,10 +251,10 @@
     if (needsReview(q.sec, st)) return 1;
     return st[2] < 2 ? 2 : 3;
   }
-  function lolos(q, opt) { return (!opt.hot || q.hot) && (!opt.sangat || q.sangat) && (!opt.baru || q.baru); }
+  function lolos(q, opt) { return (!opt.hot || q.hot) && (!opt.sangat || q.sangat) && (!opt.baru || q.baru) && (!opt.k26 || q.k26); }
   /** Apakah materi ini bisa diisi soal bangkitan untuk filter opt. */
   function canGen(m, opt) {
-    if (!m.gen || opt.baru) return false;
+    if (!m.gen || opt.baru || opt.k26) return false;
     if (!opt.sangat) return true;
     if (m.id === "fig-mat" || m.id === "der") return true; // penalaran matriks (pola 9 kotak); deret angka (4 laporan)
     return !!(SKD.acak && SKD.acak.bisa(m.id, opt));
@@ -299,7 +299,7 @@
   }
   function wrap(pq) { return { pq: pq, chosen: null, pts: null, done: false, retry: false }; }
 
-  /** opts: { materi: [id], n, hot, sangat, baru, acak } */
+  /** opts: { materi: [id], n, hot, sangat, baru, acak, k26 (hanya soal tambahan kisi-kisi 2026) } */
   function buildPractice(opts, stats, R) {
     R = R || RNG;
     var mats = opts.materi.map(function (id) { return materiById[id]; }).filter(Boolean);

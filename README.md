@@ -37,6 +37,7 @@ navy + kuning amber; layar ujian dari buku panduan CAT resmi BKN), **Build** (ko
 - **Latihan per materi** dengan koreksi langsung, **ulangi soal salah**, **riwayat & statistik**, **peta materi**, **strategi formasi**, **audio hafalan**.
 - Soal figural, deret angka, dan **jaring-jaring kubus** dibangkitkan otomatis dari aturan, jadi kuncinya pasti benar.
 - Ambang batas 65 / 80 / 166 mengikuti KepmenPANRB 674/2026 (kebutuhan umum) dan bisa diubah di Pengaturan.
+- Kartu **Soal baru kisi-kisi 2026** di menu Latihan: 120 soal yang disusun dari rumusan resmi 2026 (TWK, TKP, dan TIU logika).
 - Materi mengikuti kisi-kisi SKD 2026 (KepmenPANRB 674/2026): TIU verbal silogisme, **penalaran induktif**, analitis; figural serial,
   analogi, **penalaran matriks**; perbandingan kuantitatif dua atau tiga data; TWK empat konsensus kebangsaan dan bahasa Indonesia
   untuk mengevaluasi informasi; TKP adaptasi TIK. Analogi kata dan ketidaksamaan gambar (kisi-kisi 2024) tetap ada untuk latihan,

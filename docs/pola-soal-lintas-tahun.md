@@ -131,7 +131,25 @@ mungkin keluar, tetapi tidak dihitung sebagai bukti baru.
 ## 4. Yang ditambahkan di aplikasi
 
 - **Penyesuaian kisi-kisi 2026** (25 November): 16 soal penalaran induktif, 4 soal perbandingan kuantitatif tiga data, 4 soal
-  bahasa Indonesia tentang menilai informasi, dan penalaran matriks sebagai materi tersendiri. Bank seluruhnya 449 soal.
+  bahasa Indonesia tentang menilai informasi, dan penalaran matriks sebagai materi tersendiri.
+- **Soal tambahan kisi-kisi 2026** (26 November), 96 soal baru sehingga bank seluruhnya 545 soal:
+  - TWK 39: empat konsensus kebangsaan sebagai analisis kasus (kedudukan tiap konsensus, hierarki peraturan, konvensi
+    ketatanegaraan, nilai dasar/instrumental/praksis, dimensi ideologi terbuka, Bhinneka Tunggal Ika, Wawasan Nusantara,
+    uji materi di MA dan uji formil di MK, ajakan memisahkan diri), nasionalisme (UU 24/2009, bahasa di ruang publik,
+    keberagaman, integrasi vertikal, etnosentrisme), integritas (keselarasan perkataan dan tindakan, keteguhan moral, tawaran
+    kunci jawaban CAT, konflik kepentingan), bela negara (setia pada Pancasila, sadar berbangsa, ancaman hibrida, Komponen
+    Pendukung), dan bahasa Indonesia (menilai argumen, paragraf induktif, konjungsi, partikel pun, kalimat ambigu, sumber yang
+    kredibel, menerapkan isi pengumuman).
+  - TKP 30: lima soal per aspek mengikuti penekanan baru 2026 (pelayanan yang cekatan, tanpa pamrih, dan terus diperbaiki;
+    kolaborasi internal dan eksternal; komunitas harmonis; adaptasi TIK yang bijak dan etis, termasuk deepfake dan data pribadi;
+    akuntabilitas; menolak pemaksaan keyakinan dan menerima perbedaan pilihan politik yang sah).
+  - TIU logika 27: 8 silogisme diperluas (hanya jika, disjungtif, rantai empat premis, ingkaran, kesetaraan, pernyataan pasti
+    salah), 12 penalaran induktif (memperkuat dan memperlemah simpulan, tren, sampel bias, sebab-akibat), dan 7 analitis
+    kombinasi (memilih tim, jadwal, penempatan) yang kuncinya diperiksa ke semua kemungkinan.
+  - Pembangkit baru: analitis kombinasi (memilih tim dengan syarat; jenis soal susunan yang memenuhi, yang pasti ikut,
+    yang tidak mungkin, dan banyak susunan) serta bentuk silogisme dilema, disjungtif bertingkat, "jika P maka Q dan R",
+    dan rantai tiga premis "tidak ada".
+  - Semua soal tambahan ini bisa dilatih lewat kartu **Soal baru kisi-kisi 2026** di menu Latihan.
 - **Tanda "Sangat sering keluar"** pada soal bank (TWK, TIU, TKP); jumlah per materi tampil di menu Peta materi.
   - TKP: 32 soal baru disusun ulang dari situasi yang dilaporkan peserta (bukan salinan soal asli), ditambah 29 soal lama yang
     temanya dilaporkan berulang. Pembahasan TKP baru menjelaskan mengapa pilihan bernilai 4 kalah dari nilai 5.
@@ -153,7 +171,7 @@ mungkin keluar, tetapi tidak dihitung sebagai bukti baru.
 
 ## 5. Bagaimana kebenarannya diuji
 
-- `scripts/validate.mjs` memeriksa seluruh bank (449 soal): lima pilihan, tidak ada pilihan kembar, kunci valid, pembahasan ada.
+- `scripts/validate.mjs` memeriksa seluruh bank (545 soal): lima pilihan, tidak ada pilihan kembar, kunci valid, pembahasan ada.
 - Setiap pembangkit (15 jenis) dijalankan 1.500 kali dan diperiksa: lima pilihan berbeda, kunci tunggal, teks lengkap.
 - **Silogisme dibuktikan**: setiap soal diperiksa terhadap semua kemungkinan himpunan (atau semua kombinasi benar-salah untuk
   bentuk jika-maka). Kunci harus selalu benar, dan pengecoh yang ternyata ikut benar dibuang. 3.000 soal acak lolos.
@@ -172,7 +190,8 @@ mungkin keluar, tetapi tidak dihitung sebagai bukti baru.
   2021) dan bentuk soal yang paling sering dilaporkan.
 - Laporan peserta adalah ingatan, jadi detailnya bisa keliru. Karena itu yang dipakai adalah pola, bukan teks soal.
 - Kisi-kisi CPNS 2026 sudah terbit (KepmenPANRB 674/2026) dan peta ini sudah disesuaikan. Laporan peserta untuk materi baru
-  (penalaran induktif) baru ada setelah SKD 2026 berlangsung.
+  (penalaran induktif, penalaran matriks) baru ada setelah SKD CPNS 2026 berlangsung: SKD sekolah kedinasan 2026
+  (September–Oktober) masih memakai kisi-kisi lama (KepmenPANRB 406/2026: analogi dan ketidaksamaan).
 
 ## 7. Saran pemakaian
 

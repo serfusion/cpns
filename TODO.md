@@ -23,7 +23,7 @@ Daftar kerja dan status tiap checkpoint. Setiap butir yang dicentang sudah di-pu
 - [x] `scripts/build.mjs` — gabung jadi satu file HTML (bisa dibuka offline di HP)
 - [x] README.md
 
-## 2. Bank soal (saat ini 449 soal tulis tangan + soal figural, deret, TWK, dan silogisme yang dibangkitkan otomatis)
+## 2. Bank soal (saat ini 545 soal tulis tangan + soal figural, deret, TWK, dan silogisme yang dibangkitkan otomatis)
 
 TWK — `data/twk.js`
 - [x] Nasionalisme (20 soal)
@@ -136,3 +136,4 @@ disimpan di localStorage dengan kunci `skd.formasi.v1` (tidak ikut sinkron).
 - [x] 24 Nov 2026: pemda tidak membuka formasi 2026–2027 (MenPANRB). Fokus pendidikan: `pendidikan` di `data/formasi.js`, bagian
   "Fokus pendidikan 2026" di menu Formasi, kolom `bidang` di kalkulator dan kandidat (tugas 20, SKB 5), urutan E1–E3 di kriteria pemindaian.
 - [x] Sesuaikan dengan KepmenPANRB 674/2026 (kisi-kisi dan ambang batas 2026) dan pengumuman formasi 25 November 2026
+- [x] 26 Nov 2026: 96 soal tambahan kisi-kisi 2026 (TWK 39, TKP 30, TIU logika 27), pembangkit analitis kombinasi, bentuk silogisme diperluas, kartu "Soal baru kisi-kisi 2026"

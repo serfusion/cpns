@@ -116,7 +116,7 @@
   }
   function startPractice(o) {
     guardNew(function () {
-      var items = E.buildPractice({ materi: o.materi, n: o.n, hot: o.hot, sangat: o.sangat, baru: o.baru, acak: o.acak }, S.qstats());
+      var items = E.buildPractice({ materi: o.materi, n: o.n, hot: o.hot, sangat: o.sangat, baru: o.baru, acak: o.acak, k26: o.k26 }, S.qstats());
       if (!items.length) { toast("Belum ada soal untuk pilihan ini."); return; }
       begin({ kind: "latihan", scale: null, title: o.title, instant: true, requeue: S.settings().requeue, items: items, cur: 0, limit: 0, elapsed: 0 });
     });
@@ -823,13 +823,32 @@
         pracBtn("btn-sangat-tiu", "TIU tanpa hitungan (15 soal)", { materi: TIU_SANGAT, n: 15, sangat: true, title: "Sangat sering keluar: TIU tanpa hitungan" })),
       h("p", { class: "small muted" }, "Soal yang sudah Anda kuasai muncul paling akhir, jadi setiap putaran mendahulukan yang belum dikuasai."));
   }
+  // ---------- soal tambahan sesuai kisi-kisi 2026 (KepmenPANRB 674/2026) ----------
+  var TIU_LOGIKA = ["sil", "ind", "anl"];
+  function kisi26Card() {
+    function n(list) { return list.reduce(function (a, id) { return a + E.poolOf(id).filter(function (q) { return q.k26; }).length; }, 0); }
+    var twk = idsOf("twk"), tkp = idsOf("tkp");
+    return h("section", { class: "card stack" },
+      h("h2", null, "Soal baru kisi-kisi 2026"),
+      h("p", { class: "small" }, "Disusun dari rumusan resmi KepmenPANRB 674/2026 dan pola soal CPNS 2024: empat konsensus kebangsaan berupa analisis kasus, nasionalisme, integritas, dan bela negara versi 2026, bahasa Indonesia untuk menilai informasi, TKP dengan penekanan baru tiap aspek, serta TIU logika (silogisme diperluas, penalaran induktif, dan analitis memilih tim dari syarat)."),
+      h("div", { class: "info3" },
+        h("div", null, h("span", null, "TWK"), h("b", null, String(n(twk))), h("span", null, "soal")),
+        h("div", null, h("span", null, "TIU logika"), h("b", null, String(n(TIU_LOGIKA.concat(["pk"])))), h("span", null, "soal")),
+        h("div", null, h("span", null, "TKP"), h("b", null, String(n(tkp))), h("span", null, "soal"))),
+      h("div", { class: "row wrap" },
+        pracBtn("btn-k26-mix", "Campuran 2026 (30 soal)", { materi: twk.concat(TIU_LOGIKA).concat(tkp), n: 30, k26: true, title: "Kisi-kisi 2026: campuran" }, true),
+        pracBtn("btn-k26-twk", "TWK 2026 (20 soal)", { materi: twk, n: 20, k26: true, title: "Kisi-kisi 2026: TWK" }),
+        pracBtn("btn-k26-tkp", "TKP 2026 (20 soal)", { materi: tkp, n: 20, k26: true, title: "Kisi-kisi 2026: TKP" }),
+        pracBtn("btn-k26-tiu", "TIU logika 2026 (15 soal)", { materi: TIU_LOGIKA, n: 15, k26: true, title: "Kisi-kisi 2026: TIU logika" })),
+      h("p", { class: "small muted" }, "Soal analitis memilih tim juga dibangkitkan acak tanpa batas lewat tombol TIU tanpa hitungan acak di bawah."));
+  }
   function acakCard() {
     var F = SKD.fakta;
     return h("section", { class: "card stack" },
       h("h2", null, "Soal acak: selalu berbeda"),
       h("p", { class: "small" }, "Dibangkitkan setiap kali dari tabel fakta yang sudah diperiksa: 45 butir Pancasila, " + F.wewenang.length + " wewenang lembaga negara, " +
         F.pasal.length + " pasal UUD, sejarah BPUPKI, PPKI, proklamasi, dan pergerakan nasional, " + F.hari.length + " hari nasional, " + F.baku.length +
-        " pasang kata baku. TIU tanpa hitungan: silogisme, susunan duduk dan antrean, serta penalaran matriks (pola 9 kotak); kuncinya diperiksa otomatis ke semua kemungkinan. Kebanyakan berbentuk kasus, seperti laporan peserta 2024. Analogi kata acak (kisi-kisi 2024) masih ada di menu Latihan."),
+        " pasang kata baku. TIU tanpa hitungan: silogisme (termasuk bentuk diperluas 2026), susunan duduk dan antrean, memilih anggota tim dari syarat dan batasan, serta penalaran matriks (pola 9 kotak); kuncinya diperiksa otomatis ke semua kemungkinan. Kebanyakan berbentuk kasus, seperti laporan peserta 2024. Analogi kata acak (kisi-kisi 2024) masih ada di menu Latihan."),
       h("div", { class: "row wrap" },
         pracBtn("btn-acak-twk", "TWK acak (20 soal)", { materi: ["pilar", "nas", "bind"], n: 20, acak: true, title: "TWK acak" }, true),
         pracBtn("btn-acak-pilar", "Pancasila, UUD, lembaga (15 soal)", { materi: ["pilar"], n: 15, acak: true, title: "Pilar negara acak" }),
@@ -857,6 +876,7 @@
       h("div", { class: "page-head" }, h("h1", null, "Latihan per materi"), h("p", { class: "lede" }, "Setiap jawaban langsung dikoreksi: yang salah merah, jawaban benar hijau, lalu pembahasan muncul.")),
       resumeCard(),
       fokusCard(),
+      kisi26Card(),
       seringCard(),
       acakCard(),
       h("section", { class: "card stack" },

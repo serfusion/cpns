@@ -205,6 +205,8 @@
       x: "Rantai tiga premis: sebagian {D} adalah {A}; semua {A} adalah {B}; semua {B} adalah {C}. Jadi sebagian {D} pasti {C}." },
     { id: "tiga-e", p: [S("I", "D", "A"), S("A", "A", "B"), S("E", "B", "N")], c: S("O", "D", "N"),
       x: "Sebagian {D} adalah {A}; semua {A} adalah {B}; tidak ada {B} yang merupakan {N}. Jadi sebagian {D} (yang termasuk {A}) pasti bukan {N}." },
+    { id: "tiga-celarent", p: [S("A", "A", "B"), S("A", "B", "C"), S("E", "C", "N")], c: S("E", "A", "N"),
+      x: "Semua {A} adalah {B}, semua {B} adalah {C}, dan tidak ada {C} yang merupakan {N}. Jadi tidak ada {A} yang merupakan {N}." },
     { id: "tengah", p: [S("A", "A", "B"), S("A", "E", "B")], c: null, tanya: ["A", "E"],
       x: "{A} dan {E} sama-sama termasuk {B}, tetapi premis tidak menjelaskan hubungan {A} dengan {E}: bisa beririsan, bisa terpisah, bisa juga sama. Jadi tidak ada kesimpulan pasti tentang keduanya." }
   ];
@@ -279,6 +281,12 @@
       x: "Telusuri mundur: {nR}, maka {nQ} (modus tollens), lalu {nP}." },
     { id: "rantai-p", p: [IMP(L("P"), L("Q")), IMP(L("Q"), L("R")), L("P")], c: L("R"),
       x: "Telusuri maju: {P}, maka {Q}, lalu {R}." },
+    { id: "dilema", p: [OR(L("P"), L("Q")), IMP(L("P"), L("R")), IMP(L("Q"), L("R"))], c: L("R"),
+      x: "Dilema: {P} atau {Q}. Jika {P}, maka {R}; jika {Q}, maka {R} juga. Kemungkinan mana pun yang terjadi, hasilnya {R}." },
+    { id: "disjungtif-t", p: [OR(L("P"), L("Q")), IMP(L("P"), L("R")), L("R", 1)], c: L("Q"),
+      x: "Diketahui {nR}, maka {nP} (modus tollens). Dari premis {P} atau {Q}, sedangkan {nP}, maka pasti {Q}." },
+    { id: "tollens-dan", p: [IMP(L("P"), AND(L("Q"), L("R"))), L("Q", 1)], c: L("P", 1),
+      x: "Jika {P}, maka {Q} dan {R} sekaligus. Ternyata {nQ}, jadi \"{Q} dan {R}\" tidak terpenuhi, sehingga pasti {nP}." },
     { id: "akibat", p: [IMP(L("P"), L("Q")), L("Q")], c: null,
       x: "Jika {P} maka {Q}. Ternyata {Q}, tetapi {Q} bisa terjadi karena sebab lain, jadi belum pasti {P}. Menyimpulkan {P} dari {Q} adalah kesalahan menalar." }
   ];
@@ -482,6 +490,151 @@
     return null;
   }
 
+  // ===================== TIU: analitis kombinasi (memilih anggota tim dengan syarat dan batasan) =====================
+  /* Kisi-kisi 2026: analitis = "menyusun atau mengevaluasi kombinasi keputusan yang valid berdasarkan seperangkat syarat
+     dan batasan". Semua kemungkinan tim diperiksa (C(6,3) = 20 atau C(6,4) = 15), jadi kunci selalu terbukti. */
+  var KOMB_KONTEKS = [
+    { tim: "tim verifikasi berkas", bag: ["bagian data", "bagian layanan"] },
+    { tim: "panitia seleksi pegawai kontrak", bag: ["bagian kepegawaian", "bagian umum"] },
+    { tim: "tim penyusun laporan tahunan", bag: ["bagian perencanaan", "bagian keuangan"] },
+    { tim: "tim layanan keliling", bag: ["kantor kecamatan", "kantor kelurahan"] },
+    { tim: "tim digitalisasi arsip", bag: ["bagian arsip", "bagian teknologi informasi"] },
+    { tim: "delegasi rapat koordinasi", bag: ["unit humas", "unit hukum"] }
+  ];
+  var ANGKA_KATA = { 3: "tiga", 4: "empat" };
+  function bitDi(s, i) { return (s >> i) & 1; }
+  function jumlahBit(s) { var c = 0; while (s) { c += s & 1; s >>= 1; } return c; }
+  function kombBenar(c, s) {
+    if (c.t === "bagian") return (s & c.m1) !== 0 && (s & c.m2) !== 0;
+    var a = bitDi(s, c.a), b = c.b == null ? 0 : bitDi(s, c.b);
+    switch (c.t) {
+      case "pisah": return !(a && b);
+      case "jika": return !a || !!b;
+      case "salah1": return !!(a || b);
+      case "bareng": return a === b;
+      case "wajib": return !!a;
+    }
+    return false;
+  }
+  function kombTeks(c, nm, bag) {
+    var A = nm[c.a], B = c.b == null ? "" : nm[c.b];
+    switch (c.t) {
+      case "pisah": return A + " dan " + B + " tidak boleh dipilih bersama.";
+      case "jika": return "Jika " + A + " dipilih, " + B + " juga harus dipilih.";
+      case "salah1": return "Paling sedikit satu dari " + A + " dan " + B + " harus dipilih.";
+      case "bareng": return A + " dan " + B + " dipilih bersama-sama atau tidak dipilih sama sekali.";
+      case "wajib": return A + " pasti dipilih.";
+      case "bagian": return "Tim memuat paling sedikit satu orang dari " + bag[0] + " dan satu orang dari " + bag[1] + ".";
+    }
+    return "";
+  }
+  function timTeks(s, nm) { var o = []; for (var i = 0; i < nm.length; i++) if (bitDi(s, i)) o.push(nm[i]); return o.join(", "); }
+  function daftarDan(list) { return list.length < 2 ? list.join("") : list.slice(0, -1).join(", ") + ", dan " + list[list.length - 1]; }
+  function kombValid(C, n, k) {
+    var out = [];
+    for (var s = 0; s < (1 << n); s++) if (jumlahBit(s) === k && C.every(function (c) { return kombBenar(c, s); })) out.push(s);
+    return out;
+  }
+  function kombinasi(R) {
+    var n = 6;
+    for (var coba = 0; coba < 150; coba++) {
+      var k = R.chance(0.6) ? 3 : 4, K = R.pick(KOMB_KONTEKS), nm = R.shuffle(ORANG).slice(0, n).sort(), i, x;
+      var semua = kombValid([], n, k), valid = semua.slice(), C = [], dipakai = {}, bagian = null;
+      if (R.chance(0.35)) {
+        var u = R.shuffle([0, 1, 2, 3, 4, 5]), m1 = (1 << u[0]) | (1 << u[1]) | (1 << u[2]);
+        bagian = { t: "bagian", m1: m1, m2: 63 ^ m1 };
+        valid = valid.filter(function (t) { return kombBenar(bagian, t); });
+      }
+      var pool = [];
+      for (var a = 0; a < n; a++) {
+        pool.push({ t: "wajib", a: a });
+        for (var b = 0; b < n; b++) if (a !== b) {
+          pool.push({ t: "jika", a: a, b: b }, { t: "jika", a: a, b: b });
+          if (a < b) pool.push({ t: "pisah", a: a, b: b }, { t: "salah1", a: a, b: b }, { t: "bareng", a: a, b: b });
+        }
+      }
+      pool = R.shuffle(pool);
+      var target = R.int(3, 4);
+      for (i = 0; i < pool.length && C.length < target; i++) {
+        var c = pool[i], kunci = c.t === "wajib" ? "w" : Math.min(c.a, c.b) + "-" + Math.max(c.a, c.b);
+        if (dipakai[kunci]) continue;
+        var v2 = valid.filter(function (t) { return kombBenar(c, t); });
+        if (v2.length === valid.length || v2.length === 0) continue;
+        C.push(c); valid = v2; dipakai[kunci] = 1;
+      }
+      var D = (bagian ? [bagian] : []).concat(C);
+      for (i = D.length - 1; i >= 0; i--) {
+        var tanpa = D.slice(0, i).concat(D.slice(i + 1));
+        if (kombValid(tanpa, n, k).length === valid.length) D = tanpa;
+      }
+      if (D.length < 3 || valid.length < 1 || valid.length > 6) continue;
+      if (bagian && D.indexOf(bagian) < 0) bagian = null;
+      var tipe = R.pick(["valid", "valid", "pasti", "mustahil", "jumlah"]), opts, tanya, expl, cek, fix = false, kunciIdx = 0;
+      var daftarValid = valid.map(function (t) { return timTeks(t, nm); }).join("; ");
+      if (tipe === "valid") {
+        var jaw = R.pick(valid);
+        var info = semua.filter(function (t) { return valid.indexOf(t) < 0; }).map(function (t) {
+          return { s: t, v: D.map(function (c, j) { return kombBenar(c, t) ? -1 : j; }).filter(function (j) { return j >= 0; }) };
+        });
+        info = R.shuffle(info).sort(function (p, q) { return p.v.length - q.v.length; });
+        var pilih = [], pakaiV = {};
+        info.forEach(function (it) { if (pilih.length < 4 && !pakaiV[it.v[0]]) { pilih.push(it); pakaiV[it.v[0]] = 1; } });
+        info.forEach(function (it) { if (pilih.length < 4 && pilih.indexOf(it) < 0) pilih.push(it); });
+        if (pilih.length < 4) continue;
+        opts = [timTeks(jaw, nm)].concat(pilih.map(function (it) { return timTeks(it.s, nm); }));
+        tanya = "Susunan " + K.tim + " yang memenuhi semua syarat adalah ...";
+        expl = "Di antara pilihan, hanya " + opts[0] + " yang memenuhi semua syarat. " +
+          pilih.map(function (it) { return opts[pilih.indexOf(it) + 1] + " melanggar syarat (" + (it.v[0] + 1) + ")"; }).join("; ") + ".";
+        cek = { tipe: "valid", jaw: jaw, salah: pilih.map(function (it) { return it.s; }) };
+      } else if (tipe === "pasti") {
+        var calon = [];
+        for (x = 0; x < n; x++) {
+          var vx = valid.filter(function (t) { return bitDi(t, x); });
+          if (!vx.length || vx.length === valid.length && valid.length === 1) continue;
+          var irisan = vx.reduce(function (acc, t) { return acc & t; }, 63) & ~(1 << x);
+          if (jumlahBit(irisan) !== 1) continue;
+          var y = 0; while (!bitDi(irisan, y)) y++;
+          // jangan pakai jawaban yang tertulis langsung di syarat (jika x maka y, x dan y bersama, atau y wajib)
+          var langsung = D.some(function (c) {
+            return (c.t === "jika" && c.a === x && c.b === y) || (c.t === "bareng" && (c.a === x && c.b === y || c.a === y && c.b === x)) || (c.t === "wajib" && c.a === y);
+          });
+          if (!langsung) calon.push({ x: x, y: y, vx: vx });
+        }
+        if (!calon.length) continue;
+        var cc = R.pick(calon);
+        opts = [nm[cc.y]].concat(nm.filter(function (_, j) { return j !== cc.x && j !== cc.y; }));
+        tanya = "Jika " + nm[cc.x] + " dipilih, siapa yang pasti ikut dipilih?";
+        expl = "Susunan yang memuat " + nm[cc.x] + " dan memenuhi semua syarat: " + cc.vx.map(function (t) { return timTeks(t, nm); }).join("; ") + ". " +
+          nm[cc.y] + " ada di setiap susunan itu, sedangkan pilihan lain tidak selalu ikut.";
+        cek = { tipe: "pasti", x: cc.x, y: cc.y };
+      } else if (tipe === "mustahil") {
+        var tidak = [], bisa = [];
+        for (x = 0; x < n; x++) (valid.some(function (t) { return bitDi(t, x); }) ? bisa : tidak).push(x);
+        if (tidak.length !== 1 || bisa.length < 4) continue;
+        opts = [nm[tidak[0]]].concat(R.shuffle(bisa).slice(0, 4).map(function (j) { return nm[j]; }));
+        tanya = "Siapa yang tidak mungkin menjadi anggota " + K.tim + "?";
+        expl = "Susunan yang memenuhi semua syarat hanyalah: " + daftarValid + ". " + nm[tidak[0]] + " tidak ada di satu pun susunan itu.";
+        cek = { tipe: "mustahil", z: tidak[0] };
+      } else {
+        var nv = valid.length, angka = [nv];
+        [nv + 1, nv - 1, nv + 2, nv - 2, nv + 3, nv + 4].forEach(function (v) { if (v >= 1 && angka.length < 5) angka.push(v); });
+        angka.sort(function (p, q) { return p - q; });
+        opts = angka.map(String); fix = true; kunciIdx = angka.indexOf(nv);
+        tanya = "Banyak susunan " + K.tim + " yang memenuhi semua syarat adalah ...";
+        expl = "Ada " + nv + " susunan yang memenuhi semua syarat: " + daftarValid + ".";
+        cek = { tipe: "jumlah", nv: nv };
+      }
+      var anggota = function (m) { return daftarDan(nm.filter(function (_, j) { return bitDi(m, j); })); };
+      var pembuka = "Dari enam pegawai, yaitu " + daftarDan(nm) + ", akan dipilih tepat " + ANGKA_KATA[k] + " orang untuk " + K.tim + "." +
+        (bagian ? " " + anggota(bagian.m1) + " berasal dari " + K.bag[0] + ", sedangkan " + anggota(bagian.m2) + " dari " + K.bag[1] + "." : "") + " Syaratnya:";
+      var badan = D.map(function (c, j) { return "(" + (j + 1) + ") " + kombTeks(c, nm, K.bag); }).join("\n");
+      var g = { text: pembuka + "\n" + badan + "\n" + tanya, opts: opts, expl: expl, _cek: { jenis: "komb", n: n, k: k, syarat: D, cek: cek } };
+      if (fix) { g.fix = true; g.a = kunciIdx; }
+      return g;
+    }
+    return null;
+  }
+
   // ===================== pendaftaran =====================
   /* [fungsi, bobot, sangat sering keluar?] — "sangat" mengikuti pola yang dilaporkan di 3 laporan peserta atau lebih. */
   var JENIS = {
@@ -490,7 +643,7 @@
     bind: [[baku, 1, 0]],
     sil: [[silogisme, 1, 1]],
     ana: [[analogi, 1, 0]], // analogi kata tidak lagi tercantum di kisi-kisi 2026
-    anl: [[analitis, 1, 1]]
+    anl: [[analitis, 1, 1], [kombinasi, 1, 1]] // kombinasi: rumusan analitis kisi-kisi 2026
   };
   function unik(opts) {
     if (!opts || opts.length !== 5) return false;
@@ -522,7 +675,8 @@
     _prop: { model: propModel, teks: propTeks, bentuk: PROP_BENTUK, tema: PROP_TEMA },
     _fn: { silaKasus: silaKasus, silaButir: silaButir, lembaga: lembaga, pasalKasus: pasalKasus, pasalBunyi: pasalBunyi, pasalIsi: pasalIsi,
       pasalPenerapan: pasalPenerapan, sejarahPilar: sejarahPilar, sejarahNas: sejarahNas, hari: hari, baku: baku,
-      silKategoris: silKategoris, silProposisi: silProposisi, analogi: analogi, analitis: analitis },
-    _anl: { susunan: semuaSusunan, benar: benarDi, pos: posOf }
+      silKategoris: silKategoris, silProposisi: silProposisi, analogi: analogi, analitis: analitis, kombinasi: kombinasi },
+    _anl: { susunan: semuaSusunan, benar: benarDi, pos: posOf },
+    _komb: { benar: kombBenar, valid: kombValid, bit: bitDi }
   };
 })();

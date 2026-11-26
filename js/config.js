@@ -81,17 +81,17 @@
       {
         id: "sil", sec: "tiu", name: "Silogisme", group: "Verbal", quota: 4, gen: 0.35,
         def: "Bernalar deduktif dengan menghubungkan premis-premis untuk menarik satu kesimpulan logis yang pasti benar, tanpa menambahkan asumsi di luar informasi yang diberikan.",
-        pola: ["Silogisme dua premis: semua, sebagian, tidak ada", "Modus ponens dan modus tollens (jika-maka)", "Memilih kesimpulan yang pasti benar, bukan yang mungkin benar", "Silogisme tiga premis: rantai semua–semua–sebagian dan rantai jika–maka"]
+        pola: ["Silogisme dua premis: semua, sebagian, tidak ada", "Modus ponens dan modus tollens (jika-maka)", "Memilih kesimpulan yang pasti benar, bukan yang mungkin benar", "Silogisme tiga premis: rantai semua–semua–sebagian dan rantai jika–maka", "Bentuk diperluas 2026: hanya jika, dilema, disjungtif bertingkat, ingkaran dan kesetaraan, pernyataan yang pasti salah"]
       },
       {
         id: "ind", sec: "tiu", name: "Penalaran Induktif", group: "Verbal", quota: 3, baru2026: true,
         def: "Mengidentifikasi pola hubungan, tren, atau prinsip umum dari serangkaian informasi yang terpisah untuk merumuskan generalisasi, penjelasan, atau perkiraan yang paling berpeluang benar (materi baru 2026).",
-        pola: ["Generalisasi dari beberapa pengamatan, termasuk pengecualian", "Penjelasan yang paling mungkin untuk sebuah perubahan", "Perkiraan dari tren atau pola berulang", "Hubungan belum tentu sebab-akibat; sampel yang tidak mewakili; generalisasi tergesa-gesa"]
+        pola: ["Generalisasi dari beberapa pengamatan, termasuk pengecualian", "Penjelasan yang paling mungkin untuk sebuah perubahan", "Perkiraan dari tren atau pola berulang", "Hubungan belum tentu sebab-akibat; sampel yang tidak mewakili; generalisasi tergesa-gesa", "Informasi yang memperkuat atau memperlemah simpulan"]
       },
       {
         id: "anl", sec: "tiu", name: "Analitis", group: "Verbal", quota: 4, gen: 0.3,
         def: "Mengurai informasi yang kompleks, memetakan hubungan antarvariabel, serta menyusun atau mengevaluasi kombinasi keputusan yang valid berdasarkan seperangkat syarat dan batasan.",
-        pola: ["Urutan dan posisi duduk", "Penjadwalan dan pengelompokan bersyarat", "Menarik kesimpulan dari tabel", "Susunan duduk melingkar dan antrean", "Analisis tabel: rasio, persentase kenaikan, pecahan"]
+        pola: ["Urutan dan posisi duduk", "Penjadwalan dan pengelompokan bersyarat", "Menarik kesimpulan dari tabel", "Susunan duduk melingkar dan antrean", "Analisis tabel: rasio, persentase kenaikan, pecahan", "Memilih anggota tim, jadwal, atau penempatan dari syarat dan batasan (rumusan 2026)"]
       },
       {
         id: "hit", sec: "tiu", name: "Berhitung", group: "Numerik", quota: 3,
@@ -224,9 +224,10 @@
   /** Daftarkan soal. sec: "twk" | "tiu" | "tkp".
    *  Soal TWK/TIU: o[0] adalah jawaban benar (kecuali ada `a`), opsi diacak saat tampil.
    *  Soal TKP: o diurutkan dari 5 poin (o[0]) sampai 1 poin (o[4]). */
-  SKD.add = function (sec, list) {
+  SKD.add = function (sec, list, extra) {
     for (var i = 0; i < list.length; i++) {
       list[i].sec = sec;
+      if (extra) for (var k in extra) if (list[i][k] == null) list[i][k] = extra[k];
       SKD.bankRaw.push(list[i]);
     }
   };

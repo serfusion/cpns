@@ -171,6 +171,32 @@ for (const k of Object.keys(SKD.passages)) if (!usedPassages.has(k)) errors.push
     }
   }
   console.log(`Analogi: ${nAna} soal terperiksa (${F.analogi.length} jenis hubungan). Analitis: ${nAnl} soal, jawaban tunggal terbukti dengan memeriksa semua susunan.`);
+  // analitis kombinasi: hitung ulang semua tim yang mungkin dari syaratnya, lalu periksa kunci dan pengecoh
+  let nKomb = 0;
+  const K = A._komb;
+  for (let i = 0; i < 1500; i++) {
+    const g = A._fn.kombinasi(R);
+    if (!g) { errors.push("kombinasi: gagal membangkitkan soal"); break; }
+    nKomb++;
+    const c = g._cek, v = K.valid(c.syarat, c.n, c.k), q = c.cek, tag = "kombinasi";
+    if (!v.length) { errors.push(`${tag}: syarat saling bertentangan`); continue; }
+    if (q.tipe === "valid") {
+      if (v.indexOf(q.jaw) < 0) errors.push(`${tag}: kunci tidak memenuhi syarat — ${g.text}`);
+      for (const t of q.salah) if (v.indexOf(t) >= 0) errors.push(`${tag}: pengecoh ikut memenuhi syarat — ${g.text}`);
+    } else if (q.tipe === "pasti") {
+      const vx = v.filter((t) => K.bit(t, q.x));
+      if (!vx.length || !vx.every((t) => K.bit(t, q.y))) errors.push(`${tag}: jawaban "pasti" tidak terbukti — ${g.text}`);
+      for (let j = 0; j < c.n; j++) if (j !== q.x && j !== q.y && vx.every((t) => K.bit(t, j))) errors.push(`${tag}: ada jawaban "pasti" lain — ${g.text}`);
+    } else if (q.tipe === "mustahil") {
+      if (v.some((t) => K.bit(t, q.z))) errors.push(`${tag}: orang yang "tidak mungkin" ternyata mungkin — ${g.text}`);
+      const nmOps = g.opts.slice(1);
+      const nm = g.text.match(/yaitu (.+?), akan dipilih/)[1].replace(", dan ", ", ").split(", ");
+      for (const o of nmOps) { const j = nm.indexOf(o); if (j < 0 || !v.some((t) => K.bit(t, j))) errors.push(`${tag}: pengecoh juga tidak mungkin — ${g.text}`); }
+    } else if (q.tipe === "jumlah") {
+      if (q.nv !== v.length || g.opts[g.a] !== String(v.length)) errors.push(`${tag}: jumlah susunan salah — ${g.text}`);
+    } else errors.push(`${tag}: tipe tidak dikenal`);
+  }
+  console.log(`Analitis kombinasi: ${nKomb} soal, kunci dibuktikan dengan memeriksa semua kemungkinan tim.`);
 
   // lewat mesin: setiap materi bangkitan menghasilkan soal; filter "sangat sering" hanya memberi jenis sangat sering
   for (const m of Object.keys(A._jenis)) {
