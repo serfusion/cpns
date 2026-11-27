@@ -374,7 +374,7 @@
     if (R24) {
       var semuaBaris = [];
       Object.keys(R24.rows).forEach(function (id) {
-        R24.rows[id].forEach(function (r) { semuaBaris.push({ inst: id, jab: R24.jab[r[0]], jen: R24.jen[r[1]], kursi: r[2], hadir: r[3], pg: r[4], max: r[5], cut: r[6] }); });
+        R24.rows[id].forEach(function (r) { semuaBaris.push({ inst: id, jab: R24.jab[r[0]], jen: R24.jen[r[1]], kursi: r[2], hadir: r[3], pg: r[4], max: r[5], cut: r[6], skb: r[7], akhir: r[8] }); });
       });
       var namaInst = {}; R24.instansi.forEach(function (I) { namaInst[I.id] = I.nama; });
       var best24 = 0; ctx.history().forEach(function (x) { if (x.kind !== "mini" && x.total > best24) best24 = x.total; });
@@ -402,10 +402,11 @@
         var g = {};
         semuaBaris.forEach(function (b) { if (b.jab.indexOf(q) < 0) return; var k = b.inst + "|" + b.jab + "|" + b.jen; (g[k] = g[k] || { b: b, list: [] }).list.push(b); });
         var items = Object.keys(g).map(function (k) {
-          var L = g[k].list, kursi = 0, hadir = 0, adaH = false, cuts = [], mx = 0;
-          L.forEach(function (b) { kursi += b.kursi; if (b.hadir != null) { hadir += b.hadir; adaH = true; } if (b.cut) cuts.push(b.cut); if (b.max > mx) mx = b.max; });
-          cuts.sort(function (a, c) { return a - c; });
-          return { b: g[k].b, n: L.length, kursi: kursi, hadir: adaH ? hadir : null, max: mx, cuts: cuts, med: cuts.length ? cuts[Math.floor(cuts.length / 2)] : null };
+          var L = g[k].list, kursi = 0, hadir = 0, adaH = false, cuts = [], mx = 0, skb = 0, akh = [];
+          L.forEach(function (b) { kursi += b.kursi; if (b.hadir != null) { hadir += b.hadir; adaH = true; } if (b.cut) cuts.push(b.cut); if (b.max > mx) mx = b.max; if (b.skb > skb) skb = b.skb; if (b.akhir) akh.push(b.akhir); });
+          cuts.sort(function (a, c) { return a - c; }); akh.sort(function (a, c) { return a - c; });
+          return { b: g[k].b, n: L.length, kursi: kursi, hadir: adaH ? hadir : null, max: mx, cuts: cuts, med: cuts.length ? cuts[Math.floor(cuts.length / 2)] : null,
+            skb: skb || null, akhir: akh.length ? akh[Math.floor(akh.length / 2)] : null };
         }).sort(function (a, c) { return (a.med || 999) - (c.med || 999); });
         if (!items.length) { isi(hasilCari, [h("p", { class: "small muted" }, "Tidak ada jabatan \"" + S.cari24 + "\" di data kelima instansi ini.")]); return; }
         isi(hasilCari, [h("ul", { class: "fm-checks" }, items.slice(0, 40).map(function (it) {
@@ -417,7 +418,8 @@
           var rentang = !c.length ? "tidak ada peserta lolos" : lo === hi ? String(lo) : lo + "–" + hi + " (median " + it.med + ")";
           return h("li", null, tag, h("span", null, h("b", null, it.b.jab), " · " + namaInst[it.b.inst] + " · " + it.b.jen.toLowerCase() + ". " +
             (it.n > 1 ? it.n + " formasi, " : "") + it.kursi + " kursi" + (it.hadir != null ? ", " + fmt(it.hadir) + " peserta hadir (" + fmt(it.hadir / it.kursi, 1) + " per kursi)" : "") +
-            ". Nilai tertinggi " + (it.max || "–") + "; terendah yang lolos SKB " + rentang + "."));
+            ". SKD tertinggi " + (it.max || "–") + "; SKD terendah yang lolos SKB " + rentang + "." +
+            (it.skb ? " SKB tertinggi " + fmt(it.skb, 1) + (it.akhir ? "; nilai akhir terendah yang lulus " + fmt(it.akhir, 2) : "") + " (skala 100)." : "")));
         }))].concat(items.length > 40 ? [h("p", { class: "small muted" }, "Menampilkan 40 dari " + items.length + " hasil. Perjelas kata kuncinya.")] : []));
       };
       riwayat = h("section", { class: "panel", "aria-labelledby": "fm-2024" },
@@ -435,12 +437,24 @@
         h("p", { class: "small muted" }, "Data BKN per " + R24.pelamarTanggal + " Pendaftar belum tentu memenuhi syarat atau hadir; pesaing nyata di SKD lebih sedikit (contoh: Wantannas 900 pendaftar, 661 peserta hadir untuk 62 kursi; Kemhan 43.505 pendaftar, 28.680 hadir)."),
         h("h3", null, "Nilai SKD 2024 per instansi (laporan resmi SSCASN)"),
         h("div", { class: "qtable fm-tbl" }, h("table", null,
-          h("thead", null, h("tr", null, th("Instansi"), th("Tertinggi"), th("Terendah lolos SKB (median)"))),
+          h("thead", null, h("tr", null, th("Instansi"), th("SKD tertinggi"), th("SKD terendah lolos SKB (median)"))),
           h("tbody", null, R24.instansi.map(function (I) {
-            var rinci = fmt(I.kursi) + " kursi" + (I.hadir ? " · " + fmt(I.hadir / I.kursi, 1) + " peserta hadir per kursi · lulus ambang " + pct(I.pg, I.hadir) + " · rata-rata SKD " + I.rata : " · laporan integrasi");
-            return h("tr", null, h("td", null, h("b", null, I.nama), h("br"), h("span", { class: "small muted" }, rinci)), h("td", null, I.max), h("td", null, h("b", null, I.cutMed || "–")));
+            var rinci = [fmt(I.kursi) + " kursi"];
+            if (I.hadir) rinci.push(fmt(I.hadir / (I.kursiSkd || I.kursi), 1) + " peserta SKD per kursi", "lulus ambang batas " + pct(I.pg, I.hadir), "rata-rata SKD semua peserta " + fmt(I.skdRata, 1));
+            if (I.skdRataSkb) rinci.push("rata-rata SKD peserta SKB " + fmt(I.skdRataSkb, 1));
+            return h("tr", null, h("td", null, h("b", null, I.nama), h("br"), h("span", { class: "small muted" }, rinci.join(" · "))), h("td", null, I.skdMax), h("td", null, h("b", null, I.cutMed || "–")));
           })))),
-        h("p", { class: "small muted" }, "Median ditimbang per kursi. Di Mahkamah Agung banyak formasi besar (misalnya Dokumentalis Hukum, 2.949 kursi) kekurangan peserta yang lulus ambang batas, sehingga semua yang lulus ambang batas masuk SKB. Setneg dan MA hanya menerbitkan laporan integrasi, jadi jumlah peserta hadir tidak tersedia. Nilai SKD tertinggi nasional 2024: " +
+        h("h3", null, "Nilai SKB dan nilai akhir 2024 (skala 100)"),
+        h("div", { class: "qtable fm-tbl" }, h("table", null,
+          h("thead", null, h("tr", null, th("Instansi"), th("SKB tertinggi"), th("Akhir terendah lulus (median)"))),
+          h("tbody", null, R24.instansi.filter(function (I) { return I.skbMax; }).map(function (I) {
+            var rinci = ["rata-rata SKB " + fmt(I.skbRata, 1), "nilai akhir tertinggi " + fmt(I.akhirMax, 2), "rata-rata nilai akhir yang lulus " + fmt(I.akhirRata, 2), fmt(I.lulus) + " lulus"];
+            if (I.catMax) rinci.push("CAT SKB tertinggi " + I.catMax + " dari 500, rata-rata " + fmt(I.catRata, 1));
+            return h("tr", null, h("td", null, h("b", null, I.nama), h("br"), h("span", { class: "small muted" }, rinci.join(" · "))), h("td", null, fmt(I.skbMax, 1)), h("td", null, h("b", null, fmt(I.akhirMinMed, 2))));
+          })))),
+        h("p", { class: "small muted" }, "Nilai akhir = 40% SKD (skala 100, yaitu SKD ÷ 5,5) + 60% SKB (skala 100). Contoh: SKD 410 bernilai 74,5 pada skala 100, jadi menyumbang 29,8; sisanya dari SKB. SKB tertinggi nasional 2024 (CAT, dari 500): " +
+          R24.tertinggiSkb.map(function (t) { return t[0] + " " + t[1]; }).join(", ") + "."),
+        h("p", { class: "small muted" }, "Median ditimbang per kursi. Di Mahkamah Agung banyak formasi besar (misalnya Dokumentalis Hukum, 2.949 kursi) kekurangan peserta yang lulus ambang batas, sehingga semua yang lulus ambang batas masuk SKB. Jumlah peserta hadir dan rata-rata SKD semua peserta hanya ada bila instansi menerbitkan laporan hasil SKD. Nilai SKD tertinggi nasional 2024: " +
           R24.tertinggi.map(function (t) { return t[0] + " " + t[1]; }).join(", ") + "."),
         h("h3", null, "Bandingkan skor SKD Anda"),
         h("label", { class: "field" }, h("span", { class: "label" }, "Skor SKD (hasil tryout penuh terbaik Anda" + (best24 ? ": " + best24 : "") + ")"),
@@ -452,7 +466,7 @@
           h("input", { class: "input wide", id: "fm24-cari-in", type: "search", maxlength: 40, placeholder: "arsiparis", value: S.cari24 || "",
             oninput: function (e) { S.cari24 = e.target.value.slice(0, 40); save(); cariJab(); } })),
         hasilCari,
-        h("p", { class: "note info" }, "Data 2024 hanya pembanding. Formasi, lokasi, dan jumlah pelamar 2026 berbeda; skor aman tetap bergantung pada pesaing di formasi yang Anda pilih. Data SKD per formasi baru dari lima instansi yang laporannya bisa diunduh terbuka; BPS, Kemenag, Komdigi, BKN, dan Bappenas tidak dapat diunduh otomatis."),
+        h("p", { class: "note info" }, "Data 2024 hanya pembanding. Formasi, lokasi, dan jumlah pelamar 2026 berbeda; skor aman tetap bergantung pada pesaing di formasi yang Anda pilih. Data per formasi berasal dari " + R24.instansi.length + " instansi yang laporannya dapat diunduh langsung dari situs resminya; laporan BPS, Kemenag, Komdigi, BKN, Bappenas, Kemenkes, Kemenkop, BSSN, BPK, dan Setjen DPR menolak akses dari server pembuat data."),
         h("ul", { class: "plain-list small" }, R24.sumber.map(function (x) { return h("li", null, h("a", { href: x.u, target: "_blank", rel: "noopener" }, x.t)); })));
       hitungSkor(); cariJab();
     }

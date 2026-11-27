@@ -75,13 +75,26 @@ Data lengkap ada di aplikasi: menu Formasi, bagian **Data CPNS 2024**, termasuk 
 - **Pendaftar per formasi (BKN, 11 September 2024):** tersepi BRIN 1,0 (khusus S-3), BNPT 5,2, Kemendikbudristek 5,8
   (pendaftarannya masih dibuka sampai 13 September), Kemenko PMK 6,0, Kemhan 6,6; terpadat Kemenkumham 62,7, BKKBN 33,1,
   Kemenkeu 31,8, Kominfo 20,7. Pendaftar belum tentu memenuhi syarat atau hadir, jadi pesaing nyata di SKD lebih sedikit.
-- **Nilai SKD terendah yang lolos ke SKB, dari laporan resmi SSCASN (median per kursi):** Kemhan 336 (848 formasi,
-  5,8 peserta hadir per kursi, 32% lulus ambang batas), Kemensetneg 389, Mahkamah Agung 313 (banyak formasi besar kekurangan
-  peserta yang lulus ambang batas), Kemenko PMK 360, Wantannas 393.
-- **Skor 410:** pada 2024 cukup untuk masuk SKB di 88–98% formasi kelima instansi itu. Contoh jabatan yang relevan:
-  Arsiparis Ahli Pertama Setneg (nilai terendah lolos SKB 387), Pranata Humas Ahli Pertama Setneg (375–403), Arsiparis Ahli
-  Pertama MA (338). Formasi yang sangat padat (misalnya Kemenkumham) kemungkinan membutuhkan skor lebih tinggi, tetapi
-  laporannya belum bisa diunduh terbuka.
+- **Nilai SKD, SKB, dan nilai akhir per instansi** dari laporan resmi SSCASN 9 instansi (3.715 formasi; hanya angka, tanpa nama):
+
+| Instansi | Kursi | SKD tertinggi | SKD terendah lolos SKB (median) | SKB tertinggi | Nilai akhir terendah lulus (median) |
+|---|---:|---:|---:|---:|---:|
+| Kementerian Pertahanan | 6.566 | 485 | 338 | 89,3 | 65,90 |
+| Kementerian LHK | 2.211 | 488 | 374 | 95,0 | 63,05 |
+| Mahkamah Agung | 4.940 | 477 | 313 | 90,2 | 67,45 |
+| Badan Karantina Indonesia | 526 | 470 | 374 | 93,0 | 67,64 |
+| Kementerian Sekretariat Negara | 426 | 465 | 389 | 90,5 | 72,71 |
+| BMKG | 260 | 479 | 377 | 80,5 | 66,67 |
+| Kemenko Perekonomian | 75 | 471 | 386 | 81,5 | 71,29 |
+| Kemenko PMK | 65 | 453 | 359 | 89,0 | 61,15 |
+| Setjen Wantannas | 62 | 454 | 393 | – | – |
+
+  Rata-rata SKD semua peserta (bila laporan hasil SKD tersedia): Kemhan 320, Karantina 353, Kemenko PMK 355, Wantannas 357.
+  Rata-rata SKD peserta yang masuk SKB sekitar 376–407. Nilai akhir = 40% SKD (skala 100, SKD ÷ 5,5) + 60% SKB (skala 100).
+- **Skor 410:** pada 2024 cukup untuk masuk SKB di 78–97% formasi kesembilan instansi itu. Contoh jabatan yang relevan:
+  Arsiparis Ahli Pertama Setneg (SKD terendah lolos SKB 387), Pranata Humas Ahli Pertama Setneg (375–403), Pranata Humas Ahli
+  Pertama Kemhan (349–366). Laporan BPS, Kemenag, Komdigi, BKN, Bappenas, Kemenkes, Kemenkop, BSSN, BPK, dan Setjen DPR menolak
+  akses dari server pembuat data, jadi belum termasuk.
 
 ## 6. Yang dicek begitu lampiran terbit (27 November)
 
