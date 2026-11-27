@@ -95,6 +95,9 @@
     }
     if (d.cek && typeof d.cek === "object") for (var c in d.cek) if (d.cek[c] === true) b.cek[c] = true;
     if (d.urut === "dok") b.urut = "dok";
+    var sk = Number(d.skor24);
+    if (isFinite(sk) && sk > 0 && sk <= 550) b.skor24 = Math.round(sk);
+    if (typeof d.cari24 === "string") b.cari24 = d.cari24.slice(0, 40);
     return b;
   }
   var st = null;
@@ -365,6 +368,95 @@
         sembunyi.map(function (j) { return j.nama; }).join(", ") + ". Semuanya menerima Ilmu Komunikasi pada 2024; matikan filter di Cek profil untuk melihat rinciannya.") : null,
       h("p", { class: "note info" }, D.tidakBisa));
 
+
+    // ---------- data CPNS 2024 sebagai pembanding (data/skd2024.js) ----------
+    var R24 = SKD.skd2024, riwayat = null;
+    if (R24) {
+      var semuaBaris = [];
+      Object.keys(R24.rows).forEach(function (id) {
+        R24.rows[id].forEach(function (r) { semuaBaris.push({ inst: id, jab: R24.jab[r[0]], jen: R24.jen[r[1]], kursi: r[2], hadir: r[3], pg: r[4], max: r[5], cut: r[6] }); });
+      });
+      var namaInst = {}; R24.instansi.forEach(function (I) { namaInst[I.id] = I.nama; });
+      var best24 = 0; ctx.history().forEach(function (x) { if (x.kind !== "mini" && x.total > best24) best24 = x.total; });
+      if (!S.skor24) S.skor24 = best24 || 410;
+      var pct = function (a, b) { return b ? Math.round((a / b) * 100) + "%" : "–"; };
+      var th = function (t) { return h("th", { scope: "col" }, t); };
+      var isi = function (el, kids) { while (el.firstChild) el.removeChild(el.firstChild); kids.forEach(function (k) { if (k) el.appendChild(k); }); };
+      var hasilSkor = h("div", { class: "stack", id: "fm24-hasil" }), hasilCari = h("div", { class: "stack", id: "fm24-cari" });
+      var hitungSkor = function () {
+        var x = Number(S.skor24) || 0;
+        isi(hasilSkor, [
+          h("div", { class: "qtable fm-tbl" }, h("table", null,
+            h("thead", null, h("tr", null, th("Instansi (2024)"), th("Formasi yang terjangkau"), th("Kursi yang terjangkau"))),
+            h("tbody", null, R24.instansi.map(function (I) {
+              var rs = R24.rows[I.id].filter(function (r) { return r[6]; }), nF = 0, kT = 0, kA = 0;
+              rs.forEach(function (r) { kA += r[2]; if (x >= r[6]) { nF++; kT += r[2]; } });
+              return h("tr", null, h("td", null, I.nama), h("td", null, nF + " dari " + rs.length + " (" + pct(nF, rs.length) + ")"), h("td", null, fmt(kT) + " dari " + fmt(kA) + " (" + pct(kT, kA) + ")"));
+            })))),
+          h("p", { class: "small muted" }, "\"Terjangkau\" berarti skor " + x + " sama dengan atau di atas nilai SKD terendah yang lolos ke SKB pada formasi itu di 2024 (peringkat sampai tiga kali jumlah kursi). Aturan 2026 sama: paling banyak tiga kali kebutuhan jabatan.")
+        ]);
+      };
+      var cariJab = function () {
+        var q = (S.cari24 || "").trim().toUpperCase(), x = Number(S.skor24) || 0;
+        if (q.length < 3) { isi(hasilCari, [h("p", { class: "small muted" }, "Ketik minimal 3 huruf, misalnya arsiparis, hubungan masyarakat, pengembang teknologi, analis kebijakan, atau pranata komputer.")]); return; }
+        var g = {};
+        semuaBaris.forEach(function (b) { if (b.jab.indexOf(q) < 0) return; var k = b.inst + "|" + b.jab + "|" + b.jen; (g[k] = g[k] || { b: b, list: [] }).list.push(b); });
+        var items = Object.keys(g).map(function (k) {
+          var L = g[k].list, kursi = 0, hadir = 0, adaH = false, cuts = [], mx = 0;
+          L.forEach(function (b) { kursi += b.kursi; if (b.hadir != null) { hadir += b.hadir; adaH = true; } if (b.cut) cuts.push(b.cut); if (b.max > mx) mx = b.max; });
+          cuts.sort(function (a, c) { return a - c; });
+          return { b: g[k].b, n: L.length, kursi: kursi, hadir: adaH ? hadir : null, max: mx, cuts: cuts, med: cuts.length ? cuts[Math.floor(cuts.length / 2)] : null };
+        }).sort(function (a, c) { return (a.med || 999) - (c.med || 999); });
+        if (!items.length) { isi(hasilCari, [h("p", { class: "small muted" }, "Tidak ada jabatan \"" + S.cari24 + "\" di data kelima instansi ini.")]); return; }
+        isi(hasilCari, [h("ul", { class: "fm-checks" }, items.slice(0, 40).map(function (it) {
+          var c = it.cuts, lo = c[0], hi = c[c.length - 1], tag;
+          if (!c.length) tag = h("span", { class: "tag" }, "tanpa data");
+          else if (x >= hi) tag = h("span", { class: "tag ok" }, "terjangkau");
+          else if (x >= lo) tag = h("span", { class: "tag accent" }, "sebagian");
+          else tag = h("span", { class: "tag warn" }, "kurang " + (lo - x));
+          var rentang = !c.length ? "tidak ada peserta lolos" : lo === hi ? String(lo) : lo + "–" + hi + " (median " + it.med + ")";
+          return h("li", null, tag, h("span", null, h("b", null, it.b.jab), " · " + namaInst[it.b.inst] + " · " + it.b.jen.toLowerCase() + ". " +
+            (it.n > 1 ? it.n + " formasi, " : "") + it.kursi + " kursi" + (it.hadir != null ? ", " + fmt(it.hadir) + " peserta hadir (" + fmt(it.hadir / it.kursi, 1) + " per kursi)" : "") +
+            ". Nilai tertinggi " + (it.max || "–") + "; terendah yang lolos SKB " + rentang + "."));
+        }))].concat(items.length > 40 ? [h("p", { class: "small muted" }, "Menampilkan 40 dari " + items.length + " hasil. Perjelas kata kuncinya.")] : []));
+      };
+      riwayat = h("section", { class: "panel", "aria-labelledby": "fm-2024" },
+        h("h2", { id: "fm-2024" }, "Data CPNS 2024: pembanding kementerian"),
+        h("p", { class: "small" }, "Formasi 2026 hanya dari instansi pusat, jadi data 2024 instansi pusat menjadi pembanding terdekat. Gunakan untuk memperkirakan instansi dan jabatan yang sepi, lalu cocokkan dengan jumlah pelamar 2026 yang tampil di SSCASN."),
+        h("div", { class: "tiles" }, R24.nasional.map(function (a) { return h("div", { class: "tile" }, h("span", { class: "v" }, a.v), h("span", { class: "l" }, a.l), h("span", { class: "d" }, a.d)); })),
+        h("h3", null, "Pendaftar per formasi 2024 (instansi pusat)"),
+        h("div", { class: "qtable fm-tbl" }, h("table", null,
+          h("thead", null, h("tr", null, th("Instansi"), th("Pendaftar per formasi"))),
+          h("tbody", null, R24.pelamar.slice().sort(function (a, b) { return a.p / a.f - b.p / b.f; }).map(function (r) {
+            var rasio = r.p / r.f, c = rasio <= 10 ? "ok-t" : rasio >= 30 ? "bad-t" : "";
+            return h("tr", null, h("td", null, h("b", null, r.n), h("br"), h("span", { class: "small muted" }, fmt(r.f) + " formasi · " + fmt(r.p) + " pendaftar" + (r.g ? " · 2026: " + r.g : ""))),
+              h("td", { class: c }, h("b", null, fmt(rasio, 1))));
+          })))),
+        h("p", { class: "small muted" }, "Data BKN per " + R24.pelamarTanggal + " Pendaftar belum tentu memenuhi syarat atau hadir; pesaing nyata di SKD lebih sedikit (contoh: Wantannas 900 pendaftar, 661 peserta hadir untuk 62 kursi; Kemhan 43.505 pendaftar, 28.680 hadir)."),
+        h("h3", null, "Nilai SKD 2024 per instansi (laporan resmi SSCASN)"),
+        h("div", { class: "qtable fm-tbl" }, h("table", null,
+          h("thead", null, h("tr", null, th("Instansi"), th("Tertinggi"), th("Terendah lolos SKB (median)"))),
+          h("tbody", null, R24.instansi.map(function (I) {
+            var rinci = fmt(I.kursi) + " kursi" + (I.hadir ? " · " + fmt(I.hadir / I.kursi, 1) + " peserta hadir per kursi · lulus ambang " + pct(I.pg, I.hadir) + " · rata-rata SKD " + I.rata : " · laporan integrasi");
+            return h("tr", null, h("td", null, h("b", null, I.nama), h("br"), h("span", { class: "small muted" }, rinci)), h("td", null, I.max), h("td", null, h("b", null, I.cutMed || "–")));
+          })))),
+        h("p", { class: "small muted" }, "Median ditimbang per kursi. Di Mahkamah Agung banyak formasi besar (misalnya Dokumentalis Hukum, 2.949 kursi) kekurangan peserta yang lulus ambang batas, sehingga semua yang lulus ambang batas masuk SKB. Setneg dan MA hanya menerbitkan laporan integrasi, jadi jumlah peserta hadir tidak tersedia. Nilai SKD tertinggi nasional 2024: " +
+          R24.tertinggi.map(function (t) { return t[0] + " " + t[1]; }).join(", ") + "."),
+        h("h3", null, "Bandingkan skor SKD Anda"),
+        h("label", { class: "field" }, h("span", { class: "label" }, "Skor SKD (hasil tryout penuh terbaik Anda" + (best24 ? ": " + best24 : "") + ")"),
+          h("input", { class: "input", id: "fm24-skor", type: "number", inputmode: "numeric", min: 0, max: 550, value: S.skor24,
+            oninput: function (e) { var v = Math.round(Number(e.target.value)); if (v > 0 && v <= 550) { S.skor24 = v; save(); hitungSkor(); cariJab(); } } })),
+        hasilSkor,
+        h("h3", null, "Cari jabatan"),
+        h("label", { class: "field" }, h("span", { class: "label" }, "Nama jabatan"),
+          h("input", { class: "input wide", id: "fm24-cari-in", type: "search", maxlength: 40, placeholder: "arsiparis", value: S.cari24 || "",
+            oninput: function (e) { S.cari24 = e.target.value.slice(0, 40); save(); cariJab(); } })),
+        hasilCari,
+        h("p", { class: "note info" }, "Data 2024 hanya pembanding. Formasi, lokasi, dan jumlah pelamar 2026 berbeda; skor aman tetap bergantung pada pesaing di formasi yang Anda pilih. Data SKD per formasi baru dari lima instansi yang laporannya bisa diunduh terbuka; BPS, Kemenag, Komdigi, BKN, dan Bappenas tidak dapat diunduh otomatis."),
+        h("ul", { class: "plain-list small" }, R24.sumber.map(function (x) { return h("li", null, h("a", { href: x.u, target: "_blank", rel: "noopener" }, x.t)); })));
+      hitungSkor(); cariJab();
+    }
+
     // ---------- validasi dokumen riset ----------
     var V = D.validasi;
     var validasi = h("section", { class: "panel", "aria-labelledby": "fm-validasi" },
@@ -484,15 +576,16 @@
 
     return [
       h("div", { class: "stack" }, h("h1", null, "Strategi formasi CPNS 2026"),
-        h("p", { class: "lede" }, "Pemindaian untuk lulusan " + D.jurusan + " dengan rumus dokumen riset Anda, difokuskan ke bidang pendidikan sesuai pengalaman Anda. Formasi 2026–2027 hanya dari instansi pusat (pemda tidak membuka). Rincian formasi belum terbit per " + D.tanggal + "; pendaftaran direncanakan mulai 27 November."),
+        h("p", { class: "lede" }, "Pemindaian untuk lulusan " + D.jurusan + " dengan rumus dokumen riset Anda, difokuskan ke bidang pendidikan sesuai pengalaman Anda. Formasi 2026–2027 hanya dari instansi pusat (pemda tidak membuka). Pendaftaran di SSCASN dibuka 27 November sampai awal Desember 2026; rincian jabatan, kualifikasi, dan lokasi ada di sana."),
         h("div", { class: "row" }, h("a", { class: "btn primary", href: "https://sscasn.bkn.go.id/daftar-formasi/", target: "_blank", rel: "noopener" }, "Daftar formasi SSCASN"),
           h("button", { class: "btn", type: "button", onclick: function () { scrollTo("fm-kalk"); } }, "Ke kalkulator"),
           D.pendidikan ? h("button", { class: "btn", type: "button", onclick: function () { scrollTo("fm-didik"); } }, "Fokus pendidikan") : null,
+          SKD.skd2024 ? h("button", { class: "btn", type: "button", onclick: function () { scrollTo("fm-2024"); } }, "Data 2024") : null,
           PD ? h("button", { class: "btn", type: "button", onclick: function () { scrollTo("fm-pemda"); } }, "Prioritas Pemda") : null,
           D.dokumen ? h("a", { class: "btn", href: D.dokumen, target: "_blank", rel: "noopener" }, "Dokumen PDF") : null)),
       h("section", { class: "panel", "aria-labelledby": "fm-status" }, h("h2", { id: "fm-status" }, "Status per " + D.tanggal), h("ul", { class: "plain-list" }, D.status.map(function (t) { return h("li", null, t); }))),
       h("div", { class: "tiles" }, D.angka.map(function (a) { return h("div", { class: "tile" }, h("span", { class: "v" }, a.v), h("span", { class: "l" }, a.l), h("span", { class: "d" }, a.d)); })),
-      pendidikanSec, kandidat, pemda, profil, skor, target, pantau, jabatan, validasi, aturan, kalk, langkah, lain, sumber
+      pendidikanSec, riwayat, kandidat, pemda, profil, skor, target, pantau, jabatan, validasi, aturan, kalk, langkah, lain, sumber
     ];
   };
 })();

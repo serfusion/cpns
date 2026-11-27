@@ -66,7 +66,24 @@ guru madrasah (ijazah kependidikan atau keagamaan dan sertifikat pendidik).
 masukkan formasi ke kalkulator aplikasi (pilih Bidang: Pendidikan): aplikasi menghitung berapa persen teratas yang harus dicapai
 untuk masuk tiga kali jumlah kursi ke SKB. Peluang di tabel adalah perkiraan dari jumlah kursi, lokasi, dan data 2024.
 
-## 5. Yang dicek begitu lampiran terbit (27 November)
+## 5. Pembanding data CPNS 2024 (instansi pusat)
+
+Data lengkap ada di aplikasi: menu Formasi, bagian **Data CPNS 2024**, termasuk pembanding skor dan pencarian jabatan.
+
+- **Nasional (BKN, LKj PPSS 2024):** 3.572.660 pelamar mengakhiri pendaftaran, 3.035.837 memenuhi syarat untuk 250.407 formasi
+  (sekitar 12 per formasi). Nilai SKD tertinggi 509 (Kemenag); Kemendikbudristek 499.
+- **Pendaftar per formasi (BKN, 11 September 2024):** tersepi BRIN 1,0 (khusus S-3), BNPT 5,2, Kemendikbudristek 5,8
+  (pendaftarannya masih dibuka sampai 13 September), Kemenko PMK 6,0, Kemhan 6,6; terpadat Kemenkumham 62,7, BKKBN 33,1,
+  Kemenkeu 31,8, Kominfo 20,7. Pendaftar belum tentu memenuhi syarat atau hadir, jadi pesaing nyata di SKD lebih sedikit.
+- **Nilai SKD terendah yang lolos ke SKB, dari laporan resmi SSCASN (median per kursi):** Kemhan 336 (848 formasi,
+  5,8 peserta hadir per kursi, 32% lulus ambang batas), Kemensetneg 389, Mahkamah Agung 313 (banyak formasi besar kekurangan
+  peserta yang lulus ambang batas), Kemenko PMK 360, Wantannas 393.
+- **Skor 410:** pada 2024 cukup untuk masuk SKB di 88–98% formasi kelima instansi itu. Contoh jabatan yang relevan:
+  Arsiparis Ahli Pertama Setneg (nilai terendah lolos SKB 387), Pranata Humas Ahli Pertama Setneg (375–403), Arsiparis Ahli
+  Pertama MA (338). Formasi yang sangat padat (misalnya Kemenkumham) kemungkinan membutuhkan skor lebih tinggi, tetapi
+  laporannya belum bisa diunduh terbuka.
+
+## 6. Yang dicek begitu lampiran terbit (27 November)
 
 1. Nama prodi persis **S-1 ILMU KOMUNIKASI** di kolom kualifikasi. Cek juga penulisan prodi di ijazah (Communication Science).
 2. Formasi itu tenaga teknis/tenaga kependidikan, bukan dosen atau guru.
@@ -79,6 +96,10 @@ Pemindaian harian otomatis memakai urutan yang sama: Kemendikdasmen (tenaga kepe
 (PTN, LLDIKTI, SMA Unggul Garuda), pendidikan Kemenag, BPS, lalu instansi pusat lain.
 
 ## Sumber
+
+- BKN, Laporan Kinerja PPSS 2024: https://www.bkn.go.id/wp-content/uploads/2025/06/LKj_PPSS_2024.pdf
+- Okezone (data BKN 11 September 2024), instansi terbanyak dan tersepi pelamar: https://economy.okezone.com/read/2024/09/12/320/3061891/pendaftar-cpns-2024-tembus-3-8-juta-orang-cek-10-instansi-terfavorit-dan-sepi-peminat
+- Laporan hasil SKD/integrasi resmi: Kemhan, Kemensetneg, Mahkamah Agung, Kemenko PMK, Wantannas (tautan di aplikasi)
 
 - ANTARA, pemerintah resmi buka 154.052 formasi CPNS 2026 (25 Nov 2026): https://megapolitan.antaranews.com/berita/564887/pemerintah-resmi-buka-pendaftaran-seleksi-cpns-2026-dengan-154052-formasi
 - Medcom, 3.621 guru dan tendik serta 26.614 dosen dan tenaga teknis kependidikan tinggi (25 Nov 2026): https://www.medcom.id/pendidikan/news-pendidikan/nbw5AJ3K-cpns-2026-buka-30-235-formasi-guru-dan-dosen-fresh-graduate-boleh-daftar
