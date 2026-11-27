@@ -140,3 +140,7 @@ disimpan di localStorage dengan kunci `skd.formasi.v1` (tidak ikut sinkron).
 - [x] 27 Nov 2026: menu Formasi, bagian "Data CPNS 2024 dan tahun sebelumnya": riwayat resmi lintas tahun (MA 2021/2023, Kemensetneg 2019,
   Kemenko PMK 2019, PPATK 2023), riwayat nasional sejak 2000-an, dan 56 kementerian/lembaga (resmi + perkiraan berentang; cara hitung
   di `model`, `data/skd2024.js`). Laporan yang menolak akses (BPS, Kemenag, Komdigi, BKN, Bappenas, dll.) tetap belum termasuk.
+- [x] 27 Nov 2026: menu Gaji & tunjangan (REA dari situs pembanding, angka dari dokumen resmi): kalkulator CPNS/PNS, peringkat instansi,
+  tabel tukin per kelas (pola A–D, 53 instansi), tabel gaji pokok PP 5/2024. Belum terbaca: Kemenkes, Kemenkeu (peringkat 1–27), Kemlu,
+  Kementan, Kemenhub, Kemenperin, Kemendag, BSSN, Kejaksaan, MA, BPKP, KemenPANRB, Bappenas, Kemensos, BPOM, BMKG, BRIN, BKN, BPK.
+- [ ] Bila PP gaji baru atau Perpres tukin baru terbit: perbarui `data/tunjangan.js` (generator di luar repo, angka dibaca dari salinan resmi).

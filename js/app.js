@@ -56,6 +56,7 @@
     riwayat: "M4 19h16M7 16V10M12 16V6M17 16v-3",
     peta: "M9 4 3 6v14l6-2 6 2 6-2V4l-6 2zM9 4v14M15 6v14",
     formasi: "M3 21h18M5 21V8l7-5 7 5v13M9 21v-6h6v6",
+    gaji: "M12 4c3.9 0 7 1.3 7 3s-3.1 3-7 3-7-1.3-7-3 3.1-3 7-3zM5 7v5c0 1.7 3.1 3 7 3s7-1.3 7-3V7M5 12v5c0 1.7 3.1 3 7 3s7-1.3 7-3v-5",
     audio: "M4 14v-2a8 8 0 0 1 16 0v2M4 14h3v6H4zM17 14h3v6h-3z",
     atur: "M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM19.4 15a1.6 1.6 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.6 1.6 0 0 0-2.7 1.1V21a2 2 0 1 1-4 0v-.1a1.6 1.6 0 0 0-2.7-1.1l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1A1.6 1.6 0 0 0 3 13.9H3a2 2 0 1 1 0-4h.1a1.6 1.6 0 0 0 1.1-2.7l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.6 1.6 0 0 0 2.7-1.1V3a2 2 0 1 1 4 0v.1a1.6 1.6 0 0 0 2.7 1.1l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.6 1.6 0 0 0 1.1 2.7H21a2 2 0 1 1 0 4h-.1a1.6 1.6 0 0 0-1.5 1z",
     panah: "M9 6l6 6-6 6"
@@ -485,6 +486,7 @@
           quickCard("ulang", "Ulangi soal salah", review ? review + " soal menunggu" : "Belum ada", function () { go("ulang"); }),
           quickCard("audio", "Audio hafalan", "Per bagian, tanpa hitungan", null, "https://github.com/serfusion/cpns/releases?q=Audio+Hafalan"),
           quickCard("formasi", "Strategi formasi", "S-1 Ilmu Komunikasi", function () { go("formasi"); }),
+          quickCard("gaji", "Gaji & tunjangan", "Gaji pokok, tukin per instansi", function () { go("gaji"); }),
           quickCard("peta", "Peta materi", "Pola yang sering keluar", function () { go("peta"); }))),
       h("p", { class: "fine" }, "Ambang batas mengikuti KepmenPANRB 674/2026 untuk kebutuhan umum (TWK " + passOf("twk") + ", TIU " + passOf("tiu") + ", TKP " + passOf("tkp") + "), sama dengan 2024. Lulusan cumlaude dan diaspora memakai nilai kumulatif minimal 311 dengan TIU minimal 85.")
     ];
@@ -1037,6 +1039,11 @@
     return SKD.formasiView({ h: h, toast: toast, rerender: function () { render(); }, history: function () { return S.history(); } });
   }
 
+  // ---------- gaji & tunjangan ----------
+  function viewGaji() {
+    return SKD.gajiView({ h: h, toast: toast });
+  }
+
   // ---------- pengaturan ----------
   function viewAtur() {
     var set = S.settings();
@@ -1077,7 +1084,7 @@
   // ---------- router ----------
   var VIEWS = {
     beranda: viewHome, tryout: viewTryout, persiapan: viewPersiapan, ujian: viewUjian, nilai: viewNilai, hasil: viewHasil, bahas: viewBahas, lembar: viewLembar,
-    latihan: viewLatihan, kerjakan: viewKerjakan, ulang: viewUlang, riwayat: viewRiwayat, peta: viewPeta, formasi: viewFormasi, atur: viewAtur
+    latihan: viewLatihan, kerjakan: viewKerjakan, ulang: viewUlang, riwayat: viewRiwayat, peta: viewPeta, formasi: viewFormasi, gaji: viewGaji, atur: viewAtur
   };
   var ALIAS = { simulasi: "tryout", statistik: "riwayat" };
   var CAT_ROUTES = { persiapan: 1, ujian: 1, nilai: 1 };

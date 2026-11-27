@@ -511,6 +511,20 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
 .fm-checks { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; max-width: 80ch; }
 .fm-checks li { display: flex; gap: 10px; align-items: flex-start; font-size: 0.875rem; }
 .fm-checks .tag { flex: none; min-width: 78px; justify-content: center; margin-top: 2px; }
+.gj-total { border-color: var(--navy-2); }
+#gj-gol { min-width: 6.5em; }
+.gj-total .v { font-size: 1.9rem; }
+.gj-rinci, .gj-rank { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; max-width: 80ch; }
+.gj-rinci li { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; padding: 9px 0; border-bottom: 1px solid var(--line); font-size: 0.9rem; }
+.gj-rinci li > span:first-child { min-width: 0; }
+.gj-v { font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.gj-rank { counter-reset: gj; }
+.gj-rank li { counter-increment: gj; display: grid; grid-template-columns: 2.2em minmax(0, 1fr) auto; column-gap: 8px; padding: 7px 8px; border-radius: var(--r-sm); font-size: 0.875rem; }
+.gj-rank li::before { content: counter(gj) "."; color: var(--muted); grid-row: span 2; }
+.gj-rank li > span:first-of-type { min-width: 0; overflow-wrap: anywhere; }
+.gj-rank .gj-sub { grid-column: 2 / 4; }
+.gj-rank li.on { background: var(--accent-soft); }
+tr.gj-on td { background: var(--accent-soft); font-weight: 700; }
 .fm-inst { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; max-width: 80ch; }
 .fm-inst li { border: 1px solid var(--line); border-radius: var(--r-md); padding: 10px 12px; display: flex; flex-direction: column; gap: 4px; font-size: 0.875rem; min-width: 0; }
 .fm-inst .row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
@@ -575,6 +589,7 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
   <a href="#riwayat" data-r="riwayat" data-i="riwayat">Riwayat &amp; statistik</a>
   <a href="#peta" data-r="peta" data-i="peta">Peta materi</a>
   <a href="#formasi" data-r="formasi" data-i="formasi">Strategi formasi</a>
+  <a href="#gaji" data-r="gaji" data-i="gaji">Gaji &amp; tunjangan</a>
   <a href="https://github.com/serfusion/cpns/releases?q=Audio+Hafalan" data-x="1" data-i="audio" target="_blank" rel="noopener">Audio hafalan</a>
   <a href="#atur" data-r="atur" data-i="atur">Pengaturan</a>
   <p class="drawer-foot">Latihan mandiri. Tidak berafiliasi dengan BKN atau KemenPANRB. Soal disusun mengikuti kisi-kisi SKD dan bukan soal resmi.</p>
@@ -7523,11 +7538,280 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
           D.pendidikan ? h("button", { class: "btn", type: "button", onclick: function () { scrollTo("fm-didik"); } }, "Fokus pendidikan") : null,
           SKD.skd2024 ? h("button", { class: "btn", type: "button", onclick: function () { scrollTo("fm-2024"); } }, "Data 2024") : null,
           PD ? h("button", { class: "btn", type: "button", onclick: function () { scrollTo("fm-pemda"); } }, "Prioritas Pemda") : null,
+          SKD.tunjangan ? h("a", { class: "btn", href: "#gaji" }, "Gaji & tunjangan") : null,
           D.dokumen ? h("a", { class: "btn", href: D.dokumen, target: "_blank", rel: "noopener" }, "Dokumen PDF") : null)),
       h("section", { class: "panel", "aria-labelledby": "fm-status" }, h("h2", { id: "fm-status" }, "Status per " + D.tanggal), h("ul", { class: "plain-list" }, D.status.map(function (t) { return h("li", null, t); }))),
       h("div", { class: "tiles" }, D.angka.map(function (a) { return h("div", { class: "tile" }, h("span", { class: "v" }, a.v), h("span", { class: "l" }, a.l), h("span", { class: "d" }, a.d)); })),
       pendidikanSec, riwayat, kandidat, pemda, profil, skor, target, pantau, jabatan, validasi, aturan, kalk, langkah, lain, sumber
     ];
+  };
+})();
+
+</script>
+<script>
+/* Gaji dan tunjangan PNS untuk menu "Gaji & tunjangan". Disusun 27 November 2026 dengan teknik REA: fitur situs pembanding dipelajari
+   sebagai pengunjung (kalkulator, perbandingan, katalog instansi, tabel gaji pokok), lalu angkanya diambil ulang dari dokumen resmi.
+   - gapok: Lampiran PP 5/2024 (dibaca dari salinan "sesuai dengan aslinya" Kemensetneg). Belum ada PP gaji baru per November 2026.
+     Kunci golongan berisi pasangan [MKG, gaji pokok]; MKG yang tidak tercantum memakai nilai MKG terdekat di bawahnya.
+   - pola: tabel tunjangan kinerja per kelas jabatan 1-17. Banyak Perpres memakai angka yang sama, jadi disimpan sekali:
+     A Rp2.531.250-Rp33.240.000, B Rp2.575.000-Rp41.550.000, C Rp1.968.000-Rp29.085.000, D Rp1.766.000-Rp24.930.000.
+   - instansi: p = pola, r = dasar hukum, u = salinan yang dibaca, x = kelas tambahan. "rentang: 1" berarti pola dicocokkan dari
+     rentang yang diumumkan setkab.go.id karena salinan Perpres-nya tidak bisa diunduh dari server pembuat data.
+   - belum: instansi yang Perpres-nya belum bisa dibaca; kalkulator memakai isian manual.
+   - komponen: tunjangan keluarga (pasangan 10%, anak 2% maks. 2 anak, PP 7/1977 dan perubahannya), tunjangan pangan Rp72.420
+     per jiwa, tunjangan umum (Perpres 12/2006), uang makan per hari (PMK 32/2025), CPNS menerima 80% gaji pokok. */
+(function () {
+  "use strict";
+  var SKD = (window.SKD = window.SKD || {});
+  SKD.tunjangan = {"tanggal":"27 November 2026","gapok":{"I/a":[[0,1685700],[2,1738800],[4,1793500],[6,1850000],[8,1908300],[10,1968400],[12,2030400],[14,2094300],[16,2160300],[18,2228300],[20,2298500],[22,2370900],[24,2445500],[26,2522600]],"I/b":[[3,1840800],[5,1898800],[7,1958600],[9,2020300],[11,2083900],[13,2149600],[15,2217300],[17,2287100],[19,2359100],[21,2433400],[23,2510100],[25,2589100],[27,2670700]],"I/c":[[3,1918700],[5,1979100],[7,2041500],[9,2105800],[11,2172100],[13,2240500],[15,2311100],[17,2383900],[19,2458900],[21,2536400],[23,2616300],[25,2698700],[27,2783700]],"I/d":[[3,1999900],[5,2062900],[7,2127800],[9,2194800],[11,2264000],[13,2335300],[15,2408800],[17,2484700],[19,2562900],[21,2643700],[23,2726900],[25,2812800],[27,2901400]],"II/a":[[0,2184000],[1,2218400],[3,2288200],[5,2360300],[7,2434600],[9,2511300],[11,2590400],[13,2672000],[15,2756200],[17,2843000],[19,2932500],[21,3024900],[23,3120100],[25,3218400],[27,3319800],[29,3424300],[31,3532200],[33,3643400]],"II/b":[[3,2385000],[5,2460100],[7,2537600],[9,2617500],[11,2700000],[13,2785000],[15,2872700],[17,2963200],[19,3056500],[21,3152800],[23,3252100],[25,3354500],[27,3460200],[29,3569200],[31,3681600],[33,3797500]],"II/c":[[3,2485900],[5,2564200],[7,2645000],[9,2728300],[11,2814200],[13,2902800],[15,2994300],[17,3088600],[19,3185800],[21,3286200],[23,3389700],[25,3496400],[27,3606500],[29,3720100],[31,3837300],[33,3958200]],"II/d":[[3,2591100],[5,2672700],[7,2756800],[9,2843700],[11,2933200],[13,3025600],[15,3120900],[17,3219200],[19,3320600],[21,3425200],[23,3533100],[25,3644300],[27,3759100],[29,3877500],[31,3999600],[33,4125600]],"III/a":[[0,2785700],[2,2873500],[4,2964000],[6,3057300],[8,3153600],[10,3252900],[12,3355400],[14,3461100],[16,3570100],[18,3682500],[20,3798500],[22,3918100],[24,4041500],[26,4168800],[28,4300100],[30,4435500],[32,4575200]],"III/b":[[0,2903600],[2,2995000],[4,3089300],[6,3186600],[8,3287000],[10,3390500],[12,3497300],[14,3607500],[16,3721100],[18,3838300],[20,3959200],[22,4083900],[24,4212500],[26,4345100],[28,4482000],[30,4623200],[32,4768800]],"III/c":[[0,3026400],[2,3121700],[4,3220000],[6,3321400],[8,3426000],[10,3533900],[12,3645200],[14,3760100],[16,3878500],[18,4000600],[20,4126600],[22,4256600],[24,4390700],[26,4528900],[28,4671600],[30,4818700],[32,4970500]],"III/d":[[0,3154400],[2,3253700],[4,3356200],[6,3461900],[8,3571000],[10,3683400],[12,3799400],[14,3919100],[16,4042500],[18,4169900],[20,4301200],[22,4436700],[24,4576400],[26,4720500],[28,4869200],[30,5022500],[32,5180700]],"IV/a":[[0,3287800],[2,3391400],[4,3498200],[6,3608400],[8,3722000],[10,3839200],[12,3960200],[14,4084900],[16,4213500],[18,4346200],[20,4483100],[22,4624300],[24,4770000],[26,4920200],[28,5075200],[30,5235000],[32,5399900]],"IV/b":[[0,3426900],[2,3534800],[4,3646200],[6,3761000],[8,3879500],[10,4001600],[12,4127700],[14,4257700],[16,4391800],[18,4530100],[20,4672800],[22,4819900],[24,4971700],[26,5128300],[28,5289800],[30,5456400],[32,5628300]],"IV/c":[[0,3571900],[2,3684400],[4,3800400],[6,3920100],[8,4043600],[10,4170900],[12,4302300],[14,4437800],[16,4577500],[18,4721700],[20,4870400],[22,5023800],[24,5182000],[26,5345200],[28,5513600],[30,5687200],[32,5866400]],"IV/d":[[0,3723000],[2,3840200],[4,3961200],[6,4085900],[8,4214600],[10,4347300],[12,4484300],[14,4625500],[16,4771200],[18,4921400],[20,5076400],[22,5236300],[24,5401200],[26,5571400],[28,5746800],[30,5927800],[32,6114500]],"IV/e":[[0,3880400],[2,4002700],[4,4128700],[6,4258700],[8,4392900],[10,4531200],[12,4673900],[14,4821100],[16,4973000],[18,5129600],[20,5291200],[22,5457800],[24,5629700],[26,5807000],[28,5989900],[30,6178600],[32,6373200]]},"awal":[{"p":"SMA/SMK","g":"II/a","k":5,"j":"Pelaksana"},{"p":"D-III","g":"II/c","k":6,"j":"Fungsional terampil atau pelaksana"},{"p":"S-1/D-IV","g":"III/a","k":8,"j":"Fungsional ahli pertama (pelaksana S-1 umumnya kelas 7)"},{"p":"S-2","g":"III/b","k":8,"j":"Fungsional ahli pertama"},{"p":"S-3","g":"III/c","k":8,"j":"Fungsional ahli pertama"}],"pola":{"A":[2531250,2708250,2898000,2985000,3134250,3510400,3915950,4595150,5079200,5979200,8757600,9896000,10936000,17064000,19280000,27577500,33240000],"B":[2575000,3154000,3980000,4179000,4607000,4837000,5079000,6349000,7474000,8458000,10947000,12370000,13670000,21330000,24100000,32540000,41550000],"C":[1968000,2089000,2216000,2350000,2493000,2702000,2928000,3319000,3781000,4551000,5183000,7271000,8562000,11670000,14721000,20695000,29085000],"D":[1766000,1867000,1972000,2082000,2199000,2399000,2616000,2927000,3348000,3952000,4519000,6045000,7293000,9600000,12518000,17413000,24930000]},"instansi":[{"n":"Kementerian Pendidikan Tinggi, Sains, dan Teknologi","s":"Kemendiktisaintek","p":"A","r":"Perpres 19/2025","u":"https://nubisub.github.io/remun-notifier/File/Salinan%20Perpres%20Nomor%2019%20Tahun%202025.pdf"},{"n":"Kementerian Pendidikan Dasar dan Menengah","s":"Kemendikdasmen","p":"A","r":"Perpres 18/2025","u":"https://nubisub.github.io/remun-notifier/File/Salinan%20Perpres%20Nomor%2018%20Tahun%202025.pdf"},{"n":"Kementerian Kebudayaan","s":"Kemenbud","p":"A","r":"Perpres 20/2025","u":"https://nubisub.github.io/remun-notifier/File/Salinan%20Perpres%20Nomor%2020%20Tahun%202025.pdf"},{"n":"Kementerian Hukum","s":"Kemenkum","p":"A","r":"Perpres 28/2025","u":"https://nubisub.github.io/remun-notifier/File/Salinan%20Perpres%20Nomor%2028%20Tahun%202025.pdf"},{"n":"Kementerian Hak Asasi Manusia","s":"KemenHAM","p":"A","r":"Perpres 29/2025","u":"https://nubisub.github.io/remun-notifier/File/Salinan%20Perpres%20Nomor%2029%20Tahun%202025.pdf"},{"n":"Kementerian Imigrasi dan Pemasyarakatan","s":"KemenImipas","p":"A","r":"Perpres 30/2025","u":"https://nubisub.github.io/remun-notifier/File/Salinan%20Perpres%20Nomor%2030%20Tahun%202025.pdf"},{"n":"Kementerian Pelindungan Pekerja Migran Indonesia/BP2MI","s":"KemenP2MI","p":"A","r":"Perpres 31/2025","u":"https://nubisub.github.io/remun-notifier/File/Salinan%20Perpres%20Nomor%2031%20Tahun%202025.pdf"},{"n":"Kementerian Kehutanan","s":"Kemenhut","p":"A","r":"Perpres 34/2025","u":"https://nubisub.github.io/remun-notifier/File/Salinan%20Perpres%20Nomor%2034%20Tahun%202025.pdf"},{"n":"Kementerian Lingkungan Hidup/Badan Pengendalian Lingkungan Hidup","s":"KLH/BPLH","p":"A","r":"Perpres 35/2025","u":"https://nubisub.github.io/remun-notifier/File/Salinan%20Perpres%20Nomor%2035%20Tahun%202025.pdf"},{"n":"Kementerian Kependudukan dan Pembangunan Keluarga/BKKBN","s":"Kemendukbangga","p":"A","r":"Perpres 36/2025","u":"https://nubisub.github.io/remun-notifier/File/Salinan%20Perpres%20Nomor%2036%20Tahun%202025.pdf"},{"n":"Kementerian Usaha Mikro, Kecil, dan Menengah","s":"Kemen UMKM","p":"A","r":"Perpres 37/2025","u":"https://nubisub.github.io/remun-notifier/File/Salinan%20Perpres%20Nomor%2037%20Tahun%202025.pdf"},{"n":"Kementerian Koperasi","s":"Kemenkop","p":"A","r":"Perpres 38/2025","u":"https://nubisub.github.io/remun-notifier/File/Salinan%20Perpres%20Nomor%2038%20Tahun%202025.pdf"},{"n":"Kementerian Pariwisata","s":"Kemenpar","p":"A","r":"Perpres 39/2025","u":"https://nubisub.github.io/remun-notifier/File/Salinan%20Perpres%20Nomor%2039%20Tahun%202025.pdf"},{"n":"Kementerian Ekonomi Kreatif/Badan Ekonomi Kreatif","s":"Kemenekraf","p":"A","r":"Perpres 40/2025","u":"https://nubisub.github.io/remun-notifier/File/Salinan%20Perpres%20Nomor%2040%20Tahun%202025.pdf"},{"n":"Kementerian Desa dan Pembangunan Daerah Tertinggal","s":"Kemendes PDT","p":"A","r":"Perpres 41/2025","u":"https://nubisub.github.io/remun-notifier/File/Salinan%20Perpres%20Nomor%2041%20Tahun%202025.pdf"},{"n":"Kementerian Transmigrasi","s":"Kementrans","p":"A","r":"Perpres 42/2025","u":"https://nubisub.github.io/remun-notifier/File/Salinan%20Perpres%20Nomor%2042%20Tahun%202025.pdf"},{"n":"Kementerian Komunikasi dan Digital","s":"Komdigi","p":"A","r":"Perpres 43/2025","u":"https://nubisub.github.io/remun-notifier/File/Salinan%20Perpres%20Nomor%2043%20Tahun%202025.pdf"},{"n":"Kementerian Investasi dan Hilirisasi/BKPM","s":"Kementerian Investasi","p":"A","r":"Perpres 44/2025","u":"https://nubisub.github.io/remun-notifier/File/Salinan%20Perpres%20Nomor%2044%20Tahun%202025.pdf"},{"n":"Kemenko Politik dan Keamanan","s":"Kemenko Polkam","p":"A","r":"Perpres 23/2025","u":"https://nubisub.github.io/remun-notifier/File/Salinan%20Perpres%20Nomor%2023%20Tahun%202025.pdf"},{"n":"Kemenko Hukum, HAM, Imigrasi, dan Pemasyarakatan","s":"Kemenko Kumham Imipas","p":"A","r":"Perpres 24/2025","u":"https://nubisub.github.io/remun-notifier/File/Salinan%20Perpres%20Nomr%2024%20Tahun%202025.pdf"},{"n":"Kemenko Infrastruktur dan Pembangunan Kewilayahan","s":"Kemenko IPK","p":"A","r":"Perpres 25/2025","u":"https://nubisub.github.io/remun-notifier/File/Salinan%20Perpres%20Nomor%2025%20Tahun%202025.pdf"},{"n":"Kemenko Pangan","s":"Kemenko Pangan","p":"A","r":"Perpres 26/2025","u":"https://nubisub.github.io/remun-notifier/File/Salinan%20Perpres%20Nomor%2026%20Tahun%202025.pdf"},{"n":"Kemenko Pemberdayaan Masyarakat","s":"Kemenko PM","p":"A","r":"Perpres 27/2025","u":"https://nubisub.github.io/remun-notifier/File/Salinan%20Perpres%20Nomor%2027%20Tahun%202025.pdf"},{"n":"Kemenko Pembangunan Manusia dan Kebudayaan","s":"Kemenko PMK","p":"A","r":"Perpres 102/2024","u":"https://nubisub.github.io/remun-notifier/File/Salinan%20Perpres%20Nomor%20102%20Tahun%202024.pdf"},{"n":"Kementerian Ketenagakerjaan","s":"Kemnaker","p":"A","r":"Perpres 133/2024","u":"https://nubisub.github.io/remun-notifier/File/Salinan%20Perpres%20133%20Tahun%202024.pdf"},{"n":"Kementerian Pemberdayaan Perempuan dan Perlindungan Anak","s":"KemenPPPA","p":"A","r":"Perpres 71/2024","u":"https://nubisub.github.io/remun-notifier/File/Salinan%20Perpres%20Nomor%2071%20Tahun%202024.pdf"},{"n":"Kementerian Agraria dan Tata Ruang/BPN","s":"ATR/BPN","p":"A","r":"Perpres 6/2024","u":"https://nubisub.github.io/remun-notifier/File/Salinan%20Perpres%20Nomor%206%20Tahun%202024.pdf"},{"n":"Badan Gizi Nasional","s":"BGN","p":"A","r":"Perpres 74/2025","u":"https://nubisub.github.io/remun-notifier/File/Salinan%20Perpres%20Nomor%2074%20Tahun%202025.pdf"},{"n":"Badan Karantina Indonesia","s":"Barantin","p":"A","r":"Perpres 73/2025","u":"https://nubisub.github.io/remun-notifier/File/Salinan%20Perpres%20Nomor%2073%20Tahun%202025.pdf"},{"n":"Badan Nasional Pencarian dan Pertolongan","s":"Basarnas","p":"A","r":"Perpres 118/2024","u":"https://nubisub.github.io/remun-notifier/File/Salinan%20Perpres%20Nomor%20118%20Tahun%202024.pdf"},{"n":"Badan Nasional Penanggulangan Bencana","s":"BNPB","p":"A","r":"Perpres 204/2024","u":"https://nubisub.github.io/remun-notifier/File/Salinan%20Perpres%20Nomor%20204%20Tahun%202024.pdf"},{"n":"Badan Narkotika Nasional","s":"BNN","p":"A","r":"Perpres 78/2024","u":"https://nubisub.github.io/remun-notifier/File/Salinan%20Perpres%20Nomor%2078%20Tahun%202024.pdf"},{"n":"Perpustakaan Nasional","s":"Perpusnas","p":"A","r":"Perpres 205/2024","u":"https://nubisub.github.io/remun-notifier/File/Salinan%20Perpres%20Nomor%20205%20Tahun%202024.pdf"},{"n":"Badan Pengawas Tenaga Nuklir","s":"Bapeten","p":"A","r":"Perpres 30/2024","u":"https://nubisub.github.io/remun-notifier/File/Salinan%20Perpres%20Nomor%2030%20Tahun%202024.pdf"},{"n":"Badan Standardisasi Nasional","s":"BSN","p":"A","r":"Perpres 5/2024","u":"https://nubisub.github.io/remun-notifier/File/Salinan%20Perpres%20Nomor%205%20Tahun%202024.pdf"},{"n":"Badan Pusat Statistik","s":"BPS","p":"A","r":"Perpres 99/2018","u":"https://setkab.go.id/wp-content/uploads/2018/11/Perpres-Nomor-99-Tahun-2018-2.pdf"},{"n":"Kementerian Pekerjaan Umum","s":"Kementerian PU","p":"B","r":"Perpres 32/2025","u":"https://nubisub.github.io/remun-notifier/File/Salinan%20Perpres%20Nomor%2032%20Tahun%202025.pdf"},{"n":"Kementerian Perumahan dan Kawasan Permukiman","s":"Kementerian PKP","p":"B","r":"Perpres 33/2025","u":"https://nubisub.github.io/remun-notifier/File/Salinan%20Perpres%20Nomor%2033%20Tahun%202025.pdf"},{"n":"Kementerian Sekretariat Negara","s":"Kemensetneg","p":"B","r":"Perpres 45/2025","u":"https://nubisub.github.io/remun-notifier/File/Salinan%20Perpres%20Nomor%2045%20Tahun%202025.pdf","x":{"18":46950000}},{"n":"Badan Intelijen Negara","s":"BIN","p":"B","r":"Perpres 203/2024","u":"https://nubisub.github.io/remun-notifier/File/Salinan%20Perpres%20Nomor%20203%20Tahun%202024.pdf"},{"n":"Sekretariat Jenderal DPR RI","s":"Setjen DPR","p":"B","r":"Perpres 135/2024","u":"https://nubisub.github.io/remun-notifier/File/Salinan%20Perpres%20Nomor%20135%20Tahun%202024.pdf","c":"Jabatan non-grade: Rp41.550.000."},{"n":"Kementerian Agama","s":"Kemenag","p":"C","r":"Perpres 130/2018","u":"https://luk.staff.ugm.ac.id/atur/Perpres130-2018TukinKemenag.pdf"},{"n":"Kementerian Pemuda dan Olahraga","s":"Kemenpora","p":"C","r":"Perpres 47/2025","u":"https://nubisub.github.io/remun-notifier/File/Salinan%20Perpres%20Nomor%2047%20Tahun%202025.pdf"},{"n":"Sekretariat Jenderal Bawaslu","s":"Bawaslu","p":"C","r":"Perpres 18/2024","u":"https://nubisub.github.io/remun-notifier/File/Salinan%20Perpres%20Nomor%2018%20Tahun%202024.pdf"},{"n":"Badan Nasional Pengelola Perbatasan","s":"BNPP","p":"C","r":"Perpres 51/2024","u":"https://nubisub.github.io/remun-notifier/File/Salinan%20Perpres%20Nomor%2051%20Tahun%202024.pdf"},{"n":"Sekretariat Jenderal Komnas HAM","s":"Komnas HAM","p":"C","r":"Perpres 94/2024","u":"https://nubisub.github.io/remun-notifier/File/Salinan%20Perpres%20Nomor%2094%20Tahun%202024.pdf"},{"n":"Badan Penyelenggara Jaminan Produk Halal","s":"BPJPH","p":"C","r":"Perpres 101/2025","u":"https://nubisub.github.io/remun-notifier/File/Salinan%20Perpres%20Nomor%20101%20Tahun%202025.pdf"},{"n":"LPP Televisi Republik Indonesia","s":"TVRI","p":"D","r":"Perpres 62/2024","u":"https://nubisub.github.io/remun-notifier/File/Salinan%20Perpres%20Nomor%2062%20Tahun%202024.pdf"},{"n":"Badan Keamanan Laut","s":"Bakamla","p":"D","r":"Perpres 97/2024","u":"https://nubisub.github.io/remun-notifier/File/Salinan%20Perpres%20Nomor%2097%20Tahun%202024.pdf"},{"n":"Kementerian Energi dan Sumber Daya Mineral","s":"ESDM","p":"A","r":"Perpres 94/2018","u":"https://setkab.go.id/tunjangan-kinerja-pegawai-kementerian-esdm-kini-jadi-rp2531-juta-rp33240-juta/","rentang":1},{"n":"Kementerian Kelautan dan Perikanan","s":"KKP","p":"A","r":"Perpres 131/2017","u":"https://setkab.go.id/tunjangan-kinerja-pegawai-kementerian-kelautan-dan-perikanan-jadi-rp2531-juta-rp33240-juta/","rentang":1},{"n":"Kementerian Pertahanan","s":"Kemhan","p":"C","r":"Perpres 104/2018","u":"https://setkab.go.id/tunjangan-kinerja-pegawai-kementerian-pertahanan-kini-jadi-rp1968-juta-rp29085-juta/","rentang":1},{"n":"Badan Informasi Geospasial","s":"BIG","p":"C","r":"Perpres 36/2019","u":"https://setkab.go.id/tunjangan-kinerja-pegawai-badan-informasi-geospasial-jadi-rp1968-juta-rp29085-juta/","rentang":1}],"belum":[{"n":"Kementerian Kesehatan","r":"Perpres 127/2018"},{"n":"Kementerian Keuangan","r":"Perpres 156/2014 jo. 111/2017 (peringkat jabatan 1–27, bukan kelas 1–17)"},{"n":"Kementerian Luar Negeri","r":"Perpres 124/2018"},{"n":"Kementerian Pertanian","r":"Perpres 121/2018"},{"n":"Kementerian Perhubungan","r":"Perpres 119/2018"},{"n":"Kementerian Perindustrian","r":"Perpres 120/2018"},{"n":"Kementerian Perdagangan","r":"Perpres 122/2018"},{"n":"Badan Siber dan Sandi Negara","r":"Perpres 12/2020"},{"n":"Kejaksaan RI","r":"Perpres 29/2020"},{"n":"Mahkamah Agung","r":"Perpres 8/2020"},{"n":"BPKP","r":"Perpres 34/2023 (berita: Rp2,575 jt–Rp41,55 jt)"},{"n":"Kementerian PANRB dan Kementerian PPN/Bappenas","r":"Perpres 2023 (berita: tertinggi Rp41,55 jt)"},{"n":"Kementerian Sosial","r":"–"},{"n":"Kementerian Dalam Negeri","r":"–"},{"n":"BPOM, BMKG, BRIN, BKN, BPK, KPK, Polri","r":"–"}],"komponen":{"pasangan":0.1,"anak":0.02,"maksAnak":2,"pangan":72420,"umum":{"I":175000,"II":180000,"III":185000,"IV":190000},"makan":{"I":35000,"II":35000,"III":37000,"IV":41000},"hari":21,"cpns":0.8,"tukinCpns":0.8},"sumber":[{"t":"PP 5/2024: gaji pokok PNS (Lampiran, salinan sesuai aslinya)","u":"https://peraturan.bpk.go.id/Details/276755/pp-no-5-tahun-2024"},{"t":"Katadata (28 Juli 2026): gaji pokok PNS 2026 masih PP 5/2024","u":"https://katadata.co.id/lifestyle/varia/6a68295f4716d/daftar-gaji-pns-2026-dan-tunjangan-lengkap-setiap-golongan"},{"t":"Salinan Perpres tunjangan kinerja 2024–2025 (salinan Kemensetneg, dikumpulkan remun-notifier)","u":"https://nubisub.github.io/remun-notifier/"},{"t":"Perpres 99/2018 tukin BPS (setkab.go.id)","u":"https://setkab.go.id/wp-content/uploads/2018/11/Perpres-Nomor-99-Tahun-2018-2.pdf"},{"t":"Perpres 12/2006 tunjangan umum PNS (JDIH Kemenkeu)","u":"https://jdih.kemenkeu.go.id/fulltext/2006/12tahun2006perpres.htm"},{"t":"Tunjangan beras Rp7.242/kg x 10 kg per jiwa (Kontan)","u":"https://nasional.kontan.co.id/news/penjelasan-lengkap-mengenai-tunjangan-beras-untuk-pns"},{"t":"Uang makan PNS PMK 32/2025, SBM 2026 (Metro TV)","u":"https://www.metrotvnews.com/read/b2lC650Q-segini-besaran-tunjangan-uang-makan-pns-bisa-rp902-ribubulan"},{"t":"Tunjangan keluarga dan tunjangan lain PNS (detikFinance)","u":"https://finance.detik.com/berita-ekonomi-bisnis/d-6094979/6-tunjangan-yang-diterima-pns-setiap-bulan-di-luar-gaji-pokok"}]};
+})();
+
+</script>
+<script>
+/* Halaman "Gaji & tunjangan": perkiraan penghasilan bulanan CPNS/PNS per instansi pusat, peringkat instansi untuk profil
+   yang dipilih, tabel tunjangan kinerja per kelas jabatan, dan tabel gaji pokok PP 5/2024.
+   Teknik REA: fitur dipelajari dari situs pembanding sebagai pengunjung; kode, teks, dan tampilan ditulis sendiri, angka
+   diambil ulang dari dokumen resmi (data/tunjangan.js). Pilihan pengguna disimpan di localStorage perangkat ini saja. */
+(function () {
+  "use strict";
+  var SKD = (window.SKD = window.SKD || {});
+  var KEY = "skd.gaji.v1";
+  var LAIN = "_lain";
+
+  function rp(n) {
+    var s = String(Math.round(n)), out = "";
+    while (s.length > 3) { out = "." + s.slice(-3) + out; s = s.slice(0, -3); }
+    return "Rp" + s + out;
+  }
+  function juta(n) { return "Rp" + (Math.round(n / 100000) / 10).toString().replace(".", ",") + " jt"; }
+  function roman(gol) { return gol.split("/")[0]; }
+  function num(v, lo, hi, def) { var n = Math.round(Number(v)); return isFinite(n) && n >= lo && n <= hi ? n : def; }
+
+  function load(T) {
+    var d = {};
+    try { d = JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { d = {}; }
+    var pend = T.awal.filter(function (a) { return a.p === d.pend; })[0] || T.awal[2];
+    var s = {
+      inst: typeof d.inst === "string" ? d.inst.slice(0, 60) : "Kemendiktisaintek",
+      pend: pend.p,
+      gol: T.gapok[d.gol] ? d.gol : pend.g,
+      mkg: num(d.mkg, 0, 33, 0),
+      kelas: num(d.kelas, 1, 18, pend.k),
+      status: d.status === "pns" ? "pns" : "cpns",
+      persen: num(d.persen, 0, 100, Math.round(T.komponen.tukinCpns * 100)),
+      jab: d.jab === "fungsional" ? "fungsional" : "umum",
+      tjf: num(d.tjf, 0, 10000000, 0),
+      manual: num(d.manual, 0, 100000000, 0),
+      nikah: d.nikah === true,
+      anak: num(d.anak, 0, 9, 0),
+      hari: num(d.hari, 0, 23, T.komponen.hari),
+      lihatGol: T.gapok[d.lihatGol] ? d.lihatGol : "III/a"
+    };
+    if (s.inst !== LAIN && !T.instansi.some(function (i) { return i.s === s.inst; })) s.inst = "Kemendiktisaintek";
+    return s;
+  }
+
+  // gaji pokok menurut golongan dan MKG: MKG yang tidak tercantum memakai baris terdekat di bawahnya (kenaikan berkala tiap 2 tahun)
+  function gajiPokok(T, gol, mkg) {
+    var rows = T.gapok[gol], v = rows[0][1];
+    rows.forEach(function (r) { if (r[0] <= mkg) v = r[1]; });
+    return v;
+  }
+  function tukinKelas(T, inst, kelas) {
+    if (!inst) return null;
+    if (inst.x && inst.x[kelas]) return inst.x[kelas];
+    var p = T.pola[inst.p];
+    return kelas >= 1 && kelas <= p.length ? p[kelas - 1] : null;
+  }
+  function hitung(T, s, inst) {
+    var K = T.komponen, cpns = s.status === "cpns", gp100 = gajiPokok(T, s.gol, s.mkg);
+    var gp = cpns ? gp100 * K.cpns : gp100;
+    var anak = Math.min(s.anak, K.maksAnak);
+    var r = [];
+    r.push({ k: "Gaji pokok", v: gp, d: s.gol + ", MKG " + s.mkg + (cpns ? " (80% dari " + rp(gp100) + " selama CPNS)" : "") });
+    if (s.nikah) r.push({ k: "Tunjangan suami/istri", v: gp * K.pasangan, d: "10% gaji pokok" });
+    if (anak) r.push({ k: "Tunjangan anak", v: gp * K.anak * anak, d: anak + " anak × 2% gaji pokok" + (s.anak > K.maksAnak ? " (paling banyak 2 anak)" : "") });
+    r.push({ k: "Tunjangan pangan (beras)", v: K.pangan * (1 + (s.nikah ? 1 : 0) + anak), d: (1 + (s.nikah ? 1 : 0) + anak) + " jiwa × " + rp(K.pangan) });
+    if (s.jab === "umum") r.push({ k: "Tunjangan umum", v: K.umum[roman(s.gol)], d: "pelaksana, golongan " + roman(s.gol) });
+    else r.push({ k: "Tunjangan jabatan fungsional", v: s.tjf, d: s.tjf ? "isian Anda" : "isi nominal sesuai Perpres jabatan fungsional Anda" });
+    r.push({ k: "Uang makan", v: K.makan[roman(s.gol)] * s.hari, d: rp(K.makan[roman(s.gol)]) + " × " + s.hari + " hari hadir" });
+    var tk = inst ? tukinKelas(T, inst, s.kelas) : s.manual, pct = cpns ? s.persen / 100 : 1;
+    if (tk != null) r.push({ k: "Tunjangan kinerja", v: tk * pct, d: (inst ? "kelas " + s.kelas + ", " + rp(tk) : "isian Anda") + (cpns ? " × " + s.persen + "% (CPNS)" : "") + ", sebelum potongan kehadiran" });
+    var total = r.reduce(function (a, x) { return a + x.v; }, 0);
+    return { rows: r, total: total, tukin: tk, dasar: total - (tk != null ? tk * pct : 0) };
+  }
+
+  SKD.gajiView = function (ctx) {
+    var h = ctx.h, T = SKD.tunjangan;
+    if (!T) return [h("p", null, "Data gaji dan tunjangan belum dimuat.")];
+    var S = load(T);
+    var save = function () { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} };
+    var instOf = function (s) { return T.instansi.filter(function (i) { return i.s === s; })[0] || null; };
+    var urut = T.instansi.slice().sort(function (a, b) { return a.n < b.n ? -1 : 1; });
+    var th = function (t) { return h("th", { scope: "col" }, t); };
+    var isi = function (el, kids) { while (el.firstChild) el.removeChild(el.firstChild); kids.forEach(function (k) { if (k) el.appendChild(k); }); };
+
+    var hasil = h("div", { class: "stack", id: "gj-hasil" }), peringkat = h("div", { class: "stack", id: "gj-peringkat" });
+    var tabelTukin = h("div", { class: "stack", id: "gj-tukin" }), tabelGapok = h("div", { class: "stack", id: "gj-gapok" });
+    var kelasSel, golSel;
+
+    function hitungUlang() {
+      save();
+      var inst = S.inst === LAIN ? null : instOf(S.inst), H = hitung(T, S, inst);
+      isi(hasil, [
+        h("div", { class: "tile gj-total" }, h("span", { class: "l" }, "Perkiraan penghasilan per bulan" + (S.status === "cpns" ? " selama CPNS" : " sebagai PNS")),
+          h("span", { class: "v", id: "gj-total" }, rp(H.total)),
+          h("span", { class: "d" }, (inst ? inst.n : "Instansi lain (tukin isian)") + " · sebelum pajak dan potongan")),
+        h("ul", { class: "gj-rinci" }, H.rows.map(function (x) {
+          return h("li", null, h("span", null, h("b", null, x.k), h("br"), h("span", { class: "small muted" }, x.d)), h("span", { class: "gj-v" }, rp(x.v)));
+        })),
+        inst && inst.rentang ? h("p", { class: "note warn" }, "Tabel tukin " + inst.s + " dicocokkan dari rentang yang diumumkan Setkab untuk " + inst.r + "; salinan Perpres-nya belum bisa dibaca langsung.") : null,
+        inst ? h("p", { class: "small muted" }, "Dasar tukin: " + inst.r + ". ", h("a", { href: inst.u, target: "_blank", rel: "noopener" }, inst.rentang ? "Berita Setkab" : "Salinan Perpres")) : null
+      ]);
+      isiPeringkat(H);
+      isiTukin(inst);
+    }
+
+    function isiPeringkat(H) {
+      var cpns = S.status === "cpns", pct = cpns ? S.persen / 100 : 1;
+      var L = T.instansi.map(function (i) { var t = tukinKelas(T, i, S.kelas); return { i: i, t: t == null ? 0 : t * pct }; })
+        .sort(function (a, b) { return b.t - a.t || (a.i.n < b.i.n ? -1 : 1); });
+      isi(peringkat, [
+        h("p", { class: "small muted" }, "Kelas jabatan " + S.kelas + ", " + S.gol + (cpns ? ", status CPNS (tukin " + S.persen + "%)" : ", status PNS") + ". Komponen selain tukin sama di semua instansi: " + rp(H.dasar) + " per bulan."),
+        h("ol", { class: "gj-rank" }, L.map(function (x) {
+          return h("li", { class: x.i.s === S.inst ? "on" : null },
+            h("span", null, h("b", null, x.i.s), " ", h("span", { class: "small muted" }, x.i.n + (x.i.rentang ? " (dari rentang Setkab)" : ""))),
+            h("span", { class: "gj-v" }, juta(H.dasar + x.t)), h("span", { class: "small muted gj-sub" }, "tukin " + rp(x.t)));
+        }))
+      ]);
+    }
+
+    function isiTukin(inst) {
+      var p = inst ? T.pola[inst.p] : null;
+      if (!p) { isi(tabelTukin, [h("p", { class: "small muted" }, "Pilih instansi untuk melihat tabel tunjangan kinerjanya.")]); return; }
+      var rows = [];
+      if (inst.x) Object.keys(inst.x).forEach(function (k) { rows.push([Number(k), inst.x[k]]); });
+      for (var k = p.length; k >= 1; k--) rows.push([k, p[k - 1]]);
+      isi(tabelTukin, [
+        h("p", { class: "small" }, h("b", null, inst.n), " · " + inst.r + " · pola " + inst.p + (inst.c ? ". " + inst.c : "")),
+        h("div", { class: "qtable fm-tbl" }, h("table", null,
+          h("thead", null, h("tr", null, th("Kelas"), th("Tukin penuh"), th("80% (CPNS)"))),
+          h("tbody", null, rows.map(function (r) {
+            return h("tr", { class: r[0] === S.kelas ? "gj-on" : null }, h("td", null, String(r[0])), h("td", null, rp(r[1])), h("td", null, rp(r[1] * 0.8)));
+          }))))
+      ]);
+    }
+
+    function isiGapok() {
+      var rows = T.gapok[S.lihatGol];
+      isi(tabelGapok, [h("div", { class: "qtable fm-tbl" }, h("table", null,
+        h("thead", null, h("tr", null, th("MKG (tahun)"), th("Gaji pokok PNS"), th("CPNS (80%)"))),
+        h("tbody", null, rows.map(function (r) { return h("tr", null, h("td", null, String(r[0])), h("td", null, rp(r[1])), h("td", null, rp(r[1] * 0.8))); }))))]);
+    }
+
+    function setPend(p) {
+      var a = T.awal.filter(function (x) { return x.p === p; })[0];
+      S.pend = a.p; S.gol = a.g; S.kelas = a.k;
+      if (golSel) golSel.value = S.gol;
+      if (kelasSel) kelasSel.value = String(S.kelas);
+      hitungUlang();
+    }
+
+    var seg = function (name, opts, cur, on) {
+      return h("div", { class: "seg", role: "group", "aria-label": name }, opts.map(function (o) {
+        return h("button", { type: "button", "aria-pressed": cur === o[0] ? "true" : "false", onclick: function (e) {
+          Array.prototype.forEach.call(e.currentTarget.parentNode.children, function (b) { b.setAttribute("aria-pressed", "false"); });
+          e.currentTarget.setAttribute("aria-pressed", "true"); on(o[0]);
+        } }, o[1]);
+      }));
+    };
+    var golList = Object.keys(T.gapok);
+    var kelasMax = 18;
+
+    kelasSel = h("select", { class: "input wide", id: "gj-kelas", onchange: function (e) { S.kelas = num(e.target.value, 1, 18, 8); hitungUlang(); } },
+      (function () { var o = []; for (var k = kelasMax; k >= 1; k--) o.push(h("option", { value: String(k), selected: S.kelas === k }, "Kelas " + k + (k === 8 ? " (ahli pertama)" : k === 7 ? " (pelaksana S-1)" : k === 6 ? " (terampil D-III)" : k === 5 ? " (pelaksana SLTA)" : ""))); return o; })());
+    golSel = h("select", { class: "input wide", id: "gj-gol", onchange: function (e) { S.gol = e.target.value; hitungUlang(); } },
+      golList.map(function (g) { return h("option", { value: g, selected: S.gol === g }, g); }));
+    var manualField = h("label", { class: "field", hidden: S.inst !== LAIN }, h("span", { class: "label" }, "Tukin per bulan (isi sendiri)"),
+      h("input", { class: "input", id: "gj-manual", inputmode: "numeric", value: S.manual || "", placeholder: "4595150",
+        oninput: function (e) { S.manual = num(String(e.target.value).replace(/\D/g, ""), 0, 100000000, 0); hitungUlang(); } }));
+    var tjfField = h("label", { class: "field", hidden: S.jab !== "fungsional" }, h("span", { class: "label" }, "Tunjangan jabatan fungsional per bulan"),
+      h("input", { class: "input", id: "gj-tjf", inputmode: "numeric", value: S.tjf || "", placeholder: "540000",
+        oninput: function (e) { S.tjf = num(String(e.target.value).replace(/\D/g, ""), 0, 10000000, 0); hitungUlang(); } }));
+    var persenField = h("label", { class: "field", hidden: S.status !== "cpns" }, h("span", { class: "label" }, "Tukin CPNS (%)"),
+      h("input", { class: "input", id: "gj-persen", type: "number", min: 0, max: 100, inputmode: "numeric", value: S.persen,
+        oninput: function (e) { var v = num(e.target.value, 0, 100, -1); if (v >= 0) { S.persen = v; hitungUlang(); } } }));
+
+    var kalk = h("section", { class: "panel", "aria-labelledby": "gj-kalk" },
+      h("h2", { id: "gj-kalk" }, "Kalkulator penghasilan"),
+      h("div", { class: "fm-form" },
+        h("label", { class: "field grow" }, h("span", { class: "label" }, "Instansi"),
+          h("select", { class: "input wide", id: "gj-inst", onchange: function (e) { S.inst = e.target.value; manualField.hidden = S.inst !== LAIN; hitungUlang(); } },
+            urut.map(function (i) { return h("option", { value: i.s, selected: S.inst === i.s }, i.s + " · " + i.n); })
+              .concat([h("option", { value: LAIN, selected: S.inst === LAIN }, "Instansi lain (isi tukin sendiri)")]))),
+        manualField,
+        h("label", { class: "field grow" }, h("span", { class: "label" }, "Pendidikan (golongan awal)"),
+          h("select", { class: "input wide", id: "gj-pend", onchange: function (e) { setPend(e.target.value); } },
+            T.awal.map(function (a) { return h("option", { value: a.p, selected: S.pend === a.p }, a.p + " → " + a.g); }))),
+        h("label", { class: "field" }, h("span", { class: "label" }, "Golongan"), golSel),
+        h("label", { class: "field" }, h("span", { class: "label" }, "MKG (tahun)"),
+          h("input", { class: "input", id: "gj-mkg", type: "number", min: 0, max: 33, inputmode: "numeric", value: S.mkg,
+            oninput: function (e) { var v = num(e.target.value, 0, 33, -1); if (v >= 0) { S.mkg = v; hitungUlang(); } } })),
+        h("label", { class: "field grow" }, h("span", { class: "label" }, "Kelas jabatan"), kelasSel)),
+      h("div", { class: "field" }, h("span", { class: "label" }, "Status"),
+        seg("Status", [["cpns", "CPNS (tahun pertama)"], ["pns", "PNS"]], S.status, function (v) { S.status = v; persenField.hidden = v !== "cpns"; hitungUlang(); })),
+      h("div", { class: "fm-form" }, persenField,
+        h("label", { class: "field" }, h("span", { class: "label" }, "Hari hadir"),
+          h("input", { class: "input", id: "gj-hari", type: "number", min: 0, max: 23, inputmode: "numeric", value: S.hari,
+            oninput: function (e) { var v = num(e.target.value, 0, 23, -1); if (v >= 0) { S.hari = v; hitungUlang(); } } })),
+        h("label", { class: "field" }, h("span", { class: "label" }, "Jumlah anak"),
+          h("input", { class: "input", id: "gj-anak", type: "number", min: 0, max: 9, inputmode: "numeric", value: S.anak,
+            oninput: function (e) { var v = num(e.target.value, 0, 9, -1); if (v >= 0) { S.anak = v; hitungUlang(); } } }))),
+      h("label", { class: "check" }, h("input", { type: "checkbox", id: "gj-nikah", checked: S.nikah, onchange: function (e) { S.nikah = e.target.checked; hitungUlang(); } }),
+        h("span", null, "Sudah menikah (tunjangan suami/istri)")),
+      h("div", { class: "field" }, h("span", { class: "label" }, "Tunjangan jabatan"),
+        seg("Tunjangan jabatan", [["umum", "Tunjangan umum (pelaksana)"], ["fungsional", "Jabatan fungsional"]], S.jab, function (v) { S.jab = v; tjfField.hidden = v !== "fungsional"; hitungUlang(); })),
+      tjfField,
+      hasil,
+      h("p", { class: "note info" }, "Perkiraan bruto sebelum pajak, iuran BPJS Kesehatan, dan iuran pensiun. Tukin yang benar-benar dibayar mengikuti capaian kinerja dan kehadiran. Selama CPNS gaji pokok dibayar 80%; persentase tukin CPNS diatur tiap instansi (contoh: BRIN 80%), jadi ubah bila aturan instansi Anda berbeda. Tunjangan jabatan fungsional baru diterima setelah diangkat dalam jabatan fungsional; isi nominalnya dari Perpres jabatan tersebut."));
+
+    var lihatGolSel = h("select", { class: "input wide", id: "gj-lihat-gol", onchange: function (e) { S.lihatGol = e.target.value; save(); isiGapok(); } },
+      golList.map(function (g) { return h("option", { value: g, selected: S.lihatGol === g }, g); }));
+
+    var daftar = h("section", { class: "panel", "aria-labelledby": "gj-daftar" },
+      h("h2", { id: "gj-daftar" }, "Sumber tukin per instansi"),
+      h("p", { class: "small" }, T.instansi.length + " instansi dengan tabel tukin per kelas jabatan. Empat pola angka dipakai berulang: A Rp2,53 jt–Rp33,24 jt, B Rp2,58 jt–Rp41,55 jt, C Rp1,97 jt–Rp29,09 jt, D Rp1,77 jt–Rp24,93 jt."),
+      h("ul", { class: "fm-inst" }, ["A", "B", "C", "D"].map(function (p) {
+        var L = urut.filter(function (i) { return i.p === p; });
+        return h("li", null, h("div", { class: "row" }, h("b", null, "Pola " + p), h("span", { class: "tag" }, "kelas 8: " + rp(T.pola[p][7])), h("span", { class: "tag" }, L.length + " instansi")),
+          h("span", { class: "small" }, L.map(function (i, j) {
+            return [j ? ", " : "", h("a", { href: i.u, target: "_blank", rel: "noopener" }, i.s + " (" + i.r.replace("Perpres ", "") + ")"), i.rentang ? "*" : ""];
+          })));
+      })),
+      h("p", { class: "small muted" }, "* Tabel dicocokkan dari rentang yang diumumkan Setkab. Belum terbaca dari salinan Perpres (isi tukin sendiri di kalkulator): " +
+        T.belum.map(function (b) { return b.n + (b.r !== "–" ? " (" + b.r + ")" : ""); }).join("; ") + "."));
+
+    var page = [
+      h("div", { class: "stack" }, h("h1", null, "Gaji & tunjangan PNS"),
+        h("p", { class: "lede" }, "Perkiraan penghasilan bulanan di instansi pusat: gaji pokok PP 5/2024, tunjangan keluarga, pangan, umum, uang makan, dan tunjangan kinerja menurut Perpres tiap instansi. Angka diambil dari salinan dokumen resmi per " + T.tanggal + "."),
+        h("div", { class: "row" },
+          h("button", { class: "btn primary", type: "button", onclick: function () { var el = document.getElementById("gj-kalk"); if (el) el.scrollIntoView(); } }, "Kalkulator"),
+          h("button", { class: "btn", type: "button", onclick: function () { var el = document.getElementById("gj-rank-h"); if (el) el.scrollIntoView(); } }, "Peringkat instansi"),
+          h("button", { class: "btn", type: "button", onclick: function () { var el = document.getElementById("gj-gapok-h"); if (el) el.scrollIntoView(); } }, "Tabel gaji pokok"),
+          h("a", { class: "btn", href: "#formasi" }, "Strategi formasi"))),
+      kalk,
+      h("section", { class: "panel", "aria-labelledby": "gj-rank-h" }, h("h2", { id: "gj-rank-h" }, "Peringkat instansi untuk profil Anda"), peringkat),
+      h("section", { class: "panel", "aria-labelledby": "gj-tukin-h" }, h("h2", { id: "gj-tukin-h" }, "Tabel tunjangan kinerja instansi terpilih"), tabelTukin),
+      h("section", { class: "panel", "aria-labelledby": "gj-gapok-h" }, h("h2", { id: "gj-gapok-h" }, "Tabel gaji pokok PNS (PP 5/2024)"),
+        h("p", { class: "small" }, "Gaji pokok naik setiap 2 tahun masa kerja golongan (kenaikan gaji berkala). Golongan awal: SMA/SMK II/a, D-III II/c, S-1/D-IV III/a, S-2 III/b, S-3 III/c. Untuk I/b–I/d dan II/b–II/d tabel dimulai dari MKG 3; pegawai baru di golongan itu memakai baris pertama. Belum ada PP gaji baru per " + T.tanggal + "."),
+        h("label", { class: "field" }, h("span", { class: "label" }, "Golongan"), lihatGolSel), tabelGapok),
+      daftar,
+      h("section", { class: "panel", "aria-labelledby": "gj-sumber" }, h("h2", { id: "gj-sumber" }, "Sumber"),
+        h("p", { class: "small muted" }, "Disusun dengan teknik REA: fitur situs pembanding dipelajari sebagai pengunjung, lalu kode, teks, dan angka dibuat sendiri dari dokumen resmi. Komponen nasional: tunjangan suami/istri 10% dan anak 2% gaji pokok (paling banyak 2 anak), beras 10 kg × Rp7.242 per jiwa, tunjangan umum Rp175.000–Rp190.000 (Perpres 12/2006), uang makan Rp35.000–Rp41.000 per hari (PMK 32/2025)."),
+        h("ul", { class: "plain-list small" }, T.sumber.map(function (x) { return h("li", null, h("a", { href: x.u, target: "_blank", rel: "noopener" }, x.t)); })))
+    ];
+    hitungUlang(); isiGapok();
+    return page;
   };
 })();
 
@@ -7689,6 +7973,7 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
     riwayat: "M4 19h16M7 16V10M12 16V6M17 16v-3",
     peta: "M9 4 3 6v14l6-2 6 2 6-2V4l-6 2zM9 4v14M15 6v14",
     formasi: "M3 21h18M5 21V8l7-5 7 5v13M9 21v-6h6v6",
+    gaji: "M12 4c3.9 0 7 1.3 7 3s-3.1 3-7 3-7-1.3-7-3 3.1-3 7-3zM5 7v5c0 1.7 3.1 3 7 3s7-1.3 7-3V7M5 12v5c0 1.7 3.1 3 7 3s7-1.3 7-3v-5",
     audio: "M4 14v-2a8 8 0 0 1 16 0v2M4 14h3v6H4zM17 14h3v6h-3z",
     atur: "M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM19.4 15a1.6 1.6 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.6 1.6 0 0 0-2.7 1.1V21a2 2 0 1 1-4 0v-.1a1.6 1.6 0 0 0-2.7-1.1l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1A1.6 1.6 0 0 0 3 13.9H3a2 2 0 1 1 0-4h.1a1.6 1.6 0 0 0 1.1-2.7l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.6 1.6 0 0 0 2.7-1.1V3a2 2 0 1 1 4 0v.1a1.6 1.6 0 0 0 2.7 1.1l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.6 1.6 0 0 0 1.1 2.7H21a2 2 0 1 1 0 4h-.1a1.6 1.6 0 0 0-1.5 1z",
     panah: "M9 6l6 6-6 6"
@@ -8118,6 +8403,7 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
           quickCard("ulang", "Ulangi soal salah", review ? review + " soal menunggu" : "Belum ada", function () { go("ulang"); }),
           quickCard("audio", "Audio hafalan", "Per bagian, tanpa hitungan", null, "https://github.com/serfusion/cpns/releases?q=Audio+Hafalan"),
           quickCard("formasi", "Strategi formasi", "S-1 Ilmu Komunikasi", function () { go("formasi"); }),
+          quickCard("gaji", "Gaji & tunjangan", "Gaji pokok, tukin per instansi", function () { go("gaji"); }),
           quickCard("peta", "Peta materi", "Pola yang sering keluar", function () { go("peta"); }))),
       h("p", { class: "fine" }, "Ambang batas mengikuti KepmenPANRB 674/2026 untuk kebutuhan umum (TWK " + passOf("twk") + ", TIU " + passOf("tiu") + ", TKP " + passOf("tkp") + "), sama dengan 2024. Lulusan cumlaude dan diaspora memakai nilai kumulatif minimal 311 dengan TIU minimal 85.")
     ];
@@ -8670,6 +8956,11 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
     return SKD.formasiView({ h: h, toast: toast, rerender: function () { render(); }, history: function () { return S.history(); } });
   }
 
+  // ---------- gaji & tunjangan ----------
+  function viewGaji() {
+    return SKD.gajiView({ h: h, toast: toast });
+  }
+
   // ---------- pengaturan ----------
   function viewAtur() {
     var set = S.settings();
@@ -8710,7 +9001,7 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
   // ---------- router ----------
   var VIEWS = {
     beranda: viewHome, tryout: viewTryout, persiapan: viewPersiapan, ujian: viewUjian, nilai: viewNilai, hasil: viewHasil, bahas: viewBahas, lembar: viewLembar,
-    latihan: viewLatihan, kerjakan: viewKerjakan, ulang: viewUlang, riwayat: viewRiwayat, peta: viewPeta, formasi: viewFormasi, atur: viewAtur
+    latihan: viewLatihan, kerjakan: viewKerjakan, ulang: viewUlang, riwayat: viewRiwayat, peta: viewPeta, formasi: viewFormasi, gaji: viewGaji, atur: viewAtur
   };
   var ALIAS = { simulasi: "tryout", statistik: "riwayat" };
   var CAT_ROUTES = { persiapan: 1, ujian: 1, nilai: 1 };

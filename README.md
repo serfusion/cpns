@@ -57,6 +57,12 @@ Sejak 23 November 2026 MenPANRB memastikan formasi CPNS 2026–2027 hanya dari i
 Sekolah Nasional Terintegrasi (Kemendikdasmen), LLDIKTI/PTN/SMA Unggul Garuda (Kemendiktisaintek), pendidikan Kemenag, lalu
 jabatan pelatihan di instansi pusat. Formasi bidang pendidikan mendapat nilai tugas dan kesiapan SKB tertinggi di kedua rumus.
 
+Menu **Gaji & tunjangan** (`js/gaji.js`, data `data/tunjangan.js`) menghitung perkiraan penghasilan bulanan CPNS/PNS per instansi pusat:
+gaji pokok PP 5/2024 (272 angka, semua golongan dan MKG), tunjangan keluarga, pangan, umum, uang makan, dan tunjangan kinerja per kelas
+jabatan dari salinan Perpres tiap instansi (49 instansi dibaca langsung, 4 dicocokkan dari rentang resmi Setkab). Ada peringkat instansi
+untuk profil yang dipilih dan tabel gaji pokok. Dibuat dengan teknik REA: fitur situs pembanding dipelajari sebagai pengunjung, lalu kode,
+teks, dan angka disusun sendiri dari dokumen resmi.
+
 Bagian **Data CPNS 2024 dan tahun sebelumnya** (`data/skd2024.js`) memuat pendaftar per formasi 2024, nilai SKD/SKB/nilai akhir
 resmi sembilan instansi, riwayat resmi lintas tahun (MA 2021 dan 2023, Kemensetneg 2019, Kemenko PMK 2019, PPATK 2023), riwayat
 nasional sejak 2000-an, dan 56 kementerian/lembaga dengan angka resmi bila ada dan perkiraan berentang (tanda ≈) bila tidak.

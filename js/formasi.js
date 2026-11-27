@@ -664,6 +664,7 @@
           D.pendidikan ? h("button", { class: "btn", type: "button", onclick: function () { scrollTo("fm-didik"); } }, "Fokus pendidikan") : null,
           SKD.skd2024 ? h("button", { class: "btn", type: "button", onclick: function () { scrollTo("fm-2024"); } }, "Data 2024") : null,
           PD ? h("button", { class: "btn", type: "button", onclick: function () { scrollTo("fm-pemda"); } }, "Prioritas Pemda") : null,
+          SKD.tunjangan ? h("a", { class: "btn", href: "#gaji" }, "Gaji & tunjangan") : null,
           D.dokumen ? h("a", { class: "btn", href: D.dokumen, target: "_blank", rel: "noopener" }, "Dokumen PDF") : null)),
       h("section", { class: "panel", "aria-labelledby": "fm-status" }, h("h2", { id: "fm-status" }, "Status per " + D.tanggal), h("ul", { class: "plain-list" }, D.status.map(function (t) { return h("li", null, t); }))),
       h("div", { class: "tiles" }, D.angka.map(function (a) { return h("div", { class: "tile" }, h("span", { class: "v" }, a.v), h("span", { class: "l" }, a.l), h("span", { class: "d" }, a.d)); })),
