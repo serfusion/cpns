@@ -137,3 +137,6 @@ disimpan di localStorage dengan kunci `skd.formasi.v1` (tidak ikut sinkron).
   "Fokus pendidikan 2026" di menu Formasi, kolom `bidang` di kalkulator dan kandidat (tugas 20, SKB 5), urutan E1–E3 di kriteria pemindaian.
 - [x] Sesuaikan dengan KepmenPANRB 674/2026 (kisi-kisi dan ambang batas 2026) dan pengumuman formasi 25 November 2026
 - [x] 26 Nov 2026: 96 soal tambahan kisi-kisi 2026 (TWK 39, TKP 30, TIU logika 27), pembangkit analitis kombinasi, bentuk silogisme diperluas, kartu "Soal baru kisi-kisi 2026"
+- [x] 27 Nov 2026: menu Formasi, bagian "Data CPNS 2024 dan tahun sebelumnya": riwayat resmi lintas tahun (MA 2021/2023, Kemensetneg 2019,
+  Kemenko PMK 2019, PPATK 2023), riwayat nasional sejak 2000-an, dan 56 kementerian/lembaga (resmi + perkiraan berentang; cara hitung
+  di `model`, `data/skd2024.js`). Laporan yang menolak akses (BPS, Kemenag, Komdigi, BKN, Bappenas, dll.) tetap belum termasuk.

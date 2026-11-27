@@ -98,6 +98,7 @@
     var sk = Number(d.skor24);
     if (isFinite(sk) && sk > 0 && sk <= 550) b.skor24 = Math.round(sk);
     if (typeof d.cari24 === "string") b.cari24 = d.cari24.slice(0, 40);
+    if (typeof d.cariInst === "string") b.cariInst = d.cariInst.slice(0, 40);
     return b;
   }
   var st = null;
@@ -422,8 +423,35 @@
             (it.skb ? " SKB tertinggi " + fmt(it.skb, 1) + (it.akhir ? "; nilai akhir terendah yang lulus " + fmt(it.akhir, 2) : "") + " (skala 100)." : "")));
         }))].concat(items.length > 40 ? [h("p", { class: "small muted" }, "Menampilkan 40 dari " + items.length + " hasil. Perjelas kata kuncinya.")] : []));
       };
+      // semua kementerian/lembaga pusat 2024: angka resmi bila ada, selebihnya perkiraan dengan rentang (R24.model)
+      var nilaiTeks = function (z, d) { return z[1] ? "≈" + fmt(z[0], d) + " (±" + z[1] + ")" : fmt(z[0], d); };
+      var hasilSemua = h("div", { class: "stack", id: "fm24-semua" });
+      var isiSemua = function () {
+        if (!R24.semua) return;
+        var q = (S.cariInst || "").trim().toLowerCase(), x = Number(S.skor24) || 0;
+        var L = R24.semua.filter(function (e) { return !q || (e.n + " " + (e.g || "")).toLowerCase().indexOf(q) >= 0; })
+          .sort(function (a, b) { return a.v[2][0] - b.v[2][0] || (a.n < b.n ? -1 : 1); });
+        if (!L.length) { isi(hasilSemua, [h("p", { class: "small muted" }, "Tidak ada instansi \"" + S.cariInst + "\" di daftar ini.")]); return; }
+        isi(hasilSemua, [h("p", { class: "small muted" }, L.length + " instansi, diurutkan dari batas lolos SKB terendah. Tanda skor memakai skor " + x + " dari bagian Bandingkan skor SKD Anda."),
+          h("ul", { class: "fm-inst" }, L.map(function (e) {
+            var nRes = e.v.filter(function (z) { return !z[1]; }).length, c = e.v[2], tagSkor;
+            if (x >= c[0] + c[1]) tagSkor = h("span", { class: "tag ok" }, "skor " + x + " di atas batas");
+            else if (x >= c[0] - c[1]) tagSkor = h("span", { class: "tag accent" }, "skor " + x + " di rentang batas");
+            else tagSkor = h("span", { class: "tag warn" }, "kurang " + (c[0] - c[1] - x));
+            var info = [];
+            if (e.f) info.push(fmt(e.f) + " formasi" + (e.p ? " · " + fmt(e.p) + " pendaftar (" + fmt(e.p / e.f, 1) + " per formasi)" : ""));
+            if (e.g) info.push("Kelompok 2026: " + e.g);
+            if (e.c) info.push(e.c);
+            return h("li", null,
+              h("div", { class: "row" }, h("b", null, e.n), nRes === 6 ? h("span", { class: "tag ok" }, "resmi") : nRes ? h("span", { class: "tag accent" }, "sebagian resmi") : h("span", { class: "tag" }, "perkiraan"), tagSkor),
+              h("span", { class: "nilai" }, "SKD tertinggi " + nilaiTeks(e.v[0]) + " · terendah lolos SKB " + nilaiTeks(e.v[2]) + " · rata-rata SKD semua peserta " + nilaiTeks(e.v[1])),
+              h("span", { class: "nilai" }, "SKB tertinggi " + nilaiTeks(e.v[3], 1) + " · rata-rata SKB " + nilaiTeks(e.v[4], 1) + " · nilai akhir terendah lulus " + nilaiTeks(e.v[5], 1) + " (skala 100)"),
+              info.length ? h("span", { class: "small muted" }, info.map(function (t) { return t.replace(/\.$/, ""); }).join(". ") + ".") : null,
+              (e.lain || []).map(function (t) { return h("span", { class: "small muted" }, t); }));
+          }))]);
+      };
       riwayat = h("section", { class: "panel", "aria-labelledby": "fm-2024" },
-        h("h2", { id: "fm-2024" }, "Data CPNS 2024: pembanding kementerian"),
+        h("h2", { id: "fm-2024" }, "Data CPNS 2024 dan tahun sebelumnya: pembanding kementerian"),
         h("p", { class: "small" }, "Formasi 2026 hanya dari instansi pusat, jadi data 2024 instansi pusat menjadi pembanding terdekat. Gunakan untuk memperkirakan instansi dan jabatan yang sepi, lalu cocokkan dengan jumlah pelamar 2026 yang tampil di SSCASN."),
         h("div", { class: "tiles" }, R24.nasional.map(function (a) { return h("div", { class: "tile" }, h("span", { class: "v" }, a.v), h("span", { class: "l" }, a.l), h("span", { class: "d" }, a.d)); })),
         h("h3", null, "Pendaftar per formasi 2024 (instansi pusat)"),
@@ -456,10 +484,50 @@
           R24.tertinggiSkb.map(function (t) { return t[0] + " " + t[1]; }).join(", ") + "."),
         h("p", { class: "small muted" }, "Median ditimbang per kursi. Di Mahkamah Agung banyak formasi besar (misalnya Dokumentalis Hukum, 2.949 kursi) kekurangan peserta yang lulus ambang batas, sehingga semua yang lulus ambang batas masuk SKB. Jumlah peserta hadir dan rata-rata SKD semua peserta hanya ada bila instansi menerbitkan laporan hasil SKD. Nilai SKD tertinggi nasional 2024: " +
           R24.tertinggi.map(function (t) { return t[0] + " " + t[1]; }).join(", ") + "."),
+        R24.semua ? [
+          h("h3", { id: "fm24-semua-h" }, "Semua kementerian dan lembaga: angka resmi dan perkiraan"),
+          h("p", { class: "small" }, "Nilai 2024 untuk " + R24.semua.length + " instansi pusat. Angka tanpa tanda ≈ berasal dari laporan resmi; angka bertanda ≈ adalah perkiraan dengan rentang ±, karena laporan instansi itu tidak bisa diunduh. Untuk 2021 dan 2023 (skala dan ambang batas sama) pakai angka yang sama dengan selisih kira-kira ±10; sebelum 2021 skalanya 500 sehingga tidak sebanding."),
+          h("label", { class: "field" }, h("span", { class: "label" }, "Cari instansi atau kelompok formasi 2026"),
+            h("input", { class: "input wide", id: "fm24-inst", type: "search", maxlength: 40, placeholder: "kesehatan, hukum, keuangan", value: S.cariInst || "",
+              oninput: function (e) { S.cariInst = e.target.value.slice(0, 40); save(); isiSemua(); } })),
+          hasilSemua,
+          h("p", { class: "note info" }, h("b", null, "Cara perkiraan. "), R24.model)
+        ] : null,
+        R24.riwayatResmi ? [
+          h("h3", null, "Riwayat resmi lintas tahun"),
+          h("p", { class: "small" }, "Instansi yang laporan resminya untuk beberapa tahun bisa diunduh. Nilai akhir memakai skala 100."),
+          h("ul", { class: "fm-inst", id: "fm24-riwayat" }, R24.riwayatResmi.map(function (o) {
+            var rinci = [fmt(o.kursi) + " kursi"];
+            if (o.hadir) rinci.push(fmt(o.hadir) + " peserta SKD", "lulus ambang batas " + pct(o.pg, o.hadir), "rata-rata SKD semua peserta " + fmt(o.skdRata, 1));
+            if (o.skbPeserta) rinci.push(fmt(o.skbPeserta) + " peserta SKB");
+            return h("li", null,
+              h("div", { class: "row" }, h("b", null, o.n + " · " + o.th), h("span", { class: "tag" + (o.skala === 500 ? " warn" : "") }, "skala " + o.skala)),
+              h("span", { class: "nilai" }, "SKD tertinggi " + o.skdMax + " · terendah lolos SKB ", h("b", null, o.cut), " (median) · rata-rata SKD peserta SKB " + fmt(o.skdRataSkb, 1)),
+              h("span", { class: "nilai" }, "SKB tertinggi " + fmt(o.skbMax, 1) + " · rata-rata SKB " + fmt(o.skbRata, 1) + " · nilai akhir terendah lulus ", h("b", null, fmt(o.akhirMin, 2)), " (median), tertinggi " + fmt(o.akhirMax, 2)),
+              h("span", { class: "small muted" }, rinci.join(" · ") + "."));
+          })),
+          h("p", { class: "small muted" }, "2019 memakai skala 500 (TWK 175, TIU 150, TKP 175), jadi tidak bisa dibandingkan langsung dengan 2021 ke atas (skala 550). Batas Mahkamah Agung 2024 turun ke 313 karena formasi besar kekurangan peserta yang lulus ambang batas; pada 2021 dan 2023, dengan kursi lebih sedikit, batasnya 382 dan 378. PPATK 2023 menunjukkan instansi kecil yang favorit bisa mencapai batas 444.")
+        ] : null,
+        R24.tahunan ? [
+          h("h3", null, "Riwayat nasional sejak 2000-an"),
+          h("ul", { class: "fm-inst", id: "fm24-nasional" }, R24.tahunan.map(function (t) {
+            var ada = t.max !== "–", rinci = [];
+            if (t.lulus !== "–") rinci.push("Lulus ambang batas: " + t.lulus);
+            if (t.rata !== "–") rinci.push("Rata-rata SKD: " + t.rata);
+            if (t.skb !== "–") rinci.push("SKB: " + t.skb);
+            var tg = { resmi: h("span", { class: "tag ok" }, "resmi"), sementara: h("span", { class: "tag accent" }, "angka saat tes"), perkiraan: h("span", { class: "tag" }, "ada perkiraan") }[t.st] || null;
+            return h("li", null,
+              h("div", { class: "row" }, h("b", null, t.th), tg),
+              h("span", { class: ada ? "nilai" : "small muted" }, ada ? "SKD tertinggi: " + t.max : t.skala),
+              ada ? h("span", { class: "nilai" }, "Ambang batas: " + t.ambang) : null,
+              ada ? h("span", { class: "small muted" }, [t.skala].concat(rinci).map(function (x) { return x.replace(/\.$/, ""); }).join(". ") + ".") : null);
+          })),
+          h("p", { class: "small muted" }, "Angka \"per tanggal\" adalah nilai tertinggi yang diumumkan saat tes masih berjalan; angka akhirnya bisa sedikit lebih tinggi. Rata-rata nasional tidak pernah diumumkan; angka perkiraan di atas disusun dari tingkat kelulusan ambang batas dan data resmi instansi.")
+        ] : null,
         h("h3", null, "Bandingkan skor SKD Anda"),
         h("label", { class: "field" }, h("span", { class: "label" }, "Skor SKD (hasil tryout penuh terbaik Anda" + (best24 ? ": " + best24 : "") + ")"),
           h("input", { class: "input", id: "fm24-skor", type: "number", inputmode: "numeric", min: 0, max: 550, value: S.skor24,
-            oninput: function (e) { var v = Math.round(Number(e.target.value)); if (v > 0 && v <= 550) { S.skor24 = v; save(); hitungSkor(); cariJab(); } } })),
+            oninput: function (e) { var v = Math.round(Number(e.target.value)); if (v > 0 && v <= 550) { S.skor24 = v; save(); hitungSkor(); cariJab(); isiSemua(); } } })),
         hasilSkor,
         h("h3", null, "Cari jabatan"),
         h("label", { class: "field" }, h("span", { class: "label" }, "Nama jabatan"),
@@ -468,7 +536,7 @@
         hasilCari,
         h("p", { class: "note info" }, "Data 2024 hanya pembanding. Formasi, lokasi, dan jumlah pelamar 2026 berbeda; skor aman tetap bergantung pada pesaing di formasi yang Anda pilih. Data per formasi berasal dari " + R24.instansi.length + " instansi yang laporannya dapat diunduh langsung dari situs resminya; laporan BPS, Kemenag, Komdigi, BKN, Bappenas, Kemenkes, Kemenkop, BSSN, BPK, dan Setjen DPR menolak akses dari server pembuat data."),
         h("ul", { class: "plain-list small" }, R24.sumber.map(function (x) { return h("li", null, h("a", { href: x.u, target: "_blank", rel: "noopener" }, x.t)); })));
-      hitungSkor(); cariJab();
+      hitungSkor(); cariJab(); isiSemua();
     }
 
     // ---------- validasi dokumen riset ----------

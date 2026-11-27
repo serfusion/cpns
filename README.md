@@ -57,6 +57,10 @@ Sejak 23 November 2026 MenPANRB memastikan formasi CPNS 2026–2027 hanya dari i
 Sekolah Nasional Terintegrasi (Kemendikdasmen), LLDIKTI/PTN/SMA Unggul Garuda (Kemendiktisaintek), pendidikan Kemenag, lalu
 jabatan pelatihan di instansi pusat. Formasi bidang pendidikan mendapat nilai tugas dan kesiapan SKB tertinggi di kedua rumus.
 
+Bagian **Data CPNS 2024 dan tahun sebelumnya** (`data/skd2024.js`) memuat pendaftar per formasi 2024, nilai SKD/SKB/nilai akhir
+resmi sembilan instansi, riwayat resmi lintas tahun (MA 2021 dan 2023, Kemensetneg 2019, Kemenko PMK 2019, PPATK 2023), riwayat
+nasional sejak 2000-an, dan 56 kementerian/lembaga dengan angka resmi bila ada dan perkiraan berentang (tanda ≈) bila tidak.
+
 Dokumen lengkapnya: `docs/pemindaian-formasi-cpns-2026.md`, `docs/prioritas-formasi-pemda-2026.md`, dan
 `docs/strategi-formasi-pendidikan-2026.md`; versi PDF-nya ikut terlampir di setiap rilis APK.
 Membuat ulang PDF: `node scripts/dokumen-pdf.cjs docs/pemindaian-formasi-cpns-2026.md` (butuh pandoc dan Playwright).

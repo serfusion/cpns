@@ -501,6 +501,10 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
 .fm-checks { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; max-width: 80ch; }
 .fm-checks li { display: flex; gap: 10px; align-items: flex-start; font-size: 0.875rem; }
 .fm-checks .tag { flex: none; min-width: 78px; justify-content: center; margin-top: 2px; }
+.fm-inst { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; max-width: 80ch; }
+.fm-inst li { border: 1px solid var(--line); border-radius: var(--r-md); padding: 10px 12px; display: flex; flex-direction: column; gap: 4px; font-size: 0.875rem; min-width: 0; }
+.fm-inst .row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.fm-inst .nilai { overflow-wrap: anywhere; }
 .fm-tiers { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; }
 .fm-tier { border-left-width: 4px; gap: 10px; }
 .fm-tier.ok { border-left-color: var(--ok); }
