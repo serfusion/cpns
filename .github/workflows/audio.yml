@@ -5,7 +5,7 @@ on:
   push:
     branches: [main, claude/charming-gates-mu7s4i, claude/admiring-cerf-9bgc4h]
     # data/formasi.js dan data/skd2024.js tidak dibacakan, jadi perubahannya tidak memicu audio. Ubah workflow ini? Jalankan manual (workflow_dispatch).
-    paths: ["data/**", "!data/formasi.js", "!data/skd2024.js", "!data/tunjangan.js", "js/config.js", "scripts/audio*"]
+    paths: ["data/**", "!data/formasi.js", "!data/skd2024.js", "!data/tunjangan.js", "!data/sscasn2026.js", "js/config.js", "scripts/audio*"]
   workflow_dispatch:
 
 permissions:

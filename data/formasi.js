@@ -274,12 +274,29 @@
     // Diisi otomatis oleh sesi pemantau terjadwal begitu formasi CPNS 2026 terbit
     // (aturan: docs/kriteria-pemindaian-otomatis.md). Skor dan peringkat dihitung aplikasi.
     kandidat2026: {
-      tanggal: "25 November 2026",
-      status: "menunggu",
-      jadwal: "sekali sehari, sekitar pukul 12.42 WIB",
-      catatan: "Jumlah formasi CPNS 2026 sudah diumumkan (154.052, 25 November); rincian per jabatan dan lokasi tampil di SSCASN mulai 27 November. Pemantau memeriksa SSCASN dan pengumuman resmi; formasi yang mencantumkan S-1 Ilmu Komunikasi akan diurutkan di sini dengan kedua rumus dokumen Anda.",
-      sumber: [],
-      list: []
+      tanggal: "28 November 2026",
+      status: "terbit",
+      jadwal: "sekali sehari, sekitar pukul 12.42 WIB; APK juga bisa memindai sendiri (bagian Pindai SSCASN)",
+      catatan: "Pindai SSCASN 28 November 2026 pukul 00.17 WIB: baru BPK yang menampilkan formasi (51 formasi, 952 kursi). S-1 Ilmu Komunikasi tercantum di 3 formasi (23 kursi). Kejaksaan, BSSN, dan Kemenkop sudah mengumumkan seleksi tetapi formasinya belum tampil; menurut pengumumannya Kejaksaan dan BSSN tidak membuka formasi untuk Ilmu Komunikasi.",
+      sumber: [
+        { t: "SSCASN: daftar formasi (detail tiap formasi)", u: "https://sscasn.bkn.go.id/daftar-formasi/" },
+        { t: "Ringkasan pengumuman BPK 01/B/S.Peng/SETJEN/KPG.02.01/11/2026 (Analitica)", u: "https://blog.analitica.id/formasi-cpns-bpk-2026-952-kuota-syarat-jadwal/" },
+        { t: "Pengumuman Kejaksaan PENG-1/C/CP.2/11/2026", u: "https://rekrutmen.kejaksaan.go.id/media/pengumuman/2026/PENG-1_2026_Pengadaan_CPNS_2026_signed.pdf" }
+      ],
+      list: [
+        { nama: "Pranata Hubungan Masyarakat Ahli Pertama", instansi: "Badan Pemeriksa Keuangan", lokasi: "Regional Sulawesi, Maluku, Papua, Bali, dan Nusa Tenggara",
+          jab: "humas", kursi: 13, pelamar: null, jabo: false, syarat: "catatan", baru: "tidak", mek: "jelas", prioritas: "P3", bidang: "",
+          pendidikan: "S-1 KOMUNIKASI, S-1 ILMU KOMUNIKASI, S-1 JURNALISTIK", url: "https://sscasn.bkn.go.id/daftar-formasi/",
+          catatan: "Formasi umum; IPK minimal 3,00; SKB ada psikologi dan psikiatri (menggugurkan) serta wawancara 10%; wajib bertugas di regional ini minimal 8 tahun" },
+        { nama: "Pranata Hubungan Masyarakat Ahli Pertama", instansi: "Badan Pemeriksa Keuangan", lokasi: "Regional Jawa",
+          jab: "humas", kursi: 5, pelamar: null, jabo: false, syarat: "catatan", baru: "tidak", mek: "jelas", prioritas: "", bidang: "",
+          pendidikan: "S-1 KOMUNIKASI, S-1 ILMU KOMUNIKASI, S-1 JURNALISTIK", url: "https://sscasn.bkn.go.id/daftar-formasi/",
+          catatan: "Formasi umum; IPK minimal 3,00; SKB ada psikologi dan psikiatri (menggugurkan) serta wawancara 10%; ikatan dinas 5 tahun" },
+        { nama: "Analis Kerja Sama Ahli Pertama", instansi: "Badan Pemeriksa Keuangan", lokasi: "Regional Jawa",
+          jab: "", kursi: 5, pelamar: null, jabo: false, syarat: "catatan", baru: "tidak", mek: "jelas", prioritas: "", bidang: "",
+          pendidikan: "S-1 ILMU POLITIK, S-1 ILMU KOMUNIKASI, S-1 HUBUNGAN INTERNASIONAL", url: "https://sscasn.bkn.go.id/daftar-formasi/",
+          catatan: "Kerja sama internasional BPK; formasi umum; IPK minimal 3,00; SKB ada psikologi, psikiatri, dan wawancara 10%" }
+      ]
     },
 
     gugur: "Gugur karena S-1 Ilmu Komunikasi tidak tercantum di data 2024: Pranata Komputer, Penata Kelola Sistem dan Teknologi Informasi, Administrator Database Kependudukan, Statistisi, dan Pustakawan (semuanya meminta jurusan komputer, statistik, atau perpustakaan). Analis SDM Aparatur dan Pengelola Pengadaan juga tidak memuat Ilmu Komunikasi di 20 jurusan teratasnya.",

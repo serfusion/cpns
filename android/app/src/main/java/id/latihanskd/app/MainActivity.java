@@ -18,6 +18,7 @@ import android.webkit.WebViewClient;
 import java.io.OutputStream;
 
 public class MainActivity extends Activity {
+    private static final int PINDAI = 7;
     private WebView web;
 
     /** Jembatan kecil untuk halaman: simpan lembar hasil (PNG) ke Galeri lalu opsional bagikan. */
@@ -53,6 +54,33 @@ public class MainActivity extends Activity {
             } catch (Exception e) {
                 return "error";
             }
+        }
+
+        /** Buka layar pindai SSCASN; skrip pembaca berasal dari aplikasi sendiri (js/pindai.js). */
+        @JavascriptInterface
+        public void pindaiSscasn(final String skrip) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Intent i = new Intent(MainActivity.this, ScanActivity.class);
+                    i.putExtra(ScanActivity.EXTRA_SKRIP, skrip);
+                    startActivityForResult(i, PINDAI);
+                }
+            });
+        }
+
+        /** Hasil pindai terakhir (teks JSON) yang disimpan layar pindai. */
+        @JavascriptInterface
+        public String hasilPindai() {
+            return getSharedPreferences(ScanActivity.PREF, MODE_PRIVATE).getString(ScanActivity.KEY, "");
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PINDAI && resultCode == RESULT_OK && web != null) {
+            web.evaluateJavascript("window.dispatchEvent(new Event('pindai-selesai'))", null);
         }
     }
 

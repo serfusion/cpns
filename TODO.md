@@ -144,3 +144,7 @@ disimpan di localStorage dengan kunci `skd.formasi.v1` (tidak ikut sinkron).
   tabel tukin per kelas (pola A–D, 53 instansi), tabel gaji pokok PP 5/2024. Belum terbaca: Kemenkes, Kemenkeu (peringkat 1–27), Kemlu,
   Kementan, Kemenhub, Kemenperin, Kemendag, BSSN, Kejaksaan, MA, BPKP, KemenPANRB, Bappenas, Kemensos, BPOM, BMKG, BRIN, BKN, BPK.
 - [ ] Bila PP gaji baru atau Perpres tukin baru terbit: perbarui `data/tunjangan.js` (generator di luar repo, angka dibaca dari salinan resmi).
+- [x] 28 Nov 2026: Pindai SSCASN di APK (`ScanActivity` + `js/pindai.js`), hasil bawaan `data/sscasn2026.js`, `kandidat2026` terisi
+  (BPK: Pranata Humas Ahli Pertama 13 + 5 kursi, Analis Kerja Sama Ahli Pertama 5 kursi), `docs/kandidat-formasi-cpns-2026.md` (+ PDF).
+- [ ] Saat instansi lain menampilkan formasi: perbarui `data/sscasn2026.js` (jalankan SCANNER sebagai pengunjung, lalu
+  `tools/gen_sscasn2026.cjs` di luar repo) dan tahapan seleksinya dari pengumuman resmi; uji APK di HP (layar pindai).
