@@ -1,13 +1,13 @@
-/* Hasil pindai SSCASN bawaan aplikasi. Dibuat 28 November 2026, 00.17 WIB dengan fungsi SCANNER yang sama dengan APK (js/pindai.js),
+/* Hasil pindai SSCASN bawaan aplikasi. Dibuat 28 November 2026, 00.17 WIB; dicek ulang 06.26 WIB dengan membuka 51 detail formasi satu per satu (hasil sama) dengan fungsi SCANNER yang sama dengan APK (js/pindai.js),
    dijalankan sebagai pengunjung biasa di https://sscasn.bkn.go.id/daftar-formasi/ (filter Nama Pendidikan "KOMUNIKASI", detail tiap
    formasi). Tahapan seleksi tiap instansi dari pengumuman resmi atau ringkasannya (lihat sumber). APK bisa memindai ulang di HP. */
 (function () {
   "use strict";
   var SKD = (window.SKD = window.SKD || {});
   SKD.sscasn2026 = {
- "waktu": "2026-11-27T17:17:03.766Z",
- "waktuIso": "2026-11-27T17:17:03.766Z",
- "waktuTeks": "28 November 2026, 00.17 WIB",
+ "waktu": "2026-11-27T23:26:28.650Z",
+ "waktuIso": "2026-11-27T23:26:28.650Z",
+ "waktuTeks": "28 November 2026, 06.26 WIB",
  "total": 51,
  "opsi": [
   "D-III KOMUNIKASI | D-III ILMU KOMUNIKASI",
@@ -91,7 +91,7 @@
  "instansiTampil": [
   "Badan Pemeriksa Keuangan"
  ],
- "catatan": "Saat dipindai, SSCASN baru menampilkan formasi BPK (51 formasi, 952 kursi). BSSN, Kejaksaan, dan Kementerian Koperasi sudah mengumumkan seleksi tetapi formasinya belum tampil di daftar SSCASN. Pendaftaran semua instansi 27 November sampai 21 Desember 2026. SKD semua instansi memakai CAT BKN dengan ambang batas 65/80/166.",
+ "catatan": "Pindai ulang 28 November 2026, 06.26 WIB (semua tab seleksi, 51 detail formasi dibuka satu per satu): seleksi nasional di SSCASN baru menampilkan BPK (51 formasi, 952 kursi; S-1 Ilmu Komunikasi 23 kursi, sama dengan pengumuman resmi BPK). Tab Sekolah Rakyat (PPPK Kementerian Sosial) sudah ditutup. Formasi instansi lain diambil dari pengumuman resmi (data/dok2026.js).",
  "instansi": [
   {
    "n": "Badan Pemeriksa Keuangan",
