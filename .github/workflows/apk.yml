@@ -2,7 +2,7 @@ name: Build APK
 
 on:
   push:
-    branches: [main, claude/charming-gates-mu7s4i]
+    branches: [main, claude/charming-gates-mu7s4i, claude/admiring-cerf-9bgc4h]
   workflow_dispatch:
 
 permissions:
@@ -44,5 +44,7 @@ jobs:
           tag_name: apk-${{ github.run_number }}
           name: Latihan SKD APK ${{ github.run_number }}
           target_commitish: ${{ github.sha }}
-          files: latihan-skd.apk
-          body: APK hasil build otomatis. Unduh latihan-skd.apk lalu pasang di HP Android (izinkan instal dari sumber tidak dikenal).
+          files: |
+            latihan-skd.apk
+            docs/*.pdf
+          body: APK hasil build otomatis. Unduh latihan-skd.apk lalu pasang di HP Android (izinkan instal dari sumber tidak dikenal). Dokumen pemindaian formasi CPNS 2026 (PDF) ikut terlampir.
