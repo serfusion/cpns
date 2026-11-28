@@ -3,9 +3,9 @@
 Pemilik berbahasa Indonesia. Jawab singkat dan jelas.
 
 ## Tempat aplikasi berjalan
-- **APK** (GitHub Actions `apk.yml`, rilis `apk-<nomor>`): bawaan memuat **versi online** dari
-  `https://superfal-dev.com/tools/pejuang-nip/` (Exclusive di portofolio, kunci sama dengan studio), dan jatuh ke salinan bawaan
-  APK bila VPS tidak bisa dihubungi. Pilihan Online/Offline ada di Pengaturan.
+- **APK** (GitHub Actions `apk.yml`, rilis `apk-<nomor>`): dipakai sendiri oleh pemilik, jadi **selalu memuat salinan bawaan
+  APK tanpa kunci** (permintaan pemilik 28 Nov 2026). Kunci Exclusive hanya untuk versi web publik. Soal baru masuk APK lewat
+  rilis APK baru (bisa dipasang menimpa, tanpa uninstal).
 - **Web/online**: file hasil build disalin ke repo **serfusion/portofolio** (`projects/portofolio/tools/pejuang-nip/index.html`),
   dijaga Caddy `forward_auth` ke `/cek` panel studio (repo serfusion/Content-Creator-Motion, dict `LUAR["pejuang-nip"]`).
 - **Pemindai SSCASN di VPS** (tiap 6 jam): `projects/pejuang-nip/pindai/` di repo portofolio memakai salinan `js/pindai.js`

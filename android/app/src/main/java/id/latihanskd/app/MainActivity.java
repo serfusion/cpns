@@ -92,7 +92,7 @@ public class MainActivity extends Activity {
         /** "online" bila aplikasi memakai versi dari VPS, "offline" bila memakai salinan bawaan APK. */
         @JavascriptInterface
         public String mode() {
-            return pref.getBoolean("offline", false) ? "offline" : "online";
+            return "offline";
         }
 
         /** Ganti mode lalu muat ulang dengan versi yang dipilih. */
@@ -195,14 +195,12 @@ public class MainActivity extends Activity {
             }
         });
         setContentView(web);
+        // APK untuk dipakai sendiri: selalu salinan bawaan APK, tanpa kunci Exclusive (kunci hanya untuk versi web publik).
+        pref.edit().putBoolean("offline", true).putBoolean("migrasi", true).apply();
         if (state != null) {
             web.restoreState(state);
-        } else if (pref.getBoolean("offline", false)) {
-            web.loadUrl(LOKAL);
-        } else if (!pref.getBoolean("migrasi", false)) {
-            web.loadUrl(LOKAL);   // sekali saja: salin progres lama, lalu onPageFinished memuat versi online
         } else {
-            web.loadUrl(ONLINE);
+            web.loadUrl(LOKAL);
         }
     }
 

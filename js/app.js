@@ -1165,6 +1165,7 @@
   // APK: pilih versi online (dari VPS, selalu terbaru; perlu kunci sekali) atau salinan bawaan APK (tanpa internet)
   function versiAplikasi() {
     var B = window.AndroidBridge;
+    return null; // APK selalu memakai salinan bawaan (tanpa kunci); pilihan online/offline tidak ditampilkan
     if (!B || typeof B.mode !== "function" || typeof B.aturMode !== "function") return null;
     var m = "online";
     try { m = B.mode() === "offline" ? "offline" : "online"; } catch (e) { return null; }
