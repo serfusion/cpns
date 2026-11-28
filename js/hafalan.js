@@ -13,7 +13,24 @@
     return (SKD.cepatData || []).map(function (b) {
       if (b.dari) return { id: b.id, t: b.t, sep: "→", r: F && Array.isArray(F[b.dari]) ? F[b.dari].map(function (p) { return [p[1], p[0]]; }) : [] };
       return b;
-    }).filter(function (b) { return b.r && b.r.length; });
+    }).concat(soalBank()).filter(function (b) { return b.r && b.r.length; });
+  }
+  // semua soal bank (tanpa bacaan, tabel, gambar, dan TIU hitungan): soal = jawaban terbaik
+  var LUNAK = ["sil", "ind", "anl"];
+  function soalBank() {
+    var E = SKD.engine; if (!E || !E.bank) return [];
+    var grup = [["twk", 0, "Soal TWK ringkas"], ["twk", 1, "Soal TWK persis CAT"], ["tkp", 0, "Soal TKP ringkas"], ["tkp", 1, "Soal TKP persis CAT"], ["tiu", -1, "Soal TIU logika"]];
+    return grup.map(function (g) {
+      var r = [], lihat = {};
+      E.bank().forEach(function (q) {
+        if (q.sec !== g[0] || q.p || q.tb || !Array.isArray(q.o) || typeof q.o[0] !== "string") return;
+        if (g[1] >= 0 && !!q.setara !== !!g[1]) return;
+        if (g[0] === "tiu" && LUNAK.indexOf(q.m) < 0) return;
+        var k = String(q.q).replace(/\s+/g, " ").trim(); if (lihat[k]) return; lihat[k] = 1;
+        r.push([k, q.o[q.sec === "tkp" ? 0 : q.a || 0]]);
+      });
+      return { id: "soal-" + g[0] + g[1], t: g[2], r: r };
+    });
   }
   SKD.cepat = { jumlah: function () { return bagian().reduce(function (a, b) { return a + b.r.length; }, 0); } };
 
