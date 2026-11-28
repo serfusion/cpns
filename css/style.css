@@ -547,7 +547,8 @@ body.in-cat .cat-foot { padding-bottom: 6px; }
 .kf-ttl { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
 .kf-ttl b { font-size: 1.05rem; line-height: 1.3; }
 .kf-ttl > span { font-size: 0.88rem; color: var(--muted); overflow-wrap: anywhere; }
-.kf-lok { display: inline-flex; align-items: center; gap: 4px; }
+.kf-lok { display: flex; align-items: center; gap: 4px; min-width: 0; }
+.kf-lok-t { min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .kf-lok .ico, .kf-lok .ico svg { width: 15px; height: 15px; color: var(--muted); }
 .kf-simpan { flex: none; width: 40px; height: 40px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); color: var(--muted); font-size: 1.15rem; cursor: pointer; }
 .kf-simpan[aria-pressed="true"] { color: var(--amber); border-color: var(--amber); background: var(--amber-soft); }
@@ -648,22 +649,30 @@ body.in-cat .cat-foot { padding-bottom: 6px; }
   *, *::before, *::after { animation: none !important; }
 }
 
-/* ---------- hafalan kalimat (js/hafalan.js) ---------- */
-.hf-card { gap: 12px; }
-.hf-soal { font-size: 1.05rem; line-height: 1.7; white-space: pre-line; }
-.hf-jawab { display: flex; flex-direction: column; gap: 10px; border-top: 1px dashed var(--line); padding-top: 12px; animation: naik 0.2s ease-out both; }
-.hf-kunci { font-weight: 600; line-height: 1.6; background: var(--ok-soft); border-radius: var(--r-md); padding: 10px 12px; }
-.hf-urut { margin: 0; padding-left: 0; list-style: none; display: flex; flex-direction: column; gap: 6px; font-size: 0.92rem; line-height: 1.55; }
-.hf-x { font-size: 0.95rem; line-height: 1.65; }
-.hf-nav { position: sticky; bottom: 0; padding: 10px 0 calc(10px + env(safe-area-inset-bottom, 0px)); background: linear-gradient(rgba(0, 0, 0, 0), var(--bg) 35%); }
-.hf-nav .btn { flex: 1 1 0; }
-.hf-pilih { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; }
+/* ---------- hafalan cepat (js/hafalan.js): daftar gaya catatan ---------- */
+.cepat { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.cepat li { padding: 9px 2px; border-bottom: 1px dashed var(--line); line-height: 1.55; font-size: 0.97rem; overflow-wrap: anywhere; }
+.cepat li:last-child { border-bottom: 0; }
+.cp-k { font-weight: 700; }
+.cp-s { color: var(--muted); font-weight: 700; }
+.cepat.baku .cp-k { font-weight: 500; color: var(--muted); text-decoration: line-through; }
+.cepat.baku .cp-j { font-weight: 700; }
+.cepat.tutup li { cursor: pointer; }
+.cepat.tutup .cp-j { filter: blur(6px); transition: filter 0.15s ease; user-select: none; }
+.cepat.tutup li.buka .cp-j { filter: none; user-select: auto; }
 
-/* tab bawah di HP: toast dan tombol hafalan naik di atas tab */
+/* tab bawah di HP: toast naik di atas tab */
 @media (max-width: 819px) {
   .toast { bottom: calc(12px + var(--tabs-h)); }
-  .hf-nav { bottom: var(--tabs-h); padding-bottom: 10px; }
 }
 body.in-cat .toast, body.in-quiz .toast { bottom: calc(20px + env(safe-area-inset-bottom, 0px)); }
 /* tombol versi di Tryout tidak perlu selebar layar komputer */
 .stack.tight > .seg { max-width: 420px; }
+
+/* ---------- beranda: tiga versi belajar ---------- */
+.versi { display: flex; align-items: center; gap: 12px; width: 100%; text-align: left; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); padding: 14px; cursor: pointer; color: var(--ink); font: inherit; }
+.versi:hover { border-color: var(--navy-2); }
+.versi-no { flex: none; width: 38px; height: 38px; border-radius: 10px; background: var(--navy); color: var(--amber); display: grid; place-items: center; font-weight: 800; font-size: 1.05rem; }
+.versi-t { display: flex; flex-direction: column; gap: 1px; min-width: 0; flex: 1 1 auto; }
+.versi-t b { font-size: 1.02rem; }
+.versi-go { flex: none; color: var(--muted); font-size: 1.4rem; font-weight: 700; line-height: 1; }

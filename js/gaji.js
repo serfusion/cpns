@@ -92,8 +92,7 @@
           h("span", { class: "meta" }, (inst ? inst.s : "Instansi lain") + " · sebelum pajak dan potongan")),
         h("ul", { class: "gj-rinci" }, H.rows.map(function (x) {
           return h("li", null, h("span", null, x.k), h("span", { class: "gj-v" }, rp(x.v)));
-        })),
-        inst ? h("p", { class: "meta" }, h("a", { href: inst.u, target: "_blank", rel: "noopener" }, "Dasar tukin: " + inst.r + " ↗")) : null
+        }))
       ]);
       isiPeringkat(H);
     }
@@ -107,7 +106,7 @@
         h("p", { class: "meta" }, "Kelas jabatan " + S.kelas + (cpns ? " · CPNS" : " · PNS")),
         h("ol", { class: "gj-rank" }, tampil.map(function (x) {
           return h("li", { class: x.i.s === S.inst ? "on" : null },
-            h("span", null, h("b", null, x.i.s), " ", h("span", { class: "small muted" }, x.i.n)),
+            h("span", { title: x.i.n }, h("b", null, x.i.s)),
             h("span", { class: "gj-v" }, juta(H.dasar + x.t)));
         })),
         L.length > 10 ? h("button", { class: "more", type: "button", onclick: function () { semuaPeringkat = !semuaPeringkat; isiPeringkat(H); } },

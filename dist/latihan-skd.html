@@ -558,7 +558,8 @@ body.in-cat .cat-foot { padding-bottom: 6px; }
 .kf-ttl { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
 .kf-ttl b { font-size: 1.05rem; line-height: 1.3; }
 .kf-ttl > span { font-size: 0.88rem; color: var(--muted); overflow-wrap: anywhere; }
-.kf-lok { display: inline-flex; align-items: center; gap: 4px; }
+.kf-lok { display: flex; align-items: center; gap: 4px; min-width: 0; }
+.kf-lok-t { min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .kf-lok .ico, .kf-lok .ico svg { width: 15px; height: 15px; color: var(--muted); }
 .kf-simpan { flex: none; width: 40px; height: 40px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); color: var(--muted); font-size: 1.15rem; cursor: pointer; }
 .kf-simpan[aria-pressed="true"] { color: var(--amber); border-color: var(--amber); background: var(--amber-soft); }
@@ -659,25 +660,33 @@ body.in-cat .cat-foot { padding-bottom: 6px; }
   *, *::before, *::after { animation: none !important; }
 }
 
-/* ---------- hafalan kalimat (js/hafalan.js) ---------- */
-.hf-card { gap: 12px; }
-.hf-soal { font-size: 1.05rem; line-height: 1.7; white-space: pre-line; }
-.hf-jawab { display: flex; flex-direction: column; gap: 10px; border-top: 1px dashed var(--line); padding-top: 12px; animation: naik 0.2s ease-out both; }
-.hf-kunci { font-weight: 600; line-height: 1.6; background: var(--ok-soft); border-radius: var(--r-md); padding: 10px 12px; }
-.hf-urut { margin: 0; padding-left: 0; list-style: none; display: flex; flex-direction: column; gap: 6px; font-size: 0.92rem; line-height: 1.55; }
-.hf-x { font-size: 0.95rem; line-height: 1.65; }
-.hf-nav { position: sticky; bottom: 0; padding: 10px 0 calc(10px + env(safe-area-inset-bottom, 0px)); background: linear-gradient(rgba(0, 0, 0, 0), var(--bg) 35%); }
-.hf-nav .btn { flex: 1 1 0; }
-.hf-pilih { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; }
+/* ---------- hafalan cepat (js/hafalan.js): daftar gaya catatan ---------- */
+.cepat { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.cepat li { padding: 9px 2px; border-bottom: 1px dashed var(--line); line-height: 1.55; font-size: 0.97rem; overflow-wrap: anywhere; }
+.cepat li:last-child { border-bottom: 0; }
+.cp-k { font-weight: 700; }
+.cp-s { color: var(--muted); font-weight: 700; }
+.cepat.baku .cp-k { font-weight: 500; color: var(--muted); text-decoration: line-through; }
+.cepat.baku .cp-j { font-weight: 700; }
+.cepat.tutup li { cursor: pointer; }
+.cepat.tutup .cp-j { filter: blur(6px); transition: filter 0.15s ease; user-select: none; }
+.cepat.tutup li.buka .cp-j { filter: none; user-select: auto; }
 
-/* tab bawah di HP: toast dan tombol hafalan naik di atas tab */
+/* tab bawah di HP: toast naik di atas tab */
 @media (max-width: 819px) {
   .toast { bottom: calc(12px + var(--tabs-h)); }
-  .hf-nav { bottom: var(--tabs-h); padding-bottom: 10px; }
 }
 body.in-cat .toast, body.in-quiz .toast { bottom: calc(20px + env(safe-area-inset-bottom, 0px)); }
 /* tombol versi di Tryout tidak perlu selebar layar komputer */
 .stack.tight > .seg { max-width: 420px; }
+
+/* ---------- beranda: tiga versi belajar ---------- */
+.versi { display: flex; align-items: center; gap: 12px; width: 100%; text-align: left; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); padding: 14px; cursor: pointer; color: var(--ink); font: inherit; }
+.versi:hover { border-color: var(--navy-2); }
+.versi-no { flex: none; width: 38px; height: 38px; border-radius: 10px; background: var(--navy); color: var(--amber); display: grid; place-items: center; font-weight: 800; font-size: 1.05rem; }
+.versi-t { display: flex; flex-direction: column; gap: 1px; min-width: 0; flex: 1 1 auto; }
+.versi-t b { font-size: 1.02rem; }
+.versi-go { flex: none; color: var(--muted); font-size: 1.4rem; font-weight: 700; line-height: 1; }
 
 </style>
 </head>
@@ -11831,8 +11840,7 @@ body.in-cat .toast, body.in-quiz .toast { bottom: calc(20px + env(safe-area-inse
           h("span", { class: "meta" }, (inst ? inst.s : "Instansi lain") + " · sebelum pajak dan potongan")),
         h("ul", { class: "gj-rinci" }, H.rows.map(function (x) {
           return h("li", null, h("span", null, x.k), h("span", { class: "gj-v" }, rp(x.v)));
-        })),
-        inst ? h("p", { class: "meta" }, h("a", { href: inst.u, target: "_blank", rel: "noopener" }, "Dasar tukin: " + inst.r + " ↗")) : null
+        }))
       ]);
       isiPeringkat(H);
     }
@@ -11846,7 +11854,7 @@ body.in-cat .toast, body.in-quiz .toast { bottom: calc(20px + env(safe-area-inse
         h("p", { class: "meta" }, "Kelas jabatan " + S.kelas + (cpns ? " · CPNS" : " · PNS")),
         h("ol", { class: "gj-rank" }, tampil.map(function (x) {
           return h("li", { class: x.i.s === S.inst ? "on" : null },
-            h("span", null, h("b", null, x.i.s), " ", h("span", { class: "small muted" }, x.i.n)),
+            h("span", { title: x.i.n }, h("b", null, x.i.s)),
             h("span", { class: "gj-v" }, juta(H.dasar + x.t)));
         })),
         L.length > 10 ? h("button", { class: "more", type: "button", onclick: function () { semuaPeringkat = !semuaPeringkat; isiPeringkat(H); } },
@@ -12238,7 +12246,9 @@ body.in-cat .toast, body.in-quiz .toast { bottom: calc(20px + env(safe-area-inse
         dd("Skor Anda", a.total + " (" + (a.margin >= 0 ? "+" : "") + a.margin + ")"),
         dd("Peringkat", "≈" + rp(a.rank) + " dari " + rp(a.hadir) + " · kursi SKB " + rp(a.seats)),
         dd("Nilai SKB perlu", a.skbPerlu <= 0 ? "berapa pun" : a.skbPerlu > 100 ? "tidak cukup, naikkan SKD" : "≈" + dec(a.skbPerlu, 1) + " dari 100"),
-        x.tahap ? dd("Tahapan", "SKD " + (x.tahap.skd || "CAT BKN") + " · SKB " + (x.tahap.skb || "belum diketahui")) : null,
+        x.tahap ? dd("Tahapan", "SKD " + (x.tahap.skd || "CAT BKN") + " · SKB " + (x.tahap.skb || "belum diketahui") +
+          (x.tahap.wawancara === "ya" ? " · ada wawancara" : x.tahap.wawancara === "tidak" ? " · tanpa wawancara" : "")) : null,
+        pIlkom ? dd("Jurusan", "menerima S-1 Ilmu Komunikasi") : null,
         dd("Penghasilan", gaji ? gaji + (x.uang ? "" : " (kelas " + t.kel + ")") : ""),
         dd("Pendidikan", x.p.length ? singkat(x.p, 6) : ""),
         dd("Penempatan", x.lok && x.lok.length ? singkat(x.lok.map(function (l) { return l[0] + " " + l[1]; }), 8) : ""),
@@ -12248,7 +12258,7 @@ body.in-cat .toast, body.in-quiz .toast { bottom: calc(20px + env(safe-area-inse
       return h("li", { class: "kf-card" + (buka ? " open" : "") },
         h("div", { class: "kf-top" },
           h("div", { class: "kf-ttl" }, h("b", null, x.j), h("span", null, x.i || "Instansi belum diisi"),
-            x.l ? h("span", { class: "kf-lok" }, h("span", { class: "ico", html: IKON_LOK }), x.l) : null),
+            x.l ? h("span", { class: "kf-lok", title: x.l }, h("span", { class: "ico", html: IKON_LOK }), h("span", { class: "kf-lok-t" }, x.l)) : null),
           h("button", { class: "kf-simpan", type: "button", id: "kf-simpan-" + idx, "aria-pressed": simpan ? "true" : "false", "aria-label": simpan ? "Hapus dari tersimpan" : "Simpan",
             onclick: function () {
               var i = S.simpan.indexOf(x.key); if (i >= 0) S.simpan.splice(i, 1); else S.simpan.push(x.key);
@@ -12260,9 +12270,7 @@ body.in-cat .toast, body.in-quiz .toast { bottom: calc(20px + env(safe-area-inse
           h("div", null, h("span", { class: "lbl" }, "Batas SKD"), h("b", null, a.semuaMasuk ? "311" : "≈" + a.cut), h("span", { class: "d" }, "Anda " + (a.margin >= 0 ? "+" : "") + a.margin))),
         h("div", { class: "kf-chips" },
           chip(a.ketat[0], "1:" + dec(a.rasio, a.rasio < 10 ? 1 : 0) + " " + a.ketat[1].toLowerCase()),
-          gaji ? chip("", gaji) : null,
-          pIlkom ? chip("ok", "S-1 Ilmu Komunikasi") : null,
-          x.tahap && x.tahap.wawancara === "ya" ? chip("warn", "ada wawancara") : x.tahap && x.tahap.wawancara === "tidak" ? chip("ok", "tanpa wawancara") : null),
+          gaji ? chip("", gaji) : null),
         h("div", { class: "row" },
           h("button", { class: "more", type: "button", id: "kf-sim-" + idx, "aria-expanded": buka ? "true" : "false", "aria-controls": "kf-d-" + idx,
             onclick: function () { S.buka = buka ? "" : x.key; save(); isi("kf-sim-" + idx); } }, buka ? "Tutup ▴" : "Detail ▾"),
@@ -12327,12 +12335,11 @@ body.in-cat .toast, body.in-quiz .toast { bottom: calc(20px + env(safe-area-inse
     // --- asal data ---
     var DOK = SKD.dok2026, SS = K.ss, sim = baca(KEY_DEV) || {};
     var bisaPindai = P && P.bisaPindai && P.bisaPindai();
-    var asal = h("p", { class: "meta" }, "Data " + (SS ? tgl(SS.d.waktu) : DOK ? DOK.tanggal : "bawaan") + (DOK ? " · pengumuman " + DOK.instansi.length + " instansi" : "") + (SS ? " · SSCASN" : ""));
+    var asal = h("p", { class: "meta" }, "Data " + (SS ? tgl(SS.d.waktu).split(",")[0] : DOK ? DOK.tanggal : "bawaan") + " · daftar di ",
+      h("a", { href: "https://sscasn.bkn.go.id/", target: "_blank", rel: "noopener" }, "sscasn.bkn.go.id ↗"));
     isiGrup(); isi();
     return [
       h("div", { class: "page-head" }, h("h1", null, "Formasi 2026"), asal, ctx.sub || null),
-      h("p", { class: "note ok" }, "Pendaftaran dibuka sejak 27 November 2026. Daftar hanya di ",
-        h("a", { href: "https://sscasn.bkn.go.id/", target: "_blank", rel: "noopener" }, "sscasn.bkn.go.id"), "."),
       bisaPindai ? h("div", { class: "row" },
         h("button", { class: "btn sm", type: "button", id: "fm-pindai-btn", onclick: function () { P.mulai(); } }, "Perbarui dari SSCASN"),
         sim.galat ? h("span", { class: "meta bad-t" }, "Pindai terakhir gagal.") : null) : null,
@@ -12349,113 +12356,337 @@ body.in-cat .toast, body.in-quiz .toast { bottom: calc(20px + env(safe-area-inse
 
 </script>
 <script>
-/* Mode Hafalan (menu "Hafalan kalimat"): kartu soal dengan kalimat jawaban terbaik dan pembahasannya, untuk dihafal.
-   Dua versi, sesuai permintaan pemilik:
-   - Ringkas: soal pendek dari bank lama (mudah dihafal kalimatnya);
-   - Persis CAT: soal setara CAT (data/setara*.js, paket 1, 2, ...), kasus panjang dengan opsi seimbang.
-   Prioritas TWK dan TKP; TIU hanya materi tanpa hitungan. Soal yang sudah ditandai hafal disimpan di perangkat ini. */
+/* Hafalan cepat (versi 3, tab Hafalan): baris singkat "kunci = jawaban" seperti catatan notepad pemilik.
+   Sumber:
+   - catatan pemilik 28 Nov 2026 (dirapikan; baris yang keliru dikoreksi, yang tidak jelas dilewati);
+   - tabel fakta terverifikasi data/fakta.js (pasal UUD, wewenang lembaga, sejarah, hari nasional; bagian "Kata baku" diambil
+     langsung dari fakta.baku saat aplikasi berjalan);
+   - definisi dan pola aspek TKP di js/config.js, ambang batas KepmenPANRB 674/2026.
+   Menambah baris: [kunci, jawaban] di bagian yang sesuai. Kunci dalam satu bagian tidak boleh kembar (dicek validate.mjs). */
 (function () {
   "use strict";
   var SKD = (window.SKD = window.SKD || {});
-  var KEY = "skd.hafalan.v1";
-  var TIU_LUNAK = ["sil", "ind", "anl", "der"];
-  var LET = ["A", "B", "C", "D", "E"];
+
+  SKD.cepatData = [
+    { id: "tempo", t: "Tempo ujian", r: [
+      ["110 soal · 100 menit", "±54 detik per soal"],
+      ["Urutan soal CAT", "TWK 30 → TIU 35 → TKP 45"],
+      ["Kerjakan dulu", "TWK, TKP, dan TIU tanpa hitungan"],
+      ["Hitungan panjang", "lewati dulu, kembali bila waktu sisa"],
+      ["Menyimpan jawaban", "pilih, lalu Simpan dan Lanjutkan"],
+      ["Kotak nomor", "merah belum · hijau sudah"],
+      ["Nilai TWK & TIU", "benar 5 · salah/kosong 0"],
+      ["Nilai TKP", "1–5 per soal · kosong 0"],
+      ["Salah tidak dikurangi", "jangan ada yang kosong"],
+      ["Ambang batas", "TWK 65 · TIU 80 · TKP 166, ketiganya wajib"],
+      ["TWK 65", "minimal 13 benar dari 30"],
+      ["TIU 80", "minimal 16 benar dari 35"],
+      ["TKP 166", "rata-rata ±3,7 poin per soal"],
+      ["Target aman", "TWK 110 · TIU 85 · TKP 200"]
+    ] },
+
+    { id: "sil", t: "Silogisme", r: [
+      ["Semua + Semua (+ Semua)", "Semua"],
+      ["Ada kata Sebagian/Ada di premis mana pun", "kesimpulan Sebagian"],
+      ["Semua + Semua + Sebagian", "Sebagian"],
+      ["Sebagian + Sebagian", "tidak bisa disimpulkan"],
+      ["Semua A adalah B + Sebagian C adalah A", "Sebagian C adalah B"],
+      ["Semua A adalah B + Sebagian B adalah C", "tidak bisa disimpulkan"],
+      ["Tidak ada", "dihitung seperti Semua, kesimpulan ikut 'tidak'"],
+      ["Semua A adalah B + Tidak ada B yang C", "Tidak ada A yang C"],
+      ["Tidak ada A yang B + Sebagian C adalah A", "Sebagian C bukan B"],
+      ["Rantai kata", "coret yang sama, sambung awal + akhir"],
+      ["Ingkaran: Semua A adalah B", "Ada/Beberapa A bukan B"],
+      ["Ingkaran: Ada A yang B", "Tidak ada A yang B"]
+    ] },
+
+    { id: "jika", t: "Jika–maka", r: [
+      ["Jika P maka Q · P terjadi", "Q terjadi"],
+      ["Jika P maka Q · Q tidak terjadi", "P tidak terjadi (tarik mundur)"],
+      ["Jika P maka Q · Q terjadi", "tidak bisa disimpulkan"],
+      ["Jika P maka Q · P tidak terjadi", "tidak bisa disimpulkan"],
+      ["Jika P maka Q + Jika Q maka R", "Jika P maka R"],
+      ["Banyak 'jika' berantai", "coret yang sama, ambil awal + akhir"],
+      ["Satu baris jika–maka (kontraposisi)", "Jika tidak Q maka tidak P"],
+      ["Jika berkas lengkap, permohonan diproses", "Jika permohonan tidak diproses, berkas tidak lengkap"],
+      ["Ingkaran: Jika P maka Q", "P dan tidak Q"],
+      ["Ingkaran: P dan Q", "tidak P atau tidak Q"],
+      ["Ingkaran: P atau Q", "tidak P dan tidak Q"]
+    ] },
+
+    { id: "anl", t: "Analitis & bacaan", r: [
+      ["Syarat: jika A dipilih, B dipilih", "pilih A berarti B ikut; B boleh sendiri"],
+      ["Banyak nama untuk dipilih", "jangan pilih yang paling banyak syarat"],
+      ["Paling sedikit satu", "cek nama kembar di dua syarat, pilih itu"],
+      ["Susunan duduk/antrean", "tulis posisi yang pasti dulu"],
+      ["Jaring-jaring kubus", "tentukan sisi alas dulu"],
+      ["Simpulan bacaan", "mulai dari subjek kalimat pertama"],
+      ["Bacaan tanpa angka", "jangan pilih 'tidak dapat disimpulkan'"],
+      ["Memperlemah simpulan", "pilih yang membantah alasannya (bikin 'hah?')"],
+      ["Memperkuat simpulan", "pilih yang mendukung alasannya"]
+    ] },
+
+    { id: "sila", t: "Pancasila", r: [
+      ["Sila 1", "Ketuhanan Yang Maha Esa"],
+      ["Sila 2", "Kemanusiaan yang adil dan beradab"],
+      ["Sila 3", "Persatuan Indonesia"],
+      ["Sila 4", "Kerakyatan yang dipimpin oleh hikmat kebijaksanaan dalam permusyawaratan/perwakilan"],
+      ["Sila 5", "Keadilan sosial bagi seluruh rakyat Indonesia"],
+      ["Ibadah, toleransi beragama", "sila 1"],
+      ["Tidak rasis, tenggang rasa, menjunjung kemanusiaan", "sila 2"],
+      ["Rasis", "melanggar sila 2"],
+      ["Cinta tanah air, utamakan persatuan", "sila 3"],
+      ["Pendatang menyesuaikan diri dengan adat setempat", "sila 3"],
+      ["Musyawarah, hormati keputusan bersama", "sila 4"],
+      ["Menolak melaksanakan hasil musyawarah", "melanggar sila 4"],
+      ["Adil, gotong royong, hak & kewajiban seimbang", "sila 5"],
+      ["Membagi kelompok merata sesuai hak & kewajiban", "sila 5"]
+    ] },
+
+    { id: "pasal", t: "Pasal UUD", r: [
+      ["Negara kesatuan berbentuk republik", "Pasal 1 ayat (1)"],
+      ["Kedaulatan di tangan rakyat", "Pasal 1 ayat (2)"],
+      ["Negara hukum", "Pasal 1 ayat (3)"],
+      ["Presiden & Wapres dipilih langsung", "Pasal 6A ayat (1)"],
+      ["Masa jabatan Presiden & Wapres", "Pasal 7"],
+      ["Wilayah dibagi provinsi, kabupaten, kota", "Pasal 18 ayat (1)"],
+      ["Masyarakat hukum adat diakui", "Pasal 18B ayat (2)"],
+      ["Asas pemilu", "Pasal 22E ayat (1)"],
+      ["Pajak diatur undang-undang", "Pasal 23A"],
+      ["Kekuasaan kehakiman merdeka", "Pasal 24 ayat (1)"],
+      ["Negara kepulauan berciri Nusantara", "Pasal 25A"],
+      ["Warga negara", "Pasal 26 ayat (1)"],
+      ["Sama kedudukan di hukum & pemerintahan", "Pasal 27 ayat (1)"],
+      ["Hak pekerjaan & penghidupan layak", "Pasal 27 ayat (2)"],
+      ["Hak & kewajiban bela negara", "Pasal 27 ayat (3)"],
+      ["Berserikat, berkumpul, berpendapat diatur UU", "Pasal 28"],
+      ["Hak hidup", "Pasal 28A"],
+      ["Hak anak: tumbuh kembang, bebas kekerasan", "Pasal 28B ayat (2)"],
+      ["Hak mengembangkan diri & pendidikan", "Pasal 28C ayat (1)"],
+      ["Kepastian hukum & perlakuan sama", "Pasal 28D ayat (1)"],
+      ["Kesempatan sama dalam pemerintahan", "Pasal 28D ayat (3)"],
+      ["Bebas berserikat, berkumpul, berpendapat", "Pasal 28E ayat (3)"],
+      ["Berkomunikasi & memperoleh informasi", "Pasal 28F"],
+      ["Perlindungan diri, keluarga, harta", "Pasal 28G ayat (1)"],
+      ["Hidup sejahtera, lingkungan sehat, layanan kesehatan", "Pasal 28H ayat (1)"],
+      ["Negara (pemerintah) bertanggung jawab atas HAM", "Pasal 28I ayat (4)"],
+      ["Wajib menghormati HAM orang lain", "Pasal 28J ayat (1)"],
+      ["Negara berdasar Ketuhanan YME", "Pasal 29 ayat (1)"],
+      ["Bebas memeluk agama & beribadat", "Pasal 29 ayat (2)"],
+      ["Hak & kewajiban usaha pertahanan keamanan", "Pasal 30 ayat (1)"],
+      ["Sishankamrata: TNI & Polri utama, rakyat pendukung", "Pasal 30 ayat (2)"],
+      ["Hak mendapat pendidikan", "Pasal 31 ayat (1)"],
+      ["Wajib pendidikan dasar, dibiayai pemerintah", "Pasal 31 ayat (2)"],
+      ["Anggaran pendidikan minimal 20% APBN & APBD", "Pasal 31 ayat (4)"],
+      ["Memajukan kebudayaan nasional", "Pasal 32 ayat (1)"],
+      ["Bahasa daerah dihormati & dipelihara", "Pasal 32 ayat (2)"],
+      ["Ekonomi usaha bersama, asas kekeluargaan", "Pasal 33 ayat (1)"],
+      ["Bumi, air, kekayaan alam dikuasai negara (tambang strategis)", "Pasal 33 ayat (3)"],
+      ["Fakir miskin & anak telantar dipelihara negara", "Pasal 34 ayat (1)"],
+      ["Negara sediakan fasilitas kesehatan & layanan umum", "Pasal 34 ayat (3)"],
+      ["Bendera negara", "Pasal 35"],
+      ["Bahasa negara: Bahasa Indonesia", "Pasal 36"],
+      ["Lambang negara", "Pasal 36A"],
+      ["Lagu kebangsaan", "Pasal 36B"],
+      ["Bentuk NKRI tidak dapat diubah", "Pasal 37 ayat (5)"]
+    ] },
+
+    { id: "lembaga", t: "Lembaga negara", r: [
+      ["Menguji UU terhadap UUD", "MK · Pasal 24C (1)"],
+      ["Memutus pembubaran partai politik", "MK"],
+      ["Memutus sengketa hasil pemilu", "MK"],
+      ["Memutus sengketa kewenangan lembaga negara", "MK"],
+      ["Memutus pendapat DPR soal pelanggaran Presiden/Wapres", "MK · Pasal 24C (2)"],
+      ["Menguji peraturan di bawah UU terhadap UU", "MA · Pasal 24A (1)"],
+      ["Mengadili tingkat kasasi", "MA"],
+      ["Pertimbangan grasi & rehabilitasi", "MA (yang memberi: Presiden)"],
+      ["Mengusulkan pengangkatan hakim agung", "KY · Pasal 24B (1)"],
+      ["Menjaga kehormatan & perilaku hakim", "KY"],
+      ["Persetujuan pengangkatan anggota KY", "DPR · Pasal 24B (3)"],
+      ["Persetujuan calon hakim agung usulan KY", "DPR · Pasal 24A (3)"],
+      ["Memeriksa keuangan negara", "BPK · Pasal 23E (1)"],
+      ["Memilih anggota BPK", "DPR, dengan pertimbangan DPD"],
+      ["Mengajukan RUU otonomi & pemekaran daerah ke DPR", "DPD · Pasal 22D (1)"],
+      ["Pertimbangan RUU APBN, pajak, pendidikan, agama", "DPD · Pasal 22D (2)"],
+      ["Mengawasi pelaksanaan UU otonomi daerah", "DPD · Pasal 22D (3)"],
+      ["Membentuk undang-undang", "DPR · Pasal 20 (1)"],
+      ["Hak interpelasi, angket, menyatakan pendapat", "DPR · Pasal 20A (2)"],
+      ["Mengusulkan pemberhentian Presiden ke MPR", "DPR · Pasal 7A"],
+      ["Pertimbangan amnesti & abolisi", "DPR (yang memberi: Presiden)"],
+      ["Pertimbangan pengangkatan duta", "DPR · Pasal 13 (2)"],
+      ["Persetujuan Perppu di sidang berikutnya", "DPR · Pasal 22 (2)"],
+      ["Mengubah & menetapkan UUD", "MPR · Pasal 3 (1)"],
+      ["Melantik Presiden/Wapres", "MPR · Pasal 3 (2)"],
+      ["Memberhentikan Presiden/Wapres", "MPR · Pasal 3 (3)"],
+      ["Memilih Wapres bila kosong (2 calon dari Presiden)", "MPR · Pasal 8 (2)"],
+      ["Memberi grasi & rehabilitasi", "Presiden · Pasal 14 (1)"],
+      ["Menetapkan Perppu (kegentingan memaksa)", "Presiden · Pasal 22 (1)"],
+      ["Kekuasaan tertinggi atas AD, AL, AU", "Presiden · Pasal 10"],
+      ["Memberi gelar & tanda jasa", "Presiden · Pasal 15"],
+      ["Mengangkat & memberhentikan menteri", "Presiden · Pasal 17 (2)"]
+    ] },
+
+    { id: "hari", t: "Hari nasional", r: [
+      ["Hari Kebangkitan Nasional", "20 Mei (Budi Utomo 1908)"],
+      ["Hari Pendidikan Nasional", "2 Mei (lahir Ki Hajar Dewantara)"],
+      ["Hari Kartini", "21 April"],
+      ["Hari Lahir Pancasila", "1 Juni (pidato Soekarno 1945)"],
+      ["Hari Konstitusi", "18 Agustus (UUD disahkan PPKI 1945)"],
+      ["Hari Olahraga Nasional", "9 September (PON I 1948)"],
+      ["Hari Kesaktian Pancasila", "1 Oktober"],
+      ["Hari TNI", "5 Oktober (TKR 1945)"],
+      ["Hari Santri", "22 Oktober (Resolusi Jihad 1945)"],
+      ["Hari Sumpah Pemuda", "28 Oktober (Kongres Pemuda II 1928)"],
+      ["Hari Pahlawan", "10 November (Surabaya 1945)"],
+      ["Hari Antikorupsi Sedunia", "9 Desember"],
+      ["Hari HAM Sedunia", "10 Desember"],
+      ["Hari Nusantara", "13 Desember (Deklarasi Djuanda 1957)"],
+      ["Hari Bela Negara", "19 Desember (PDRI di Sumatera Barat 1948)"],
+      ["Hari Ibu", "22 Desember (Kongres Perempuan I 1928)"]
+    ] },
+
+    { id: "sejarah", t: "Sejarah & tokoh", r: [
+      ["Budi Utomo berdiri", "20 Mei 1908 · dr. Soetomo dkk. (STOVIA)"],
+      ["Penggagas Budi Utomo (dana pelajar)", "dr. Wahidin Soedirohoesodo"],
+      ["Sarekat Dagang Islam (Surakarta)", "H. Samanhudi"],
+      ["Indische Partij", "25 Desember 1912 · Tiga Serangkai"],
+      ["Tiga Serangkai", "Douwes Dekker, Tjipto Mangoenkoesoemo, Soewardi Soerjaningrat"],
+      ["Muhammadiyah (Yogyakarta)", "18 November 1912 · K.H. Ahmad Dahlan"],
+      ["Taman Siswa (Yogyakarta)", "3 Juli 1922 · Ki Hajar Dewantara"],
+      ["Nahdlatul Ulama (Surabaya)", "31 Januari 1926 · K.H. Hasyim Asy'ari"],
+      ["PNI (Bandung)", "4 Juli 1927 · Ir. Soekarno dkk."],
+      ["Sumpah Pemuda", "28 Oktober 1928 · Kongres Pemuda II"],
+      ["Ketua Kongres Pemuda II", "Soegondo Djojopoespito"],
+      ["Indonesia Raya pertama diperdengarkan", "W.R. Supratman, Kongres Pemuda II"],
+      ["Kongres Perempuan I (Yogyakarta)", "22 Desember 1928"],
+      ["Ketua BPUPKI", "dr. K.R.T. Radjiman Wedyodiningrat"],
+      ["Sidang BPUPKI di", "Gedung Chuo Sangi In (Gedung Pancasila), Jakarta"],
+      ["Sidang I BPUPKI", "29 Mei–1 Juni 1945 · rumusan dasar negara"],
+      ["Muhammad Yamin pidato dasar negara", "29 Mei 1945"],
+      ["Soepomo pidato dasar negara", "31 Mei 1945"],
+      ["Soekarno memperkenalkan 'Pancasila'", "1 Juni 1945"],
+      ["Piagam Jakarta (Panitia Sembilan)", "22 Juni 1945"],
+      ["Ketua Panitia Sembilan", "Ir. Soekarno"],
+      ["Sidang II BPUPKI", "10–17 Juli 1945 · rancangan UUD (bentuk negara, wilayah)"],
+      ["PPKI dibentuk", "7 Agustus 1945"],
+      ["Ketua / wakil ketua PPKI", "Ir. Soekarno / Drs. Mohammad Hatta"],
+      ["Peristiwa Rengasdengklok", "16 Agustus 1945"],
+      ["Naskah proklamasi dirumuskan di", "rumah Laksamana Tadashi Maeda"],
+      ["Pengetik naskah proklamasi", "Sayuti Melik"],
+      ["Usul naskah ditandatangani Soekarno–Hatta", "Sukarni"],
+      ["Proklamasi dibacakan di", "Jl. Pegangsaan Timur 56, Jakarta"],
+      ["Penjahit bendera pusaka", "Fatmawati"],
+      ["Sidang PPKI 18 Agustus 1945", "sahkan UUD, pilih Presiden & Wapres"],
+      ["Sidang PPKI 19 Agustus 1945", "8 provinsi + kementerian"],
+      ["Sidang PPKI 22 Agustus 1945", "KNI, PNI, BKR"],
+      ["Deklarasi Djuanda (laut antarpulau wilayah RI)", "13 Desember 1957"],
+      ["Dekrit Presiden (kembali ke UUD 1945)", "5 Juli 1959"]
+    ] },
+
+    { id: "bela", t: "Integritas & bela negara", r: [
+      ["Nilai dasar bela negara", "cinta tanah air · sadar berbangsa & bernegara · setia Pancasila · rela berkorban · kemampuan awal bela negara"],
+      ["Kemampuan awal bela negara", "sehat jasmani & rohani, cerdas, terampil, percaya diri"],
+      ["Komponen Cadangan", "sukarela"],
+      ["Ancaman hibrida", "campuran militer + nonmiliter"],
+      ["Trigatra", "geografi · kekayaan alam · kependudukan"],
+      ["Pancagatra", "ideologi · politik · ekonomi · sosial budaya · hankam"],
+      ["Empat konsensus kebangsaan", "Pancasila · UUD NRI 1945 · NKRI · Bhinneka Tunggal Ika"],
+      ["UUD NRI 1945", "hukum dasar tertulis"],
+      ["Hierarki peraturan", "UUD 1945 → TAP MPR → UU/Perppu → PP → Perpres → Perda Provinsi → Perda Kab/Kota"],
+      ["Gratifikasi", "lapor KPK paling lambat 30 hari kerja"],
+      ["Memaksa minta uang", "pemerasan"],
+      ["Pendatang & minoritas diperlakukan sama", "kesamaan (equality)"],
+      ["Etnosentrisme", "menilai budaya lain dengan ukuran budaya sendiri"],
+      ["Chauvinisme", "mengagungkan bangsa sendiri, merendahkan bangsa lain"],
+      ["Gerakan buatan lokal", "pilih produk lokal bermutu + beri masukan"],
+      ["Tari daerah dipadukan modern", "nasionalisme: kembangkan budaya sendiri, saring budaya asing"]
+    ] },
+
+    { id: "bahasa", t: "Bahasa Indonesia", r: [
+      ["Inti kalimat", "cari S-P-O-K"],
+      ["Opini", "subjektif · ada kata perlu, sebaiknya, seharusnya"],
+      ["Fakta", "bisa dibuktikan · ada data, angka, waktu, tempat"],
+      ["Simile", "perbandingan eksplisit: seperti, bagai, bagaikan, laksana"],
+      ["Ironi", "sindiran dengan menyatakan kebalikan"],
+      ["Konjungsi antarkalimat (akibat)", "Oleh karena itu"],
+      ["Partikel pun", "dipisah, kecuali adapun, ataupun, maupun, meskipun, walaupun, sekalipun"],
+      ["valid", "sahih"]
+    ] },
+
+    { id: "baku", t: "Kata baku", dari: "baku" },
+
+    { id: "tkp", t: "TKP", r: [
+      ["Nilai dasar ASN (BerAKHLAK)", "Berorientasi pelayanan · Akuntabel · Kompeten · Harmonis · Loyal · Adaptif · Kolaboratif"],
+      ["Pelayanan publik", "ramah, cekatan, tanpa pamrih, terus diperbaiki"],
+      ["Ditawari imbalan", "tolak dengan sopan"],
+      ["Lansia & disabilitas", "dahulukan, bantu sampai tuntas"],
+      ["Jejaring kerja", "bangun kerja sama, berbagi informasi"],
+      ["Konflik dalam tim", "selesaikan baik-baik demi tujuan bersama"],
+      ["Sosial budaya", "hargai keragaman, ikuti adat setempat"],
+      ["Adaptasi TIK", "pakai teknologi dengan bijak & etis"],
+      ["Data & kerahasiaan", "jaga, jangan disebar"],
+      ["Hoaks", "cek dulu, jangan disebarkan"],
+      ["Rekan gaptek", "bantu ajari"],
+      ["Profesionalisme", "ahli, akuntabel, berintegritas, berkomitmen"],
+      ["Kesalahan sendiri", "akui dan perbaiki"],
+      ["Tugas kantor vs urusan lain", "dahulukan tugas, atur waktu"],
+      ["Pilkada", "ASN netral"],
+      ["Anti radikalisme", "tolak kekerasan & paksaan keyakinan, terima perbedaan"],
+      ["Ajakan intoleran / konten radikal", "tolak, lapor lewat jalur resmi"]
+    ] }
+  ];
+})();
+
+</script>
+<script>
+/* Tab Hafalan: Hafalan cepat (versi 3). Daftar singkat "kunci = jawaban" per bagian, seperti catatan notepad pemilik.
+   Data: data/cepat.js (SKD.cepatData); bagian "Kata baku" diambil dari data/fakta.js.
+   "Tutup jawaban" mengaburkan jawaban sampai baris diketuk (latihan mengingat). Pilihan disimpan di perangkat ini. */
+(function () {
+  "use strict";
+  var SKD = (window.SKD = window.SKD || {});
+  var KEY = "skd.cepat.v1";
 
   function baca() { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { return {}; } }
   function tulis(o) { try { localStorage.setItem(KEY, JSON.stringify(o)); } catch (e) { /* mode privat */ } }
-  function keadaan() {
-    var d = baca();
-    return {
-      versi: d.versi === "persis" ? "persis" : "ringkas",
-      sec: ["twk", "tkp", "tiu"].indexOf(d.sec) >= 0 ? d.sec : "twk",
-      m: typeof d.m === "string" ? d.m.slice(0, 20) : "",
-      pk: Math.max(0, Math.min(99, Math.round(Number(d.pk) || 0))),
-      buka: d.buka === true, sembunyi: d.sembunyi !== false, daftar: d.daftar === true,
-      i: Math.max(0, Math.round(Number(d.i) || 0)),
-      hafal: d.hafal && typeof d.hafal === "object" ? d.hafal : {}
-    };
+  function bagian() {
+    var F = SKD.fakta;
+    return (SKD.cepatData || []).map(function (b) {
+      if (b.dari) return { id: b.id, t: b.t, sep: "→", r: F && Array.isArray(F[b.dari]) ? F[b.dari].map(function (p) { return [p[1], p[0]]; }) : [] };
+      return b;
+    }).filter(function (b) { return b.r && b.r.length; });
   }
+  SKD.cepat = { jumlah: function () { return bagian().reduce(function (a, b) { return a + b.r.length; }, 0); } };
 
   SKD.hafalanView = function (ctx) {
-    var h = ctx.h, E = SKD.engine, CFG = SKD.config, S = keadaan();
-    function simpan() { tulis(S); }
-    var bank = E.bank().filter(function (q) {
-      if (q.sec !== S.sec || !Array.isArray(q.o) || q.tb) return false;
-      if (S.sec === "tiu" && TIU_LUNAK.indexOf(q.m) < 0) return false;
-      if (S.versi === "persis" ? !q.setara : q.setara) return false;
-      if (S.versi === "persis" && S.pk && S.sec !== "tiu" && q.pk !== S.pk) return false;
-      var m = E.materi(q.m);
-      return !(m && m.lama) && (!S.m || q.m === S.m);
-    });
-    // urutan: sangat sering keluar dulu, lalu sering, lalu sisanya (urutan bank)
-    bank = bank.map(function (q, i) { return { q: q, i: i, w: q.sangat ? 0 : q.hot ? 1 : 2 }; })
-      .sort(function (a, b) { return a.w - b.w || a.i - b.i; }).map(function (x) { return x.q; });
-    var semua = bank.length, nHafal = bank.filter(function (q) { return S.hafal[q.id]; }).length;
-    var L = S.sembunyi ? bank.filter(function (q) { return !S.hafal[q.id]; }) : bank;
-    if (S.i >= L.length) S.i = 0;
-    var materiSec = CFG.materi.filter(function (m) { return m.sec === S.sec && !m.lama && (S.sec !== "tiu" || TIU_LUNAK.indexOf(m.id) >= 0); });
-
-    function jawaban(q) {
-      var tkp = q.sec === "tkp", best = tkp ? 0 : q.a || 0;
-      return h("div", { class: "hf-jawab" },
-        h("p", { class: "hf-kunci" }, h("span", { class: "tag ok" }, tkp ? "Nilai 5" : "Jawaban benar"), " ", q.o[best]),
-        tkp ? h("ol", { class: "hf-urut", start: 2 }, [1, 2, 3, 4].map(function (k) {
-          return h("li", null, h("span", { class: "tag" }, "Nilai " + (5 - k)), " ", q.o[k]);
-        })) : null,
-        q.x ? h("p", { class: "hf-x" }, h("b", null, "Kalimat kunci: "), q.x) : null);
-    }
-    function kartu(q, no) {
-      var m = E.materi(q.m), terbuka = S.buka || S.daftar;
-      var tombolBuka = h("button", { class: "btn sm", type: "button", "aria-expanded": "false", onclick: function (e) {
-        var box = e.currentTarget.parentNode.querySelector(".hf-jawab-wadah");
-        var buka = box.hidden; box.hidden = !buka;
-        e.currentTarget.setAttribute("aria-expanded", buka ? "true" : "false"); e.currentTarget.textContent = buka ? "Tutup jawaban" : "Lihat jawaban";
-      } }, "Lihat jawaban");
-      return h("article", { class: "card hf-card" },
-        h("div", { class: "row between" }, h("span", { class: "small muted" }, (no != null ? no + " · " : "") + (m ? m.name : "")),
-          h("span", { class: "row tight" }, q.sangat ? h("span", { class: "tag hot" }, "sangat sering keluar") : q.hot ? h("span", { class: "tag warn" }, "sering keluar") : null,
-            S.hafal[q.id] ? h("span", { class: "tag ok" }, "sudah hafal") : null)),
-        q.p && SKD.passages[q.p] ? h("div", { class: "passage" }, SKD.passages[q.p]) : null,
-        h("p", { class: "hf-soal" }, q.q),
-        terbuka ? null : tombolBuka,
-        h("div", { class: "hf-jawab-wadah", hidden: !terbuka }, jawaban(q)),
-        h("div", { class: "row" }, h("button", { class: "btn sm ghost", type: "button", "aria-pressed": S.hafal[q.id] ? "true" : "false", onclick: function () {
-          if (S.hafal[q.id]) delete S.hafal[q.id]; else S.hafal[q.id] = 1;
-          simpan(); ctx.rerender();
-        } }, S.hafal[q.id] ? "✓ Sudah hafal" : "Tandai sudah hafal")));
-    }
-    var seg = function (key, opsi) {
-      return h("div", { class: "seg", role: "group" }, opsi.map(function (o) {
-        return h("button", { type: "button", "aria-pressed": S[key] === o[0] ? "true" : "false", onclick: function () { S[key] = o[0]; S.i = 0; if (key === "sec") S.m = ""; simpan(); ctx.rerender(); } }, o[1]);
-      }));
-    };
-    var isi;
-    if (!L.length) isi = h("p", { class: "note" }, semua ? "Semua kartu sudah hafal. Matikan \"Sembunyikan yang hafal\" untuk mengulang." : "Belum ada soal untuk pilihan ini.");
-    else if (S.daftar) isi = h("div", { class: "stack" }, L.map(function (q, i) { return kartu(q, i + 1); }));
-    else isi = h("div", { class: "stack" },
-      kartu(L[S.i], (S.i + 1) + " / " + L.length),
-      h("div", { class: "row between hf-nav" },
-        h("button", { class: "btn", type: "button", disabled: S.i <= 0, onclick: function () { S.i--; simpan(); ctx.rerender(); } }, "‹ Sebelumnya"),
-        h("button", { class: "btn primary", type: "button", id: "hf-lanjut", onclick: function () { S.i = (S.i + 1) % L.length; simpan(); ctx.rerender(); } }, "Berikutnya ›")));
-    var cek = function (key, t, ulang) {
-      return h("label", { class: "check" }, h("input", { type: "checkbox", checked: S[key], onchange: function (e) { S[key] = e.target.checked; if (ulang) S.i = 0; simpan(); ctx.rerender(); } }), h("span", null, t));
-    };
+    var h = ctx.h, B = bagian(), S = baca();
+    if (!B.length) return [h("p", null, "Data hafalan belum dimuat.")];
+    var pilih = B.filter(function (b) { return b.id === S.b; })[0] || B[0], tutup = S.tutup === true;
+    function simpan() { tulis({ b: pilih.id, tutup: tutup }); }
+    function buka(e) { e.currentTarget.classList.toggle("buka"); }
+    var lanjut = B[B.indexOf(pilih) + 1] || null; // urut bagian demi bagian, seperti alur catatan
+    var daftar = h("ul", { class: "cepat" + (tutup ? " tutup" : "") + (pilih.sep === "→" ? " baku" : ""), id: "cp-list" }, pilih.r.map(function (r) {
+      return h("li", tutup ? { tabindex: 0, role: "button", "aria-label": r[0], onclick: buka,
+        onkeydown: function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); buka(e); } } } : null,
+        h("b", { class: "cp-k" }, r[0]), h("span", { class: "cp-s", "aria-hidden": "true" }, " " + (pilih.sep || "=") + " "), h("span", { class: "cp-j" }, r[1]));
+    }));
+    var pils = h("div", { class: "pils", role: "group", "aria-label": "Bagian" }, B.map(function (b) {
+      return h("button", { class: "pil", type: "button", "aria-pressed": b === pilih ? "true" : "false", onclick: function () { pilih = b; simpan(); ctx.rerender(); } },
+        b.t, h("span", { class: "n" }, String(b.r.length)));
+    }));
+    setTimeout(function () { // pil yang aktif selalu terlihat di baris yang bisa digeser
+      var a = pils.querySelector('[aria-pressed="true"]');
+      if (a) pils.scrollLeft = Math.max(0, a.offsetLeft - pils.offsetLeft - 16);
+    }, 0);
     return [
-      h("div", { class: "page-head" }, h("h1", null, "Hafalan"),
-        h("p", { class: "meta" }, h("b", null, String(semua)), " kartu · ", h("b", null, String(nHafal)), " hafal")),
-      h("section", { class: "card stack" },
-        h("div", { class: "row" },
-          seg("versi", [["ringkas", "Ringkas"], ["persis", "Persis CAT"]]),
-          seg("sec", [["twk", "TWK"], ["tkp", "TKP"], ["tiu", "TIU"]])),
-        h("div", { class: "hf-pilih" },
-          h("label", { class: "field" }, h("span", { class: "lbl" }, "Materi"),
-            h("select", { class: "input wide", id: "hf-materi", onchange: function (e) { S.m = e.target.value; S.i = 0; simpan(); ctx.rerender(); } },
-              [h("option", { value: "" }, "Semua materi")].concat(materiSec.map(function (m) { return h("option", { value: m.id, selected: S.m === m.id }, m.name); })))),
-          S.versi === "persis" && S.sec !== "tiu" && E.setaraPaket ? h("label", { class: "field" }, h("span", { class: "lbl" }, "Paket"),
-            h("select", { class: "input wide", id: "hf-paket", onchange: function (e) { S.pk = Number(e.target.value) || 0; S.i = 0; simpan(); ctx.rerender(); } },
-              [h("option", { value: "0" }, "Semua paket")].concat(E.setaraPaket().map(function (n) { return h("option", { value: String(n), selected: S.pk === n }, "Paket " + n); })))) : null),
-        h("div", { class: "row" }, cek("buka", "Buka jawaban"), cek("sembunyi", "Sembunyikan yang hafal", true), cek("daftar", "Mode daftar"))),
-      isi,
+      h("div", { class: "page-head" }, h("h1", null, "Hafalan cepat"),
+        h("p", { class: "meta" }, h("b", null, String(SKD.cepat.jumlah())), " baris · ", h("b", null, String(B.length)), " bagian")),
+      pils,
+      h("label", { class: "check" }, h("input", { type: "checkbox", id: "cp-tutup", checked: tutup, onchange: function (e) { tutup = e.target.checked; simpan(); ctx.rerender(); } }),
+        h("span", null, "Tutup jawaban · ketuk untuk buka")),
+      h("section", { class: "card", "aria-label": pilih.t }, h("p", { class: "lbl" }, pilih.t), daftar,
+        lanjut ? h("button", { class: "btn block", type: "button", id: "cp-lanjut", onclick: function () { pilih = lanjut; simpan(); ctx.rerender(); window.scrollTo(0, 0); } },
+          "Berikutnya: " + lanjut.t + " ›") : null),
       h("p", { class: "meta center" }, h("a", { href: "https://github.com/serfusion/cpns/releases?q=Audio+Hafalan", target: "_blank", rel: "noopener" }, "Audio hafalan (MP3) ↗"))
     ];
   };
@@ -13006,16 +13237,10 @@ body.in-cat .toast, body.in-quiz .toast { bottom: calc(20px + env(safe-area-inse
     return null;
   }
   function lastCard() {
-    var x = lastHistory(), nx = paketBerikut();
+    var x = lastHistory();
+    if (!x) return null;
+    var nx = paketBerikut(), hasUlas = !!S.ulas(x.t);
     var mulai = function () { if (nx) prepTryout({ paket: "setara", no: nx, scale: "full" }); else go("tryout"); };
-    if (!x) {
-      return h("section", { class: "card hero" },
-        h("p", { class: "lbl" }, "Belum ada tryout"),
-        h("h2", null, "Ukur kesiapan SKD Anda"),
-        h("p", { class: "meta" }, "110 soal · 100 menit · layar seperti CAT BKN"),
-        h("div", { class: "row" }, h("button", { class: "btn primary lg", type: "button", id: "btn-mulai", onclick: mulai }, "Mulai Paket " + (nx || 1))));
-    }
-    var hasUlas = !!S.ulas(x.t);
     return h("section", { class: "card hero", "aria-labelledby": "hasil-ttl" },
       h("p", { class: "lbl", id: "hasil-ttl" }, "Hasil terakhir"),
       h("p", { class: "meta" }, (x.p || "Simulasi CAT") + " · " + tglPendek(x.t)),
@@ -13024,6 +13249,22 @@ body.in-cat .toast, body.in-quiz .toast { bottom: calc(20px + env(safe-area-inse
       h("div", { class: "row" },
         hasUlas ? h("button", { class: "btn", type: "button", onclick: function () { openAttempt(x, "bahas"); } }, "Pembahasan") : null,
         h("button", { class: "btn primary", type: "button", id: "btn-mulai", onclick: mulai }, nx ? "Lanjut Paket " + nx : "Tryout lagi")));
+  }
+  // tiga versi belajar (permintaan pemilik): 1 Persis CAT BKN, 2 Ringkas tryout, 3 Hafalan cepat
+  function pilihTryout(v) { tryVer = v; try { localStorage.setItem("skd.tryver", v); } catch (e) { /* abaikan */ } go("tryout"); }
+  function versiCard() {
+    var nPersis = (E.setaraPaket ? E.setaraPaket() : [1]).length || 1, nx = paketBerikut(), nCepat = SKD.cepat ? SKD.cepat.jumlah() : 0;
+    var baris = function (no, nama, info, aksi, id) {
+      return h("button", { class: "versi", type: "button", id: id, onclick: aksi },
+        h("span", { class: "versi-no", "aria-hidden": "true" }, String(no)),
+        h("span", { class: "versi-t" }, h("b", null, nama), h("span", { class: "meta" }, info)),
+        h("span", { class: "versi-go", "aria-hidden": "true" }, "›"));
+    };
+    return h("section", { class: "stack tight", "aria-label": "Pilih versi" },
+      h("p", { class: "lbl" }, "Pilih versi"),
+      baris(1, "Persis CAT BKN", (nx ? "Paket " + nx + " dari " + nPersis : "Semua " + nPersis + " paket selesai") + " · nilai di akhir", function () { pilihTryout("persis"); }, "v-persis"),
+      baris(2, "Ringkas tryout", PAKET_N + " paket · soal pendek", function () { pilihTryout("ringkas"); }, "v-ringkas"),
+      baris(3, "Hafalan cepat", nCepat + " baris · gaya catatan", function () { go("hafalan"); }, "v-cepat"));
   }
   function histRow(x) {
     var can = !!S.ulas(x.t);
@@ -13046,6 +13287,7 @@ body.in-cat .toast, body.in-quiz .toast { bottom: calc(20px + env(safe-area-inse
         hist.length ? h("p", { class: "meta" }, h("b", null, String(hist.length)), " tryout · terbaik ", h("b", null, String(best))) : null),
       resumeCard(),
       lastCard(),
+      versiCard(),
       salahCard(),
       hist.length > 1 ? h("section", { class: "card" },
         h("div", { class: "row between" }, h("h2", null, "Riwayat"), hist.length > 3 ? h("a", { class: "more", href: "#riwayat" }, "Semua ›") : null),
@@ -13062,16 +13304,16 @@ body.in-cat .toast, body.in-quiz .toast { bottom: calc(20px + env(safe-area-inse
       var p = paketInfo(o), b = bestOf[p.kode];
       return h("li", { class: "paket" },
         h("div", { class: "pk-l" }, h("b", null, nama),
-          h("span", { class: "meta" }, b ? [h("b", { class: b.pass ? "ok-t" : "bad-t" }, String(b.total)), b.pass ? " · lolos" : " · belum lolos"] : info)),
+          b ? h("span", { class: "meta" }, h("b", { class: b.pass ? "ok-t" : "bad-t" }, String(b.total)), b.pass ? " · lolos" : " · belum lolos") : info ? h("span", { class: "meta" }, info) : null),
         h("button", { class: "btn " + (b ? "" : "primary"), type: "button", id: id || null, onclick: function () { prepTryout(o); } }, b ? "Ulangi" : "Mulai"));
     }
     var list = [];
     if (tryVer === "persis") {
       var nomor = E.setaraPaket ? E.setaraPaket() : [1];
       if (!nomor.length) nomor = [1];
-      list = nomor.map(function (no) { return baris({ paket: "setara", no: no, scale: "full" }, "Paket " + no, "Belum dikerjakan", no === 1 ? "btn-setara" : "btn-setara-" + no); });
+      list = nomor.map(function (no) { return baris({ paket: "setara", no: no, scale: "full" }, "Paket " + no, null, no === 1 ? "btn-setara" : "btn-setara-" + no); });
     } else {
-      for (var i = 1; i <= PAKET_N; i++) list.push(baris({ paket: i, scale: "full" }, "Paket " + i, "Belum dikerjakan"));
+      for (var i = 1; i <= PAKET_N; i++) list.push(baris({ paket: i, scale: "full" }, "Paket " + i, null));
       list.push(baris({ paket: "acak", scale: "full" }, "Acak", "Soal berbeda tiap kali"));
       list.push(baris({ paket: 1, scale: "mini" }, "Setengah", "55 soal · 50 menit"));
     }

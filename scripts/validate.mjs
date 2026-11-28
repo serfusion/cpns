@@ -15,6 +15,27 @@ for (const f of ["js/config.js", "data/twk.js", "data/tiu.js", "data/tkp.js", "d
 const SKD = ctx.window.SKD;
 const materi = Object.fromEntries(SKD.config.materi.map((m) => [m.id, m]));
 const errors = [];
+
+// Hafalan cepat (data/cepat.js): tiap baris [kunci, jawaban] terisi, kunci tidak kembar dalam satu bagian
+vm.runInContext(readFileSync(join(root, "data/cepat.js"), "utf8"), ctx, { filename: "data/cepat.js" });
+const idBagian = new Set();
+let barisCepat = 0;
+for (const b of SKD.cepatData || []) {
+  if (!b.id || !b.t || idBagian.has(b.id)) errors.push(`hafalan cepat: id/judul bagian kosong atau kembar — ${b.id}`);
+  idBagian.add(b.id);
+  if (b.dari) { if (!Array.isArray(SKD.fakta[b.dari])) errors.push(`hafalan cepat: sumber fakta.${b.dari} tidak ada`); continue; }
+  if (!Array.isArray(b.r) || !b.r.length) { errors.push(`hafalan cepat: bagian ${b.id} kosong`); continue; }
+  const kunci = new Set();
+  for (const r of b.r) {
+    barisCepat++;
+    if (!Array.isArray(r) || r.length !== 2 || r.some((x) => typeof x !== "string" || !x.trim())) { errors.push(`hafalan cepat: baris rusak di ${b.id} — ${JSON.stringify(r)}`); continue; }
+    const k = String(r[0]).toLowerCase().replace(/\s+/g, " ").trim();
+    if (kunci.has(k)) errors.push(`hafalan cepat: kunci kembar di ${b.id} — ${r[0]}`);
+    kunci.add(k);
+  }
+}
+if (!SKD.cepatData || !SKD.cepatData.length) errors.push("hafalan cepat: data/cepat.js kosong");
+console.log(`Hafalan cepat: ${barisCepat} baris + kata baku, ${idBagian.size} bagian`);
 const count = {};
 const seenId = new Map();
 const norm = (s) => String(s).toLowerCase().replace(/\s+/g, " ").trim();

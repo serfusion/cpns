@@ -167,3 +167,8 @@ disimpan di localStorage dengan kunci `skd.formasi.v1` (tidak ikut sinkron).
   satu baris angka, label kecil kapital, kartu dengan kotak angka, kotak cari dan pil. Latihan jadi satu formulir (subtes, jenis,
   materi, jumlah); Kalkulator + Strategi formasi + Gaji jadi tab Formasi; Peta materi dan Strategi formasi dilepas; jumlah kata
   di HP: Beranda 141 -> 23, Tryout 356 -> 44, Latihan 666 -> 48, Formasi 15.958 -> 755, Gaji 1.730 -> 486.
+- [x] 28 Nov 2026: tiga versi (permintaan pemilik): 1 Persis CAT BKN, 2 Ringkas tryout, 3 Hafalan cepat (`data/cepat.js`: 229 baris
+  dari catatan notepad pemilik yang dirapikan/dikoreksi + tabel `data/fakta.js`, ditambah 80 kata baku). Beranda menampilkan
+  ketiganya; kartu soal Hafalan kalimat dilepas. Teks Tryout/Formasi/Gaji dipangkas lagi (tanpa "Belum dikerjakan", tanpa
+  kotak pengumuman, pil formasi hanya keketatan + gaji, peringkat gaji cukup singkatan instansi).
+- [ ] Tambah baris Hafalan cepat bila pemilik mengirim catatan baru (gaya `kunci = jawaban`, cek fakta dulu).

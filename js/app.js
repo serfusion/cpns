@@ -443,16 +443,10 @@
     return null;
   }
   function lastCard() {
-    var x = lastHistory(), nx = paketBerikut();
+    var x = lastHistory();
+    if (!x) return null;
+    var nx = paketBerikut(), hasUlas = !!S.ulas(x.t);
     var mulai = function () { if (nx) prepTryout({ paket: "setara", no: nx, scale: "full" }); else go("tryout"); };
-    if (!x) {
-      return h("section", { class: "card hero" },
-        h("p", { class: "lbl" }, "Belum ada tryout"),
-        h("h2", null, "Ukur kesiapan SKD Anda"),
-        h("p", { class: "meta" }, "110 soal · 100 menit · layar seperti CAT BKN"),
-        h("div", { class: "row" }, h("button", { class: "btn primary lg", type: "button", id: "btn-mulai", onclick: mulai }, "Mulai Paket " + (nx || 1))));
-    }
-    var hasUlas = !!S.ulas(x.t);
     return h("section", { class: "card hero", "aria-labelledby": "hasil-ttl" },
       h("p", { class: "lbl", id: "hasil-ttl" }, "Hasil terakhir"),
       h("p", { class: "meta" }, (x.p || "Simulasi CAT") + " · " + tglPendek(x.t)),
@@ -461,6 +455,22 @@
       h("div", { class: "row" },
         hasUlas ? h("button", { class: "btn", type: "button", onclick: function () { openAttempt(x, "bahas"); } }, "Pembahasan") : null,
         h("button", { class: "btn primary", type: "button", id: "btn-mulai", onclick: mulai }, nx ? "Lanjut Paket " + nx : "Tryout lagi")));
+  }
+  // tiga versi belajar (permintaan pemilik): 1 Persis CAT BKN, 2 Ringkas tryout, 3 Hafalan cepat
+  function pilihTryout(v) { tryVer = v; try { localStorage.setItem("skd.tryver", v); } catch (e) { /* abaikan */ } go("tryout"); }
+  function versiCard() {
+    var nPersis = (E.setaraPaket ? E.setaraPaket() : [1]).length || 1, nx = paketBerikut(), nCepat = SKD.cepat ? SKD.cepat.jumlah() : 0;
+    var baris = function (no, nama, info, aksi, id) {
+      return h("button", { class: "versi", type: "button", id: id, onclick: aksi },
+        h("span", { class: "versi-no", "aria-hidden": "true" }, String(no)),
+        h("span", { class: "versi-t" }, h("b", null, nama), h("span", { class: "meta" }, info)),
+        h("span", { class: "versi-go", "aria-hidden": "true" }, "›"));
+    };
+    return h("section", { class: "stack tight", "aria-label": "Pilih versi" },
+      h("p", { class: "lbl" }, "Pilih versi"),
+      baris(1, "Persis CAT BKN", (nx ? "Paket " + nx + " dari " + nPersis : "Semua " + nPersis + " paket selesai") + " · nilai di akhir", function () { pilihTryout("persis"); }, "v-persis"),
+      baris(2, "Ringkas tryout", PAKET_N + " paket · soal pendek", function () { pilihTryout("ringkas"); }, "v-ringkas"),
+      baris(3, "Hafalan cepat", nCepat + " baris · gaya catatan", function () { go("hafalan"); }, "v-cepat"));
   }
   function histRow(x) {
     var can = !!S.ulas(x.t);
@@ -483,6 +493,7 @@
         hist.length ? h("p", { class: "meta" }, h("b", null, String(hist.length)), " tryout · terbaik ", h("b", null, String(best))) : null),
       resumeCard(),
       lastCard(),
+      versiCard(),
       salahCard(),
       hist.length > 1 ? h("section", { class: "card" },
         h("div", { class: "row between" }, h("h2", null, "Riwayat"), hist.length > 3 ? h("a", { class: "more", href: "#riwayat" }, "Semua ›") : null),
@@ -499,16 +510,16 @@
       var p = paketInfo(o), b = bestOf[p.kode];
       return h("li", { class: "paket" },
         h("div", { class: "pk-l" }, h("b", null, nama),
-          h("span", { class: "meta" }, b ? [h("b", { class: b.pass ? "ok-t" : "bad-t" }, String(b.total)), b.pass ? " · lolos" : " · belum lolos"] : info)),
+          b ? h("span", { class: "meta" }, h("b", { class: b.pass ? "ok-t" : "bad-t" }, String(b.total)), b.pass ? " · lolos" : " · belum lolos") : info ? h("span", { class: "meta" }, info) : null),
         h("button", { class: "btn " + (b ? "" : "primary"), type: "button", id: id || null, onclick: function () { prepTryout(o); } }, b ? "Ulangi" : "Mulai"));
     }
     var list = [];
     if (tryVer === "persis") {
       var nomor = E.setaraPaket ? E.setaraPaket() : [1];
       if (!nomor.length) nomor = [1];
-      list = nomor.map(function (no) { return baris({ paket: "setara", no: no, scale: "full" }, "Paket " + no, "Belum dikerjakan", no === 1 ? "btn-setara" : "btn-setara-" + no); });
+      list = nomor.map(function (no) { return baris({ paket: "setara", no: no, scale: "full" }, "Paket " + no, null, no === 1 ? "btn-setara" : "btn-setara-" + no); });
     } else {
-      for (var i = 1; i <= PAKET_N; i++) list.push(baris({ paket: i, scale: "full" }, "Paket " + i, "Belum dikerjakan"));
+      for (var i = 1; i <= PAKET_N; i++) list.push(baris({ paket: i, scale: "full" }, "Paket " + i, null));
       list.push(baris({ paket: "acak", scale: "full" }, "Acak", "Soal berbeda tiap kali"));
       list.push(baris({ paket: 1, scale: "mini" }, "Setengah", "55 soal · 50 menit"));
     }

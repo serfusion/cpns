@@ -1,110 +1,51 @@
-/* Mode Hafalan (menu "Hafalan kalimat"): kartu soal dengan kalimat jawaban terbaik dan pembahasannya, untuk dihafal.
-   Dua versi, sesuai permintaan pemilik:
-   - Ringkas: soal pendek dari bank lama (mudah dihafal kalimatnya);
-   - Persis CAT: soal setara CAT (data/setara*.js, paket 1, 2, ...), kasus panjang dengan opsi seimbang.
-   Prioritas TWK dan TKP; TIU hanya materi tanpa hitungan. Soal yang sudah ditandai hafal disimpan di perangkat ini. */
+/* Tab Hafalan: Hafalan cepat (versi 3). Daftar singkat "kunci = jawaban" per bagian, seperti catatan notepad pemilik.
+   Data: data/cepat.js (SKD.cepatData); bagian "Kata baku" diambil dari data/fakta.js.
+   "Tutup jawaban" mengaburkan jawaban sampai baris diketuk (latihan mengingat). Pilihan disimpan di perangkat ini. */
 (function () {
   "use strict";
   var SKD = (window.SKD = window.SKD || {});
-  var KEY = "skd.hafalan.v1";
-  var TIU_LUNAK = ["sil", "ind", "anl", "der"];
-  var LET = ["A", "B", "C", "D", "E"];
+  var KEY = "skd.cepat.v1";
 
   function baca() { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { return {}; } }
   function tulis(o) { try { localStorage.setItem(KEY, JSON.stringify(o)); } catch (e) { /* mode privat */ } }
-  function keadaan() {
-    var d = baca();
-    return {
-      versi: d.versi === "persis" ? "persis" : "ringkas",
-      sec: ["twk", "tkp", "tiu"].indexOf(d.sec) >= 0 ? d.sec : "twk",
-      m: typeof d.m === "string" ? d.m.slice(0, 20) : "",
-      pk: Math.max(0, Math.min(99, Math.round(Number(d.pk) || 0))),
-      buka: d.buka === true, sembunyi: d.sembunyi !== false, daftar: d.daftar === true,
-      i: Math.max(0, Math.round(Number(d.i) || 0)),
-      hafal: d.hafal && typeof d.hafal === "object" ? d.hafal : {}
-    };
+  function bagian() {
+    var F = SKD.fakta;
+    return (SKD.cepatData || []).map(function (b) {
+      if (b.dari) return { id: b.id, t: b.t, sep: "→", r: F && Array.isArray(F[b.dari]) ? F[b.dari].map(function (p) { return [p[1], p[0]]; }) : [] };
+      return b;
+    }).filter(function (b) { return b.r && b.r.length; });
   }
+  SKD.cepat = { jumlah: function () { return bagian().reduce(function (a, b) { return a + b.r.length; }, 0); } };
 
   SKD.hafalanView = function (ctx) {
-    var h = ctx.h, E = SKD.engine, CFG = SKD.config, S = keadaan();
-    function simpan() { tulis(S); }
-    var bank = E.bank().filter(function (q) {
-      if (q.sec !== S.sec || !Array.isArray(q.o) || q.tb) return false;
-      if (S.sec === "tiu" && TIU_LUNAK.indexOf(q.m) < 0) return false;
-      if (S.versi === "persis" ? !q.setara : q.setara) return false;
-      if (S.versi === "persis" && S.pk && S.sec !== "tiu" && q.pk !== S.pk) return false;
-      var m = E.materi(q.m);
-      return !(m && m.lama) && (!S.m || q.m === S.m);
-    });
-    // urutan: sangat sering keluar dulu, lalu sering, lalu sisanya (urutan bank)
-    bank = bank.map(function (q, i) { return { q: q, i: i, w: q.sangat ? 0 : q.hot ? 1 : 2 }; })
-      .sort(function (a, b) { return a.w - b.w || a.i - b.i; }).map(function (x) { return x.q; });
-    var semua = bank.length, nHafal = bank.filter(function (q) { return S.hafal[q.id]; }).length;
-    var L = S.sembunyi ? bank.filter(function (q) { return !S.hafal[q.id]; }) : bank;
-    if (S.i >= L.length) S.i = 0;
-    var materiSec = CFG.materi.filter(function (m) { return m.sec === S.sec && !m.lama && (S.sec !== "tiu" || TIU_LUNAK.indexOf(m.id) >= 0); });
-
-    function jawaban(q) {
-      var tkp = q.sec === "tkp", best = tkp ? 0 : q.a || 0;
-      return h("div", { class: "hf-jawab" },
-        h("p", { class: "hf-kunci" }, h("span", { class: "tag ok" }, tkp ? "Nilai 5" : "Jawaban benar"), " ", q.o[best]),
-        tkp ? h("ol", { class: "hf-urut", start: 2 }, [1, 2, 3, 4].map(function (k) {
-          return h("li", null, h("span", { class: "tag" }, "Nilai " + (5 - k)), " ", q.o[k]);
-        })) : null,
-        q.x ? h("p", { class: "hf-x" }, h("b", null, "Kalimat kunci: "), q.x) : null);
-    }
-    function kartu(q, no) {
-      var m = E.materi(q.m), terbuka = S.buka || S.daftar;
-      var tombolBuka = h("button", { class: "btn sm", type: "button", "aria-expanded": "false", onclick: function (e) {
-        var box = e.currentTarget.parentNode.querySelector(".hf-jawab-wadah");
-        var buka = box.hidden; box.hidden = !buka;
-        e.currentTarget.setAttribute("aria-expanded", buka ? "true" : "false"); e.currentTarget.textContent = buka ? "Tutup jawaban" : "Lihat jawaban";
-      } }, "Lihat jawaban");
-      return h("article", { class: "card hf-card" },
-        h("div", { class: "row between" }, h("span", { class: "small muted" }, (no != null ? no + " · " : "") + (m ? m.name : "")),
-          h("span", { class: "row tight" }, q.sangat ? h("span", { class: "tag hot" }, "sangat sering keluar") : q.hot ? h("span", { class: "tag warn" }, "sering keluar") : null,
-            S.hafal[q.id] ? h("span", { class: "tag ok" }, "sudah hafal") : null)),
-        q.p && SKD.passages[q.p] ? h("div", { class: "passage" }, SKD.passages[q.p]) : null,
-        h("p", { class: "hf-soal" }, q.q),
-        terbuka ? null : tombolBuka,
-        h("div", { class: "hf-jawab-wadah", hidden: !terbuka }, jawaban(q)),
-        h("div", { class: "row" }, h("button", { class: "btn sm ghost", type: "button", "aria-pressed": S.hafal[q.id] ? "true" : "false", onclick: function () {
-          if (S.hafal[q.id]) delete S.hafal[q.id]; else S.hafal[q.id] = 1;
-          simpan(); ctx.rerender();
-        } }, S.hafal[q.id] ? "✓ Sudah hafal" : "Tandai sudah hafal")));
-    }
-    var seg = function (key, opsi) {
-      return h("div", { class: "seg", role: "group" }, opsi.map(function (o) {
-        return h("button", { type: "button", "aria-pressed": S[key] === o[0] ? "true" : "false", onclick: function () { S[key] = o[0]; S.i = 0; if (key === "sec") S.m = ""; simpan(); ctx.rerender(); } }, o[1]);
-      }));
-    };
-    var isi;
-    if (!L.length) isi = h("p", { class: "note" }, semua ? "Semua kartu sudah hafal. Matikan \"Sembunyikan yang hafal\" untuk mengulang." : "Belum ada soal untuk pilihan ini.");
-    else if (S.daftar) isi = h("div", { class: "stack" }, L.map(function (q, i) { return kartu(q, i + 1); }));
-    else isi = h("div", { class: "stack" },
-      kartu(L[S.i], (S.i + 1) + " / " + L.length),
-      h("div", { class: "row between hf-nav" },
-        h("button", { class: "btn", type: "button", disabled: S.i <= 0, onclick: function () { S.i--; simpan(); ctx.rerender(); } }, "‹ Sebelumnya"),
-        h("button", { class: "btn primary", type: "button", id: "hf-lanjut", onclick: function () { S.i = (S.i + 1) % L.length; simpan(); ctx.rerender(); } }, "Berikutnya ›")));
-    var cek = function (key, t, ulang) {
-      return h("label", { class: "check" }, h("input", { type: "checkbox", checked: S[key], onchange: function (e) { S[key] = e.target.checked; if (ulang) S.i = 0; simpan(); ctx.rerender(); } }), h("span", null, t));
-    };
+    var h = ctx.h, B = bagian(), S = baca();
+    if (!B.length) return [h("p", null, "Data hafalan belum dimuat.")];
+    var pilih = B.filter(function (b) { return b.id === S.b; })[0] || B[0], tutup = S.tutup === true;
+    function simpan() { tulis({ b: pilih.id, tutup: tutup }); }
+    function buka(e) { e.currentTarget.classList.toggle("buka"); }
+    var lanjut = B[B.indexOf(pilih) + 1] || null; // urut bagian demi bagian, seperti alur catatan
+    var daftar = h("ul", { class: "cepat" + (tutup ? " tutup" : "") + (pilih.sep === "→" ? " baku" : ""), id: "cp-list" }, pilih.r.map(function (r) {
+      return h("li", tutup ? { tabindex: 0, role: "button", "aria-label": r[0], onclick: buka,
+        onkeydown: function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); buka(e); } } } : null,
+        h("b", { class: "cp-k" }, r[0]), h("span", { class: "cp-s", "aria-hidden": "true" }, " " + (pilih.sep || "=") + " "), h("span", { class: "cp-j" }, r[1]));
+    }));
+    var pils = h("div", { class: "pils", role: "group", "aria-label": "Bagian" }, B.map(function (b) {
+      return h("button", { class: "pil", type: "button", "aria-pressed": b === pilih ? "true" : "false", onclick: function () { pilih = b; simpan(); ctx.rerender(); } },
+        b.t, h("span", { class: "n" }, String(b.r.length)));
+    }));
+    setTimeout(function () { // pil yang aktif selalu terlihat di baris yang bisa digeser
+      var a = pils.querySelector('[aria-pressed="true"]');
+      if (a) pils.scrollLeft = Math.max(0, a.offsetLeft - pils.offsetLeft - 16);
+    }, 0);
     return [
-      h("div", { class: "page-head" }, h("h1", null, "Hafalan"),
-        h("p", { class: "meta" }, h("b", null, String(semua)), " kartu · ", h("b", null, String(nHafal)), " hafal")),
-      h("section", { class: "card stack" },
-        h("div", { class: "row" },
-          seg("versi", [["ringkas", "Ringkas"], ["persis", "Persis CAT"]]),
-          seg("sec", [["twk", "TWK"], ["tkp", "TKP"], ["tiu", "TIU"]])),
-        h("div", { class: "hf-pilih" },
-          h("label", { class: "field" }, h("span", { class: "lbl" }, "Materi"),
-            h("select", { class: "input wide", id: "hf-materi", onchange: function (e) { S.m = e.target.value; S.i = 0; simpan(); ctx.rerender(); } },
-              [h("option", { value: "" }, "Semua materi")].concat(materiSec.map(function (m) { return h("option", { value: m.id, selected: S.m === m.id }, m.name); })))),
-          S.versi === "persis" && S.sec !== "tiu" && E.setaraPaket ? h("label", { class: "field" }, h("span", { class: "lbl" }, "Paket"),
-            h("select", { class: "input wide", id: "hf-paket", onchange: function (e) { S.pk = Number(e.target.value) || 0; S.i = 0; simpan(); ctx.rerender(); } },
-              [h("option", { value: "0" }, "Semua paket")].concat(E.setaraPaket().map(function (n) { return h("option", { value: String(n), selected: S.pk === n }, "Paket " + n); })))) : null),
-        h("div", { class: "row" }, cek("buka", "Buka jawaban"), cek("sembunyi", "Sembunyikan yang hafal", true), cek("daftar", "Mode daftar"))),
-      isi,
+      h("div", { class: "page-head" }, h("h1", null, "Hafalan cepat"),
+        h("p", { class: "meta" }, h("b", null, String(SKD.cepat.jumlah())), " baris · ", h("b", null, String(B.length)), " bagian")),
+      pils,
+      h("label", { class: "check" }, h("input", { type: "checkbox", id: "cp-tutup", checked: tutup, onchange: function (e) { tutup = e.target.checked; simpan(); ctx.rerender(); } }),
+        h("span", null, "Tutup jawaban · ketuk untuk buka")),
+      h("section", { class: "card", "aria-label": pilih.t }, h("p", { class: "lbl" }, pilih.t), daftar,
+        lanjut ? h("button", { class: "btn block", type: "button", id: "cp-lanjut", onclick: function () { pilih = lanjut; simpan(); ctx.rerender(); window.scrollTo(0, 0); } },
+          "Berikutnya: " + lanjut.t + " ›") : null),
       h("p", { class: "meta center" }, h("a", { href: "https://github.com/serfusion/cpns/releases?q=Audio+Hafalan", target: "_blank", rel: "noopener" }, "Audio hafalan (MP3) ↗"))
     ];
   };

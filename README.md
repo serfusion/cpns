@@ -11,10 +11,10 @@ Catatan studinya: `docs/rea-tampilan-ringkas.md` (kalkulator formasi: `docs/rea-
 
 | Tab | Isi |
 |---|---|
-| **Beranda** | Hasil terakhir (skor, TWK/TIU/TKP terhadap ambang batas), tombol langsung ke paket berikutnya, soal salah, 3 riwayat terakhir. |
+| **Beranda** | Hasil terakhir (skor, TWK/TIU/TKP terhadap ambang batas, tombol paket berikutnya) dan pilihan **3 versi**: 1 Persis CAT BKN, 2 Ringkas tryout, 3 Hafalan cepat. Lalu soal salah dan 3 riwayat terakhir. |
 | **Tryout** | Pilih versi **Persis CAT** (Paket 1–5, `data/setara*.js`, nilai di akhir) atau **Ringkas** (Paket 1–6, Acak, Setengah). Lalu layar Login Peserta, Konfirmasi Data Peserta, dan ujian seperti CAT BKN. |
 | **Latihan** | Subtes, Jenis soal (semua, sangat sering keluar, sering keluar, kisi-kisi 2026, HOTS 2026, acak), Materi (termasuk TIU *tanpa hitungan*), Jumlah. Koreksi langsung + pembahasan. Tombol *Ulangi soal salah* muncul bila ada. |
-| **Hafalan** | Kartu kalimat jawaban terbaik (`js/hafalan.js`), versi Ringkas atau Persis CAT, per materi/paket, tandai sudah hafal. Tautan audio MP3 di bawah. |
+| **Hafalan** | **Hafalan cepat** (`data/cepat.js`, `js/hafalan.js`): baris singkat `kunci = jawaban` seperti catatan notepad, per bagian (tempo ujian, silogisme, jika–maka, analitis, Pancasila, pasal UUD, lembaga negara, hari nasional, sejarah, integritas & bela negara, bahasa, kata baku, TKP). *Tutup jawaban* mengaburkan jawaban sampai diketuk; tombol *Berikutnya* menyusuri bagian berurutan. Tautan audio MP3 di bawah. |
 | **Formasi** | *Cari formasi* (`js/kalkulator.js`): skor SKD Anda, kotak cari, pilihan S-1 Ilmu Komunikasi / Hampir cocok / Semua / Tersimpan, kartu formasi dengan KUOTA, PELUANG masuk SKB, BATAS SKD. *Gaji* (`js/gaji.js`): perkiraan penghasilan per instansi. |
 
 Pengaturan (nama, ambang batas, ulangi soal salah, pindai otomatis di APK) lewat ikon roda gigi. Riwayat lengkap lewat Beranda.

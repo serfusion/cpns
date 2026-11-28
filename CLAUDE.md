@@ -32,7 +32,8 @@ Pemilik berbahasa Indonesia. Jawab singkat dan jelas.
 - Teks sesingkat mungkin: judul pendek + satu baris `.meta` (angka tebal). Tanpa paragraf penjelasan; catatan cukup satu baris `.fine`.
 - Gaya ikut REA situs pencari formasi sscasn.zainbuilds.app (dipelajari sebagai pengunjung): label `.lbl` kapital kecil, kotak angka
   `.sbox`, kartu putih radius 16, kotak cari `.cari`, pil `.pil`. Merek, warna navy + amber, kode, dan teks tetap milik sendiri.
-- Peta materi dan Strategi formasi sudah dilepas (riset di `docs/`, `data/formasi.js` arsip, tidak dimuat).
+- Beranda: hasil terakhir (bila ada) dan pilihan 3 versi. Peta materi, Strategi formasi, dan kartu soal Hafalan kalimat sudah
+  dilepas (riset di `docs/`, `data/formasi.js` arsip, tidak dimuat).
 
 ## Data formasi CPNS 2026
 - `data/dok2026.js`: formasi dari pengumuman/lampiran resmi, dibuat `scripts/dok2026/buat.py` dari `scripts/dok2026/sumber.json`
@@ -46,8 +47,10 @@ Pemilik berbahasa Indonesia. Jawab singkat dan jelas.
 
 ## Soal dan tingkat kesulitan
 - Prioritas pemilik: TWK dan TKP; TIU tanpa hitungan/angka rumit.
-- Dua versi dipertahankan: **Ringkas** (bank lama, soal pendek, untuk menghafal kalimat; tab Hafalan) dan **Persis CAT BKN**
-  (`data/setara.js` sampai `data/setara5.js` = Paket 1–5 lewat `pk`, Tryout Setara CAT tanpa koreksi langsung). Soal ringkas
+- Tiga versi (permintaan pemilik 28 Nov 2026), tampil di Beranda: **1 Persis CAT BKN** (`data/setara.js` sampai `data/setara5.js`
+  = Paket 1–5 lewat `pk`, tab Tryout, tanpa koreksi langsung), **2 Ringkas tryout** (bank lama, soal pendek, tab Tryout), dan
+  **3 Hafalan cepat** (`data/cepat.js`, tab Hafalan): baris `[kunci, jawaban]` gaya catatan notepad pemilik, per bagian (tempo,
+  silogisme, jika–maka, pasal, lembaga, tanggal, kata baku dari `fakta.baku`, TKP, dll.). Isi baru ditulis sependek itu. Soal ringkas
   jangan dihapus; soal persis ditambah bertahap. Paket baru: `data/setaraN.js` dengan `{ v: 1, pk: N }`, TWK 30 (nas 6, int 6,
   bela 6, pilar 7, bind 5) dan TKP 45 (pel 8, jej 7, sos 7, tik 7, pro 8, rad 8), daftarkan di `index.html`, `scripts/validate.mjs`,
   `scripts/audio-teks.mjs`, dan `scripts/audit-kesulitan.mjs`.

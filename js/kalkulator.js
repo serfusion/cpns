@@ -305,7 +305,9 @@
         dd("Skor Anda", a.total + " (" + (a.margin >= 0 ? "+" : "") + a.margin + ")"),
         dd("Peringkat", "≈" + rp(a.rank) + " dari " + rp(a.hadir) + " · kursi SKB " + rp(a.seats)),
         dd("Nilai SKB perlu", a.skbPerlu <= 0 ? "berapa pun" : a.skbPerlu > 100 ? "tidak cukup, naikkan SKD" : "≈" + dec(a.skbPerlu, 1) + " dari 100"),
-        x.tahap ? dd("Tahapan", "SKD " + (x.tahap.skd || "CAT BKN") + " · SKB " + (x.tahap.skb || "belum diketahui")) : null,
+        x.tahap ? dd("Tahapan", "SKD " + (x.tahap.skd || "CAT BKN") + " · SKB " + (x.tahap.skb || "belum diketahui") +
+          (x.tahap.wawancara === "ya" ? " · ada wawancara" : x.tahap.wawancara === "tidak" ? " · tanpa wawancara" : "")) : null,
+        pIlkom ? dd("Jurusan", "menerima S-1 Ilmu Komunikasi") : null,
         dd("Penghasilan", gaji ? gaji + (x.uang ? "" : " (kelas " + t.kel + ")") : ""),
         dd("Pendidikan", x.p.length ? singkat(x.p, 6) : ""),
         dd("Penempatan", x.lok && x.lok.length ? singkat(x.lok.map(function (l) { return l[0] + " " + l[1]; }), 8) : ""),
@@ -315,7 +317,7 @@
       return h("li", { class: "kf-card" + (buka ? " open" : "") },
         h("div", { class: "kf-top" },
           h("div", { class: "kf-ttl" }, h("b", null, x.j), h("span", null, x.i || "Instansi belum diisi"),
-            x.l ? h("span", { class: "kf-lok" }, h("span", { class: "ico", html: IKON_LOK }), x.l) : null),
+            x.l ? h("span", { class: "kf-lok", title: x.l }, h("span", { class: "ico", html: IKON_LOK }), h("span", { class: "kf-lok-t" }, x.l)) : null),
           h("button", { class: "kf-simpan", type: "button", id: "kf-simpan-" + idx, "aria-pressed": simpan ? "true" : "false", "aria-label": simpan ? "Hapus dari tersimpan" : "Simpan",
             onclick: function () {
               var i = S.simpan.indexOf(x.key); if (i >= 0) S.simpan.splice(i, 1); else S.simpan.push(x.key);
@@ -327,9 +329,7 @@
           h("div", null, h("span", { class: "lbl" }, "Batas SKD"), h("b", null, a.semuaMasuk ? "311" : "≈" + a.cut), h("span", { class: "d" }, "Anda " + (a.margin >= 0 ? "+" : "") + a.margin))),
         h("div", { class: "kf-chips" },
           chip(a.ketat[0], "1:" + dec(a.rasio, a.rasio < 10 ? 1 : 0) + " " + a.ketat[1].toLowerCase()),
-          gaji ? chip("", gaji) : null,
-          pIlkom ? chip("ok", "S-1 Ilmu Komunikasi") : null,
-          x.tahap && x.tahap.wawancara === "ya" ? chip("warn", "ada wawancara") : x.tahap && x.tahap.wawancara === "tidak" ? chip("ok", "tanpa wawancara") : null),
+          gaji ? chip("", gaji) : null),
         h("div", { class: "row" },
           h("button", { class: "more", type: "button", id: "kf-sim-" + idx, "aria-expanded": buka ? "true" : "false", "aria-controls": "kf-d-" + idx,
             onclick: function () { S.buka = buka ? "" : x.key; save(); isi("kf-sim-" + idx); } }, buka ? "Tutup ▴" : "Detail ▾"),
@@ -394,12 +394,11 @@
     // --- asal data ---
     var DOK = SKD.dok2026, SS = K.ss, sim = baca(KEY_DEV) || {};
     var bisaPindai = P && P.bisaPindai && P.bisaPindai();
-    var asal = h("p", { class: "meta" }, "Data " + (SS ? tgl(SS.d.waktu) : DOK ? DOK.tanggal : "bawaan") + (DOK ? " · pengumuman " + DOK.instansi.length + " instansi" : "") + (SS ? " · SSCASN" : ""));
+    var asal = h("p", { class: "meta" }, "Data " + (SS ? tgl(SS.d.waktu).split(",")[0] : DOK ? DOK.tanggal : "bawaan") + " · daftar di ",
+      h("a", { href: "https://sscasn.bkn.go.id/", target: "_blank", rel: "noopener" }, "sscasn.bkn.go.id ↗"));
     isiGrup(); isi();
     return [
       h("div", { class: "page-head" }, h("h1", null, "Formasi 2026"), asal, ctx.sub || null),
-      h("p", { class: "note ok" }, "Pendaftaran dibuka sejak 27 November 2026. Daftar hanya di ",
-        h("a", { href: "https://sscasn.bkn.go.id/", target: "_blank", rel: "noopener" }, "sscasn.bkn.go.id"), "."),
       bisaPindai ? h("div", { class: "row" },
         h("button", { class: "btn sm", type: "button", id: "fm-pindai-btn", onclick: function () { P.mulai(); } }, "Perbarui dari SSCASN"),
         sim.galat ? h("span", { class: "meta bad-t" }, "Pindai terakhir gagal.") : null) : null,
