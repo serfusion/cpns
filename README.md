@@ -29,6 +29,9 @@ navy + kuning amber; layar ujian dari buku panduan CAT resmi BKN), **Build** (ko
   45 pasal UUD, sejarah BPUPKI/PPKI dan pergerakan, hari nasional, kata baku) dan silogisme yang kesimpulannya dibuktikan otomatis
   (`js/acak.js`), serta TIU tanpa hitungan: analogi kata (9 jenis hubungan) dan susunan duduk/antrean yang jawabannya diperiksa
   ke semua susunan yang mungkin. Sebagian soal tryout dan latihan juga diambil dari sini.
+- **Dua versi** (permintaan pemilik): **Versi Persis CAT BKN** (Tryout Setara CAT, tanpa koreksi langsung) dan **Versi Ringkas**
+  (Paket 1–6, soal pendek di layar mirip CAT). Menu **Hafalan kalimat** (`js/hafalan.js`): kartu soal dengan kalimat jawaban
+  terbaik (TKP: urutan nilai 5 sampai 1) dan pembahasan, versi ringkas atau persis, prioritas TWK dan TKP, tandai sudah hafal.
 - **Tryout Setara CAT**: TWK 30 dan TKP 45 dari soal baru berkasus lebih panjang dengan kelima opsi sama panjang (jawaban
   terbaik tidak bisa ditebak dari opsi terpanjang), TIU 35 tanpa hitungan berat. Penjelasan validitas di halaman Tryout dan
   `docs/validasi-tingkat-kesulitan.md` (data uji butir dan kelulusan BKN 2024, audit bank soal). Masuk ujian lewat layar

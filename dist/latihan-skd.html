@@ -758,6 +758,16 @@ body.in-cat .cat-foot { padding-bottom: 6px; }
 .validitas summary { cursor: pointer; }
 .validitas .plain-list { margin-top: 10px; }
 
+/* ---------- hafalan kalimat (js/hafalan.js) ---------- */
+.hf-card { gap: 12px; }
+.hf-soal { font-size: 1.05rem; line-height: 1.7; white-space: pre-line; }
+.hf-jawab { display: flex; flex-direction: column; gap: 10px; border-top: 1px dashed var(--line); padding-top: 12px; animation: naik 0.2s ease-out both; }
+.hf-kunci { font-weight: 600; line-height: 1.6; background: var(--ok-soft); border-radius: var(--r-md); padding: 10px 12px; }
+.hf-urut { margin: 0; padding-left: 0; list-style: none; display: flex; flex-direction: column; gap: 6px; font-size: 0.92rem; line-height: 1.55; }
+.hf-x { font-size: 0.95rem; line-height: 1.65; }
+.hf-nav { position: sticky; bottom: 0; padding: 10px 0 calc(10px + env(safe-area-inset-bottom, 0px)); background: linear-gradient(rgba(0, 0, 0, 0), var(--bg) 35%); }
+.hf-nav .btn { flex: 1 1 0; }
+
 </style>
 </head>
 <body>
@@ -779,6 +789,7 @@ body.in-cat .cat-foot { padding-bottom: 6px; }
   <a href="#ulang" data-r="ulang" data-i="ulang">Ulangi soal salah</a>
   <a href="#riwayat" data-r="riwayat" data-i="riwayat">Riwayat &amp; statistik</a>
   <a href="#peta" data-r="peta" data-i="peta">Peta materi</a>
+  <a href="#hafalan" data-r="hafalan" data-i="latih">Hafalan kalimat</a>
   <a href="#kalkulator" data-r="kalkulator" data-i="hitung">Kalkulator formasi</a>
   <a href="#formasi" data-r="formasi" data-i="formasi">Strategi formasi</a>
   <a href="#gaji" data-r="gaji" data-i="gaji">Gaji &amp; tunjangan</a>
@@ -11406,6 +11417,113 @@ body.in-cat .cat-foot { padding-bottom: 6px; }
 
 </script>
 <script>
+/* Mode Hafalan (menu "Hafalan kalimat"): kartu soal dengan kalimat jawaban terbaik dan pembahasannya, untuk dihafal.
+   Dua versi, sesuai permintaan pemilik:
+   - Ringkas: soal pendek dari bank lama (mudah dihafal kalimatnya);
+   - Persis CAT: soal setara CAT (data/setara.js), kasus panjang dengan opsi seimbang.
+   Prioritas TWK dan TKP; TIU hanya materi tanpa hitungan. Soal yang sudah ditandai hafal disimpan di perangkat ini. */
+(function () {
+  "use strict";
+  var SKD = (window.SKD = window.SKD || {});
+  var KEY = "skd.hafalan.v1";
+  var TIU_LUNAK = ["sil", "ind", "anl", "der"];
+  var LET = ["A", "B", "C", "D", "E"];
+
+  function baca() { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { return {}; } }
+  function tulis(o) { try { localStorage.setItem(KEY, JSON.stringify(o)); } catch (e) { /* mode privat */ } }
+  function keadaan() {
+    var d = baca();
+    return {
+      versi: d.versi === "persis" ? "persis" : "ringkas",
+      sec: ["twk", "tkp", "tiu"].indexOf(d.sec) >= 0 ? d.sec : "twk",
+      m: typeof d.m === "string" ? d.m.slice(0, 20) : "",
+      buka: d.buka === true, sembunyi: d.sembunyi !== false, daftar: d.daftar === true,
+      i: Math.max(0, Math.round(Number(d.i) || 0)),
+      hafal: d.hafal && typeof d.hafal === "object" ? d.hafal : {}
+    };
+  }
+
+  SKD.hafalanView = function (ctx) {
+    var h = ctx.h, E = SKD.engine, CFG = SKD.config, S = keadaan();
+    function simpan() { tulis(S); }
+    var bank = E.bank().filter(function (q) {
+      if (q.sec !== S.sec || !Array.isArray(q.o) || q.tb) return false;
+      if (S.sec === "tiu" && TIU_LUNAK.indexOf(q.m) < 0) return false;
+      if (S.versi === "persis" ? !q.setara : q.setara) return false;
+      var m = E.materi(q.m);
+      return !(m && m.lama) && (!S.m || q.m === S.m);
+    });
+    // urutan: sangat sering keluar dulu, lalu sering, lalu sisanya (urutan bank)
+    bank = bank.map(function (q, i) { return { q: q, i: i, w: q.sangat ? 0 : q.hot ? 1 : 2 }; })
+      .sort(function (a, b) { return a.w - b.w || a.i - b.i; }).map(function (x) { return x.q; });
+    var semua = bank.length, nHafal = bank.filter(function (q) { return S.hafal[q.id]; }).length;
+    var L = S.sembunyi ? bank.filter(function (q) { return !S.hafal[q.id]; }) : bank;
+    if (S.i >= L.length) S.i = 0;
+    var materiSec = CFG.materi.filter(function (m) { return m.sec === S.sec && !m.lama && (S.sec !== "tiu" || TIU_LUNAK.indexOf(m.id) >= 0); });
+
+    function jawaban(q) {
+      var tkp = q.sec === "tkp", best = tkp ? 0 : q.a || 0;
+      return h("div", { class: "hf-jawab" },
+        h("p", { class: "hf-kunci" }, h("span", { class: "tag ok" }, tkp ? "Nilai 5" : "Jawaban benar"), " ", q.o[best]),
+        tkp ? h("ol", { class: "hf-urut", start: 2 }, [1, 2, 3, 4].map(function (k) {
+          return h("li", null, h("span", { class: "tag" }, "Nilai " + (5 - k)), " ", q.o[k]);
+        })) : null,
+        q.x ? h("p", { class: "hf-x" }, h("b", null, "Kalimat kunci: "), q.x) : null);
+    }
+    function kartu(q, no) {
+      var m = E.materi(q.m), terbuka = S.buka || S.daftar;
+      var tombolBuka = h("button", { class: "btn sm", type: "button", "aria-expanded": "false", onclick: function (e) {
+        var box = e.currentTarget.parentNode.querySelector(".hf-jawab-wadah");
+        var buka = box.hidden; box.hidden = !buka;
+        e.currentTarget.setAttribute("aria-expanded", buka ? "true" : "false"); e.currentTarget.textContent = buka ? "Tutup jawaban" : "Lihat jawaban";
+      } }, "Lihat jawaban");
+      return h("article", { class: "card hf-card" },
+        h("div", { class: "row between" }, h("span", { class: "small muted" }, (no != null ? no + " · " : "") + (m ? m.name : "")),
+          h("span", { class: "row tight" }, q.sangat ? h("span", { class: "tag hot" }, "sangat sering keluar") : q.hot ? h("span", { class: "tag warn" }, "sering keluar") : null,
+            S.hafal[q.id] ? h("span", { class: "tag ok" }, "sudah hafal") : null)),
+        q.p && SKD.passages[q.p] ? h("div", { class: "passage" }, SKD.passages[q.p]) : null,
+        h("p", { class: "hf-soal" }, q.q),
+        terbuka ? null : tombolBuka,
+        h("div", { class: "hf-jawab-wadah", hidden: !terbuka }, jawaban(q)),
+        h("div", { class: "row" }, h("button", { class: "btn sm ghost", type: "button", "aria-pressed": S.hafal[q.id] ? "true" : "false", onclick: function () {
+          if (S.hafal[q.id]) delete S.hafal[q.id]; else S.hafal[q.id] = 1;
+          simpan(); ctx.rerender();
+        } }, S.hafal[q.id] ? "✓ Sudah hafal" : "Tandai sudah hafal")));
+    }
+    var seg = function (key, opsi) {
+      return h("div", { class: "seg", role: "group" }, opsi.map(function (o) {
+        return h("button", { type: "button", "aria-pressed": S[key] === o[0] ? "true" : "false", onclick: function () { S[key] = o[0]; S.i = 0; if (key === "sec") S.m = ""; simpan(); ctx.rerender(); } }, o[1]);
+      }));
+    };
+    var isi;
+    if (!L.length) isi = h("p", { class: "note" }, semua ? "Semua kartu di pilihan ini sudah ditandai hafal. Matikan \"Sembunyikan yang sudah hafal\" untuk mengulang." : "Belum ada soal untuk pilihan ini.");
+    else if (S.daftar) isi = h("div", { class: "stack" }, L.map(function (q, i) { return kartu(q, i + 1); }));
+    else isi = h("div", { class: "stack" },
+      kartu(L[S.i], (S.i + 1) + " / " + L.length),
+      h("div", { class: "row between hf-nav" },
+        h("button", { class: "btn", type: "button", disabled: S.i <= 0, onclick: function () { S.i--; simpan(); ctx.rerender(); } }, "‹ Sebelumnya"),
+        h("button", { class: "btn primary", type: "button", id: "hf-lanjut", onclick: function () { S.i = (S.i + 1) % L.length; simpan(); ctx.rerender(); } }, "Berikutnya ›")));
+    return [
+      h("div", { class: "page-head" }, h("h1", null, "Hafalan kalimat"),
+        h("p", { class: "lede" }, "Kartu soal dengan kalimat jawaban terbaik dan pembahasannya. Versi Ringkas: soal pendek yang mudah dihafal. Versi Persis CAT: kasus panjang seperti di CAT BKN. Prioritas TWK dan TKP.")),
+      h("section", { class: "card stack" },
+        h("div", { class: "field" }, h("span", { class: "label" }, "Versi"), seg("versi", [["ringkas", "Ringkas (hafalan)"], ["persis", "Persis CAT BKN"]])),
+        h("div", { class: "field" }, h("span", { class: "label" }, "Subtes"), seg("sec", [["twk", "TWK"], ["tkp", "TKP"], ["tiu", "TIU tanpa hitungan"]])),
+        h("label", { class: "field" }, h("span", { class: "label" }, "Materi"),
+          h("select", { class: "input wide", id: "hf-materi", onchange: function (e) { S.m = e.target.value; S.i = 0; simpan(); ctx.rerender(); } },
+            [h("option", { value: "" }, "Semua materi")].concat(materiSec.map(function (m) { return h("option", { value: m.id, selected: S.m === m.id }, m.name); })))),
+        h("div", { class: "row" },
+          h("label", { class: "check" }, h("input", { type: "checkbox", checked: S.buka, onchange: function (e) { S.buka = e.target.checked; simpan(); ctx.rerender(); } }), h("span", null, "Jawaban langsung terbuka")),
+          h("label", { class: "check" }, h("input", { type: "checkbox", checked: S.sembunyi, onchange: function (e) { S.sembunyi = e.target.checked; S.i = 0; simpan(); ctx.rerender(); } }), h("span", null, "Sembunyikan yang sudah hafal")),
+          h("label", { class: "check" }, h("input", { type: "checkbox", checked: S.daftar, onchange: function (e) { S.daftar = e.target.checked; simpan(); ctx.rerender(); } }), h("span", null, "Tampilkan sebagai daftar"))),
+        h("p", { class: "small muted" }, semua + " kartu · " + nHafal + " sudah hafal · sangat sering keluar ditampilkan lebih dulu.")),
+      isi
+    ];
+  };
+})();
+
+</script>
+<script>
 /* Lembar hasil tryout sebagai gambar 1080 x 1350 (kanvas), siap disimpan atau dibagikan. */
 (function () {
   "use strict";
@@ -11748,7 +11866,7 @@ body.in-cat .cat-foot { padding-bottom: 6px; }
     it.chosen = sel;
     it.pts = it.pq.opts[sel].pts;
     ui.pending = null;
-    if (modeBelajar()) it.revealed = true;
+    if (modeBelajar() && s.paket !== "setara") it.revealed = true; // versi persis CAT: tanpa koreksi langsung
     saveSession();
     if (!it.revealed) return catNext();
     if (it.pts === 5) { toast(it.pq.sec === "tkp" ? "Tepat, 5 poin" : "Benar"); return catNext(); }
@@ -11994,6 +12112,7 @@ body.in-cat .cat-foot { padding-bottom: 6px; }
           quickCard("ulang", "Ulangi soal salah", review ? review + " soal menunggu" : "Belum ada", function () { go("ulang"); }),
           quickCard("audio", "Audio hafalan", "Per bagian, tanpa hitungan", null, "https://github.com/serfusion/cpns/releases?q=Audio+Hafalan"),
           quickCard("hitung", "Kalkulator formasi", "Peluang masuk SKB per formasi 2026", function () { go("kalkulator"); }),
+          quickCard("latih", "Hafalan kalimat", "Kartu jawaban TWK dan TKP, ringkas atau persis CAT", function () { go("hafalan"); }),
           quickCard("formasi", "Strategi formasi", "S-1 Ilmu Komunikasi", function () { go("formasi"); }),
           quickCard("gaji", "Gaji & tunjangan", "Gaji pokok, tukin per instansi", function () { go("gaji"); }),
           quickCard("peta", "Peta materi", "Pola yang sering keluar", function () { go("peta"); }))),
@@ -12017,10 +12136,11 @@ body.in-cat .cat-foot { padding-bottom: 6px; }
     var setara = paketInfo({ paket: "setara", scale: "full" }), bS = bestOf[setara.kode];
     var V = validitas();
     var kartuSetara = h("section", { class: "card setara-card", "aria-labelledby": "setara-h" },
-      h("div", { class: "row between" }, h("h2", { id: "setara-h" }, "Tryout Setara CAT"), h("span", { class: "tag ok" }, "paling mirip CAT asli")),
-      h("p", { class: "small" }, "TWK 30 dan TKP 45 dari soal baru berkasus lebih panjang dengan kelima opsi sama panjang, jadi jawaban terbaik tidak bisa ditebak dari opsi terpanjang. TIU 35 tanpa hitungan berat (silogisme, penalaran induktif, analitis, deret, figural). 110 soal, 100 menit."),
+      h("div", { class: "row between" }, h("h2", { id: "setara-h" }, "Versi Persis CAT BKN"), h("span", { class: "tag ok" }, "Tryout Setara CAT")),
+      h("p", { class: "small" }, "Seperti ujian sungguhan: login peserta, 110 soal dalam 100 menit, tanpa koreksi langsung, nilai di akhir. TWK 30 dan TKP 45 dari soal berkasus panjang dengan kelima opsi sama panjang, jadi jawaban terbaik tidak bisa ditebak dari opsi terpanjang. TIU 35 tanpa hitungan berat (silogisme, penalaran induktif, analitis, deret, figural)."),
       bS ? h("p", { class: "small" }, "Skor terbaik ", h("b", null, bS.total), " · ", h("span", { class: bS.pass ? "ok-t" : "bad-t" }, bS.pass ? "Lolos" : "Belum lolos")) : null,
-      h("div", { class: "row" }, h("button", { class: "btn primary", type: "button", id: "btn-setara", onclick: function () { prepTryout({ paket: "setara", scale: "full" }); } }, bS ? "Ulangi" : "Mulai tryout setara CAT")),
+      h("div", { class: "row" }, h("button", { class: "btn primary", type: "button", id: "btn-setara", onclick: function () { prepTryout({ paket: "setara", scale: "full" }); } }, bS ? "Ulangi" : "Mulai versi persis CAT"),
+        h("a", { class: "btn", href: "#hafalan", onclick: function () { try { var d = JSON.parse(localStorage.getItem("skd.hafalan.v1")) || {}; d.versi = "persis"; d.i = 0; localStorage.setItem("skd.hafalan.v1", JSON.stringify(d)); } catch (e) { /* abaikan */ } } }, "Hafalkan kalimatnya")),
       h("details", { class: "validitas" }, h("summary", null, h("b", null, "Seberapa mirip soal di aplikasi ini dengan CAT asli?")),
         h("ul", { class: "plain-list small" },
           h("li", null, "Soal CAT BKN rahasia dan diacak per peserta, jadi tidak ada yang bisa menjamin soal tertentu akan keluar. Soal di sini disusun sendiri mengikuti kisi-kisi resmi 2026 dan pola dari laporan peserta SKD 2024."),
@@ -12039,8 +12159,9 @@ body.in-cat .cat-foot { padding-bottom: 6px; }
         h("div", null, h("b", null, "110"), h("span", null, "soal: TWK 30, TIU 35, TKP 45")),
         h("div", null, h("b", null, "100"), h("span", null, "menit")),
         h("div", null, h("b", null, passOf("twk") + "/" + passOf("tiu") + "/" + passOf("tkp")), h("span", null, "ambang batas"))),
-      h("section", { class: "card" }, h("h2", null, "Paket latihan tetap"),
-        h("p", { class: "small muted" }, "Soal, urutan, dan pilihan setiap paket selalu sama, jadi kenaikan skor bisa dibandingkan. Sebagian soal dapat muncul di lebih dari satu paket. Paket ini memakai bank soal lama yang lebih mudah dari CAT asli (lihat penjelasan Tryout Setara CAT)."),
+      h("section", { class: "card" }, h("div", { class: "row between" }, h("h2", null, "Versi Ringkas (mirip CAT, mudah dihafal)"),
+          h("a", { class: "btn sm", href: "#hafalan", onclick: function () { try { var d = JSON.parse(localStorage.getItem("skd.hafalan.v1")) || {}; d.versi = "ringkas"; d.i = 0; localStorage.setItem("skd.hafalan.v1", JSON.stringify(d)); } catch (e) { /* abaikan */ } } }, "Hafalkan kalimatnya")),
+        h("p", { class: "small muted" }, "Soal pendek di layar mirip CAT, dengan mode belajar (koreksi langsung) bila dinyalakan. Cocok untuk menghafal kalimat jawaban; tingkat kesulitannya lebih ringan dari CAT asli, jadi ukur kesiapan dengan Versi Persis. Soal, urutan, dan pilihan setiap paket selalu sama."),
         h("div", { class: "paket-list" }, list)),
       h("section", { class: "card" }, h("h2", null, "Variasi"),
         h("div", { class: "paket-list" }, paketCard("acak", "full"), paketCard(1, "mini")))
@@ -12201,6 +12322,7 @@ body.in-cat .cat-foot { padding-bottom: 6px; }
         h("span", { class: "small" }, (pg * NAV_PER_PAGE + 1) + "–" + Math.min(total, (pg + 1) * NAV_PER_PAGE)),
         h("button", { class: "cat-arrow", type: "button", "aria-label": "Nomor berikutnya", disabled: pg >= pages - 1, onclick: function () { ui.navPage = pg + 1; render(); } }, "›"),
         h("button", { class: "cat-switch" + (ui.navOn ? " on" : ""), type: "button", role: "switch", "aria-checked": ui.navOn ? "true" : "false", "aria-label": "Tampilkan navigasi", onclick: function () { ui.navOn = !ui.navOn; render(); } }, h("i"))),
+      s.paket === "setara" ? h("p", { class: "small cat-belajar" }, h("b", null, "Versi persis CAT BKN"), ": tanpa koreksi langsung; nilai dan pembahasan muncul setelah ujian selesai.") :
       h("label", { class: "check small cat-belajar", title: "Setelah Simpan dan Lanjutkan, jawaban yang salah langsung dibenarkan di soal itu dan pembahasannya muncul di bawahnya. Matikan untuk simulasi seperti CAT asli." },
         h("input", { type: "checkbox", id: "mode-belajar", checked: modeBelajar(), onchange: function (e) {
           try { localStorage.setItem("skd.belajar", e.target.checked ? "1" : "0"); } catch (x) { /* abaikan */ }
@@ -12638,6 +12760,9 @@ body.in-cat .cat-foot { padding-bottom: 6px; }
     return SKD.formasiView({ h: h, toast: toast, rerender: function () { render(); }, history: function () { return S.history(); } });
   }
 
+  // ---------- hafalan kalimat (versi ringkas dan versi persis CAT) ----------
+  function viewHafalan() { return SKD.hafalanView({ h: h, toast: toast, rerender: function () { render(); } }); }
+
   // ---------- kalkulator formasi ----------
   function viewKalkulator() {
     return SKD.kalkulatorView({ h: h, toast: toast, rerender: function () { render(); }, history: function () { return S.history(); },
@@ -12705,7 +12830,7 @@ body.in-cat .cat-foot { padding-bottom: 6px; }
   var VIEWS = {
     beranda: viewHome, tryout: viewTryout, persiapan: viewPersiapan, ujian: viewUjian, nilai: viewNilai, hasil: viewHasil, bahas: viewBahas, lembar: viewLembar,
     latihan: viewLatihan, kerjakan: viewKerjakan, ulang: viewUlang, riwayat: viewRiwayat, peta: viewPeta, formasi: viewFormasi, gaji: viewGaji, atur: viewAtur,
-    masuk: viewMasuk, kalkulator: viewKalkulator
+    masuk: viewMasuk, kalkulator: viewKalkulator, hafalan: viewHafalan
   };
   var ALIAS = { simulasi: "tryout", statistik: "riwayat" };
   var CAT_ROUTES = { masuk: 1, persiapan: 1, ujian: 1, nilai: 1 };

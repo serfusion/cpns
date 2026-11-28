@@ -242,7 +242,7 @@
     it.chosen = sel;
     it.pts = it.pq.opts[sel].pts;
     ui.pending = null;
-    if (modeBelajar()) it.revealed = true;
+    if (modeBelajar() && s.paket !== "setara") it.revealed = true; // versi persis CAT: tanpa koreksi langsung
     saveSession();
     if (!it.revealed) return catNext();
     if (it.pts === 5) { toast(it.pq.sec === "tkp" ? "Tepat, 5 poin" : "Benar"); return catNext(); }
@@ -488,6 +488,7 @@
           quickCard("ulang", "Ulangi soal salah", review ? review + " soal menunggu" : "Belum ada", function () { go("ulang"); }),
           quickCard("audio", "Audio hafalan", "Per bagian, tanpa hitungan", null, "https://github.com/serfusion/cpns/releases?q=Audio+Hafalan"),
           quickCard("hitung", "Kalkulator formasi", "Peluang masuk SKB per formasi 2026", function () { go("kalkulator"); }),
+          quickCard("latih", "Hafalan kalimat", "Kartu jawaban TWK dan TKP, ringkas atau persis CAT", function () { go("hafalan"); }),
           quickCard("formasi", "Strategi formasi", "S-1 Ilmu Komunikasi", function () { go("formasi"); }),
           quickCard("gaji", "Gaji & tunjangan", "Gaji pokok, tukin per instansi", function () { go("gaji"); }),
           quickCard("peta", "Peta materi", "Pola yang sering keluar", function () { go("peta"); }))),
@@ -511,10 +512,11 @@
     var setara = paketInfo({ paket: "setara", scale: "full" }), bS = bestOf[setara.kode];
     var V = validitas();
     var kartuSetara = h("section", { class: "card setara-card", "aria-labelledby": "setara-h" },
-      h("div", { class: "row between" }, h("h2", { id: "setara-h" }, "Tryout Setara CAT"), h("span", { class: "tag ok" }, "paling mirip CAT asli")),
-      h("p", { class: "small" }, "TWK 30 dan TKP 45 dari soal baru berkasus lebih panjang dengan kelima opsi sama panjang, jadi jawaban terbaik tidak bisa ditebak dari opsi terpanjang. TIU 35 tanpa hitungan berat (silogisme, penalaran induktif, analitis, deret, figural). 110 soal, 100 menit."),
+      h("div", { class: "row between" }, h("h2", { id: "setara-h" }, "Versi Persis CAT BKN"), h("span", { class: "tag ok" }, "Tryout Setara CAT")),
+      h("p", { class: "small" }, "Seperti ujian sungguhan: login peserta, 110 soal dalam 100 menit, tanpa koreksi langsung, nilai di akhir. TWK 30 dan TKP 45 dari soal berkasus panjang dengan kelima opsi sama panjang, jadi jawaban terbaik tidak bisa ditebak dari opsi terpanjang. TIU 35 tanpa hitungan berat (silogisme, penalaran induktif, analitis, deret, figural)."),
       bS ? h("p", { class: "small" }, "Skor terbaik ", h("b", null, bS.total), " · ", h("span", { class: bS.pass ? "ok-t" : "bad-t" }, bS.pass ? "Lolos" : "Belum lolos")) : null,
-      h("div", { class: "row" }, h("button", { class: "btn primary", type: "button", id: "btn-setara", onclick: function () { prepTryout({ paket: "setara", scale: "full" }); } }, bS ? "Ulangi" : "Mulai tryout setara CAT")),
+      h("div", { class: "row" }, h("button", { class: "btn primary", type: "button", id: "btn-setara", onclick: function () { prepTryout({ paket: "setara", scale: "full" }); } }, bS ? "Ulangi" : "Mulai versi persis CAT"),
+        h("a", { class: "btn", href: "#hafalan", onclick: function () { try { var d = JSON.parse(localStorage.getItem("skd.hafalan.v1")) || {}; d.versi = "persis"; d.i = 0; localStorage.setItem("skd.hafalan.v1", JSON.stringify(d)); } catch (e) { /* abaikan */ } } }, "Hafalkan kalimatnya")),
       h("details", { class: "validitas" }, h("summary", null, h("b", null, "Seberapa mirip soal di aplikasi ini dengan CAT asli?")),
         h("ul", { class: "plain-list small" },
           h("li", null, "Soal CAT BKN rahasia dan diacak per peserta, jadi tidak ada yang bisa menjamin soal tertentu akan keluar. Soal di sini disusun sendiri mengikuti kisi-kisi resmi 2026 dan pola dari laporan peserta SKD 2024."),
@@ -533,8 +535,9 @@
         h("div", null, h("b", null, "110"), h("span", null, "soal: TWK 30, TIU 35, TKP 45")),
         h("div", null, h("b", null, "100"), h("span", null, "menit")),
         h("div", null, h("b", null, passOf("twk") + "/" + passOf("tiu") + "/" + passOf("tkp")), h("span", null, "ambang batas"))),
-      h("section", { class: "card" }, h("h2", null, "Paket latihan tetap"),
-        h("p", { class: "small muted" }, "Soal, urutan, dan pilihan setiap paket selalu sama, jadi kenaikan skor bisa dibandingkan. Sebagian soal dapat muncul di lebih dari satu paket. Paket ini memakai bank soal lama yang lebih mudah dari CAT asli (lihat penjelasan Tryout Setara CAT)."),
+      h("section", { class: "card" }, h("div", { class: "row between" }, h("h2", null, "Versi Ringkas (mirip CAT, mudah dihafal)"),
+          h("a", { class: "btn sm", href: "#hafalan", onclick: function () { try { var d = JSON.parse(localStorage.getItem("skd.hafalan.v1")) || {}; d.versi = "ringkas"; d.i = 0; localStorage.setItem("skd.hafalan.v1", JSON.stringify(d)); } catch (e) { /* abaikan */ } } }, "Hafalkan kalimatnya")),
+        h("p", { class: "small muted" }, "Soal pendek di layar mirip CAT, dengan mode belajar (koreksi langsung) bila dinyalakan. Cocok untuk menghafal kalimat jawaban; tingkat kesulitannya lebih ringan dari CAT asli, jadi ukur kesiapan dengan Versi Persis. Soal, urutan, dan pilihan setiap paket selalu sama."),
         h("div", { class: "paket-list" }, list)),
       h("section", { class: "card" }, h("h2", null, "Variasi"),
         h("div", { class: "paket-list" }, paketCard("acak", "full"), paketCard(1, "mini")))
@@ -695,6 +698,7 @@
         h("span", { class: "small" }, (pg * NAV_PER_PAGE + 1) + "–" + Math.min(total, (pg + 1) * NAV_PER_PAGE)),
         h("button", { class: "cat-arrow", type: "button", "aria-label": "Nomor berikutnya", disabled: pg >= pages - 1, onclick: function () { ui.navPage = pg + 1; render(); } }, "›"),
         h("button", { class: "cat-switch" + (ui.navOn ? " on" : ""), type: "button", role: "switch", "aria-checked": ui.navOn ? "true" : "false", "aria-label": "Tampilkan navigasi", onclick: function () { ui.navOn = !ui.navOn; render(); } }, h("i"))),
+      s.paket === "setara" ? h("p", { class: "small cat-belajar" }, h("b", null, "Versi persis CAT BKN"), ": tanpa koreksi langsung; nilai dan pembahasan muncul setelah ujian selesai.") :
       h("label", { class: "check small cat-belajar", title: "Setelah Simpan dan Lanjutkan, jawaban yang salah langsung dibenarkan di soal itu dan pembahasannya muncul di bawahnya. Matikan untuk simulasi seperti CAT asli." },
         h("input", { type: "checkbox", id: "mode-belajar", checked: modeBelajar(), onchange: function (e) {
           try { localStorage.setItem("skd.belajar", e.target.checked ? "1" : "0"); } catch (x) { /* abaikan */ }
@@ -1132,6 +1136,9 @@
     return SKD.formasiView({ h: h, toast: toast, rerender: function () { render(); }, history: function () { return S.history(); } });
   }
 
+  // ---------- hafalan kalimat (versi ringkas dan versi persis CAT) ----------
+  function viewHafalan() { return SKD.hafalanView({ h: h, toast: toast, rerender: function () { render(); } }); }
+
   // ---------- kalkulator formasi ----------
   function viewKalkulator() {
     return SKD.kalkulatorView({ h: h, toast: toast, rerender: function () { render(); }, history: function () { return S.history(); },
@@ -1199,7 +1206,7 @@
   var VIEWS = {
     beranda: viewHome, tryout: viewTryout, persiapan: viewPersiapan, ujian: viewUjian, nilai: viewNilai, hasil: viewHasil, bahas: viewBahas, lembar: viewLembar,
     latihan: viewLatihan, kerjakan: viewKerjakan, ulang: viewUlang, riwayat: viewRiwayat, peta: viewPeta, formasi: viewFormasi, gaji: viewGaji, atur: viewAtur,
-    masuk: viewMasuk, kalkulator: viewKalkulator
+    masuk: viewMasuk, kalkulator: viewKalkulator, hafalan: viewHafalan
   };
   var ALIAS = { simulasi: "tryout", statistik: "riwayat" };
   var CAT_ROUTES = { masuk: 1, persiapan: 1, ujian: 1, nilai: 1 };

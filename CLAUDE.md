@@ -38,6 +38,8 @@ Pemilik berbahasa Indonesia. Jawab singkat dan jelas.
 
 ## Soal dan tingkat kesulitan
 - Prioritas pemilik: TWK dan TKP; TIU tanpa hitungan/angka rumit.
+- Dua versi dipertahankan: **Ringkas** (bank lama, soal pendek, untuk menghafal kalimat; menu Hafalan kalimat) dan **Persis CAT BKN**
+  (`data/setara.js`, Tryout Setara CAT tanpa koreksi langsung). Soal ringkas jangan dihapus; soal persis ditambah bertahap.
 - Soal baru ditulis seperti `data/setara.js` (v: 1): kasus kerja nyata, kelima opsi sama panjang (dicek `validate.mjs`), pengecoh
   masuk akal. Audit: `node scripts/audit-kesulitan.mjs`; hasil dan pembanding resmi BKN di `docs/validasi-tingkat-kesulitan.md`.
 - Soal lama (twk.js/tkp.js) punya isyarat panjang opsi (jawaban terbaik sering terpanjang): jangan menulis soal baru dengan pola itu.
