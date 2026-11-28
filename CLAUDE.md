@@ -1,0 +1,33 @@
+# Catatan untuk Claude: Latihan Soal Pejuang NIP (repo cpns)
+
+Pemilik berbahasa Indonesia. Jawab singkat dan jelas.
+
+## Tempat aplikasi berjalan
+- **APK** (GitHub Actions `apk.yml`, rilis `apk-<nomor>`): bawaan memuat **versi online** dari
+  `https://superfal-dev.com/tools/pejuang-nip/` (Exclusive di portofolio, kunci sama dengan studio), dan jatuh ke salinan bawaan
+  APK bila VPS tidak bisa dihubungi. Pilihan Online/Offline ada di Pengaturan.
+- **Web/online**: file hasil build disalin ke repo **serfusion/portofolio** (`projects/portofolio/tools/pejuang-nip/index.html`),
+  dijaga Caddy `forward_auth` ke `/cek` panel studio (repo serfusion/Content-Creator-Motion, dict `LUAR["pejuang-nip"]`).
+- **Pemindai SSCASN di VPS** (tiap 6 jam): `projects/pejuang-nip/pindai/` di repo portofolio memakai salinan `js/pindai.js`
+  (fungsi SCANNER dan `olah`), hasilnya `tools/pejuang-nip/live/pindai.json` yang dibaca aplikasi online.
+
+## Alur setiap ada perubahan
+1. Ubah sumber di repo ini, lalu `node scripts/validate.mjs` dan `node scripts/build.mjs` (menghasilkan `dist/latihan-skd.html`).
+2. Uji di Chromium (Playwright) ukuran HP 360 px dan komputer, pastikan tanpa galat konsol dan tanpa geser samping.
+3. Commit dan push ke cabang kerja (APK dibangun otomatis).
+4. Supaya versi online ikut terbarui: salin `dist/latihan-skd.html` ke portofolio
+   `projects/portofolio/tools/pejuang-nip/index.html` dan `js/pindai.js` ke `projects/pejuang-nip/pindai/pindai.js`,
+   commit dan push langsung ke `main` portofolio, lalu tutup jawaban dengan perintah VPS:
+   ```bash
+   sudo bash ~/portofolio/deploy/superfal/perbarui.sh
+   ```
+
+## Data formasi CPNS 2026
+- `data/dok2026.js`: formasi dari pengumuman/lampiran resmi (dibuat skrip di luar repo). Hitung S-1 Ilmu Komunikasi hanya bila nama
+  prodi tertulis persis "S-1 Ilmu Komunikasi"; prodi mirip (Komunikasi dan Pengembangan Masyarakat, Ilmu Sosial Politik, D-III)
+  masuk "hampir cocok". Saat instansi baru menerbitkan lampiran, baca seluruh halamannya (termasuk lampiran penempatan).
+- `data/sscasn2026.js`: hasil pindai SSCASN bawaan. Pindai hanya sebagai pengunjung biasa: jangan memanggil API SSCASN langsung,
+  memalsukan header, menembus captcha/pemblokiran, atau login; bila diblokir, hentikan dan laporkan.
+
+## Kunci
+- Kunci Exclusive hanya di VPS (`/etc/superfal/kunci`). JANGAN pernah menulis kunci/password di repo, commit, atau pesan.

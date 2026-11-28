@@ -1045,6 +1045,20 @@
   }
 
   // ---------- pengaturan ----------
+  // APK: pilih versi online (dari VPS, selalu terbaru; perlu kunci sekali) atau salinan bawaan APK (tanpa internet)
+  function versiAplikasi() {
+    var B = window.AndroidBridge;
+    if (!B || typeof B.mode !== "function" || typeof B.aturMode !== "function") return null;
+    var m = "online";
+    try { m = B.mode() === "offline" ? "offline" : "online"; } catch (e) { return null; }
+    var pilih = function (v) { return function () { if (v !== m) { toast(v === "online" ? "Membuka versi online…" : "Membuka versi bawaan APK…"); B.aturMode(v); } }; };
+    return h("section", { class: "card stack" }, h("h2", null, "Versi aplikasi"),
+      h("p", { class: "small muted" }, "Versi online dimuat dari superfal-dev.com, jadi soal dan data formasi selalu terbaru tanpa memasang APK baru (kunci Exclusive diketik sekali). Versi bawaan APK bisa dipakai tanpa internet."),
+      h("div", { class: "seg", role: "group", "aria-label": "Versi aplikasi" },
+        h("button", { type: "button", id: "set-online", "aria-pressed": m === "online" ? "true" : "false", onclick: pilih("online") }, "Online (terbaru)"),
+        h("button", { type: "button", id: "set-offline", "aria-pressed": m === "offline" ? "true" : "false", onclick: pilih("offline") }, "Bawaan APK (offline)")),
+      h("p", { class: "small" }, "Sedang dipakai: ", h("b", null, /^https?:$/.test(location.protocol) ? "versi online" : "versi bawaan APK"), "."));
+  }
   function viewAtur() {
     var set = S.settings();
     return [
@@ -1067,6 +1081,7 @@
             }));
         })),
         h("div", { class: "row" }, h("button", { class: "btn sm", type: "button", onclick: function () { S.resetPass(); render(); toast("Ambang batas dikembalikan ke 65, 80, 166."); } }, "Kembalikan ke bawaan"))),
+      versiAplikasi(),
       h("section", { class: "card stack" }, h("h2", null, "Latihan"),
         h("label", { class: "check" }, h("input", { type: "checkbox", id: "set-requeue", checked: set.requeue, onchange: function (e) { S.setFlag("requeue", e.target.checked); } }),
           h("span", null, h("b", null, "Ulangi yang salah sampai benar. "), "Berlaku pada latihan per materi."))),
