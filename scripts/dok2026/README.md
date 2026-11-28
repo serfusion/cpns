@@ -27,5 +27,6 @@ Pemilik menaruh pengumuman dan lampiran formasi tiap instansi di folder Google D
      atau sebagai formasi D-III, supaya muncul di kelompok "hampir cocok".
    - SMA/SMK/SLTA dicatat juga (pendidikan berisi "SMA", "SMK", atau "SLTA").
    - Instansi yang baru terbit dihapus dari daftar `belum`.
-4. `python3 scripts/dok2026/buat.py`, perbarui `kandidat2026` di `data/formasi.js` dan `docs/kandidat-formasi-cpns-2026.md` (+ PDF),
+4. `python3 scripts/dok2026/buat.py`, perbarui `docs/kandidat-formasi-cpns-2026.md` (+ PDF; `kandidat2026` di `data/formasi.js` tidak perlu lagi,
+   halaman Strategi formasi sudah dilepas dari aplikasi),
    perbarui `drive.json`, lalu ikuti alur di `CLAUDE.md` (validasi, build, uji, commit, sinkron ke portofolio).

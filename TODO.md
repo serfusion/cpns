@@ -162,3 +162,8 @@ disimpan di localStorage dengan kunci `skd.formasi.v1` (tidak ikut sinkron).
 - [ ] Tulis ulang opsi pengecoh soal TKP/TWK lama yang jawaban terbaiknya jauh lebih panjang (mulai dari `h: 2`).
 - [ ] Saat instansi lain menampilkan formasi: perbarui `data/sscasn2026.js` (jalankan SCANNER sebagai pengunjung, lalu
   `tools/gen_sscasn2026.cjs` di luar repo) dan tahapan seleksinya dari pengumuman resmi; uji APK di HP (layar pindai).
+- [x] 28 Nov 2026: tampilan diringkas (permintaan pemilik: teks dan menu terlalu banyak). Laci 12 menu diganti 5 tab datar
+  (Beranda, Tryout, Latihan, Hafalan, Formasi; di HP tab di bawah). REA dari situs pencari formasi (pengunjung): judul pendek +
+  satu baris angka, label kecil kapital, kartu dengan kotak angka, kotak cari dan pil. Latihan jadi satu formulir (subtes, jenis,
+  materi, jumlah); Kalkulator + Strategi formasi + Gaji jadi tab Formasi; Peta materi dan Strategi formasi dilepas; jumlah kata
+  di HP: Beranda 141 -> 23, Tryout 356 -> 44, Latihan 666 -> 48, Formasi 15.958 -> 755, Gaji 1.730 -> 486.

@@ -1,5 +1,5 @@
-/* Halaman "Gaji & tunjangan": perkiraan penghasilan bulanan CPNS/PNS per instansi pusat, peringkat instansi untuk profil
-   yang dipilih, tabel tunjangan kinerja per kelas jabatan, dan tabel gaji pokok PP 5/2024.
+/* Tab Formasi > Gaji: perkiraan penghasilan bulanan CPNS/PNS per instansi pusat dan instansi dengan tukin tertinggi
+   untuk kelas jabatan yang dipilih (gaji pokok PP 5/2024, tukin menurut Perpres tiap instansi).
    Teknik REA: fitur dipelajari dari situs pembanding sebagai pengunjung; kode, teks, dan tampilan ditulis sendiri, angka
    diambil ulang dari dokumen resmi (data/tunjangan.js). Pilihan pengguna disimpan di localStorage perangkat ini saja. */
 (function () {
@@ -78,65 +78,41 @@
     var save = function () { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} };
     var instOf = function (s) { return T.instansi.filter(function (i) { return i.s === s; })[0] || null; };
     var urut = T.instansi.slice().sort(function (a, b) { return a.n < b.n ? -1 : 1; });
-    var th = function (t) { return h("th", { scope: "col" }, t); };
     var isi = function (el, kids) { while (el.firstChild) el.removeChild(el.firstChild); kids.forEach(function (k) { if (k) el.appendChild(k); }); };
 
     var hasil = h("div", { class: "stack", id: "gj-hasil" }), peringkat = h("div", { class: "stack", id: "gj-peringkat" });
-    var tabelTukin = h("div", { class: "stack", id: "gj-tukin" }), tabelGapok = h("div", { class: "stack", id: "gj-gapok" });
-    var kelasSel, golSel;
+    var kelasSel, golSel, semuaPeringkat = false;
 
     function hitungUlang() {
       save();
       var inst = S.inst === LAIN ? null : instOf(S.inst), H = hitung(T, S, inst);
       isi(hasil, [
-        h("div", { class: "tile gj-total" }, h("span", { class: "l" }, "Perkiraan penghasilan per bulan" + (S.status === "cpns" ? " selama CPNS" : " sebagai PNS")),
-          h("span", { class: "v", id: "gj-total" }, rp(H.total)),
-          h("span", { class: "d" }, (inst ? inst.n : "Instansi lain (tukin isian)") + " · sebelum pajak dan potongan")),
+        h("div", { class: "gj-total" }, h("span", { class: "lbl" }, "Per bulan" + (S.status === "cpns" ? " selama CPNS" : " sebagai PNS")),
+          h("b", { id: "gj-total" }, rp(H.total)),
+          h("span", { class: "meta" }, (inst ? inst.s : "Instansi lain") + " · sebelum pajak dan potongan")),
         h("ul", { class: "gj-rinci" }, H.rows.map(function (x) {
-          return h("li", null, h("span", null, h("b", null, x.k), h("br"), h("span", { class: "small muted" }, x.d)), h("span", { class: "gj-v" }, rp(x.v)));
+          return h("li", null, h("span", null, x.k), h("span", { class: "gj-v" }, rp(x.v)));
         })),
-        inst && inst.rentang ? h("p", { class: "note warn" }, "Tabel tukin " + inst.s + " dicocokkan dari rentang yang diumumkan Setkab untuk " + inst.r + "; salinan Perpres-nya belum bisa dibaca langsung.") : null,
-        inst ? h("p", { class: "small muted" }, "Dasar tukin: " + inst.r + ". ", h("a", { href: inst.u, target: "_blank", rel: "noopener" }, inst.rentang ? "Berita Setkab" : "Salinan Perpres")) : null
+        inst ? h("p", { class: "meta" }, h("a", { href: inst.u, target: "_blank", rel: "noopener" }, "Dasar tukin: " + inst.r + " ↗")) : null
       ]);
       isiPeringkat(H);
-      isiTukin(inst);
     }
 
     function isiPeringkat(H) {
       var cpns = S.status === "cpns", pct = cpns ? S.persen / 100 : 1;
       var L = T.instansi.map(function (i) { var t = tukinKelas(T, i, S.kelas); return { i: i, t: t == null ? 0 : t * pct }; })
         .sort(function (a, b) { return b.t - a.t || (a.i.n < b.i.n ? -1 : 1); });
+      var tampil = semuaPeringkat ? L : L.slice(0, 10);
       isi(peringkat, [
-        h("p", { class: "small muted" }, "Kelas jabatan " + S.kelas + ", " + S.gol + (cpns ? ", status CPNS (tukin " + S.persen + "%)" : ", status PNS") + ". Komponen selain tukin sama di semua instansi: " + rp(H.dasar) + " per bulan."),
-        h("ol", { class: "gj-rank" }, L.map(function (x) {
+        h("p", { class: "meta" }, "Kelas jabatan " + S.kelas + (cpns ? " · CPNS" : " · PNS")),
+        h("ol", { class: "gj-rank" }, tampil.map(function (x) {
           return h("li", { class: x.i.s === S.inst ? "on" : null },
-            h("span", null, h("b", null, x.i.s), " ", h("span", { class: "small muted" }, x.i.n + (x.i.rentang ? " (dari rentang Setkab)" : ""))),
-            h("span", { class: "gj-v" }, juta(H.dasar + x.t)), h("span", { class: "small muted gj-sub" }, "tukin " + rp(x.t)));
-        }))
+            h("span", null, h("b", null, x.i.s), " ", h("span", { class: "small muted" }, x.i.n)),
+            h("span", { class: "gj-v" }, juta(H.dasar + x.t)));
+        })),
+        L.length > 10 ? h("button", { class: "more", type: "button", onclick: function () { semuaPeringkat = !semuaPeringkat; isiPeringkat(H); } },
+          semuaPeringkat ? "Ringkas ▴" : "Semua " + L.length + " instansi ▾") : null
       ]);
-    }
-
-    function isiTukin(inst) {
-      var p = inst ? T.pola[inst.p] : null;
-      if (!p) { isi(tabelTukin, [h("p", { class: "small muted" }, "Pilih instansi untuk melihat tabel tunjangan kinerjanya.")]); return; }
-      var rows = [];
-      if (inst.x) Object.keys(inst.x).forEach(function (k) { rows.push([Number(k), inst.x[k]]); });
-      for (var k = p.length; k >= 1; k--) rows.push([k, p[k - 1]]);
-      isi(tabelTukin, [
-        h("p", { class: "small" }, h("b", null, inst.n), " · " + inst.r + " · pola " + inst.p + (inst.c ? ". " + inst.c : "")),
-        h("div", { class: "qtable fm-tbl" }, h("table", null,
-          h("thead", null, h("tr", null, th("Kelas"), th("Tukin penuh"), th("80% (CPNS)"))),
-          h("tbody", null, rows.map(function (r) {
-            return h("tr", { class: r[0] === S.kelas ? "gj-on" : null }, h("td", null, String(r[0])), h("td", null, rp(r[1])), h("td", null, rp(r[1] * 0.8)));
-          }))))
-      ]);
-    }
-
-    function isiGapok() {
-      var rows = T.gapok[S.lihatGol];
-      isi(tabelGapok, [h("div", { class: "qtable fm-tbl" }, h("table", null,
-        h("thead", null, h("tr", null, th("MKG (tahun)"), th("Gaji pokok PNS"), th("CPNS (80%)"))),
-        h("tbody", null, rows.map(function (r) { return h("tr", null, h("td", null, String(r[0])), h("td", null, rp(r[1])), h("td", null, rp(r[1] * 0.8))); }))))]);
     }
 
     function setPend(p) {
@@ -155,92 +131,61 @@
         } }, o[1]);
       }));
     };
+    var angka = function (id, label, nilai, lo, hi, on) {
+      return h("label", { class: "field" }, h("span", { class: "lbl" }, label),
+        h("input", { class: "input", id: id, type: "number", min: lo, max: hi, inputmode: "numeric", value: nilai,
+          oninput: function (e) { var v = num(e.target.value, lo, hi, -1); if (v >= 0) on(v); } }));
+    };
     var golList = Object.keys(T.gapok);
-    var kelasMax = 18;
 
     kelasSel = h("select", { class: "input wide", id: "gj-kelas", onchange: function (e) { S.kelas = num(e.target.value, 1, 18, 8); hitungUlang(); } },
-      (function () { var o = []; for (var k = kelasMax; k >= 1; k--) o.push(h("option", { value: String(k), selected: S.kelas === k }, "Kelas " + k + (k === 8 ? " (ahli pertama)" : k === 7 ? " (pelaksana S-1)" : k === 6 ? " (terampil D-III)" : k === 5 ? " (pelaksana SLTA)" : ""))); return o; })());
+      (function () { var o = []; for (var k = 18; k >= 1; k--) o.push(h("option", { value: String(k), selected: S.kelas === k }, "Kelas " + k + (k === 8 ? " (ahli pertama)" : k === 7 ? " (pelaksana S-1)" : k === 6 ? " (terampil D-III)" : k === 5 ? " (pelaksana SLTA)" : ""))); return o; })());
     golSel = h("select", { class: "input wide", id: "gj-gol", onchange: function (e) { S.gol = e.target.value; hitungUlang(); } },
       golList.map(function (g) { return h("option", { value: g, selected: S.gol === g }, g); }));
-    var manualField = h("label", { class: "field", hidden: S.inst !== LAIN }, h("span", { class: "label" }, "Tukin per bulan (isi sendiri)"),
-      h("input", { class: "input", id: "gj-manual", inputmode: "numeric", value: S.manual || "", placeholder: "4595150",
+    var manualField = h("label", { class: "field", hidden: S.inst !== LAIN }, h("span", { class: "lbl" }, "Tukin per bulan"),
+      h("input", { class: "input wide", id: "gj-manual", inputmode: "numeric", value: S.manual || "", placeholder: "4595150",
         oninput: function (e) { S.manual = num(String(e.target.value).replace(/\D/g, ""), 0, 100000000, 0); hitungUlang(); } }));
-    var tjfField = h("label", { class: "field", hidden: S.jab !== "fungsional" }, h("span", { class: "label" }, "Tunjangan jabatan fungsional per bulan"),
-      h("input", { class: "input", id: "gj-tjf", inputmode: "numeric", value: S.tjf || "", placeholder: "540000",
+    var tjfField = h("label", { class: "field", hidden: S.jab !== "fungsional" }, h("span", { class: "lbl" }, "Tunjangan fungsional"),
+      h("input", { class: "input wide", id: "gj-tjf", inputmode: "numeric", value: S.tjf || "", placeholder: "540000",
         oninput: function (e) { S.tjf = num(String(e.target.value).replace(/\D/g, ""), 0, 10000000, 0); hitungUlang(); } }));
-    var persenField = h("label", { class: "field", hidden: S.status !== "cpns" }, h("span", { class: "label" }, "Tukin CPNS (%)"),
-      h("input", { class: "input", id: "gj-persen", type: "number", min: 0, max: 100, inputmode: "numeric", value: S.persen,
-        oninput: function (e) { var v = num(e.target.value, 0, 100, -1); if (v >= 0) { S.persen = v; hitungUlang(); } } }));
+    var persenField = angka("gj-persen", "Tukin CPNS (%)", S.persen, 0, 100, function (v) { S.persen = v; hitungUlang(); });
+    persenField.hidden = S.status !== "cpns";
 
-    var kalk = h("section", { class: "panel", "aria-labelledby": "gj-kalk" },
-      h("h2", { id: "gj-kalk" }, "Kalkulator penghasilan"),
+    var kalk = h("section", { class: "card stack", "aria-label": "Hitung penghasilan" },
       h("div", { class: "fm-form" },
-        h("label", { class: "field grow" }, h("span", { class: "label" }, "Instansi"),
+        h("label", { class: "field grow" }, h("span", { class: "lbl" }, "Instansi"),
           h("select", { class: "input wide", id: "gj-inst", onchange: function (e) { S.inst = e.target.value; manualField.hidden = S.inst !== LAIN; hitungUlang(); } },
             urut.map(function (i) { return h("option", { value: i.s, selected: S.inst === i.s }, i.s + " · " + i.n); })
-              .concat([h("option", { value: LAIN, selected: S.inst === LAIN }, "Instansi lain (isi tukin sendiri)")]))),
+              .concat([h("option", { value: LAIN, selected: S.inst === LAIN }, "Instansi lain (isi tukin)")]))),
         manualField,
-        h("label", { class: "field grow" }, h("span", { class: "label" }, "Pendidikan (golongan awal)"),
+        h("label", { class: "field grow" }, h("span", { class: "lbl" }, "Pendidikan"),
           h("select", { class: "input wide", id: "gj-pend", onchange: function (e) { setPend(e.target.value); } },
-            T.awal.map(function (a) { return h("option", { value: a.p, selected: S.pend === a.p }, a.p + " → " + a.g); }))),
-        h("label", { class: "field" }, h("span", { class: "label" }, "Golongan"), golSel),
-        h("label", { class: "field" }, h("span", { class: "label" }, "MKG (tahun)"),
-          h("input", { class: "input", id: "gj-mkg", type: "number", min: 0, max: 33, inputmode: "numeric", value: S.mkg,
-            oninput: function (e) { var v = num(e.target.value, 0, 33, -1); if (v >= 0) { S.mkg = v; hitungUlang(); } } })),
-        h("label", { class: "field grow" }, h("span", { class: "label" }, "Kelas jabatan"), kelasSel)),
-      h("div", { class: "field" }, h("span", { class: "label" }, "Status"),
-        seg("Status", [["cpns", "CPNS (tahun pertama)"], ["pns", "PNS"]], S.status, function (v) { S.status = v; persenField.hidden = v !== "cpns"; hitungUlang(); })),
-      h("div", { class: "fm-form" }, persenField,
-        h("label", { class: "field" }, h("span", { class: "label" }, "Hari hadir"),
-          h("input", { class: "input", id: "gj-hari", type: "number", min: 0, max: 23, inputmode: "numeric", value: S.hari,
-            oninput: function (e) { var v = num(e.target.value, 0, 23, -1); if (v >= 0) { S.hari = v; hitungUlang(); } } })),
-        h("label", { class: "field" }, h("span", { class: "label" }, "Jumlah anak"),
-          h("input", { class: "input", id: "gj-anak", type: "number", min: 0, max: 9, inputmode: "numeric", value: S.anak,
-            oninput: function (e) { var v = num(e.target.value, 0, 9, -1); if (v >= 0) { S.anak = v; hitungUlang(); } } }))),
-      h("label", { class: "check" }, h("input", { type: "checkbox", id: "gj-nikah", checked: S.nikah, onchange: function (e) { S.nikah = e.target.checked; hitungUlang(); } }),
-        h("span", null, "Sudah menikah (tunjangan suami/istri)")),
-      h("div", { class: "field" }, h("span", { class: "label" }, "Tunjangan jabatan"),
-        seg("Tunjangan jabatan", [["umum", "Tunjangan umum (pelaksana)"], ["fungsional", "Jabatan fungsional"]], S.jab, function (v) { S.jab = v; tjfField.hidden = v !== "fungsional"; hitungUlang(); })),
-      tjfField,
-      hasil,
-      h("p", { class: "note info" }, "Perkiraan bruto sebelum pajak, iuran BPJS Kesehatan, dan iuran pensiun. Tukin yang benar-benar dibayar mengikuti capaian kinerja dan kehadiran. Selama CPNS gaji pokok dibayar 80%; persentase tukin CPNS diatur tiap instansi (contoh: BRIN 80%), jadi ubah bila aturan instansi Anda berbeda. Tunjangan jabatan fungsional baru diterima setelah diangkat dalam jabatan fungsional; isi nominalnya dari Perpres jabatan tersebut."));
-
-    var lihatGolSel = h("select", { class: "input wide", id: "gj-lihat-gol", onchange: function (e) { S.lihatGol = e.target.value; save(); isiGapok(); } },
-      golList.map(function (g) { return h("option", { value: g, selected: S.lihatGol === g }, g); }));
-
-    var daftar = h("section", { class: "panel", "aria-labelledby": "gj-daftar" },
-      h("h2", { id: "gj-daftar" }, "Sumber tukin per instansi"),
-      h("p", { class: "small" }, T.instansi.length + " instansi dengan tabel tukin per kelas jabatan. Empat pola angka dipakai berulang: A Rp2,53 jt–Rp33,24 jt, B Rp2,58 jt–Rp41,55 jt, C Rp1,97 jt–Rp29,09 jt, D Rp1,77 jt–Rp24,93 jt."),
-      h("ul", { class: "fm-inst" }, ["A", "B", "C", "D"].map(function (p) {
-        var L = urut.filter(function (i) { return i.p === p; });
-        return h("li", null, h("div", { class: "row" }, h("b", null, "Pola " + p), h("span", { class: "tag" }, "kelas 8: " + rp(T.pola[p][7])), h("span", { class: "tag" }, L.length + " instansi")),
-          h("span", { class: "small" }, L.map(function (i, j) {
-            return [j ? ", " : "", h("a", { href: i.u, target: "_blank", rel: "noopener" }, i.s + " (" + i.r.replace("Perpres ", "") + ")"), i.rentang ? "*" : ""];
-          })));
-      })),
-      h("p", { class: "small muted" }, "* Tabel dicocokkan dari rentang yang diumumkan Setkab. Belum terbaca dari salinan Perpres (isi tukin sendiri di kalkulator): " +
-        T.belum.map(function (b) { return b.n + (b.r !== "–" ? " (" + b.r + ")" : ""); }).join("; ") + "."));
+            T.awal.map(function (a) { return h("option", { value: a.p, selected: S.pend === a.p }, a.p + " → " + a.g); })))),
+      h("div", { class: "row" },
+        seg("Status", [["cpns", "CPNS"], ["pns", "PNS"]], S.status, function (v) { S.status = v; persenField.hidden = v !== "cpns"; hitungUlang(); }),
+        h("label", { class: "check" }, h("input", { type: "checkbox", id: "gj-nikah", checked: S.nikah, onchange: function (e) { S.nikah = e.target.checked; hitungUlang(); } }),
+          h("span", null, "Menikah"))),
+      h("details", { class: "gj-lain" }, h("summary", null, "Rincian lain"),
+        h("div", { class: "fm-form" },
+          angka("gj-anak", "Anak", S.anak, 0, 9, function (v) { S.anak = v; hitungUlang(); }),
+          h("label", { class: "field" }, h("span", { class: "lbl" }, "Golongan"), golSel),
+          angka("gj-mkg", "MKG (tahun)", S.mkg, 0, 33, function (v) { S.mkg = v; hitungUlang(); }),
+          h("label", { class: "field grow" }, h("span", { class: "lbl" }, "Kelas jabatan"), kelasSel),
+          persenField,
+          angka("gj-hari", "Hari hadir", S.hari, 0, 23, function (v) { S.hari = v; hitungUlang(); })),
+        h("div", { class: "field" }, h("span", { class: "lbl" }, "Tunjangan jabatan"),
+          seg("Tunjangan jabatan", [["umum", "Umum"], ["fungsional", "Fungsional"]], S.jab, function (v) { S.jab = v; tjfField.hidden = v !== "fungsional"; hitungUlang(); })),
+        tjfField),
+      hasil);
 
     var page = [
-      h("div", { class: "stack" }, h("h1", null, "Gaji & tunjangan PNS"),
-        h("p", { class: "lede" }, "Perkiraan penghasilan bulanan di instansi pusat: gaji pokok PP 5/2024, tunjangan keluarga, pangan, umum, uang makan, dan tunjangan kinerja menurut Perpres tiap instansi. Angka diambil dari salinan dokumen resmi per " + T.tanggal + "."),
-        h("div", { class: "row" },
-          h("button", { class: "btn primary", type: "button", onclick: function () { var el = document.getElementById("gj-kalk"); if (el) el.scrollIntoView(); } }, "Kalkulator"),
-          h("button", { class: "btn", type: "button", onclick: function () { var el = document.getElementById("gj-rank-h"); if (el) el.scrollIntoView(); } }, "Peringkat instansi"),
-          h("button", { class: "btn", type: "button", onclick: function () { var el = document.getElementById("gj-gapok-h"); if (el) el.scrollIntoView(); } }, "Tabel gaji pokok"),
-          h("a", { class: "btn", href: "#formasi" }, "Strategi formasi"))),
+      h("div", { class: "page-head" }, h("h1", null, "Gaji & tunjangan"),
+        h("p", { class: "meta" }, h("b", null, String(T.instansi.length)), " instansi pusat · data " + T.tanggal), ctx.sub || null),
       kalk,
-      h("section", { class: "panel", "aria-labelledby": "gj-rank-h" }, h("h2", { id: "gj-rank-h" }, "Peringkat instansi untuk profil Anda"), peringkat),
-      h("section", { class: "panel", "aria-labelledby": "gj-tukin-h" }, h("h2", { id: "gj-tukin-h" }, "Tabel tunjangan kinerja instansi terpilih"), tabelTukin),
-      h("section", { class: "panel", "aria-labelledby": "gj-gapok-h" }, h("h2", { id: "gj-gapok-h" }, "Tabel gaji pokok PNS (PP 5/2024)"),
-        h("p", { class: "small" }, "Gaji pokok naik setiap 2 tahun masa kerja golongan (kenaikan gaji berkala). Golongan awal: SMA/SMK II/a, D-III II/c, S-1/D-IV III/a, S-2 III/b, S-3 III/c. Untuk I/b–I/d dan II/b–II/d tabel dimulai dari MKG 3; pegawai baru di golongan itu memakai baris pertama. Belum ada PP gaji baru per " + T.tanggal + "."),
-        h("label", { class: "field" }, h("span", { class: "label" }, "Golongan"), lihatGolSel), tabelGapok),
-      daftar,
-      h("section", { class: "panel", "aria-labelledby": "gj-sumber" }, h("h2", { id: "gj-sumber" }, "Sumber"),
-        h("p", { class: "small muted" }, "Disusun dengan teknik REA: fitur situs pembanding dipelajari sebagai pengunjung, lalu kode, teks, dan angka dibuat sendiri dari dokumen resmi. Komponen nasional: tunjangan suami/istri 10% dan anak 2% gaji pokok (paling banyak 2 anak), beras 10 kg × Rp7.242 per jiwa, tunjangan umum Rp175.000–Rp190.000 (Perpres 12/2006), uang makan Rp35.000–Rp41.000 per hari (PMK 32/2025)."),
-        h("ul", { class: "plain-list small" }, T.sumber.map(function (x) { return h("li", null, h("a", { href: x.u, target: "_blank", rel: "noopener" }, x.t)); })))
+      h("section", { class: "card", "aria-labelledby": "gj-rank-h" }, h("h2", { id: "gj-rank-h" }, "Penghasilan tertinggi"), peringkat),
+      h("p", { class: "fine" }, "Perkiraan bruto. Sumber: PP 5/2024 (gaji pokok) dan Perpres tukin tiap instansi.")
     ];
-    hitungUlang(); isiGapok();
+    hitungUlang();
     return page;
   };
 })();

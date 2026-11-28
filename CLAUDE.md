@@ -26,6 +26,14 @@ Pemilik berbahasa Indonesia. Jawab singkat dan jelas.
    sudo bash ~/portofolio/deploy/superfal/perbarui.sh
    ```
 
+## Tampilan (permintaan pemilik 28 Nov 2026: "terlalu banyak tulisan, menu dari menu")
+- Menu tetap 5 tab datar: Beranda, Tryout, Latihan, Hafalan, Formasi (di HP di bawah layar). Jangan menambah laci, menu baru, atau
+  deretan tombol lompat. Fitur baru masuk sebagai pilihan di tab yang ada (seg/select), bukan kartu atau halaman baru.
+- Teks sesingkat mungkin: judul pendek + satu baris `.meta` (angka tebal). Tanpa paragraf penjelasan; catatan cukup satu baris `.fine`.
+- Gaya ikut REA situs pencari formasi sscasn.zainbuilds.app (dipelajari sebagai pengunjung): label `.lbl` kapital kecil, kotak angka
+  `.sbox`, kartu putih radius 16, kotak cari `.cari`, pil `.pil`. Merek, warna navy + amber, kode, dan teks tetap milik sendiri.
+- Peta materi dan Strategi formasi sudah dilepas (riset di `docs/`, `data/formasi.js` arsip, tidak dimuat).
+
 ## Data formasi CPNS 2026
 - `data/dok2026.js`: formasi dari pengumuman/lampiran resmi, dibuat `scripts/dok2026/buat.py` dari `scripts/dok2026/sumber.json`
   (jangan ubah `data/dok2026.js` langsung). Hitung S-1 Ilmu Komunikasi hanya bila nama prodi tertulis persis "S-1 Ilmu Komunikasi";
@@ -38,7 +46,7 @@ Pemilik berbahasa Indonesia. Jawab singkat dan jelas.
 
 ## Soal dan tingkat kesulitan
 - Prioritas pemilik: TWK dan TKP; TIU tanpa hitungan/angka rumit.
-- Dua versi dipertahankan: **Ringkas** (bank lama, soal pendek, untuk menghafal kalimat; menu Hafalan kalimat) dan **Persis CAT BKN**
+- Dua versi dipertahankan: **Ringkas** (bank lama, soal pendek, untuk menghafal kalimat; tab Hafalan) dan **Persis CAT BKN**
   (`data/setara.js` sampai `data/setara5.js` = Paket 1–5 lewat `pk`, Tryout Setara CAT tanpa koreksi langsung). Soal ringkas
   jangan dihapus; soal persis ditambah bertahap. Paket baru: `data/setaraN.js` dengan `{ v: 1, pk: N }`, TWK 30 (nas 6, int 6,
   bela 6, pilar 7, bind 5) dan TKP 45 (pel 8, jej 7, sos 7, tik 7, pro 8, rad 8), daftarkan di `index.html`, `scripts/validate.mjs`,

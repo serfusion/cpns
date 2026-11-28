@@ -79,31 +79,33 @@
       }));
     };
     var isi;
-    if (!L.length) isi = h("p", { class: "note" }, semua ? "Semua kartu di pilihan ini sudah ditandai hafal. Matikan \"Sembunyikan yang sudah hafal\" untuk mengulang." : "Belum ada soal untuk pilihan ini.");
+    if (!L.length) isi = h("p", { class: "note" }, semua ? "Semua kartu sudah hafal. Matikan \"Sembunyikan yang hafal\" untuk mengulang." : "Belum ada soal untuk pilihan ini.");
     else if (S.daftar) isi = h("div", { class: "stack" }, L.map(function (q, i) { return kartu(q, i + 1); }));
     else isi = h("div", { class: "stack" },
       kartu(L[S.i], (S.i + 1) + " / " + L.length),
       h("div", { class: "row between hf-nav" },
         h("button", { class: "btn", type: "button", disabled: S.i <= 0, onclick: function () { S.i--; simpan(); ctx.rerender(); } }, "‹ Sebelumnya"),
         h("button", { class: "btn primary", type: "button", id: "hf-lanjut", onclick: function () { S.i = (S.i + 1) % L.length; simpan(); ctx.rerender(); } }, "Berikutnya ›")));
+    var cek = function (key, t, ulang) {
+      return h("label", { class: "check" }, h("input", { type: "checkbox", checked: S[key], onchange: function (e) { S[key] = e.target.checked; if (ulang) S.i = 0; simpan(); ctx.rerender(); } }), h("span", null, t));
+    };
     return [
-      h("div", { class: "page-head" }, h("h1", null, "Hafalan kalimat"),
-        h("p", { class: "lede" }, "Kartu soal dengan kalimat jawaban terbaik dan pembahasannya. Versi Ringkas: soal pendek yang mudah dihafal. Versi Persis CAT: kasus panjang seperti di CAT BKN. Prioritas TWK dan TKP.")),
+      h("div", { class: "page-head" }, h("h1", null, "Hafalan"),
+        h("p", { class: "meta" }, h("b", null, String(semua)), " kartu · ", h("b", null, String(nHafal)), " hafal")),
       h("section", { class: "card stack" },
-        h("div", { class: "field" }, h("span", { class: "label" }, "Versi"), seg("versi", [["ringkas", "Ringkas (hafalan)"], ["persis", "Persis CAT BKN"]])),
-        h("div", { class: "field" }, h("span", { class: "label" }, "Subtes"), seg("sec", [["twk", "TWK"], ["tkp", "TKP"], ["tiu", "TIU tanpa hitungan"]])),
-        h("label", { class: "field" }, h("span", { class: "label" }, "Materi"),
-          h("select", { class: "input wide", id: "hf-materi", onchange: function (e) { S.m = e.target.value; S.i = 0; simpan(); ctx.rerender(); } },
-            [h("option", { value: "" }, "Semua materi")].concat(materiSec.map(function (m) { return h("option", { value: m.id, selected: S.m === m.id }, m.name); })))),
-        S.versi === "persis" && S.sec !== "tiu" && E.setaraPaket ? h("label", { class: "field" }, h("span", { class: "label" }, "Paket"),
-          h("select", { class: "input wide", id: "hf-paket", onchange: function (e) { S.pk = Number(e.target.value) || 0; S.i = 0; simpan(); ctx.rerender(); } },
-            [h("option", { value: "0" }, "Semua paket")].concat(E.setaraPaket().map(function (n) { return h("option", { value: String(n), selected: S.pk === n }, "Paket " + n); })))) : null,
         h("div", { class: "row" },
-          h("label", { class: "check" }, h("input", { type: "checkbox", checked: S.buka, onchange: function (e) { S.buka = e.target.checked; simpan(); ctx.rerender(); } }), h("span", null, "Jawaban langsung terbuka")),
-          h("label", { class: "check" }, h("input", { type: "checkbox", checked: S.sembunyi, onchange: function (e) { S.sembunyi = e.target.checked; S.i = 0; simpan(); ctx.rerender(); } }), h("span", null, "Sembunyikan yang sudah hafal")),
-          h("label", { class: "check" }, h("input", { type: "checkbox", checked: S.daftar, onchange: function (e) { S.daftar = e.target.checked; simpan(); ctx.rerender(); } }), h("span", null, "Tampilkan sebagai daftar"))),
-        h("p", { class: "small muted" }, semua + " kartu · " + nHafal + " sudah hafal · sangat sering keluar ditampilkan lebih dulu.")),
-      isi
+          seg("versi", [["ringkas", "Ringkas"], ["persis", "Persis CAT"]]),
+          seg("sec", [["twk", "TWK"], ["tkp", "TKP"], ["tiu", "TIU"]])),
+        h("div", { class: "hf-pilih" },
+          h("label", { class: "field" }, h("span", { class: "lbl" }, "Materi"),
+            h("select", { class: "input wide", id: "hf-materi", onchange: function (e) { S.m = e.target.value; S.i = 0; simpan(); ctx.rerender(); } },
+              [h("option", { value: "" }, "Semua materi")].concat(materiSec.map(function (m) { return h("option", { value: m.id, selected: S.m === m.id }, m.name); })))),
+          S.versi === "persis" && S.sec !== "tiu" && E.setaraPaket ? h("label", { class: "field" }, h("span", { class: "lbl" }, "Paket"),
+            h("select", { class: "input wide", id: "hf-paket", onchange: function (e) { S.pk = Number(e.target.value) || 0; S.i = 0; simpan(); ctx.rerender(); } },
+              [h("option", { value: "0" }, "Semua paket")].concat(E.setaraPaket().map(function (n) { return h("option", { value: String(n), selected: S.pk === n }, "Paket " + n); })))) : null),
+        h("div", { class: "row" }, cek("buka", "Buka jawaban"), cek("sembunyi", "Sembunyikan yang hafal", true), cek("daftar", "Mode daftar"))),
+      isi,
+      h("p", { class: "meta center" }, h("a", { href: "https://github.com/serfusion/cpns/releases?q=Audio+Hafalan", target: "_blank", rel: "noopener" }, "Audio hafalan (MP3) ↗"))
     ];
   };
 })();

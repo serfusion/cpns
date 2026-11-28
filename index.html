@@ -6,36 +6,25 @@
 <title>Latihan Soal Pejuang NIP</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="Tryout dan latihan SKD CPNS: layar ujian seperti CAT BKN, skor per subtes, analisis per topik, dan pembahasan.">
-<meta name="theme-color" content="#132f5a">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#131e31" media="(prefers-color-scheme: dark)">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 <a class="skip" href="#app">Langsung ke isi</a>
 <header class="topbar">
   <div class="topbar-in">
-    <button class="icon-btn" id="menu-btn" type="button" aria-label="Buka menu" aria-controls="drawer" aria-expanded="false"><span class="burger" aria-hidden="true"><i></i><i></i></span></button>
-    <a class="brand" href="#beranda"><span class="brand-mark" aria-hidden="true">SKD</span><span>Pejuang NIP</span></a>
-    <span class="grow"></span>
-    <a class="avatar" href="#atur" aria-label="Profil peserta dan pengaturan"><span id="avatar">?</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    <a class="brand" href="#beranda"><span class="brand-mark" aria-hidden="true">SKD</span><span><b>Pejuang</b> NIP</span></a>
+    <nav class="tabs" id="tabs" aria-label="Menu utama">
+      <a href="#beranda" data-r="beranda" data-i="rumah">Beranda</a>
+      <a href="#tryout" data-r="tryout" data-i="ujian">Tryout</a>
+      <a href="#latihan" data-r="latihan" data-i="latih">Latihan</a>
+      <a href="#hafalan" data-r="hafalan" data-i="hafal">Hafalan</a>
+      <a href="#formasi" data-r="formasi" data-i="formasi">Formasi</a>
+    </nav>
+    <a class="icon-btn" id="atur-btn" href="#atur" aria-label="Pengaturan" title="Pengaturan"></a>
   </div>
 </header>
-<div class="scrim" id="scrim" hidden></div>
-<nav class="drawer" id="drawer" aria-label="Menu utama">
-  <div class="drawer-head"><span class="brand-mark" aria-hidden="true">SKD</span><b>Latihan Soal Pejuang NIP</b></div>
-  <a href="#beranda" data-r="beranda" data-i="rumah">Beranda</a>
-  <a href="#tryout" data-r="tryout" data-i="ujian">Tryout SKD</a>
-  <a href="#latihan" data-r="latihan" data-i="latih">Latihan per materi</a>
-  <a href="#ulang" data-r="ulang" data-i="ulang">Ulangi soal salah</a>
-  <a href="#riwayat" data-r="riwayat" data-i="riwayat">Riwayat &amp; statistik</a>
-  <a href="#peta" data-r="peta" data-i="peta">Peta materi</a>
-  <a href="#hafalan" data-r="hafalan" data-i="latih">Hafalan kalimat</a>
-  <a href="#kalkulator" data-r="kalkulator" data-i="hitung">Kalkulator formasi</a>
-  <a href="#formasi" data-r="formasi" data-i="formasi">Strategi formasi</a>
-  <a href="#gaji" data-r="gaji" data-i="gaji">Gaji &amp; tunjangan</a>
-  <a href="https://github.com/serfusion/cpns/releases?q=Audio+Hafalan" data-x="1" data-i="audio" target="_blank" rel="noopener">Audio hafalan</a>
-  <a href="#atur" data-r="atur" data-i="atur">Pengaturan</a>
-  <p class="drawer-foot">Latihan mandiri. Tidak berafiliasi dengan BKN atau KemenPANRB. Soal disusun mengikuti kisi-kisi SKD dan bukan soal resmi.</p>
-</nav>
 <main class="wrap" id="app"></main>
 <footer class="credit" id="credit"><a href="https://superfal-dev.com" target="_blank" rel="noopener">by Superfaldev</a></footer>
 <div id="modal-root"></div>
@@ -55,12 +44,10 @@
 <script src="js/acak.js"></script>
 <script src="js/engine.js"></script>
 <script src="js/storage.js"></script>
-<script src="data/formasi.js"></script>
 <script src="data/skd2024.js"></script>
 <script src="data/sscasn2026.js"></script>
 <script src="data/dok2026.js"></script>
 <script src="js/pindai.js"></script>
-<script src="js/formasi.js"></script>
 <script src="data/tunjangan.js"></script>
 <script src="js/gaji.js"></script>
 <script src="js/kalkulator.js"></script>
