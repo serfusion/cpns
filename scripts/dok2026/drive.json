@@ -1,23 +1,135 @@
 {
  "folder": "14gi0jtT7ihMmOmh5E2OXZVSZRhSEZ_e_",
- "catatan": "Berkas di folder Google Drive dokumen CPNS 2026 milik pemilik yang sudah dibaca. diubah = modifiedTime Drive saat dibaca; bila berbeda, baca ulang seluruh halamannya.",
- "dicek": "2026-11-28T00:20:00Z",
+ "catatan": "Berkas di folder Google Drive dokumen CPNS 2026 milik pemilik yang sudah dibaca. diubah = modifiedTime Drive (konektor) saat dibaca; publik = tanggal dan ukuran yang tampil di daftar folder publik (scripts/drive/daftar.cjs). Bila salah satunya berbeda, atau ada id baru, baca ulang seluruh halamannya.",
+ "dicek": "2026-11-28T05:30:00Z",
  "berkas": [
-  {"id": "13RfZaFvCuLsr8YYbbzi3EVIHKrz7MwcL", "judul": "Formasi BPK", "diubah": "2026-11-27T10:55:10.982Z", "instansi": "Badan Pemeriksa Keuangan", "hasil": "Pengumuman 01/B/S.Peng/SETJEN/KPG.02.01/11/2026 + Lampiran 1-3 (38 halaman)"},
-  {"id": "12P1ME1g5JBiByWzME-7NdfW-lOlkGr2Y", "judul": "BPKP/BPKP Pengumuman", "diubah": "2026-11-27T10:50:55.819Z", "instansi": "Badan Pengawasan Keuangan dan Pembangunan", "hasil": "Pengumuman KP.00.01/PENG-2/SU/02/2026 (6 halaman)"},
-  {"id": "1l853OW4LYJmT_KZmcbuE-O0gdDUTGbGD", "judul": "BPKP/BPKP Lamp 1.pdf", "diubah": "2026-11-27T10:50:16.380Z", "instansi": "Badan Pengawasan Keuangan dan Pembangunan", "hasil": "Lampiran I jabatan dan pendidikan (6 halaman)"},
-  {"id": "1turKylm_CWh6C0WZsLqXao7GD6tL9zRZ", "judul": "BPKP/BPKP lamp 2.pdf", "diubah": "2026-11-27T10:50:07.138Z", "instansi": "Badan Pengawasan Keuangan dan Pembangunan", "hasil": "Lampiran II penempatan, 554 baris (35 halaman)"},
-  {"id": "1c71bwvud1DgfTQoIOF9vZPpat6mVrCiw", "judul": "KEMENKOP 2026.pdf", "diubah": "2026-11-27T21:37:11.108Z", "instansi": "Kementerian Koperasi", "hasil": "Pengumuman 12/Pum/SM.KOP/2026 + Lampiran I (55 halaman)"},
-  {"id": "19fSX884Bk-WKJxeJVeYiA7J28Lia6WD2", "judul": "KEMENKUMHAM.pdf", "diubah": "2026-11-27T13:35:19.663Z", "instansi": "Kementerian Hukum", "hasil": "Pengumuman SEK.2-KP.02.01-326 + lampiran (17 halaman)"},
-  {"id": "1vn7PfuN3C59IWxrW3UsxQ0UIxDbr_GAq", "judul": "Kementrian keuangan", "diubah": "2026-11-27T06:51:40.327Z", "instansi": "Kementerian Keuangan", "hasil": "KepmenPANRB 675/2026 + lampiran 374 baris (39 halaman hasil scan, OCR + cek gambar)"},
-  {"id": "1AUgT8REiLUIA5eBDZPw-UDMhbVvWHzA5", "judul": "CPNS POLRI T. A. 2026.pdf", "diubah": "2026-11-27T21:37:23.962Z", "instansi": "Kepolisian Negara Republik Indonesia", "hasil": "Pengumuman Kapolri PENG/33/XI/KEP./2026 + Lampiran A-C (131 halaman)"},
-  {"id": "1fKKWxUht0n_vk6f_nphMmRXJ385YX9v8", "judul": "CPNS Polri.pdf", "diubah": "2026-11-27T07:11:13.175Z", "instansi": "Kepolisian Negara Republik Indonesia", "hasil": "paparan/slide promosi (14 halaman), tidak ada rincian formasi baru"},
-  {"id": "1i4YPxBPQXA4HmqDTUWFkjUNAnPBh9GY1", "judul": "BADAN SIBER DAN SANDI NEGARA", "diubah": "2026-11-27T07:32:58.217Z", "instansi": "Badan Siber dan Sandi Negara", "hasil": "Pengumuman PENG.102/BSSN/SU/KP.02.01/11/2026 (14 halaman)"},
-  {"id": "1aIjBH4VcoH8MMUeaVMdLnmiKVqDt4HdV", "judul": "formasi Kejaksaan 2026.pdf", "diubah": "2026-11-27T06:43:47.062Z", "instansi": "Kejaksaan Republik Indonesia", "hasil": "KepmenPANRB 638/2026 (10 halaman hasil scan); rincian dari pengumuman PENG-1/C/Cp.2/11/2026"},
-  {"id": "1jghfZbThIBBCJJgvXxxnkZgKqaRnW3pw", "judul": "BRIN.pdf", "diubah": "2026-11-27T10:21:08.938Z", "instansi": "Badan Riset dan Inovasi Nasional", "hasil": "Keputusan Kepala BRIN 99/I/HK/2026 kualifikasi pendidikan (44 halaman), belum ada jumlah formasi"},
-  {"id": "1d47qGSASs8qwZIUjAN0H4bB4JRSwyqTY", "judul": "Kementrian kesehatan", "diubah": "2026-11-27T06:52:09.413Z", "instansi": "Kementerian Kesehatan", "hasil": "Surat edaran kualifikasi dan STR 30 jabatan kesehatan (21 halaman), belum ada jumlah formasi"},
-  {"id": "1hHFUpcKpOL3OLP01Ojpbzwnp6DXHmfKi", "judul": "Instansi Jadwal Seleksi CPNS Tahun 2026.pdf", "diubah": "2026-11-27T07:18:32.263Z", "instansi": "BKN", "hasil": "Surat 7758/B-KS.04.01/SD/K/2026: jadwal dan daftar 24 instansi"},
-  {"id": "1gxCgjEjFuyKRIW7kkNgzdUilJJ-wQ4Y0", "judul": "2026kepmenpanrb674.pdf", "diubah": "2026-11-26T04:19:38.982Z", "instansi": "KemenPANRB", "hasil": "KepmenPANRB 674/2026 mekanisme seleksi dan nilai ambang batas"},
-  {"id": "1adXrl1YKoI6UCnfyj-zouIsovgV1cgKU", "judul": "Doa-Pejuang-CPNS-2026-20-slide.pdf", "diubah": "2026-11-27T07:27:40.017Z", "instansi": "", "hasil": "bukan dokumen formasi"}
+  {
+   "id": "13RfZaFvCuLsr8YYbbzi3EVIHKrz7MwcL",
+   "judul": "Formasi BPK",
+   "diubah": "2026-11-27T10:55:10.982Z",
+   "instansi": "Badan Pemeriksa Keuangan",
+   "hasil": "Pengumuman 01/B/S.Peng/SETJEN/KPG.02.01/11/2026 + Lampiran 1-3 (38 halaman)",
+   "publik": "27 Nov 1,1 MB"
+  },
+  {
+   "id": "12P1ME1g5JBiByWzME-7NdfW-lOlkGr2Y",
+   "judul": "BPKP/BPKP Pengumuman",
+   "diubah": "2026-11-27T10:50:55.819Z",
+   "instansi": "Badan Pengawasan Keuangan dan Pembangunan",
+   "hasil": "Pengumuman KP.00.01/PENG-2/SU/02/2026 (6 halaman)",
+   "publik": "27 Nov 1,3 MB"
+  },
+  {
+   "id": "1l853OW4LYJmT_KZmcbuE-O0gdDUTGbGD",
+   "judul": "BPKP/BPKP Lamp 1.pdf",
+   "diubah": "2026-11-27T10:50:16.380Z",
+   "instansi": "Badan Pengawasan Keuangan dan Pembangunan",
+   "hasil": "Lampiran I jabatan dan pendidikan (6 halaman)",
+   "publik": "27 Nov 223 KB"
+  },
+  {
+   "id": "1turKylm_CWh6C0WZsLqXao7GD6tL9zRZ",
+   "judul": "BPKP/BPKP lamp 2.pdf",
+   "diubah": "2026-11-27T10:50:07.138Z",
+   "instansi": "Badan Pengawasan Keuangan dan Pembangunan",
+   "hasil": "Lampiran II penempatan, 554 baris (35 halaman)",
+   "publik": "27 Nov 382 KB"
+  },
+  {
+   "id": "1c71bwvud1DgfTQoIOF9vZPpat6mVrCiw",
+   "judul": "KEMENKOP 2026.pdf",
+   "diubah": "2026-11-27T21:37:11.108Z",
+   "instansi": "Kementerian Koperasi",
+   "hasil": "Pengumuman 12/Pum/SM.KOP/2026 + Lampiran I (55 halaman)",
+   "publik": "27 Nov 688 KB"
+  },
+  {
+   "id": "19fSX884Bk-WKJxeJVeYiA7J28Lia6WD2",
+   "judul": "KEMENTRIAN HUKUM.PDF",
+   "diubah": "2026-11-28T02:12:47.606Z",
+   "instansi": "Kementerian Hukum",
+   "hasil": "Pengumuman SEK.2-KP.02.01-326 + lampiran (17 halaman); 28 Nov nama berkas diganti, isi dicek ulang sama persis",
+   "publik": "02.12 1,4 MB"
+  },
+  {
+   "id": "1vn7PfuN3C59IWxrW3UsxQ0UIxDbr_GAq",
+   "judul": "Kementrian keuangan",
+   "diubah": "2026-11-27T06:51:40.327Z",
+   "instansi": "Kementerian Keuangan",
+   "hasil": "KepmenPANRB 675/2026 + lampiran 374 baris (39 halaman hasil scan, OCR + cek gambar)",
+   "publik": "27 Nov 17,2 MB"
+  },
+  {
+   "id": "1AUgT8REiLUIA5eBDZPw-UDMhbVvWHzA5",
+   "judul": "CPNS POLRI T. A. 2026.pdf",
+   "diubah": "2026-11-27T21:37:23.962Z",
+   "instansi": "Kepolisian Negara Republik Indonesia",
+   "hasil": "Pengumuman Kapolri PENG/33/XI/KEP./2026 + Lampiran A-C (131 halaman)",
+   "publik": "27 Nov 4,7 MB"
+  },
+  {
+   "id": "1fKKWxUht0n_vk6f_nphMmRXJ385YX9v8",
+   "judul": "CPNS Polri.pdf",
+   "diubah": "2026-11-27T07:11:13.175Z",
+   "instansi": "Kepolisian Negara Republik Indonesia",
+   "hasil": "paparan/slide promosi (14 halaman), tidak ada rincian formasi baru",
+   "publik": "27 Nov 69,9 MB"
+  },
+  {
+   "id": "1i4YPxBPQXA4HmqDTUWFkjUNAnPBh9GY1",
+   "judul": "BADAN SIBER DAN SANDI NEGARA",
+   "diubah": "2026-11-27T07:32:58.217Z",
+   "instansi": "Badan Siber dan Sandi Negara",
+   "hasil": "Pengumuman PENG.102/BSSN/SU/KP.02.01/11/2026 (14 halaman)",
+   "publik": "27 Nov 1,2 MB"
+  },
+  {
+   "id": "1aIjBH4VcoH8MMUeaVMdLnmiKVqDt4HdV",
+   "judul": "formasi Kejaksaan 2026.pdf",
+   "diubah": "2026-11-27T06:43:47.062Z",
+   "instansi": "Kejaksaan Republik Indonesia",
+   "hasil": "KepmenPANRB 638/2026 (10 halaman hasil scan); rincian dari pengumuman PENG-1/C/Cp.2/11/2026",
+   "publik": "27 Nov 2,5 MB"
+  },
+  {
+   "id": "1jghfZbThIBBCJJgvXxxnkZgKqaRnW3pw",
+   "judul": "BRIN.pdf",
+   "diubah": "2026-11-27T10:21:08.938Z",
+   "instansi": "Badan Riset dan Inovasi Nasional",
+   "hasil": "Keputusan Kepala BRIN 99/I/HK/2026 kualifikasi pendidikan (44 halaman), belum ada jumlah formasi",
+   "publik": "27 Nov 2 MB"
+  },
+  {
+   "id": "1d47qGSASs8qwZIUjAN0H4bB4JRSwyqTY",
+   "judul": "Kementrian kesehatan",
+   "diubah": "2026-11-27T06:52:09.413Z",
+   "instansi": "Kementerian Kesehatan",
+   "hasil": "Surat edaran kualifikasi dan STR 30 jabatan kesehatan (21 halaman), belum ada jumlah formasi",
+   "publik": "27 Nov 279 KB"
+  },
+  {
+   "id": "1hHFUpcKpOL3OLP01Ojpbzwnp6DXHmfKi",
+   "judul": "Instansi Jadwal Seleksi CPNS Tahun 2026.pdf",
+   "diubah": "2026-11-27T07:18:32.263Z",
+   "instansi": "BKN",
+   "hasil": "Surat 7758/B-KS.04.01/SD/K/2026: jadwal dan daftar 24 instansi",
+   "publik": "27 Nov 365 KB"
+  },
+  {
+   "id": "1gxCgjEjFuyKRIW7kkNgzdUilJJ-wQ4Y0",
+   "judul": "2026kepmenpanrb674.pdf",
+   "diubah": "2026-11-26T04:19:38.982Z",
+   "instansi": "KemenPANRB",
+   "hasil": "KepmenPANRB 674/2026 mekanisme seleksi dan nilai ambang batas",
+   "publik": "26 Nov 301 KB"
+  },
+  {
+   "id": "1adXrl1YKoI6UCnfyj-zouIsovgV1cgKU",
+   "judul": "Doa-Pejuang-CPNS-2026-20-slide.pdf",
+   "diubah": "2026-11-27T07:27:40.017Z",
+   "instansi": "",
+   "hasil": "bukan dokumen formasi",
+   "publik": "27 Nov 1,8 MB"
+  }
  ]
 }
