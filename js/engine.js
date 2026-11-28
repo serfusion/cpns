@@ -56,7 +56,7 @@
       var q = {
         id: hash(r.sec + "|" + (r.p || "") + "|" + r.q),
         sec: r.sec, m: r.m, q: r.q, o: r.o, a: r.a || 0, fix: !!r.fix,
-        x: r.x || "", p: r.p || null, tb: r.tb || null, hot: !!r.h, sangat: (r.h || 0) >= 2, baru: !!r.b, k26: !!r.k26, setara: !!r.v
+        x: r.x || "", p: r.p || null, tb: r.tb || null, hot: !!r.h, sangat: (r.h || 0) >= 2, baru: !!r.b, k26: !!r.k26, setara: !!r.v, pk: r.v ? (r.pk || 1) : 0
       };
       cache.push(q);
       byId[q.id] = q;
@@ -251,7 +251,7 @@
     if (needsReview(q.sec, st)) return 1;
     return st[2] < 2 ? 2 : 3;
   }
-  function lolos(q, opt) { return (!opt.hot || q.hot) && (!opt.sangat || q.sangat) && (!opt.baru || q.baru) && (!opt.k26 || q.k26) && (!opt.setara || q.setara); }
+  function lolos(q, opt) { return (!opt.hot || q.hot) && (!opt.sangat || q.sangat) && (!opt.baru || q.baru) && (!opt.k26 || q.k26) && (!opt.setara || q.setara) && (!opt.pk || q.pk === opt.pk); }
   /** Apakah materi ini bisa diisi soal bangkitan untuk filter opt. */
   function canGen(m, opt) {
     if (!m.gen || opt.baru || opt.k26 || opt.setara) return false;
@@ -268,7 +268,7 @@
   function capacity(m, opt) {
     if (canGen(m, opt)) return Infinity;
     if (opt.acak) return 0;
-    return poolOf(m.id).filter(function (q) { return lolos(q, opt); }).length;
+    return poolOf(m.id).filter(function (q) { return lolos(q, opt) && !(opt.exclude && opt.exclude[q.id]); }).length;
   }
   /** Bagi n soal ke beberapa materi sebanding kuotanya (metode D'Hondt), dibatasi stok soal. */
   function allocate(n, mats, opt) {
@@ -330,9 +330,9 @@
   function buildPackage(no, scale) {
     return buildSimulation(scale || "full", {}, makeRng(7919 * no + (scale === "mini" ? 104729 : 0)));
   }
-  /** Tryout setara CAT: TWK dan TKP dari soal berpilihan seimbang (data/setara.js, v: 1). TIU memakai materi tiuIds
-      (mis. hanya materi tanpa hitungan berat) atau semua materi TIU bila tiuIds kosong.
-      Bila stok soal setara suatu materi kurang, sisanya diisi soal biasa agar jumlah per subtes tetap 30/35/45. */
+  /** Tryout setara CAT paket no: TWK dan TKP dari soal berpilihan seimbang paket itu (data/setara*.js, v: 1, pk: no).
+      TIU memakai materi tiuIds (mis. hanya materi tanpa hitungan berat) atau semua materi TIU bila tiuIds kosong.
+      Bila stok paket itu kurang, sisanya diisi soal setara paket lain, lalu soal biasa, agar jumlah tetap 30/35/45. */
   function buildSetara(no, scale, tiuIds) {
     var R = makeRng(104723 * (no || 1) + (scale === "mini" ? 7 : 0)), out = [];
     CFG.sections.forEach(function (s) {
@@ -342,17 +342,32 @@
         var a0 = allocate(n, mats, {});
         mats.forEach(function (m) { if (a0[m.id]) part = part.concat(itemsFor(m, a0[m.id], R, {}, {})); });
       } else {
-        var opt = { setara: true }, alloc = allocate(n, mats, opt), dapat = 0;
-        mats.forEach(function (m) { if (alloc[m.id]) { part = part.concat(itemsFor(m, alloc[m.id], R, {}, opt)); dapat += alloc[m.id]; } });
+        var opt = { setara: true, pk: no || 1 }, alloc = allocate(n, mats, opt), dapat = 0;
+        mats.forEach(function (m) { if (alloc[m.id]) { var got = itemsFor(m, alloc[m.id], R, {}, opt); part = part.concat(got); dapat += got.length; } });
         if (dapat < n) {
           var pakai = {}; part.forEach(function (pq) { if (pq.id) pakai[pq.id] = 1; });
-          var sisa = allocate(n - dapat, mats, {});
-          mats.forEach(function (m) { if (sisa[m.id]) part = part.concat(itemsFor(m, sisa[m.id], R, {}, { exclude: pakai })); });
+          [{ setara: true, exclude: pakai }, { exclude: pakai }].forEach(function (o2) {
+            if (dapat >= n) return;
+            var sisa = allocate(n - dapat, mats, o2);
+            mats.forEach(function (m) {
+              if (!sisa[m.id]) return;
+              var got = itemsFor(m, sisa[m.id], R, {}, o2);
+              got.forEach(function (pq) { if (pq.id) pakai[pq.id] = 1; });
+              part = part.concat(got); dapat += got.length;
+            });
+          });
         }
       }
       out = out.concat(R.shuffle(part));
     });
     return out.map(wrap);
+  }
+  /** Nomor paket tryout setara CAT yang tersedia di bank soal, urut naik. */
+  function setaraPaket() {
+    bank();
+    var ada = {};
+    cache.forEach(function (q) { if (q.setara && q.sec !== "tiu") ada[q.pk] = 1; });
+    return Object.keys(ada).map(Number).sort(function (a, b) { return a - b; });
   }
   function simCount(sec, scale) {
     if (scale !== "mini") return sec.count;
@@ -408,7 +423,7 @@
     materi: function (id) { return materiById[id]; },
     section: function (id) { return sectionById[id]; },
     present: present, generate: generate, genDeret: genDeret, again: again,
-    buildPractice: buildPractice, buildSimulation: buildSimulation, buildPackage: buildPackage, buildFromIds: buildFromIds, buildSetara: buildSetara,
+    buildPractice: buildPractice, buildSimulation: buildSimulation, buildPackage: buildPackage, buildFromIds: buildFromIds, buildSetara: buildSetara, setaraPaket: setaraPaket,
     simCount: simCount, allocate: allocate, needsReview: needsReview, score: score, canGen: canGen, lolos: lolos,
     reset: function () { cache = null; }
   };

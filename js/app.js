@@ -123,20 +123,21 @@
       begin({ kind: "latihan", scale: null, title: o.title, instant: true, requeue: S.settings().requeue, items: items, cur: 0, limit: 0, elapsed: 0 });
     });
   }
-  /** o: { paket: nomor | "acak", scale: "full" | "mini" } */
+  /** o: { paket: nomor | "acak" | "setara", no: nomor paket setara (1, 2, ...), scale: "full" | "mini" } */
   function paketInfo(o) {
-    var mini = o.scale === "mini";
-    var label = o.paket === "acak" ? "Tryout Acak" : o.paket === "setara" ? "Tryout Setara CAT" : "Tryout SKD Paket " + o.paket;
-    var kode = o.paket === "acak" ? "SKD-ACAK" : o.paket === "setara" ? "SKD-SETARA" : "SKD-P" + o.paket;
-    return { paket: o.paket, scale: o.scale, title: label + (mini ? " (setengah)" : ""), kode: kode + (mini ? "-S" : "") };
+    var mini = o.scale === "mini", no = o.paket === "setara" ? Math.max(1, Math.round(Number(o.no) || 1)) : null;
+    var label = o.paket === "acak" ? "Tryout Acak" : o.paket === "setara" ? "Tryout Setara CAT Paket " + no : "Tryout SKD Paket " + o.paket;
+    // kode paket setara 1 tetap "SKD-SETARA" agar skor terbaik yang sudah tersimpan tetap terbaca
+    var kode = o.paket === "acak" ? "SKD-ACAK" : o.paket === "setara" ? "SKD-SETARA" + (no > 1 ? "-" + no : "") : "SKD-P" + o.paket;
+    return { paket: o.paket, no: no, scale: o.scale, title: label + (mini ? " (setengah)" : ""), kode: kode + (mini ? "-S" : "") };
   }
   function prepTryout(o) { guardNew(function () { ui.prep = paketInfo(o); go("masuk"); }); }
   function startTryout() {
     var p = ui.prep;
     if (!p) return;
-    var items = p.paket === "acak" ? E.buildSimulation(p.scale, S.qstats()) : p.paket === "setara" ? E.buildSetara(1, p.scale, TIU_LUNAK) : E.buildPackage(p.paket, p.scale);
+    var items = p.paket === "acak" ? E.buildSimulation(p.scale, S.qstats()) : p.paket === "setara" ? E.buildSetara(p.no || 1, p.scale, TIU_LUNAK) : E.buildPackage(p.paket, p.scale);
     begin({
-      kind: "tryout", scale: p.scale, paket: p.paket, kode: p.kode, title: p.title, instant: false, requeue: false, items: items, cur: 0,
+      kind: "tryout", scale: p.scale, paket: p.paket, no: p.no || null, kode: p.kode, title: p.title, instant: false, requeue: false, items: items, cur: 0,
       limit: (p.scale === "mini" ? CFG.exam.minutes / 2 : CFG.exam.minutes) * 60, elapsed: 0
     });
   }
@@ -509,13 +510,23 @@
           b ? h("span", { class: "small" }, "Skor terbaik ", h("b", null, b.total), " · ", h("span", { class: b.pass ? "ok-t" : "bad-t" }, b.pass ? "Lolos" : "Belum lolos")) : h("span", { class: "small muted" }, "Belum dikerjakan")),
         h("button", { class: "btn " + (b ? "" : "primary"), type: "button", onclick: function () { prepTryout({ paket: no, scale: scale }); } }, b ? "Ulangi" : "Mulai"));
     }
-    var setara = paketInfo({ paket: "setara", scale: "full" }), bS = bestOf[setara.kode];
+    var nomorSetara = E.setaraPaket ? E.setaraPaket() : [1];
+    if (!nomorSetara.length) nomorSetara = [1];
+    function setaraCard(no) {
+      var info = paketInfo({ paket: "setara", no: no, scale: "full" }), b = bestOf[info.kode];
+      return h("article", { class: "paket" },
+        h("div", { class: "pk-l" },
+          h("b", null, "Paket " + no),
+          h("span", { class: "muted small" }, "110 soal · 100 menit · TWK dan TKP khusus paket ini"),
+          b ? h("span", { class: "small" }, "Skor terbaik ", h("b", null, b.total), " · ", h("span", { class: b.pass ? "ok-t" : "bad-t" }, b.pass ? "Lolos" : "Belum lolos")) : h("span", { class: "small muted" }, "Belum dikerjakan")),
+        h("button", { class: "btn " + (b ? "" : "primary"), type: "button", id: no === 1 ? "btn-setara" : "btn-setara-" + no, onclick: function () { prepTryout({ paket: "setara", no: no, scale: "full" }); } }, b ? "Ulangi" : "Mulai"));
+    }
     var V = validitas();
     var kartuSetara = h("section", { class: "card setara-card", "aria-labelledby": "setara-h" },
       h("div", { class: "row between" }, h("h2", { id: "setara-h" }, "Versi Persis CAT BKN"), h("span", { class: "tag ok" }, "Tryout Setara CAT")),
-      h("p", { class: "small" }, "Seperti ujian sungguhan: login peserta, 110 soal dalam 100 menit, tanpa koreksi langsung, nilai di akhir. TWK 30 dan TKP 45 dari soal berkasus panjang dengan kelima opsi sama panjang, jadi jawaban terbaik tidak bisa ditebak dari opsi terpanjang. TIU 35 tanpa hitungan berat (silogisme, penalaran induktif, analitis, deret, figural)."),
-      bS ? h("p", { class: "small" }, "Skor terbaik ", h("b", null, bS.total), " · ", h("span", { class: bS.pass ? "ok-t" : "bad-t" }, bS.pass ? "Lolos" : "Belum lolos")) : null,
-      h("div", { class: "row" }, h("button", { class: "btn primary", type: "button", id: "btn-setara", onclick: function () { prepTryout({ paket: "setara", scale: "full" }); } }, bS ? "Ulangi" : "Mulai versi persis CAT"),
+      h("p", { class: "small" }, "Seperti ujian sungguhan: login peserta, 110 soal dalam 100 menit, tanpa koreksi langsung, nilai di akhir. " + nomorSetara.length + " paket, masing-masing dengan 30 soal TWK dan 45 soal TKP sendiri (tidak berulang antarpaket) berupa kasus panjang dengan kelima opsi sama panjang, jadi jawaban terbaik tidak bisa ditebak dari opsi terpanjang. TIU 35 tanpa hitungan berat (silogisme, penalaran induktif, analitis, deret, figural)."),
+      h("div", { class: "paket-list" }, nomorSetara.map(setaraCard)),
+      h("div", { class: "row" },
         h("a", { class: "btn", href: "#hafalan", onclick: function () { try { var d = JSON.parse(localStorage.getItem("skd.hafalan.v1")) || {}; d.versi = "persis"; d.i = 0; localStorage.setItem("skd.hafalan.v1", JSON.stringify(d)); } catch (e) { /* abaikan */ } } }, "Hafalkan kalimatnya")),
       h("details", { class: "validitas" }, h("summary", null, h("b", null, "Seberapa mirip soal di aplikasi ini dengan CAT asli?")),
         h("ul", { class: "plain-list small" },

@@ -35,15 +35,15 @@ hampir mirip, sekilas benar semua", dan banyak peserta mendapat nilai rendah di 
 |---|---|---|
 | TKP lama (169 soal) | 97–100% | 2,2–2,5 kali |
 | TWK lama (241 soal) | 58–76% | 1,4–1,8 kali |
-| TKP setara CAT baru (45 soal) | 2% | 0,99 kali |
-| TWK setara CAT baru (30 soal) | 7% | 1,02 kali |
+| TKP setara CAT, paket 1–5 (225 soal) | 0,4% | 0,99 kali |
+| TWK setara CAT, paket 1–5 (150 soal) | 1,3% | 0,99 kali |
 
 **Skor peserta yang asal memilih opsi terpanjang tanpa membaca soal** (acak murni ≈ TWK 30, TIU 35, TKP 135):
 
 | Paket | TWK | TIU | TKP |
 |---|---|---|---|
 | Paket latihan 1–6 | 70–95 (ambang 65) | 35–50 | 204–213 (ambang 166) |
-| Tryout Setara CAT | 10 | 60 | 150 |
+| Tryout Setara CAT paket 1–5 | 0–15 | 40–65 | 121–150 |
 
 Kesimpulan: **soal lama lebih mudah daripada CAT asli**. Di paket lama, orang yang hanya menebak opsi terpanjang bisa lolos
 ambang TWK dan TKP; di CAT asli hal itu tidak terjadi (opsi hampir sama panjang dan "sekilas benar semua"). Selain itu sekitar 30% soal
@@ -51,19 +51,21 @@ TWK lama (sekitar sepertiga) berupa hafalan singkat, rata-rata hanya 22–30 kat
 
 ## 4. Yang diubah
 
-- `data/setara.js`: 83 soal baru (TWK 30, TKP 45, TIU tanpa hitungan 8) berupa kasus kerja ASN dengan kelima opsi sama panjang.
-  Rata-rata 30–40 kata per kasus; opsi pengecoh dibuat masuk akal (sebagian benar, berlebihan, salah kutip pasal, atau sikap
-  yang terdengar baik tetapi kurang tepat).
-- **Tryout Setara CAT** (menu Tryout): TWK 30 dan TKP 45 dari soal setara, TIU 35 tanpa hitungan berat (silogisme, penalaran
-  induktif, analitis, deret, figural) sesuai permintaan pemilik.
+- `data/setara.js` (paket 1) sampai `data/setara5.js` (paket 5, `pk: 5`): 383 soal setara (TWK 150, TKP 225, TIU tanpa
+  hitungan 8) berupa kasus kerja ASN dengan kelima opsi sama panjang. Tiap paket berisi TWK 30 (nas 6, int 6, bela 6, pilar 7,
+  bind 5) dan TKP 45 (pel 8, jej 7, sos 7, tik 7, pro 8, rad 8) yang tidak berulang di paket lain. Rata-rata 25–34 kata per soal
+  (paket 1: 34, paket 2: 30, paket 3–5: 25–26); opsi pengecoh dibuat masuk akal (sebagian benar, berlebihan, salah kutip pasal,
+  atau sikap yang terdengar baik tetapi kurang tepat).
+- **Tryout Setara CAT** (menu Tryout, Paket 1–5): TWK 30 dan TKP 45 dari soal paket itu, TIU 35 tanpa hitungan berat
+  (silogisme, penalaran induktif, analitis, deret, figural) sesuai permintaan pemilik. Skor terbaik dicatat per paket.
 - `scripts/validate.mjs` menolak soal setara yang opsi terbaiknya lebih dari 5% lebih panjang dari opsi lain, dan memeriksa bahwa
   opsi terbaik paling panjang di paling banyak 30% soal setara.
 - Halaman Tryout menampilkan penjelasan validitas dengan angka yang dihitung langsung dari bank soal.
 
 ## 5. Yang belum
 
-- Baru satu paket setara. Bila dikerjakan berulang, soalnya akan hafal; tambah paket setara kedua dan ketiga (prioritas TWK
-  dan TKP) dengan aturan yang sama.
+- Lima paket setara. Bila semuanya sudah hafal, tambah paket berikutnya di `data/setara6.js` (`pk: 6`) dengan aturan yang sama,
+  lalu daftarkan di `index.html` dan skrip validasi/audit. Kasus paket 3–5 sedikit lebih pendek (25–26 kata) dari paket 1.
 - 410 soal TWK/TKP lama masih punya isyarat panjang. Tulis ulang opsi pengecohnya bertahap, mulai dari yang bertanda sangat
   sering keluar.
 - Belum ada data jawaban banyak peserta untuk menghitung tingkat kesukaran per butir seperti uji butir BKN. Pembanding terbaik

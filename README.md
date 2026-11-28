@@ -32,8 +32,9 @@ navy + kuning amber; layar ujian dari buku panduan CAT resmi BKN), **Build** (ko
 - **Dua versi** (permintaan pemilik): **Versi Persis CAT BKN** (Tryout Setara CAT, tanpa koreksi langsung) dan **Versi Ringkas**
   (Paket 1–6, soal pendek di layar mirip CAT). Menu **Hafalan kalimat** (`js/hafalan.js`): kartu soal dengan kalimat jawaban
   terbaik (TKP: urutan nilai 5 sampai 1) dan pembahasan, versi ringkas atau persis, prioritas TWK dan TKP, tandai sudah hafal.
-- **Tryout Setara CAT**: TWK 30 dan TKP 45 dari soal baru berkasus lebih panjang dengan kelima opsi sama panjang (jawaban
-  terbaik tidak bisa ditebak dari opsi terpanjang), TIU 35 tanpa hitungan berat. Penjelasan validitas di halaman Tryout dan
+- **Tryout Setara CAT** (Paket 1–5, `data/setara.js` sampai `data/setara5.js`): tiap paket TWK 30 dan TKP 45 sendiri (tidak
+  berulang antarpaket) dari soal berkasus dengan kelima opsi sama panjang (jawaban terbaik tidak bisa ditebak dari opsi
+  terpanjang), TIU 35 tanpa hitungan berat. Hafalan versi persis bisa dipilih per paket. Penjelasan validitas di halaman Tryout dan
   `docs/validasi-tingkat-kesulitan.md` (data uji butir dan kelulusan BKN 2024, audit bank soal). Masuk ujian lewat layar
   **Login Peserta** (nomor peserta + PIN latihan) lalu Konfirmasi Data Peserta, seperti CAT.
 - **Kalkulator formasi** (teknik REA dari situs pembanding, `docs/rea-kalkulator-formasi.md`): skor TWK/TIU/TKP, katalog

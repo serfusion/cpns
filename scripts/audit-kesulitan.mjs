@@ -16,7 +16,7 @@ const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const sandbox = { window: {}, console, Math, Date, JSON, localStorage: { getItem() { return null; }, setItem() {} } };
 sandbox.window.localStorage = sandbox.localStorage;
 vm.createContext(sandbox);
-for (const f of ["js/config.js", "data/twk.js", "data/tiu.js", "data/tkp.js", "data/setara.js", "data/fakta.js", "js/figural.js", "js/acak.js", "js/engine.js"]) {
+for (const f of ["js/config.js", "data/twk.js", "data/tiu.js", "data/tkp.js", "data/setara.js", "data/setara2.js", "data/setara3.js", "data/setara4.js", "data/setara5.js", "data/fakta.js", "js/figural.js", "js/acak.js", "js/engine.js"]) {
   vm.runInContext(readFileSync(join(root, f), "utf8"), sandbox, { filename: f });
 }
 const SKD = sandbox.window.SKD;
@@ -68,7 +68,7 @@ function tebakTerpanjang(items) {
 const paket = [];
 const semuaPaket = [];
 for (let p = 1; p <= 6; p++) semuaPaket.push(["Paket " + p, E.buildPackage(p, "full")]);
-semuaPaket.push(["Setara CAT", E.buildSetara(1, "full", TIU_LUNAK)]);
+for (const no of E.setaraPaket()) semuaPaket.push(["Setara CAT " + no, E.buildSetara(no, "full", TIU_LUNAK)]);
 for (const [nama, items] of semuaPaket) {
   const c = { nama, C1: 0, C2: 0, C3: 0, C4: 0, n: items.length, tebak: tebakTerpanjang(items) };
   items.forEach((it) => { c[jenjang(it.pq)]++; });

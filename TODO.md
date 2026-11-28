@@ -156,7 +156,9 @@ disimpan di localStorage dengan kunci `skd.formasi.v1` (tidak ikut sinkron).
   dan dibaca teliti oleh jadwal "Cek Google Drive formasi CPNS 2026".
 - [x] 28 Nov 2026: Kalkulator formasi (REA), login CAT + konfirmasi data peserta, layar ujian HP (lembar daftar soal, tombol
   menempel di bawah), footer "by Superfaldev", validasi tingkat kesulitan + 83 soal setara CAT + Tryout Setara CAT.
-- [ ] Paket setara CAT kedua dan ketiga (prioritas TWK dan TKP; TIU tanpa hitungan), aturan sama dengan `data/setara.js`.
+- [x] 28 Nov 2026: Paket setara CAT 2–5 (`data/setara2.js`–`setara5.js`, `pk`), daftar Paket 1–5 di menu Tryout dengan skor
+  terbaik per paket, pilihan paket di Hafalan versi persis.
+- [ ] Paket setara 6 dan seterusnya bila paket 1–5 sudah hafal (aturan sama, `pk: 6`).
 - [ ] Tulis ulang opsi pengecoh soal TKP/TWK lama yang jawaban terbaiknya jauh lebih panjang (mulai dari `h: 2`).
 - [ ] Saat instansi lain menampilkan formasi: perbarui `data/sscasn2026.js` (jalankan SCANNER sebagai pengunjung, lalu
   `tools/gen_sscasn2026.cjs` di luar repo) dan tahapan seleksinya dari pengumuman resmi; uji APK di HP (layar pindai).

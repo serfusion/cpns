@@ -39,7 +39,10 @@ Pemilik berbahasa Indonesia. Jawab singkat dan jelas.
 ## Soal dan tingkat kesulitan
 - Prioritas pemilik: TWK dan TKP; TIU tanpa hitungan/angka rumit.
 - Dua versi dipertahankan: **Ringkas** (bank lama, soal pendek, untuk menghafal kalimat; menu Hafalan kalimat) dan **Persis CAT BKN**
-  (`data/setara.js`, Tryout Setara CAT tanpa koreksi langsung). Soal ringkas jangan dihapus; soal persis ditambah bertahap.
+  (`data/setara.js` sampai `data/setara5.js` = Paket 1–5 lewat `pk`, Tryout Setara CAT tanpa koreksi langsung). Soal ringkas
+  jangan dihapus; soal persis ditambah bertahap. Paket baru: `data/setaraN.js` dengan `{ v: 1, pk: N }`, TWK 30 (nas 6, int 6,
+  bela 6, pilar 7, bind 5) dan TKP 45 (pel 8, jej 7, sos 7, tik 7, pro 8, rad 8), daftarkan di `index.html`, `scripts/validate.mjs`,
+  `scripts/audio-teks.mjs`, dan `scripts/audit-kesulitan.mjs`.
 - Soal baru ditulis seperti `data/setara.js` (v: 1): kasus kerja nyata, kelima opsi sama panjang (dicek `validate.mjs`), pengecoh
   masuk akal. Audit: `node scripts/audit-kesulitan.mjs`; hasil dan pembanding resmi BKN di `docs/validasi-tingkat-kesulitan.md`.
 - Soal lama (twk.js/tkp.js) punya isyarat panjang opsi (jawaban terbaik sering terpanjang): jangan menulis soal baru dengan pola itu.

@@ -1,7 +1,7 @@
 /* Mode Hafalan (menu "Hafalan kalimat"): kartu soal dengan kalimat jawaban terbaik dan pembahasannya, untuk dihafal.
    Dua versi, sesuai permintaan pemilik:
    - Ringkas: soal pendek dari bank lama (mudah dihafal kalimatnya);
-   - Persis CAT: soal setara CAT (data/setara.js), kasus panjang dengan opsi seimbang.
+   - Persis CAT: soal setara CAT (data/setara*.js, paket 1, 2, ...), kasus panjang dengan opsi seimbang.
    Prioritas TWK dan TKP; TIU hanya materi tanpa hitungan. Soal yang sudah ditandai hafal disimpan di perangkat ini. */
 (function () {
   "use strict";
@@ -18,6 +18,7 @@
       versi: d.versi === "persis" ? "persis" : "ringkas",
       sec: ["twk", "tkp", "tiu"].indexOf(d.sec) >= 0 ? d.sec : "twk",
       m: typeof d.m === "string" ? d.m.slice(0, 20) : "",
+      pk: Math.max(0, Math.min(99, Math.round(Number(d.pk) || 0))),
       buka: d.buka === true, sembunyi: d.sembunyi !== false, daftar: d.daftar === true,
       i: Math.max(0, Math.round(Number(d.i) || 0)),
       hafal: d.hafal && typeof d.hafal === "object" ? d.hafal : {}
@@ -31,6 +32,7 @@
       if (q.sec !== S.sec || !Array.isArray(q.o) || q.tb) return false;
       if (S.sec === "tiu" && TIU_LUNAK.indexOf(q.m) < 0) return false;
       if (S.versi === "persis" ? !q.setara : q.setara) return false;
+      if (S.versi === "persis" && S.pk && S.sec !== "tiu" && q.pk !== S.pk) return false;
       var m = E.materi(q.m);
       return !(m && m.lama) && (!S.m || q.m === S.m);
     });
@@ -93,6 +95,9 @@
         h("label", { class: "field" }, h("span", { class: "label" }, "Materi"),
           h("select", { class: "input wide", id: "hf-materi", onchange: function (e) { S.m = e.target.value; S.i = 0; simpan(); ctx.rerender(); } },
             [h("option", { value: "" }, "Semua materi")].concat(materiSec.map(function (m) { return h("option", { value: m.id, selected: S.m === m.id }, m.name); })))),
+        S.versi === "persis" && S.sec !== "tiu" && E.setaraPaket ? h("label", { class: "field" }, h("span", { class: "label" }, "Paket"),
+          h("select", { class: "input wide", id: "hf-paket", onchange: function (e) { S.pk = Number(e.target.value) || 0; S.i = 0; simpan(); ctx.rerender(); } },
+            [h("option", { value: "0" }, "Semua paket")].concat(E.setaraPaket().map(function (n) { return h("option", { value: String(n), selected: S.pk === n }, "Paket " + n); })))) : null,
         h("div", { class: "row" },
           h("label", { class: "check" }, h("input", { type: "checkbox", checked: S.buka, onchange: function (e) { S.buka = e.target.checked; simpan(); ctx.rerender(); } }), h("span", null, "Jawaban langsung terbuka")),
           h("label", { class: "check" }, h("input", { type: "checkbox", checked: S.sembunyi, onchange: function (e) { S.sembunyi = e.target.checked; S.i = 0; simpan(); ctx.rerender(); } }), h("span", null, "Sembunyikan yang sudah hafal")),

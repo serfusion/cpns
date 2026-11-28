@@ -12,7 +12,7 @@ const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const ctx = { window: {}, console };
 ctx.window.window = ctx.window;
 vm.createContext(ctx);
-for (const f of ["js/config.js", "data/twk.js", "data/tiu.js", "data/tkp.js", "data/setara.js", "data/fakta.js"]) {
+for (const f of ["js/config.js", "data/twk.js", "data/tiu.js", "data/tkp.js", "data/setara.js", "data/setara2.js", "data/setara3.js", "data/setara4.js", "data/setara5.js", "data/fakta.js"]) {
   vm.runInContext(readFileSync(join(root, f), "utf8"), ctx, { filename: f });
 }
 const SKD = ctx.window.SKD;
