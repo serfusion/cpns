@@ -132,6 +132,9 @@ kandidat2026: {
   **Jangan** memanggil API SSCASN langsung, memalsukan header, menembus captcha atau pemblokiran,
   masuk dengan akun siapa pun, atau memakai data bocoran. Bila diblokir, hentikan dan laporkan.
 - Situs pihak ketiga (mis. jadiasn.id) hanya petunjuk; setiap kandidat harus punya bukti resmi.
+- Cara tercepat: jalankan fungsi `SCANNER` dari `js/pindai.js` di halaman daftar formasi SSCASN yang dibuka dengan Playwright
+  (fungsi yang sama dipakai APK di HP pengguna). Ia memakai filter Nama Pendidikan "KOMUNIKASI", menekan CARI, dan membuka detail
+  tiap kartu dengan jeda. Olah hasilnya dengan `SKD.pindai.olah()`.
 
 ## 8. Keluaran
 

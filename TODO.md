@@ -144,3 +144,13 @@ disimpan di localStorage dengan kunci `skd.formasi.v1` (tidak ikut sinkron).
   tabel tukin per kelas (pola A–D, 53 instansi), tabel gaji pokok PP 5/2024. Belum terbaca: Kemenkes, Kemenkeu (peringkat 1–27), Kemlu,
   Kementan, Kemenhub, Kemenperin, Kemendag, BSSN, Kejaksaan, MA, BPKP, KemenPANRB, Bappenas, Kemensos, BPOM, BMKG, BRIN, BKN, BPK.
 - [ ] Bila PP gaji baru atau Perpres tukin baru terbit: perbarui `data/tunjangan.js` (generator di luar repo, angka dibaca dari salinan resmi).
+- [x] 28 Nov 2026: Pindai SSCASN di APK (`ScanActivity` + `js/pindai.js`), hasil bawaan `data/sscasn2026.js`, `kandidat2026` terisi
+  (BPK: Pranata Humas Ahli Pertama 13 + 5 kursi, Analis Kerja Sama Ahli Pertama 5 kursi), `docs/kandidat-formasi-cpns-2026.md` (+ PDF).
+- [x] 28 Nov 2026 (koreksi): formasi dibaca teliti dari pengumuman/lampiran resmi 8 instansi -> `data/dok2026.js` (generator
+  `tools/gen_dok2026.py` di luar repo). S-1 Ilmu Komunikasi 489 kursi: Kemenkum 217, BPKP 172, Kemenkeu 67, BPK 23, Kemenkop 10.
+  Versi sebelumnya hanya menghitung yang tampil di SSCASN (BPK 23). Bagian Formasi kini memakai data pengumuman + SSCASN.
+- [ ] Saat 16 instansi lain (daftar di `SKD.dok2026.belum`) menerbitkan rincian formasi: baca pengumuman/lampirannya dengan teliti,
+  tambahkan ke `scripts/dok2026/sumber.json`, lalu `python3 scripts/dok2026/buat.py`. Jadwal "Cek Google Drive formasi CPNS 2026"
+  memeriksa folder Drive pemilik berkala (lihat `scripts/dok2026/README.md`).
+- [ ] Saat instansi lain menampilkan formasi: perbarui `data/sscasn2026.js` (jalankan SCANNER sebagai pengunjung, lalu
+  `tools/gen_sscasn2026.cjs` di luar repo) dan tahapan seleksinya dari pengumuman resmi; uji APK di HP (layar pindai).

@@ -57,6 +57,12 @@ Sejak 23 November 2026 MenPANRB memastikan formasi CPNS 2026–2027 hanya dari i
 Sekolah Nasional Terintegrasi (Kemendikdasmen), LLDIKTI/PTN/SMA Unggul Garuda (Kemendiktisaintek), pendidikan Kemenag, lalu
 jabatan pelatihan di instansi pusat. Formasi bidang pendidikan mendapat nilai tugas dan kesiapan SKB tertinggi di kedua rumus.
 
+Bagian **Pindai SSCASN** di menu Formasi mendaftar formasi yang mencantumkan S-1 Ilmu Komunikasi beserta kursi, lokasi, estimasi gaji,
+pendidikan, tugas, dan tahapan seleksi instansinya (SKD CAT, komponen SKB, ada atau tidak wawancara). Di APK, tombol *Pindai sekarang*
+(atau otomatis paling sering tiap 6 jam) membuka halaman resmi SSCASN di HP lewat `ScanActivity`; skrip `SCANNER` di `js/pindai.js`
+memakai filter Nama Pendidikan "KOMUNIKASI" dan membaca detail tiap formasi seperti pengunjung biasa (tanpa memanggil API langsung, tanpa
+login). Hasil pindai bawaan ada di `data/sscasn2026.js`.
+
 Menu **Gaji & tunjangan** (`js/gaji.js`, data `data/tunjangan.js`) menghitung perkiraan penghasilan bulanan CPNS/PNS per instansi pusat:
 gaji pokok PP 5/2024 (272 angka, semua golongan dan MKG), tunjangan keluarga, pangan, umum, uang makan, dan tunjangan kinerja per kelas
 jabatan dari salinan Perpres tiap instansi (49 instansi dibaca langsung, 4 dicocokkan dari rentang resmi Setkab). Ada peringkat instansi

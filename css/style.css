@@ -250,6 +250,7 @@ select.input { padding-right: 28px; }
 .check input { width: 18px; height: 18px; margin-top: 3px; accent-color: var(--navy); flex: none; }
 .tag { display: inline-flex; align-items: center; gap: 4px; padding: 2px 9px; border-radius: 999px; font-size: 0.75rem; font-weight: 600; background: var(--surface-2); color: var(--muted); white-space: nowrap; }
 .tag.accent { background: var(--accent-soft); color: var(--press-ink); }
+.fm-inst .tag, .fm-cands .tag { white-space: normal; max-width: 100%; }
 .tag.ok { background: var(--ok-soft); color: var(--ok); }
 .tag.bad { background: var(--bad-soft); color: var(--bad); }
 .tag.warn { background: var(--warn-soft); color: var(--warn); }
@@ -515,6 +516,13 @@ body.in-cat main.wrap { max-width: none; padding: 0; gap: 0; }
 .gj-rank .gj-sub { grid-column: 2 / 4; }
 .gj-rank li.on { background: var(--accent-soft); }
 tr.gj-on td { background: var(--accent-soft); font-weight: 700; }
+.fm-prof { border: 1px solid var(--line); border-radius: var(--r-md); padding: 10px 12px; }
+.fm-prof summary { cursor: pointer; font-weight: 600; }
+.fm-prof[open] summary { margin-bottom: 10px; }
+.fm-lok summary { cursor: pointer; font-size: .9rem; color: var(--muted); }
+.fm-lok[open] summary { margin-bottom: 4px; }
+.fm-lok .plain-list { margin: 0; columns: 2 220px; column-gap: 18px; }
+.fm-keahlian { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 6px 14px; margin: 8px 0; }
 .fm-inst { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; max-width: 80ch; }
 .fm-inst li { border: 1px solid var(--line); border-radius: var(--r-md); padding: 10px 12px; display: flex; flex-direction: column; gap: 4px; font-size: 0.875rem; min-width: 0; }
 .fm-inst .row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
