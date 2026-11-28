@@ -2,7 +2,7 @@ name: Build APK
 
 on:
   push:
-    branches: [main, claude/charming-gates-mu7s4i, claude/admiring-cerf-9bgc4h]
+    branches: [main, claude/charming-gates-mu7s4i, claude/admiring-cerf-9bgc4h, claude/focused-edison-5w0g3u]
   workflow_dispatch:
 
 permissions:

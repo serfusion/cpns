@@ -9,7 +9,7 @@ const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const ctx = { window: {}, console };
 ctx.window.window = ctx.window;
 vm.createContext(ctx);
-for (const f of ["js/config.js", "data/twk.js", "data/tiu.js", "data/tkp.js", "data/fakta.js", "js/figural.js", "js/acak.js", "js/engine.js"]) {
+for (const f of ["js/config.js", "data/twk.js", "data/tiu.js", "data/tkp.js", "data/setara.js", "data/fakta.js", "js/figural.js", "js/acak.js", "js/engine.js"]) {
   vm.runInContext(readFileSync(join(root, f), "utf8"), ctx, { filename: f });
 }
 const SKD = ctx.window.SKD;
@@ -40,6 +40,19 @@ SKD.bankRaw.forEach((q, i) => {
   seenId.set(id, where);
   count[q.m] = (count[q.m] || 0) + 1;
 });
+
+// ---------- soal setara CAT (v: 1): jawaban terbaik tidak boleh bisa ditebak dari panjang opsinya ----------
+{
+  const setara = SKD.bankRaw.filter((q) => q.v && Array.isArray(q.o) && q.o.length === 5);
+  let terpanjang = 0;
+  setara.forEach((q) => {
+    const best = q.sec === "tkp" ? 0 : q.a || 0, L = q.o.map((o) => o.length), lain = L.filter((_, i) => i !== best);
+    if (L[best] > Math.max(...lain) * 1.05) errors.push(`setara: opsi terbaik >5% lebih panjang dari opsi lain — ${q.sec}/${q.m}: ${String(q.q).slice(0, 50)}`);
+    if (L[best] > Math.max(...lain)) terpanjang++;
+  });
+  if (setara.length && terpanjang / setara.length > 0.3) errors.push(`setara: opsi terbaik paling panjang di ${terpanjang} dari ${setara.length} soal (batas 30%)`);
+  console.log(`Soal setara CAT: ${setara.length} (opsi terbaik paling panjang di ${terpanjang} soal)`);
+}
 
 const usedPassages = new Set(SKD.bankRaw.map((q) => q.p).filter(Boolean));
 for (const k of Object.keys(SKD.passages)) if (!usedPassages.has(k)) errors.push(`bacaan "${k}" tidak dipakai`);

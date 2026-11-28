@@ -659,7 +659,8 @@
     return [
       h("div", { class: "stack" }, h("h1", null, "Strategi formasi CPNS 2026"),
         h("p", { class: "lede" }, "Pemindaian untuk lulusan " + D.jurusan + " dengan rumus dokumen riset Anda, difokuskan ke bidang pendidikan sesuai pengalaman Anda. Formasi 2026–2027 hanya dari instansi pusat (pemda tidak membuka). Pendaftaran di SSCASN dibuka 27 November sampai awal Desember 2026; rincian jabatan, kualifikasi, dan lokasi ada di sana."),
-        h("div", { class: "row" }, h("a", { class: "btn primary", href: "https://sscasn.bkn.go.id/daftar-formasi/", target: "_blank", rel: "noopener" }, "Daftar formasi SSCASN"),
+        h("div", { class: "row" }, h("a", { class: "btn primary", href: "#kalkulator" }, "Kalkulator formasi"),
+          h("a", { class: "btn", href: "https://sscasn.bkn.go.id/daftar-formasi/", target: "_blank", rel: "noopener" }, "Daftar formasi SSCASN"),
           SKD.pindai ? h("button", { class: "btn", type: "button", onclick: function () { scrollTo("fm-pindai"); } }, "Pindai SSCASN") : null,
           h("button", { class: "btn", type: "button", onclick: function () { scrollTo("fm-kalk"); } }, "Ke kalkulator"),
           D.pendidikan ? h("button", { class: "btn", type: "button", onclick: function () { scrollTo("fm-didik"); } }, "Fokus pendidikan") : null,
@@ -669,6 +670,7 @@
           D.dokumen ? h("a", { class: "btn", href: D.dokumen, target: "_blank", rel: "noopener" }, "Dokumen PDF") : null)),
       h("section", { class: "panel", "aria-labelledby": "fm-status" }, h("h2", { id: "fm-status" }, "Status per " + D.tanggal), h("ul", { class: "plain-list" }, D.status.map(function (t) { return h("li", null, t); }))),
       h("div", { class: "tiles" }, D.angka.map(function (a) { return h("div", { class: "tile" }, h("span", { class: "v" }, a.v), h("span", { class: "l" }, a.l), h("span", { class: "d" }, a.d)); })),
+      SKD.driveBox ? SKD.driveBox(h) : null,
       SKD.pindai ? SKD.pindai.section(ctx) : null,
       pendidikanSec, riwayat, kandidat, pemda, profil, skor, target, pantau, jabatan, validasi, aturan, kalk, langkah, lain, sumber
     ];

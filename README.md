@@ -29,6 +29,13 @@ navy + kuning amber; layar ujian dari buku panduan CAT resmi BKN), **Build** (ko
   45 pasal UUD, sejarah BPUPKI/PPKI dan pergerakan, hari nasional, kata baku) dan silogisme yang kesimpulannya dibuktikan otomatis
   (`js/acak.js`), serta TIU tanpa hitungan: analogi kata (9 jenis hubungan) dan susunan duduk/antrean yang jawabannya diperiksa
   ke semua susunan yang mungkin. Sebagian soal tryout dan latihan juga diambil dari sini.
+- **Tryout Setara CAT**: TWK 30 dan TKP 45 dari soal baru berkasus lebih panjang dengan kelima opsi sama panjang (jawaban
+  terbaik tidak bisa ditebak dari opsi terpanjang), TIU 35 tanpa hitungan berat. Penjelasan validitas di halaman Tryout dan
+  `docs/validasi-tingkat-kesulitan.md` (data uji butir dan kelulusan BKN 2024, audit bank soal). Masuk ujian lewat layar
+  **Login Peserta** (nomor peserta + PIN latihan) lalu Konfirmasi Data Peserta, seperti CAT.
+- **Kalkulator formasi** (teknik REA dari situs pembanding, `docs/rea-kalkulator-formasi.md`): skor TWK/TIU/TKP, katalog
+  formasi 2026 dari pengumuman resmi + SSCASN, saringan jurusan/instansi/jalur, urutan peluang/keketatan/kuota/penghasilan,
+  perkiraan batas lolos SKB, peringkat, peluang masuk SKB, simpan, bandingkan 3 formasi, isian formasi sendiri.
 - **Kandidat formasi 2026**: diisi pemantau terjadwal begitu formasi resmi terbit (aturan di `docs/kriteria-pemindaian-otomatis.md`),
   lalu diurutkan aplikasi dengan matriks Pemda dan rumus dokumen riset.
 - **Hasil + analisis per topik** (TWK per materi, TIU Verbal/Numerik/Figural, TKP per aspek) dan **pembahasan** (disimpan untuk 3 tryout terakhir).

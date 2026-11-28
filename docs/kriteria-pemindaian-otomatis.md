@@ -1,5 +1,9 @@
 # Kriteria pemindaian dan ranking formasi CPNS 2026 (otomatis)
 
+> **28 November 2026:** pemantau harian di cloud dimatikan atas permintaan pemilik. SSCASN kini dipindai VPS tiap 6 jam
+> (repo portofolio, `projects/pejuang-nip/pindai/`); sesi cloud hanya menjalankan jadwal "Cek Google Drive formasi CPNS 2026".
+> Aturan di bawah tetap berlaku untuk pembacaan formasi.
+
 Dokumen ini dibaca oleh sesi pemantau terjadwal. Isinya menggabungkan dua dokumen pemilik repo
 (*Riset Strategi Pemilihan Formasi CPNS 2026* dan *Strategi Memilih Formasi CPNS di Pemda*) dengan
 semua keputusan yang sudah disepakati di percakapan. Rumus skornya sama dengan yang dipakai aplikasi

@@ -56,6 +56,7 @@
     riwayat: "M4 19h16M7 16V10M12 16V6M17 16v-3",
     peta: "M9 4 3 6v14l6-2 6 2 6-2V4l-6 2zM9 4v14M15 6v14",
     formasi: "M3 21h18M5 21V8l7-5 7 5v13M9 21v-6h6v6",
+    hitung: "M6 3h12a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zM8 7h8M8 12h2M12 12h2M16 12v5M8 16h2M12 16h2",
     gaji: "M12 4c3.9 0 7 1.3 7 3s-3.1 3-7 3-7-1.3-7-3 3.1-3 7-3zM5 7v5c0 1.7 3.1 3 7 3s7-1.3 7-3V7M5 12v5c0 1.7 3.1 3 7 3s7-1.3 7-3v-5",
     audio: "M4 14v-2a8 8 0 0 1 16 0v2M4 14h3v6H4zM17 14h3v6h-3z",
     atur: "M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM19.4 15a1.6 1.6 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.6 1.6 0 0 0-2.7 1.1V21a2 2 0 1 1-4 0v-.1a1.6 1.6 0 0 0-2.7-1.1l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1A1.6 1.6 0 0 0 3 13.9H3a2 2 0 1 1 0-4h.1a1.6 1.6 0 0 0 1.1-2.7l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.6 1.6 0 0 0 2.7-1.1V3a2 2 0 1 1 4 0v.1a1.6 1.6 0 0 0 2.7 1.1l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.6 1.6 0 0 0 1.1 2.7H21a2 2 0 1 1 0 4h-.1a1.6 1.6 0 0 0-1.5 1z",
@@ -69,7 +70,7 @@
     route: "beranda", session: null, result: null, saved: null, prep: null,
     setup: { sec: "twk", off: {}, n: 10, hot: false, sangat: false, baru: false },
     rvFilter: "salah", railOpen: null, tick: null, lastTick: 0, ticks: 0,
-    pending: null, navPage: 0, navOn: true
+    pending: null, navPage: 0, navOn: true, navSheet: false, animCur: -1
   };
 
   // ---------- dialog & toast ----------
@@ -125,14 +126,15 @@
   /** o: { paket: nomor | "acak", scale: "full" | "mini" } */
   function paketInfo(o) {
     var mini = o.scale === "mini";
-    var label = o.paket === "acak" ? "Tryout Acak" : "Tryout SKD Paket " + o.paket;
-    return { paket: o.paket, scale: o.scale, title: label + (mini ? " (setengah)" : ""), kode: o.paket === "acak" ? "SKD-ACAK" : "SKD-P" + o.paket + (mini ? "-S" : "") };
+    var label = o.paket === "acak" ? "Tryout Acak" : o.paket === "setara" ? "Tryout Setara CAT" : "Tryout SKD Paket " + o.paket;
+    var kode = o.paket === "acak" ? "SKD-ACAK" : o.paket === "setara" ? "SKD-SETARA" : "SKD-P" + o.paket;
+    return { paket: o.paket, scale: o.scale, title: label + (mini ? " (setengah)" : ""), kode: kode + (mini ? "-S" : "") };
   }
-  function prepTryout(o) { guardNew(function () { ui.prep = paketInfo(o); go("persiapan"); }); }
+  function prepTryout(o) { guardNew(function () { ui.prep = paketInfo(o); go("masuk"); }); }
   function startTryout() {
     var p = ui.prep;
     if (!p) return;
-    var items = p.paket === "acak" ? E.buildSimulation(p.scale, S.qstats()) : E.buildPackage(p.paket, p.scale);
+    var items = p.paket === "acak" ? E.buildSimulation(p.scale, S.qstats()) : p.paket === "setara" ? E.buildSetara(1, p.scale, TIU_LUNAK) : E.buildPackage(p.paket, p.scale);
     begin({
       kind: "tryout", scale: p.scale, paket: p.paket, kode: p.kode, title: p.title, instant: false, requeue: false, items: items, cur: 0,
       limit: (p.scale === "mini" ? CFG.exam.minutes / 2 : CFG.exam.minutes) * 60, elapsed: 0
@@ -485,6 +487,7 @@
           quickCard("latih", "Latihan per materi", "Koreksi langsung + pembahasan", function () { go("latihan"); }),
           quickCard("ulang", "Ulangi soal salah", review ? review + " soal menunggu" : "Belum ada", function () { go("ulang"); }),
           quickCard("audio", "Audio hafalan", "Per bagian, tanpa hitungan", null, "https://github.com/serfusion/cpns/releases?q=Audio+Hafalan"),
+          quickCard("hitung", "Kalkulator formasi", "Peluang masuk SKB per formasi 2026", function () { go("kalkulator"); }),
           quickCard("formasi", "Strategi formasi", "S-1 Ilmu Komunikasi", function () { go("formasi"); }),
           quickCard("gaji", "Gaji & tunjangan", "Gaji pokok, tukin per instansi", function () { go("gaji"); }),
           quickCard("peta", "Peta materi", "Pola yang sering keluar", function () { go("peta"); }))),
@@ -505,31 +508,102 @@
           b ? h("span", { class: "small" }, "Skor terbaik ", h("b", null, b.total), " · ", h("span", { class: b.pass ? "ok-t" : "bad-t" }, b.pass ? "Lolos" : "Belum lolos")) : h("span", { class: "small muted" }, "Belum dikerjakan")),
         h("button", { class: "btn " + (b ? "" : "primary"), type: "button", onclick: function () { prepTryout({ paket: no, scale: scale }); } }, b ? "Ulangi" : "Mulai"));
     }
+    var setara = paketInfo({ paket: "setara", scale: "full" }), bS = bestOf[setara.kode];
+    var V = validitas();
+    var kartuSetara = h("section", { class: "card setara-card", "aria-labelledby": "setara-h" },
+      h("div", { class: "row between" }, h("h2", { id: "setara-h" }, "Tryout Setara CAT"), h("span", { class: "tag ok" }, "paling mirip CAT asli")),
+      h("p", { class: "small" }, "TWK 30 dan TKP 45 dari soal baru berkasus lebih panjang dengan kelima opsi sama panjang, jadi jawaban terbaik tidak bisa ditebak dari opsi terpanjang. TIU 35 tanpa hitungan berat (silogisme, penalaran induktif, analitis, deret, figural). 110 soal, 100 menit."),
+      bS ? h("p", { class: "small" }, "Skor terbaik ", h("b", null, bS.total), " · ", h("span", { class: bS.pass ? "ok-t" : "bad-t" }, bS.pass ? "Lolos" : "Belum lolos")) : null,
+      h("div", { class: "row" }, h("button", { class: "btn primary", type: "button", id: "btn-setara", onclick: function () { prepTryout({ paket: "setara", scale: "full" }); } }, bS ? "Ulangi" : "Mulai tryout setara CAT")),
+      h("details", { class: "validitas" }, h("summary", null, h("b", null, "Seberapa mirip soal di aplikasi ini dengan CAT asli?")),
+        h("ul", { class: "plain-list small" },
+          h("li", null, "Soal CAT BKN rahasia dan diacak per peserta, jadi tidak ada yang bisa menjamin soal tertentu akan keluar. Soal di sini disusun sendiri mengikuti kisi-kisi resmi 2026 dan pola dari laporan peserta SKD 2024."),
+          h("li", null, "Data BKN 2024: uji butir soal TKD menghasilkan komposisi mudah 39%, sedang 35%, sulit 26%. Pada SKD sekolah kedinasan 2024 hanya 65,9% peserta mencapai TWK 65 dan 66,3% mencapai TIU 80, sedangkan TKP 94,2%. TWK menjadi materi yang paling banyak menggugurkan peserta pada 2024."),
+          h("li", null, "Audit bank soal aplikasi ini (dihitung langsung): jawaban terbaik adalah opsi terpanjang pada ", h("b", null, V.lama.tkp + "% soal TKP lama"), " dan ", h("b", null, V.lama.twk + "% soal TWK lama"), " (acak: 20%). Artinya soal lama lebih mudah daripada CAT asli; skor Paket latihan 1–6 cenderung lebih tinggi dari skor SKD sebenarnya."),
+          h("li", null, "Soal setara CAT (" + V.setara.n + " soal): opsi terbaik paling panjang hanya di " + V.setara.pct + "% soal, kasus rata-rata " + V.setara.kata + " kata. Pakai skor tryout setara sebagai patokan utama."),
+          h("li", null, "Target aman: skor tryout setara CAT minimal 400, dengan TWK dan TIU jauh di atas ambang (65 dan 80)."))));
     var list = [];
     for (var i = 1; i <= PAKET_N; i++) list.push(paketCard(i, "full"));
     return [
       h("div", { class: "page-head" }, h("h1", null, "Tryout SKD"),
         h("p", { class: "lede" }, "Layar ujian meniru CAT BKN: informasi ujian di atas, kotak nomor merah dan hijau, jawaban baru tersimpan setelah menekan Simpan dan Lanjutkan. Nilai dan pembahasan muncul setelah ujian selesai.")),
       resumeCard(),
+      kartuSetara,
       h("div", { class: "info3" },
         h("div", null, h("b", null, "110"), h("span", null, "soal: TWK 30, TIU 35, TKP 45")),
         h("div", null, h("b", null, "100"), h("span", null, "menit")),
         h("div", null, h("b", null, passOf("twk") + "/" + passOf("tiu") + "/" + passOf("tkp")), h("span", null, "ambang batas"))),
-      h("section", { class: "card" }, h("h2", null, "Paket tetap"),
-        h("p", { class: "small muted" }, "Soal, urutan, dan pilihan setiap paket selalu sama, jadi kenaikan skor bisa dibandingkan. Sebagian soal dapat muncul di lebih dari satu paket."),
+      h("section", { class: "card" }, h("h2", null, "Paket latihan tetap"),
+        h("p", { class: "small muted" }, "Soal, urutan, dan pilihan setiap paket selalu sama, jadi kenaikan skor bisa dibandingkan. Sebagian soal dapat muncul di lebih dari satu paket. Paket ini memakai bank soal lama yang lebih mudah dari CAT asli (lihat penjelasan Tryout Setara CAT)."),
         h("div", { class: "paket-list" }, list)),
       h("section", { class: "card" }, h("h2", null, "Variasi"),
         h("div", { class: "paket-list" }, paketCard("acak", "full"), paketCard(1, "mini")))
     ];
   }
 
-  // ---------- persiapan ujian (seperti halaman biodata CAT) ----------
+  // ---------- validitas: isyarat panjang opsi pada bank soal (dihitung langsung) ----------
+  var validitasCache = null;
+  function validitas() {
+    if (validitasCache) return validitasCache;
+    var hit = { twk: [0, 0], tkp: [0, 0] }, st = { n: 0, panjang: 0, kata: 0 };
+    (SKD.bankRaw || []).forEach(function (q) {
+      if (!Array.isArray(q.o) || q.o.length !== 5) return;
+      var best = q.sec === "tkp" ? 0 : q.a || 0, L = q.o.map(function (o) { return String(o).length; });
+      var palingPanjang = L.every(function (x, i) { return i === best || x < L[best]; });
+      if (q.v) { st.n++; if (palingPanjang) st.panjang++; st.kata += String(q.q).split(/\s+/).length; return; }
+      if (hit[q.sec]) { hit[q.sec][1]++; if (palingPanjang) hit[q.sec][0]++; }
+    });
+    validitasCache = {
+      lama: { twk: pct(hit.twk[0], hit.twk[1]), tkp: pct(hit.tkp[0], hit.tkp[1]) },
+      setara: { n: st.n, pct: pct(st.panjang, st.n), kata: st.n ? Math.round(st.kata / st.n) : 0 }
+    };
+    return validitasCache;
+  }
+
+  // ---------- masuk (seperti halaman login CAT: nomor peserta + PIN) ----------
+  function pinLatihan() {
+    var n = S.nomorPeserta(), x = 7;
+    for (var i = 0; i < n.length; i++) x = (x * 31 + n.charCodeAt(i)) % 1000000;
+    return ("00000" + x).slice(-6);
+  }
+  function viewMasuk() {
+    var p = ui.prep;
+    var err = h("p", { class: "cat-err", id: "cat-err", role: "alert", hidden: true });
+    var no = h("input", { class: "cat-in", id: "cat-no", name: "nomor", inputmode: "numeric", autocomplete: "off", maxlength: 20, value: S.nomorPeserta() });
+    var pin = h("input", { class: "cat-in", id: "cat-pin", name: "pin", type: "password", inputmode: "numeric", autocomplete: "off", maxlength: 12, value: pinLatihan() });
+    var lihat = h("button", { class: "cat-eye", type: "button", "aria-label": "Tampilkan PIN", "aria-pressed": "false", onclick: function () {
+      var buka = pin.type === "password"; pin.type = buka ? "text" : "password";
+      lihat.setAttribute("aria-pressed", buka ? "true" : "false"); lihat.textContent = buka ? "Sembunyikan" : "Lihat";
+    } }, "Lihat");
+    function masuk(e) {
+      e.preventDefault();
+      if (!no.value.trim() || !pin.value.trim()) { err.textContent = "Nomor Peserta dan PIN wajib diisi."; err.hidden = false; (no.value.trim() ? pin : no).focus(); return; }
+      go("persiapan");
+    }
+    return h("div", { class: "cat-shell" },
+      catBanner(),
+      h("div", { class: "cat-page cat-login-page" },
+        h("form", { class: "cat-login", onsubmit: masuk, "aria-labelledby": "cat-login-h", novalidate: true },
+          h("div", { class: "cat-login-head" }, h("span", { class: "cat-lock", "aria-hidden": "true" }), h("h1", { id: "cat-login-h" }, "Login Peserta")),
+          h("div", { class: "cat-login-body" },
+            h("p", { class: "cat-login-sub" }, p.title.toUpperCase()),
+            h("label", { class: "cat-field", for: "cat-no" }, "Nomor Peserta"), no,
+            h("label", { class: "cat-field", for: "cat-pin" }, "PIN"), h("div", { class: "cat-pinrow" }, pin, lihat),
+            err,
+            h("button", { class: "cat-login-btn", id: "cat-login-btn", type: "submit" }, "LOGIN"),
+            h("p", { class: "cat-hint" }, "Simulasi: nomor peserta dan PIN latihan sudah terisi, tekan LOGIN. Di lokasi ujian, PIN diberikan panitia."),
+            h("button", { class: "cat-link", type: "button", onclick: function () { ui.prep = null; go("tryout"); } }, "Kembali ke daftar tryout")))),
+      catFoot());
+  }
+
+  // ---------- konfirmasi data peserta (seperti halaman biodata CAT) ----------
   function viewPersiapan() {
     var p = ui.prep, nop = S.nomorPeserta();
     var row = function (k, v) { return h("tr", null, h("th", null, k), h("td", null, v)); };
     return h("div", { class: "cat-shell" },
       catBanner(),
       h("div", { class: "cat-page" },
+        h("h1", { class: "cat-ttl" }, "Konfirmasi Data Peserta"),
         h("fieldset", { class: "cat-box" }, h("legend", null, "Informasi Ujian"),
           h("table", { class: "cat-kv" }, row("Nama Test", p.title.toUpperCase()), row("Kode Tes", p.kode), row("Jumlah Soal", p.scale === "mini" ? "55" : "110"), row("Waktu", (p.scale === "mini" ? 50 : 100) + " menit"))),
         h("fieldset", { class: "cat-box" }, h("legend", null, "Informasi Peserta"),
@@ -560,17 +634,30 @@
     var answered = s.items.filter(function (i) { return i.chosen != null; }).length;
     var sel = ui.pending != null ? ui.pending : it.chosen, all = answered === total;
     var m = E.materi(it.pq.m), isFig = !!it.pq.opts[0].fig;
+    var anim = ui.animCur !== s.cur; // animasi halus hanya saat nomor soal berganti, bukan saat memilih jawaban
+    ui.animCur = s.cur;
+    var nm = (nama() || "PESERTA").toUpperCase(), nop = S.nomorPeserta();
 
     var head = h("header", { class: "cat-head" },
       h("span", { class: "cat-logo sm", "aria-hidden": "true" }, "CAT"),
       h("table", { class: "cat-info" },
-        h("thead", null, h("tr", null, h("th", { class: "w-hp" }, "Nomor Peserta"), h("th", null, "Nama Peserta Ujian"), h("th", { class: "w-opt" }, "Batas Waktu"),
-          h("th", { class: "w-opt" }, "Jumlah Soal"), h("th", { class: "g" }, "Soal Dijawab"), h("th", { class: "r" }, "Belum Dijawab"))),
-        h("tbody", null, h("tr", null, h("td", { class: "w-hp" }, S.nomorPeserta()), h("td", null, (nama() || "PESERTA").toUpperCase()), h("td", { class: "w-opt" }, Math.round(s.limit / 60)),
-          h("td", { class: "w-opt" }, total), h("td", { class: "g" }, answered), h("td", { class: "r" }, total - answered)))),
+        h("thead", null, h("tr", null, h("th", null, "Nomor Peserta"), h("th", null, "Nama Peserta Ujian"), h("th", null, "Batas Waktu"),
+          h("th", null, "Jumlah Soal"), h("th", { class: "g" }, "Soal Dijawab"), h("th", { class: "r" }, "Belum Dijawab"))),
+        h("tbody", null, h("tr", null, h("td", null, nop), h("td", null, nm), h("td", null, Math.round(s.limit / 60) + " menit"),
+          h("td", null, total), h("td", { class: "g" }, answered), h("td", { class: "r" }, total - answered)))),
+      // ringkas untuk layar HP: identitas, kemajuan, tombol daftar soal
+      h("div", { class: "cat-mid" },
+        h("span", { class: "cat-mid-id" }, h("b", null, nop), " · " + nm),
+        h("div", { class: "cat-mprog" },
+          h("span", { class: "cat-mtrack", role: "progressbar", "aria-valuemin": 0, "aria-valuemax": total, "aria-valuenow": answered, "aria-label": "Soal dijawab" },
+            h("i", { style: "width:" + pct(answered, total) + "%" })),
+          h("span", { class: "cat-mcount" }, h("b", { class: "g" }, answered), "/" + total + " dijawab"))),
       h("div", { class: "cat-right" },
         h("button", { class: "cat-end", type: "button", disabled: !all, title: all ? "Akhiri ujian" : "Aktif setelah semua soal dijawab", onclick: function () { catAskFinish(false); } }, "Selesai Ujian"),
-        h("div", { class: "cat-clock", id: "clock", role: "timer", "aria-label": "Sisa waktu" }, "")));
+        h("div", { class: "cat-clockbox" }, h("span", { class: "cat-clock-l" }, "Sisa Waktu"),
+          h("div", { class: "cat-clock", id: "clock", role: "timer", "aria-label": "Sisa waktu" }, ""))),
+      h("button", { class: "cat-mnav", type: "button", id: "cat-mnav", "aria-expanded": ui.navSheet ? "true" : "false", "aria-controls": "cat-nav",
+        onclick: function () { ui.navSheet = !ui.navSheet; render(); } }, "Daftar Soal ", h("span", { class: "cat-mnav-n" }, (total - answered) + " belum")));
 
     var rv = !!it.revealed, tkp = it.pq.sec === "tkp";
     var opts = h("div", { class: "cat-opts" + (isFig ? " figs" : "") + (rv ? " rv" : ""), role: "radiogroup", "aria-label": "Pilihan jawaban" }, it.pq.opts.map(function (o, i) {
@@ -586,33 +673,39 @@
     }));
     var soal = h("section", { class: "cat-soal" },
       h("div", { class: "cat-sub" }, m ? (m.group ? m.group + " · " : "") + m.name : ""),
-      h("fieldset", { class: "cat-q" }, h("legend", null, "Soal No." + (s.cur + 1)),
+      h("fieldset", { class: "cat-q" + (anim ? " anim" : "") }, h("legend", null, "Soal No." + (s.cur + 1)),
         it.pq.passage ? h("div", { class: "passage" }, it.pq.passage) : null,
         h("div", { class: "qtext" }, rich(it.pq.text)), tableView(it.pq.table), stemView(it.pq.stem), opts,
         rv ? h("div", { class: "cat-koreksi", id: "cat-koreksi", role: "status" }, feedbackView(it)) : null),
       h("div", { class: "cat-actions" },
         h("button", { class: "cat-btn", type: "button", id: "btn-next", onclick: catSave }, rv ? (s.cur < total - 1 ? "Lanjut ke soal berikutnya" : "Lanjut") : "Simpan dan Lanjutkan"),
-        rv ? null : h("button", { class: "cat-btn", type: "button", onclick: catSkip }, "Lewatkan soal ini")),
-      ui.pending != null && ui.pending !== it.chosen ? h("p", { class: "cat-note" }, "Jawaban belum tersimpan. Tekan Simpan dan Lanjutkan.") : null);
+        rv ? null : h("button", { class: "cat-btn alt", type: "button", id: "btn-skip", onclick: catSkip }, "Lewatkan soal ini")),
+      ui.pending != null && ui.pending !== it.chosen ? h("p", { class: "cat-note", role: "status" }, "Jawaban belum tersimpan. Tekan Simpan dan Lanjutkan.") : null);
 
     var pages = Math.ceil(total / NAV_PER_PAGE), pg = Math.min(ui.navPage, pages - 1), boxes = [];
     for (var i = pg * NAV_PER_PAGE; i < Math.min(total, (pg + 1) * NAV_PER_PAGE); i++) boxes.push(navBox(s, i));
-    var nav = h("aside", { class: "cat-nav" + (ui.navOn ? "" : " off"), "aria-label": "Navigasi nomor soal" },
+    var tutupSheet = function () { ui.navSheet = false; render(); };
+    var nav = h("aside", { class: "cat-nav" + (ui.navOn ? "" : " off") + (ui.navSheet ? " open" : ""), id: "cat-nav", "aria-label": "Navigasi nomor soal" },
+      h("div", { class: "cat-sheet-head" }, h("b", null, "Daftar Soal"),
+        h("span", { class: "cat-legend" }, h("i", { class: "un" }), "belum", h("i", { class: "ok" }), "sudah"),
+        h("button", { class: "cat-sheet-x", type: "button", "aria-label": "Tutup daftar soal", onclick: tutupSheet }, "×")),
       ui.navOn ? h("div", { class: "cat-grid" }, boxes) : null,
       h("div", { class: "cat-pager" },
         h("button", { class: "cat-arrow", type: "button", "aria-label": "Nomor sebelumnya", disabled: pg <= 0, onclick: function () { ui.navPage = pg - 1; render(); } }, "‹"),
         h("span", { class: "small" }, (pg * NAV_PER_PAGE + 1) + "–" + Math.min(total, (pg + 1) * NAV_PER_PAGE)),
         h("button", { class: "cat-arrow", type: "button", "aria-label": "Nomor berikutnya", disabled: pg >= pages - 1, onclick: function () { ui.navPage = pg + 1; render(); } }, "›"),
         h("button", { class: "cat-switch" + (ui.navOn ? " on" : ""), type: "button", role: "switch", "aria-checked": ui.navOn ? "true" : "false", "aria-label": "Tampilkan navigasi", onclick: function () { ui.navOn = !ui.navOn; render(); } }, h("i"))),
-      h("label", { class: "check small" }, h("input", { type: "checkbox", id: "mode-belajar", checked: modeBelajar(), onchange: function (e) {
-        try { localStorage.setItem("skd.belajar", e.target.checked ? "1" : "0"); } catch (x) { /* abaikan */ }
-      } }), h("span", null, "Mode belajar: setelah Simpan dan Lanjutkan, jawaban yang salah langsung dibenarkan di soal itu dan pembahasannya muncul di bawahnya (matikan untuk simulasi seperti CAT asli)")),
+      h("label", { class: "check small cat-belajar", title: "Setelah Simpan dan Lanjutkan, jawaban yang salah langsung dibenarkan di soal itu dan pembahasannya muncul di bawahnya. Matikan untuk simulasi seperti CAT asli." },
+        h("input", { type: "checkbox", id: "mode-belajar", checked: modeBelajar(), onchange: function (e) {
+          try { localStorage.setItem("skd.belajar", e.target.checked ? "1" : "0"); } catch (x) { /* abaikan */ }
+        } }), h("span", null, h("b", null, "Mode belajar"), ": koreksi dan pembahasan langsung setelah Simpan. Matikan untuk simulasi seperti CAT asli.")),
       h("button", { class: "cat-link", type: "button", onclick: function () { catAskFinish(true); } }, "Akhiri sekarang (hanya di latihan)"));
-    return h("div", { class: "cat-shell" }, head, h("div", { class: "cat-main" }, soal, nav), catFoot());
+    var sheetBg = ui.navSheet ? h("div", { class: "cat-sheet-bg", onclick: tutupSheet }) : null;
+    return h("div", { class: "cat-shell cat-exam" + (ui.navSheet ? " sheet-open" : "") }, head, h("div", { class: "cat-main" }, soal, nav), sheetBg, catFoot());
   }
   function navBox(s, i) {
     var it = s.items[i], cls = "cat-no " + (it.chosen != null ? "ok" : "un") + (i === s.cur ? " cur" : "");
-    return h("button", { class: cls, type: "button", "aria-label": "Soal " + (i + 1) + (it.chosen != null ? ", dijawab " + LET[it.chosen] : ", belum dijawab"), onclick: function () { goTo(i); } },
+    return h("button", { class: cls, type: "button", "aria-label": "Soal " + (i + 1) + (it.chosen != null ? ", dijawab " + LET[it.chosen] : ", belum dijawab"), onclick: function () { ui.navSheet = false; goTo(i); } },
       h("span", { class: "n" }, i + 1), it.chosen != null ? h("span", { class: "a" }, LET[it.chosen]) : null);
   }
 
@@ -1039,6 +1132,12 @@
     return SKD.formasiView({ h: h, toast: toast, rerender: function () { render(); }, history: function () { return S.history(); } });
   }
 
+  // ---------- kalkulator formasi ----------
+  function viewKalkulator() {
+    return SKD.kalkulatorView({ h: h, toast: toast, rerender: function () { render(); }, history: function () { return S.history(); },
+      pass: function () { return S.settings().pass; } });
+  }
+
   // ---------- gaji & tunjangan ----------
   function viewGaji() {
     return SKD.gajiView({ h: h, toast: toast });
@@ -1099,10 +1198,11 @@
   // ---------- router ----------
   var VIEWS = {
     beranda: viewHome, tryout: viewTryout, persiapan: viewPersiapan, ujian: viewUjian, nilai: viewNilai, hasil: viewHasil, bahas: viewBahas, lembar: viewLembar,
-    latihan: viewLatihan, kerjakan: viewKerjakan, ulang: viewUlang, riwayat: viewRiwayat, peta: viewPeta, formasi: viewFormasi, gaji: viewGaji, atur: viewAtur
+    latihan: viewLatihan, kerjakan: viewKerjakan, ulang: viewUlang, riwayat: viewRiwayat, peta: viewPeta, formasi: viewFormasi, gaji: viewGaji, atur: viewAtur,
+    masuk: viewMasuk, kalkulator: viewKalkulator
   };
   var ALIAS = { simulasi: "tryout", statistik: "riwayat" };
-  var CAT_ROUTES = { persiapan: 1, ujian: 1, nilai: 1 };
+  var CAT_ROUTES = { masuk: 1, persiapan: 1, ujian: 1, nilai: 1 };
   function go(route) {
     if (location.hash.slice(1) === route) onHash();
     else location.hash = route;
@@ -1114,7 +1214,8 @@
     if ((r === "kerjakan" && (!ui.session || isTryout(ui.session))) || (r === "ujian" && (!ui.session || !isTryout(ui.session)))) r = "beranda";
     if ((r === "hasil" || r === "bahas" || r === "lembar" || r === "nilai") && !ui.result) r = "beranda";
     if (r === "lembar" && ui.result && ui.result.kind !== "tryout") r = "hasil";
-    if (r === "persiapan" && !ui.prep) r = "tryout";
+    if ((r === "persiapan" || r === "masuk") && !ui.prep) r = "tryout";
+    if (r !== "ujian") ui.navSheet = false;
     if (r !== "kerjakan" && r !== "ujian" && ui.session) { saveSession(); ui.saved = ui.session; ui.session = null; stopTimer(); }
     ui.route = r;
     closeModal();
@@ -1135,7 +1236,9 @@
     if (av) av.textContent = (nama() || "?").charAt(0).toUpperCase();
     var y = window.scrollY;
     app.textContent = "";
+    app.classList.remove("enter");
     add(app, VIEWS[ui.route]());
+    if (toTop && !cat) { void app.offsetWidth; app.classList.add("enter"); } // gerak halus hanya saat pindah halaman
     if (ui.route === "kerjakan" || ui.route === "ujian") paintClock();
     if (toTop) window.scrollTo(0, 0); else window.scrollTo(0, y);
   }

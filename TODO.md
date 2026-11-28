@@ -152,5 +152,11 @@ disimpan di localStorage dengan kunci `skd.formasi.v1` (tidak ikut sinkron).
 - [ ] Saat 16 instansi lain (daftar di `SKD.dok2026.belum`) menerbitkan rincian formasi: baca pengumuman/lampirannya dengan teliti,
   tambahkan ke `scripts/dok2026/sumber.json`, lalu `python3 scripts/dok2026/buat.py`. Jadwal "Cek Google Drive formasi CPNS 2026"
   memeriksa folder Drive pemilik berkala (lihat `scripts/dok2026/README.md`).
+- [x] 28 Nov 2026: pemindai harian di cloud dimatikan; SSCASN dipindai VPS tiap 6 jam, folder Drive dicek VPS (`live/drive.json`)
+  dan dibaca teliti oleh jadwal "Cek Google Drive formasi CPNS 2026".
+- [x] 28 Nov 2026: Kalkulator formasi (REA), login CAT + konfirmasi data peserta, layar ujian HP (lembar daftar soal, tombol
+  menempel di bawah), footer "by Superfaldev", validasi tingkat kesulitan + 83 soal setara CAT + Tryout Setara CAT.
+- [ ] Paket setara CAT kedua dan ketiga (prioritas TWK dan TKP; TIU tanpa hitungan), aturan sama dengan `data/setara.js`.
+- [ ] Tulis ulang opsi pengecoh soal TKP/TWK lama yang jawaban terbaiknya jauh lebih panjang (mulai dari `h: 2`).
 - [ ] Saat instansi lain menampilkan formasi: perbarui `data/sscasn2026.js` (jalankan SCANNER sebagai pengunjung, lalu
   `tools/gen_sscasn2026.cjs` di luar repo) dan tahapan seleksinya dari pengumuman resmi; uji APK di HP (layar pindai).

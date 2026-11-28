@@ -56,7 +56,7 @@
       var q = {
         id: hash(r.sec + "|" + (r.p || "") + "|" + r.q),
         sec: r.sec, m: r.m, q: r.q, o: r.o, a: r.a || 0, fix: !!r.fix,
-        x: r.x || "", p: r.p || null, tb: r.tb || null, hot: !!r.h, sangat: (r.h || 0) >= 2, baru: !!r.b, k26: !!r.k26
+        x: r.x || "", p: r.p || null, tb: r.tb || null, hot: !!r.h, sangat: (r.h || 0) >= 2, baru: !!r.b, k26: !!r.k26, setara: !!r.v
       };
       cache.push(q);
       byId[q.id] = q;
@@ -251,10 +251,10 @@
     if (needsReview(q.sec, st)) return 1;
     return st[2] < 2 ? 2 : 3;
   }
-  function lolos(q, opt) { return (!opt.hot || q.hot) && (!opt.sangat || q.sangat) && (!opt.baru || q.baru) && (!opt.k26 || q.k26); }
+  function lolos(q, opt) { return (!opt.hot || q.hot) && (!opt.sangat || q.sangat) && (!opt.baru || q.baru) && (!opt.k26 || q.k26) && (!opt.setara || q.setara); }
   /** Apakah materi ini bisa diisi soal bangkitan untuk filter opt. */
   function canGen(m, opt) {
-    if (!m.gen || opt.baru || opt.k26) return false;
+    if (!m.gen || opt.baru || opt.k26 || opt.setara) return false;
     if (!opt.sangat) return true;
     if (m.id === "fig-mat" || m.id === "der") return true; // penalaran matriks (pola 9 kotak); deret angka (4 laporan)
     return !!(SKD.acak && SKD.acak.bisa(m.id, opt));
@@ -330,6 +330,30 @@
   function buildPackage(no, scale) {
     return buildSimulation(scale || "full", {}, makeRng(7919 * no + (scale === "mini" ? 104729 : 0)));
   }
+  /** Tryout setara CAT: TWK dan TKP dari soal berpilihan seimbang (data/setara.js, v: 1). TIU memakai materi tiuIds
+      (mis. hanya materi tanpa hitungan berat) atau semua materi TIU bila tiuIds kosong.
+      Bila stok soal setara suatu materi kurang, sisanya diisi soal biasa agar jumlah per subtes tetap 30/35/45. */
+  function buildSetara(no, scale, tiuIds) {
+    var R = makeRng(104723 * (no || 1) + (scale === "mini" ? 7 : 0)), out = [];
+    CFG.sections.forEach(function (s) {
+      var mats = CFG.materi.filter(function (m) { return m.sec === s.id && (s.id !== "tiu" || !tiuIds || tiuIds.indexOf(m.id) >= 0); });
+      var n = scale === "mini" ? simCount(s, "mini") : s.count, part = [];
+      if (s.id === "tiu") {
+        var a0 = allocate(n, mats, {});
+        mats.forEach(function (m) { if (a0[m.id]) part = part.concat(itemsFor(m, a0[m.id], R, {}, {})); });
+      } else {
+        var opt = { setara: true }, alloc = allocate(n, mats, opt), dapat = 0;
+        mats.forEach(function (m) { if (alloc[m.id]) { part = part.concat(itemsFor(m, alloc[m.id], R, {}, opt)); dapat += alloc[m.id]; } });
+        if (dapat < n) {
+          var pakai = {}; part.forEach(function (pq) { if (pq.id) pakai[pq.id] = 1; });
+          var sisa = allocate(n - dapat, mats, {});
+          mats.forEach(function (m) { if (sisa[m.id]) part = part.concat(itemsFor(m, sisa[m.id], R, {}, { exclude: pakai })); });
+        }
+      }
+      out = out.concat(R.shuffle(part));
+    });
+    return out.map(wrap);
+  }
   function simCount(sec, scale) {
     if (scale !== "mini") return sec.count;
     return { twk: 15, tiu: 18, tkp: 22 }[sec.id];
@@ -384,7 +408,7 @@
     materi: function (id) { return materiById[id]; },
     section: function (id) { return sectionById[id]; },
     present: present, generate: generate, genDeret: genDeret, again: again,
-    buildPractice: buildPractice, buildSimulation: buildSimulation, buildPackage: buildPackage, buildFromIds: buildFromIds,
+    buildPractice: buildPractice, buildSimulation: buildSimulation, buildPackage: buildPackage, buildFromIds: buildFromIds, buildSetara: buildSetara,
     simCount: simCount, allocate: allocate, needsReview: needsReview, score: score, canGen: canGen, lolos: lolos,
     reset: function () { cache = null; }
   };
