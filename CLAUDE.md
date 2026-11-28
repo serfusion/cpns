@@ -23,9 +23,12 @@ Pemilik berbahasa Indonesia. Jawab singkat dan jelas.
    ```
 
 ## Data formasi CPNS 2026
-- `data/dok2026.js`: formasi dari pengumuman/lampiran resmi (dibuat skrip di luar repo). Hitung S-1 Ilmu Komunikasi hanya bila nama
-  prodi tertulis persis "S-1 Ilmu Komunikasi"; prodi mirip (Komunikasi dan Pengembangan Masyarakat, Ilmu Sosial Politik, D-III)
-  masuk "hampir cocok". Saat instansi baru menerbitkan lampiran, baca seluruh halamannya (termasuk lampiran penempatan).
+- `data/dok2026.js`: formasi dari pengumuman/lampiran resmi, dibuat `scripts/dok2026/buat.py` dari `scripts/dok2026/sumber.json`
+  (jangan ubah `data/dok2026.js` langsung). Hitung S-1 Ilmu Komunikasi hanya bila nama prodi tertulis persis "S-1 Ilmu Komunikasi";
+  prodi mirip (Komunikasi dan Pengembangan Masyarakat, Ilmu Sosial Politik, D-III) masuk "hampir cocok".
+- Dokumen sumbernya ditaruh pemilik di folder Google Drive `14gi0jtT7ihMmOmh5E2OXZVSZRhSEZ_e_` dan terus bertambah. Jadwal
+  "Cek Google Drive formasi CPNS 2026" memeriksanya berkala; langkah dan alatnya di `scripts/dok2026/README.md`, berkas yang sudah
+  dibaca di `scripts/dok2026/drive.json`. Baca seluruh halaman tiap berkas baru (termasuk lampiran penempatan).
 - `data/sscasn2026.js`: hasil pindai SSCASN bawaan. Pindai hanya sebagai pengunjung biasa: jangan memanggil API SSCASN langsung,
   memalsukan header, menembus captcha/pemblokiran, atau login; bila diblokir, hentikan dan laporkan.
 

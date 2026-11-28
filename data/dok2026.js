@@ -1,5 +1,5 @@
-/* Formasi CPNS 2026 dari pengumuman dan lampiran resmi instansi, dibaca teliti 28 November 2026 (dibuat gen_dok2026.py).
-   Nama prodi persis seperti di dokumen; S-1 Ilmu Komunikasi dihitung hanya bila tercantum persis. */
+/* Formasi CPNS 2026 dari pengumuman dan lampiran resmi instansi (dibuat scripts/dok2026/buat.py dari sumber.json;
+   jangan diubah langsung). Nama prodi persis seperti di dokumen; S-1 Ilmu Komunikasi dihitung hanya bila tercantum persis. */
 (function () {
   "use strict";
   var SKD = (window.SKD = window.SKD || {});
